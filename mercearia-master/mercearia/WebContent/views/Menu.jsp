@@ -15,7 +15,7 @@
 </script>
 <style type="text/css">
 #accordion{
-	margin-top:30px;
+	margin-top:10px;
 	position:fixed;
 	border:2px solid;
 	padding:20px 20px; 
@@ -36,6 +36,7 @@ a {
 </style>
 </head>
 <body class="body">
+<div align="right"> Funcionário: ${usuario} <input type="button" class="bVermelho" value="Deslogar"></div>
 <div id="accordion" class="menu">
 		<img src="../images/Cliente.jpg" alt="Cliente" height="75" width="75" title="Cliente">
 		<div>
@@ -69,7 +70,7 @@ a {
 		</div>
 		<img src="../images/Relatorio.jpg" alt="Relatorio" height="75" width="75" title="Relatório">
 		<div>
-			<p class="opcao"><a href="exemploJSF.jsf" target="ctn">GERENCIAR</a></p>
+			<p class="opcao"><a href="exemploJSF.xhtml" target="ctn">GERENCIAR</a></p>
 		</div>
 	<div class="content">
 		<iframe name="ctn" width="1200px" height="650px" frameBorder="0"></iframe>

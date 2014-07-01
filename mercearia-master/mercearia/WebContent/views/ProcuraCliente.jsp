@@ -18,44 +18,73 @@
 		return false;
 	}
 </script>
+<style>
+
+#dEsquerda
+{
+	float:left;
+	text-align:right;
+	line-height: 40px;
+	visibility:hidden;
+}
+
+#dDireita
+{
+	float:left;
+	line-height: 40px;
+	visibility:hidden;
+}
+
+#dAbaixo
+{
+	text-align:right;
+	width:300px;
+	line-height: 60px;
+	visibility:hidden;
+}
+</style>
 </head>
 <body>
 	<div class="container">
 	
-		<div class="metadeEsquerda"><p class="margemP"><h1>Gerencie um cliente</h1></p> 
-		<form id="meuForm" action="BuscaCliente" method="POST">
-				Palavra Chave:
-				<input type="text" id="palavraChave" autofocus>
-				<select id="parametro">
-					<option value="nome">Nome</option>
-					<option value="cpf">CPF</option>
-					<option value="telefone">Telefone</option>
-				</select>
-				<input type="button" value="Buscar" onclick="buscaDadosCliente()">	<br /><br />
-			<p class="margemM form">	
-				Nome: <input type="text" id="nome" name="nome">	<br />
-				<select id="doc">
-					<option value="cpf">CPF</option>
-					<option value="cnpj">CNPJ</option>
-				</select>
-				<input type="text" id="docNumero" name="docNumero">	<br /> 
-				Telefone: <input type="text" id="telefone">	<br />
-				Email: <input type="text" id="email">	<br /> 
-				Sexo:
-				<select id="sexo">
-					<option value="masculino">Masculino</option>
-					<option value="feminino">Feminino</option>
-				</select>	<br />
-				Data de nascimento:
-				<input type="text" name="dataNascimento" >	<br />
-				<input type="button" value="Editar"/> - 
-				<input type="button" value="Excluir" class="bVermelho" />
-				<input type="hidden" id="form" value="ProcuraClienteLogic">
-				<input type="hidden" id="tipo" name="tipo" />
-			</p>
+		<div class="metadeEsquerda"><p class="margemP"><h1>Gerencie um cliente</h1> 
+		
+			<form id="meuForm" action="BuscaCliente" method="POST">
+					Palavra Chave:
+					<input type="text" id="palavraChave" autofocus>
+					<select id="parametro">
+						<option value="nome">Nome</option>
+						<option value="cpf">CPF</option>
+						<option value="telefone">Telefone</option>
+					</select>
+					<input type="button" value="Buscar" onclick="buscaDadosCliente()">	<br /><br />
+				<div id="dEsquerda">
+					Nome: <br>
+					CPF: <br>
+					Telefone: <br>
+					Email: <br>
+					Sexo: <br>
+					Data de nascimento: <br>
+				</div>	
+				<div id="dDireita">
+					<input type="text" id="nome" name="nome">	<br />
+				 	<input type="text" id="docNumero" name="docNumero">	<br /> 
+				 	<input type="text" id="telefone">	<br />
+				 	<input type="text" id="email">	<br /> 
+					<select id="sexo">
+						<option value="masculino">Masculino</option>
+						<option value="feminino">Feminino</option>
+					</select>	<br />
+					<input type="text" name="dataNascimento" >	<br />
+				</div>			
+				<div id="dAbaixo">
+					<input type="button" value="Editar"/> - 
+					<input type="button" value="Excluir" class="bVermelho" />
+					<input type="hidden" id="form" value="ProcuraClienteLogic">
+					<input type="hidden" id="tipo" name="tipo" />
+				</div>
 			</form>
-			<div id="fim">
-			
+		<div id="fim">
 			</div>
 		</div>
 		<div class="metadeDireita"> 

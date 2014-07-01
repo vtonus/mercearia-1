@@ -21,11 +21,13 @@ public class LoginController extends HttpServlet{
 		if (dao.checaLogin(usuario, senha)){
 			HttpSession session = request.getSession();
 			session.setAttribute("usuario", usuario);
+			System.out.println("Acesso permitido!!");
 			response.sendRedirect("views/Menu.jsp");
 			return;
 		}
 		else{
 			request.setAttribute("erro", "erro");
+			System.out.println("Acesso negado!!");
 			request.getRequestDispatcher("BemVindo.jsp").forward(request, response); 
 		}
 	}

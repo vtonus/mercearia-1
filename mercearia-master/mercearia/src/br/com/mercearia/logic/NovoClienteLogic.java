@@ -12,6 +12,7 @@ import br.com.mercearia.util.Conversao;
 public class NovoClienteLogic implements Logic {
 	public void executa(HttpServletRequest request, HttpServletResponse response)
 			throws Exception, ServletException {
+		//Conversao.teste(request.getParameter("dataNascimento"));
 		Cliente cliente = new Cliente();
 		cliente.setNome(request.getParameter("nome"));
 		cliente.setEmail(request.getParameter("email"));
@@ -28,12 +29,9 @@ public class NovoClienteLogic implements Logic {
 		String stringSexo = request.getParameter("sexo");
 
 		// if (request.getParameter("dataNascimento") != null){
-		try {
-			cliente.setDataNascimento(Conversao.textoEmData(request
+		System.out.println("Rola?");
+		cliente.setDataNascimento(Conversao.textoEmData(request
 					.getParameter("dataNascimento")));
-		} catch (RuntimeException e) {
-		}
-
 		if (stringSexo.contains("feminino")) {
 			cliente.setSexo("f");
 		} else if (stringSexo.contains("masculino")) {

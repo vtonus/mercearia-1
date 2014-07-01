@@ -16,8 +16,16 @@ public class Conversao {
 		return resposta;
 	}
 
+	public static void teste(String textoEmData)
+	{
+		textoEmData = textoEmData.substring(9,11)+textoEmData.substring(6,8)+textoEmData.substring(0,4);
+		System.out.println(textoEmData);
+	}
+	
 	public static Calendar textoEmData(String textoEmData)
 			throws ParseException {
+		textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4);
+		System.out.println(textoEmData);
 		Date date = new SimpleDateFormat("dd/MM/yyyy").parse(textoEmData);
 		dataRetorno = Calendar.getInstance();
 		dataRetorno.setTime(date);

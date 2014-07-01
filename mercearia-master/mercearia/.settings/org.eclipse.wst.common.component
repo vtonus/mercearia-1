@@ -2,7 +2,7 @@
     <wb-module deploy-name="mercearia">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="mercearia"/>
         <property name="java-output-path" value="/mercearia/build/classes"/>
+        <property name="context-root" value="mercearia"/>
     </wb-module>
 </project-modules>
