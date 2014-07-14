@@ -5,17 +5,17 @@ import java.util.Calendar;
 
 public class Cliente {
 	private int id;
-	private long doc;
+	private String doc;
 	private String nome;
 	private String email;
 	private long telefone;
 	private String sexo;
 	private Calendar dataNascimento;
-	public long getDoc() {
+	public String getDoc() {
 		return doc;
 	}
-	public void setDoc(long doc) {
-		this.doc = doc;
+	public void setDoc(String cpf) {
+		this.doc = cpf;
 	}
 	public String getNome() {
 		return nome;

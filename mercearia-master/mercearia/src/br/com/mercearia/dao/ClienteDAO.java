@@ -24,7 +24,7 @@ public class ClienteDAO {
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 
-			ps.setLong(1, cliente.getDoc());
+			ps.setString(1, cliente.getDoc());
 			ps.setString(2, cliente.getNome());
 			ps.setLong(3, cliente.getTelefone());
 			ps.setString(4, cliente.getSexo());
@@ -58,8 +58,8 @@ public class ClienteDAO {
 			Cliente cliente = new Cliente();
 			//cliente.setId(rs.getInt("id_cliente"));
 			cliente.setNome(rs.getString("nome"));
-			cliente.setDoc(rs.getLong("doc"));
-			cliente.setTelefone(rs.getInt("telefone"));
+			cliente.setDoc(rs.getString("doc"));
+			cliente.setTelefone(Long.parseLong(rs.getString("telefone")));
 			cliente.setSexo(rs.getString("sexo"));
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(rs.getDate("dataNascimento"));

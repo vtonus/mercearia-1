@@ -16,10 +16,10 @@ public class NovoClienteLogic implements Logic {
 		Cliente cliente = new Cliente();
 		cliente.setNome(request.getParameter("nome"));
 		cliente.setEmail(request.getParameter("email"));
-		long cpf = 0;
-		if (request.getParameter("cpf") != null
-				&& request.getParameter("cpf") != "") {
-			cpf = Long.parseLong(request.getParameter("cpf"));
+		String cpf ="";
+		if (request.getParameter("doc") != null
+				&& request.getParameter("doc") != "") {
+			cpf = request.getParameter("doc");
 		}
 		long telefone = 0;
 		if (request.getParameter("telefone") != null

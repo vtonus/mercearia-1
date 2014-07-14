@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+>
+
+<h:head>
+	<title>Novo Produto</title>
+</h:head>
+
+<h:body>
+   <h:outputStylesheet library="css" name="../css/style.css"  />
+   <h2>Novo Produto</h2>
+   <hr />
+   <h:form>
+      <h:panelGrid id="panel" columns="2" border="0"
+         cellpadding="10" cellspacing="1">
+         <h:outputLabel value="Nome do produto" />
+         <h:inputText value="#{novoProdutoBean.nome}"/>
+         <h:outputLabel value="Valor da unidade:" />
+         <pe:inputNumber id="valor" value="#{novoProdutoBean.valor}" symbol="R$ "  
+                    validatorMessage="Valor tem de ser menor que mil.">  
+        	<f:validateDoubleRange maximum="999"/>  
+    	 </pe:inputNumber>
+         <h:outputLabel value="Fabricante:" />
+         <h:inputText value="#{novoProdutoBean.fabricante}"/>
+         <h:outputLabel value="Quantidade produto:" />
+         <p:inputMask value="#{novoProdutoBean.quantidade}" mask="9?99" />
+         <h:outputLabel value="Alerta de validade:" />
+         <p:calendar value="#{novoProdutoBean.validade}" mode="popup" pattern="dd/MM/yyyy"/>
+         <f:facet name="footer">
+            <h:panelGroup style="display:block; text-align:center">
+               <h:commandButton value="Cadastrar" 
+					action="#{novoProdutoBean.cadastrar}"/>
+            </h:panelGroup>
+         </f:facet>
+      </h:panelGrid>
+   </h:form>
+</h:body>
+</html>

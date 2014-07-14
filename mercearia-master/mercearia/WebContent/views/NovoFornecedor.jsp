@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-	<div class="titulo"><h1>Cadastro de um novo fornecedor:</h1></div>
+	<div class="titulo"><h1>Cadatro de um novo fornecedor:</h1></div>
 	<div class="esquerda"><form action="Control" method="post">
 		<p class="form">
 		Nome*:

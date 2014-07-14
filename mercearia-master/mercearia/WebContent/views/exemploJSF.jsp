@@ -14,13 +14,8 @@
 </h:head>
 
 <h:body> 
-	<p:dataTable var="negociacao" value="#{argentumBean.negociacoes}">
-	... outras colunas, e então: 
-	<p:column headerText="Data"> 
-	<h:outputText value="#{negociacao.data.time}"> 
-		<f:convertDateTime pattern="dd/MM/yyyy"/> 
-	</h:outputText> </p:column> 
-	</p:dataTable> 
+	<p:calendar>Selecione a data:</p:calendar>
+	Funcionario: ${usuario} 
 </h:body>
 
 </html>

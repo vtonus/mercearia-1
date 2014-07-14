@@ -70,7 +70,7 @@ a {
 		</div>
 		<img src="../images/Relatorio.jpg" alt="Relatorio" height="75" width="75" title="Relatório">
 		<div>
-			<p class="opcao"><a href="exemploJSF.xhtml" target="ctn">GERENCIAR</a></p>
+			<p class="opcao"><a href="exemploJSF.jsp" target="ctn">GERENCIAR</a></p>
 		</div>
 	<div class="content">
 		<iframe name="ctn" width="1200px" height="650px" frameBorder="0"></iframe>

@@ -1,6 +1,6 @@
 package br.com.mercearia.modelo;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class Produto {
 	private long id;
@@ -8,8 +8,7 @@ public class Produto {
 	private String nome;
 	private String fabricante;
 	private int qtd;
-	private Calendar val_min;
-	private Calendar val_max;
+	private Date validade;
 
 	public long getId() {
 		return id;
@@ -52,20 +51,12 @@ public class Produto {
 		this.fabricante = fabricante;
 	}
 
-	public Calendar getVal_min() {
-		return val_min;
+	public Date getValidade() {
+		return validade;
 	}
 
-	public void setVal_min(Calendar val_min) {
-		this.val_min = val_min;
-	}
-
-	public Calendar getVal_max() {
-		return val_max;
-	}
-
-	public void setVal_max(Calendar val_max) {
-		this.val_max = val_max;
+	public void setValidade(Date validade) {
+		this.validade = validade;
 	}
 
 }

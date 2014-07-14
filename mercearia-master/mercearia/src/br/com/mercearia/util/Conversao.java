@@ -24,8 +24,9 @@ public class Conversao {
 	
 	public static Calendar textoEmData(String textoEmData)
 			throws ParseException {
-		textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4);
-		System.out.println(textoEmData);
+		//textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4);
+		//System.out.println(textoEmData);
+		System.out.println("Aqui esta a data a converter"+textoEmData);
 		Date date = new SimpleDateFormat("dd/MM/yyyy").parse(textoEmData);
 		dataRetorno = Calendar.getInstance();
 		dataRetorno.setTime(date);
