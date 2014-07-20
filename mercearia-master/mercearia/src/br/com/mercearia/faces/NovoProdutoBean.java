@@ -1,16 +1,28 @@
 package br.com.mercearia.faces;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 
+import br.com.mercearia.dao.ProdutoDAO;
+
 @ManagedBean
 public class NovoProdutoBean {
+	private long id;
 	private String nome;
 	private float valor;
 	private Date validade;
 	private int quantidade;
 	private String fabricante;
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	
 	public String getNome() {
 		return nome;
@@ -24,7 +36,7 @@ public class NovoProdutoBean {
 		return valor;
 	}
 
-	public void setValor(float valor) {
+	public void setValor(float valor) {  
 		this.valor = valor;
 	}
 
@@ -53,7 +65,13 @@ public class NovoProdutoBean {
 	}
 
 	public void cadastrar(){
-		System.out.println("Entrou aque");
-		System.out.format("Foi gravado as seguintes info.. \nnome: %s, \nfabricante: %s, \nquantidade: %d, \nvalidade: %s, \nvalor: %f \n Wow!!",this.getNome(),this.getFabricante(),this.getQuantidade(),this.getValidade(),this.getValor());
+		ProdutoDAO dao = new ProdutoDAO();
+		dao.adiciona(this);
 	}
+	
+	public Lista<String> complete(String query) {
+	Lista<String> results = new ArrayList<String>();
+	for (int i = 0; i < 10; i++)
+	results.add(query + i);
+	return results;
 }

@@ -10,12 +10,12 @@
 >
 
 <h:head>
-	<title>Novo Produto</title>
+	<title>Procura Produto</title>
 </h:head>
 
 <h:body>
    <h:outputStylesheet library="css" name="../css/style.css"  />
-   <h2>Novo Produto</h2>
+   <h2>Procura Produto</h2>
    <hr />
    <h:form>
       <h:panelGrid id="panel" columns="2" border="0"
@@ -25,10 +25,13 @@
          <h:outputLabel value="Nome do produto" />
          <h:inputText value="#{novoProdutoBean.nome}"/>
          <h:outputLabel value="Valor da unidade:" />
-         <pe:inputNumber value="#{novoProdutoBean.valor}" symbol="R$" symbolPosition="p"  
+         <pe:inputNumber value="#{novoProdutoBean.valorMin}" symbol="Min R$" symbolPosition="p"  
+                            decimalSeparator="," thousandSeparator="." maxValue="9999.99"/>
+		 <h:outputLabel value=" " />
+         <pe:inputNumber value="#{novoProdutoBean.valorMax}" symbol="Max R$" symbolPosition="p"  
                             decimalSeparator="," thousandSeparator="." maxValue="9999.99"/>
          <h:outputLabel value="Fabricante:" />
-         <h:inputText value="#{novoProdutoBean.fabricante}"/>
+         <p:autoComplete value="#{novoProdutoBean.fabricantes}" completeMethod="#{novoProdutoBean.listaFabricantes}" />
          <h:outputLabel value="Quantidade produto:" />
          <p:inputMask value="#{novoProdutoBean.quantidade}" mask="9?99" />
          <h:outputLabel value="Alerta de validade:" />
