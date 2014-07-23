@@ -50,8 +50,8 @@ a {
 		</div>
 		<img src="../images/Produto.jpg" alt="Produto" height="75" width="75" title="Produto">
 		<div>
-			<p class="opcao"><a href="NovoProduto.jsp" target="ctn">NOVO</a></p>
-			<p class="opcao"><a href="ProcuraProduto.jsp" target="ctn">EXISTENTE</a></p>
+			<p class="opcao"><a href="NovoProduto.xhtml" target="ctn">NOVO</a></p>
+			<p class="opcao"><a href="ProcuraProduto.xhtml" target="ctn">EXISTENTE</a></p>
 		</div>
 		<img src="../images/Fornecimento.jpg" alt="Fornecimento" height="75" width="75" title="Fornecimento">
 		<div>

@@ -2,6 +2,7 @@ package br.com.mercearia.faces;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
@@ -9,12 +10,32 @@ import br.com.mercearia.dao.ProdutoDAO;
 
 @ManagedBean
 public class NovoProdutoBean {
+	private float valorMin;
+	private float valorMax;
 	private long id;
 	private String nome;
 	private float valor;
 	private Date validade;
 	private int quantidade;
 	private String fabricante;
+	private String completando;
+	
+	public float getValorMax() {
+		return valorMax;
+	}
+
+	public void setValorMax(float valorMax) {
+		this.valorMax = valorMax;
+	}
+	
+	public float getValorMin() {
+		return valorMin;
+	}
+
+	public void setValorMin(float valorMin) {
+		this.valorMin = valorMin;
+	}
+
 	
 	public long getId() {
 		return id;
@@ -69,9 +90,25 @@ public class NovoProdutoBean {
 		dao.adiciona(this);
 	}
 	
-	public Lista<String> complete(String query) {
-	Lista<String> results = new ArrayList<String>();
-	for (int i = 0; i < 10; i++)
-	results.add(query + i);
-	return results;
+	public List<String> listaFabricantes(String query) {
+		ProdutoDAO pdao = new ProdutoDAO();
+		List<String> results = new ArrayList<String>();
+		results = pdao.listaFabricantes();
+		return results;
+	}
+
+	public List<String> listaNomes(String query) {
+		ProdutoDAO pdao = new ProdutoDAO();
+		List<String> results = new ArrayList<String>();
+		results = pdao.listaNomes();
+		return results;
+	}
+	
+	public String getCompletando() {
+		return completando;
+	}
+
+	public void setCompletando(String completando) {
+		this.completando = completando;
+	}
 }

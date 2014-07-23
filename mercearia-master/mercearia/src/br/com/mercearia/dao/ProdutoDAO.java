@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 
+import br.com.mercearia.faces.NovoProdutoBean;
 import br.com.mercearia.modelo.Produto;
 
 public class ProdutoDAO {
@@ -18,7 +20,8 @@ public class ProdutoDAO {
 
 		String sql = "select * from produto where id = ?";
 
-		try {
+		try 
+		{
 			Produto produto = new Produto();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			System.out.println(" id do produto buscado eh " + id);
@@ -27,13 +30,13 @@ public class ProdutoDAO {
 			while (rs.next()) {
 				produto.setNome(rs.getString("nome"));
 				produto.setQtd(rs.getInt("qtd"));
-				try {
-					Calendar calendar = Calendar.getInstance();
-					calendar.setTime(rs.getDate("val_max"));
-					produto.setVal_max(calendar);
-					calendar.setTime(rs.getDate("val_min"));
-					produto.setVal_min(calendar);
-				} catch (SQLException e) {System.out.println("Deu pau na data do produto.");
+				try 
+				{
+					produto.setValidade(rs.getDate("val_max"));
+				}
+				catch (SQLException e)
+				{
+					System.out.println("Deu pau na data do produto.");
 				}
 				produto.setValor(rs.getFloat("valor"));
 				produto.setId(rs.getLong("id"));
@@ -46,10 +49,57 @@ public class ProdutoDAO {
 		}
 	}
 
-	public void adiciona(Produto produto) {
+	public List<String> listaFabricantes() {
+		connection = new Conexao().getConnection();
+
+		String sql = "select fabricante from produto";
+
+		try 
+		{
+			List<String> fabricantes = new ArrayList<String>();
+			String fabricante = "";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				fabricante = rs.getString("fabricante");
+				fabricantes.add(fabricante);
+			}
+			ps.close();
+			connection.close();
+			return fabricantes;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public List<String> listaNomes() {
+		connection = new Conexao().getConnection();
+
+		String sql = "select nome from produto";
+
+		try 
+		{
+			List<String> nomes = new ArrayList<String>();
+			String nome = "";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				nome = rs.getString("nome");
+				nomes.add(nome);
+			}
+			ps.close();
+			connection.close();
+			return nomes;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	
+	public void adiciona(NovoProdutoBean produto) {
 		connection = new Conexao().getConnection();
 		//
-		String sql = "insert into produto values (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into produto values (?, ?, ?, ?, ?, ?)";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -62,20 +112,14 @@ public class ProdutoDAO {
 			} catch (SQLException e) {
 			}
 			try {
-				ps.setInt(5, produto.getQtd());
+				ps.setInt(5, produto.getQuantidade());
 			} catch (SQLException e) {
 			}
 			try {
-				ps.setDate(6, new Date(produto.getVal_max().getTimeInMillis()));
+				ps.setDate(6, new Date(produto.getValidade().getTime()));
 			} catch (RuntimeException e) {
 				e.printStackTrace();
 				ps.setNull(6, Types.DATE);
-			}
-			try {
-				ps.setDate(7, new Date(produto.getVal_min().getTimeInMillis()));
-			} catch (RuntimeException e) {
-				e.printStackTrace();
-				ps.setNull(7, Types.DATE);
 			}
 			ps.execute();
 			ps.close();
@@ -84,5 +128,4 @@ public class ProdutoDAO {
 			throw new RuntimeException(e);
 		}
 	}
-
 }

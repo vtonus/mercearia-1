@@ -23,7 +23,7 @@
          <h:outputLabel value="Código do produto" />
          <p:inputMask value="#{novoProdutoBean.id}" mask="9999999999999" />
          <h:outputLabel value="Nome do produto" />
-         <h:inputText value="#{novoProdutoBean.nome}"/>
+         <p:autoComplete value="#{novoProdutoBean.nome}" forceSelection="true" completeMethod="#{novoProdutoBean.listaNomes}"/>
          <h:outputLabel value="Valor da unidade:" />
          <pe:inputNumber value="#{novoProdutoBean.valorMin}" symbol="Min R$" symbolPosition="p"  
                             decimalSeparator="," thousandSeparator="." maxValue="9999.99"/>
@@ -31,7 +31,7 @@
          <pe:inputNumber value="#{novoProdutoBean.valorMax}" symbol="Max R$" symbolPosition="p"  
                             decimalSeparator="," thousandSeparator="." maxValue="9999.99"/>
          <h:outputLabel value="Fabricante:" />
-         <p:autoComplete value="#{novoProdutoBean.fabricantes}" completeMethod="#{novoProdutoBean.listaFabricantes}" />
+         <p:autoComplete value="#{novoProdutoBean.completando}" id="fabricante" forceSelection="true" completeMethod="#{novoProdutoBean.listaFabricantes}" />
          <h:outputLabel value="Quantidade produto:" />
          <p:inputMask value="#{novoProdutoBean.quantidade}" mask="9?99" />
          <h:outputLabel value="Alerta de validade:" />
