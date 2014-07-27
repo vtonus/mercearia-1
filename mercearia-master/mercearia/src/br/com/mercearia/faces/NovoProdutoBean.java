@@ -6,9 +6,8 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
-import org.primefaces.context.RequestContext;
-
 import br.com.mercearia.dao.ProdutoDAO;
+import br.com.mercearia.modelo.Produto;
 
 @ManagedBean
 public class NovoProdutoBean {
@@ -141,12 +140,13 @@ public class NovoProdutoBean {
 
 	public String procurar() {
 		ProdutoDAO dao = new ProdutoDAO();
-		List lista = dao.procura(this);
-		if (!lista.isEmpty()) {
-			RequestContext requestContext = RequestContext.getCurrentInstance();
-			requestContext.addCallbackParam("results", lista);
-			return "ResultadosProduto";
+		List<Produto> produtos = dao.procura(this);
+		for (Produto produto : produtos)
+		{
+			System.out.println(produto.getNome());
+			System.out.println(produto.getId());
 		}
+		return "NovoProduto";
 	}
 
 	public List<String> listaFabricantes(String query) {
