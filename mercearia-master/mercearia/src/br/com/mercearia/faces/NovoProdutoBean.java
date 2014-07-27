@@ -6,20 +6,52 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
+import org.primefaces.context.RequestContext;
+
 import br.com.mercearia.dao.ProdutoDAO;
 
 @ManagedBean
 public class NovoProdutoBean {
-	private float valorMin;
-	private float valorMax;
 	private long id;
-	private String nome;
-	private float valor;
-	private Date validade;
-	private int quantidade;
-	private String fabricante;
-	private String completando;
+	private String nome, fabricante, completandoF, completandoN;
+	private float valor, valorMin, valorMax;
+	private Date validade, validadeMin, validadeMax;
+	private int quantidade, quantidadeMin, quantidadeMax;
+
 	
+	public Date getValidadeMin() {
+		return validadeMin;
+		
+	}
+
+	public void setValidadeMin(Date validadeMin) {
+		this.validadeMin = validadeMin;
+	}
+
+	public Date getValidadeMax() {
+		return validadeMax;
+	}
+
+	public void setValidadeMax(Date validadeMax) {
+		this.validadeMax = validadeMax;
+	}
+
+	public int getQuantidadeMin() {
+		return quantidadeMin;
+	}
+
+	public void setQuantidadeMin(int quantidadeMin) {
+		this.quantidadeMin = quantidadeMin;
+	}
+
+	public int getQuantidadeMax() {
+		return quantidadeMax;
+	}
+
+	public void setQuantidadeMax(int quantidadeMax) {
+		this.quantidadeMax = quantidadeMax;
+	}
+
 	public float getValorMax() {
 		return valorMax;
 	}
@@ -27,7 +59,7 @@ public class NovoProdutoBean {
 	public void setValorMax(float valorMax) {
 		this.valorMax = valorMax;
 	}
-	
+
 	public float getValorMin() {
 		return valorMin;
 	}
@@ -36,7 +68,6 @@ public class NovoProdutoBean {
 		this.valorMin = valorMin;
 	}
 
-	
 	public long getId() {
 		return id;
 	}
@@ -44,7 +75,7 @@ public class NovoProdutoBean {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -57,7 +88,7 @@ public class NovoProdutoBean {
 		return valor;
 	}
 
-	public void setValor(float valor) {  
+	public void setValor(float valor) {
 		this.valor = valor;
 	}
 
@@ -85,11 +116,39 @@ public class NovoProdutoBean {
 		this.fabricante = fabricante;
 	}
 
-	public void cadastrar(){
+	public String getCompletandoF() {
+		return completandoF;
+	}
+
+	public void setCompletandoF(String completando) {
+		this.completandoF = completando;
+	}
+
+	public String getCompletandoN() {
+		return completandoN;
+	}
+
+	public void setCompletandoN(String completando) {
+		this.completandoN = completando;
+	}
+
+	// Other Methods
+
+	public void cadastrar() {
 		ProdutoDAO dao = new ProdutoDAO();
 		dao.adiciona(this);
 	}
-	
+
+	public String procurar() {
+		ProdutoDAO dao = new ProdutoDAO();
+		List lista = dao.procura(this);
+		if (!lista.isEmpty()) {
+			RequestContext requestContext = RequestContext.getCurrentInstance();
+			requestContext.addCallbackParam("results", lista);
+			return "ResultadosProduto";
+		}
+	}
+
 	public List<String> listaFabricantes(String query) {
 		ProdutoDAO pdao = new ProdutoDAO();
 		List<String> results = new ArrayList<String>();
@@ -102,13 +161,5 @@ public class NovoProdutoBean {
 		List<String> results = new ArrayList<String>();
 		results = pdao.listaNomes();
 		return results;
-	}
-	
-	public String getCompletando() {
-		return completando;
-	}
-
-	public void setCompletando(String completando) {
-		this.completando = completando;
 	}
 }

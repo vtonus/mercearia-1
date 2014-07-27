@@ -23,23 +23,27 @@
          <h:outputLabel value="Código do produto" />
          <p:inputMask value="#{novoProdutoBean.id}" mask="9999999999999" />
          <h:outputLabel value="Nome do produto" />
-         <p:autoComplete value="#{novoProdutoBean.nome}" forceSelection="true" completeMethod="#{novoProdutoBean.listaNomes}"/>
-         <h:outputLabel value="Valor da unidade:" />
-         <pe:inputNumber value="#{novoProdutoBean.valorMin}" symbol="Min R$" symbolPosition="p"  
+         <p:autoComplete value="#{novoProdutoBean.completandoN}" id="produto" completeMethod="#{novoProdutoBean.listaNomes}"/>
+         <h:outputLabel value="Valor menor que:" />
+         <pe:inputNumber value="#{novoProdutoBean.valorMin}" symbol="R$" symbolPosition="p"  
                             decimalSeparator="," thousandSeparator="." maxValue="9999.99"/>
-		 <h:outputLabel value=" " />
-         <pe:inputNumber value="#{novoProdutoBean.valorMax}" symbol="Max R$" symbolPosition="p"  
+		 <h:outputLabel value="Valor maior que:" />
+         <pe:inputNumber value="#{novoProdutoBean.valorMax}" symbol="R$" symbolPosition="p"  
                             decimalSeparator="," thousandSeparator="." maxValue="9999.99"/>
          <h:outputLabel value="Fabricante:" />
-         <p:autoComplete value="#{novoProdutoBean.completando}" id="fabricante" forceSelection="true" completeMethod="#{novoProdutoBean.listaFabricantes}" />
-         <h:outputLabel value="Quantidade produto:" />
-         <p:inputMask value="#{novoProdutoBean.quantidade}" mask="9?99" />
-         <h:outputLabel value="Alerta de validade:" />
-         <p:calendar value="#{novoProdutoBean.validade}" mode="popup" pattern="dd/MM/yyyy"/>
+         <p:autoComplete value="#{novoProdutoBean.completandoF}" id="fabricante" forceSelection="true" completeMethod="#{novoProdutoBean.listaFabricantes}" />
+         <h:outputLabel value="Quantidade menor que: " />
+         <p:inputMask value="#{novoProdutoBean.quantidadeMin}" mask="?999" />
+		 <h:outputLabel value="Quantidade maior que: " />
+         <p:inputMask value="#{novoProdutoBean.quantidadeMax}" mask="?999" />
+         <h:outputLabel value="Válido desde:" />
+         <p:calendar value="#{novoProdutoBean.validadeMin}" mode="popup" pattern="dd/MM/yyyy"/>
+         <h:outputLabel value="Válido até:" />
+         <p:calendar value="#{novoProdutoBean.validadeMax}" mode="popup" pattern="dd/MM/yyyy"/>
          <f:facet name="footer">
             <h:panelGroup style="display:block; text-align:center">
-               <h:commandButton value="Cadastrar" 
-					action="#{novoProdutoBean.cadastrar}"/>
+               <h:commandButton value="Procurar" 
+					action="#{novoProdutoBean.procurar}"/>
             </h:panelGroup>
          </f:facet>
       </h:panelGrid>

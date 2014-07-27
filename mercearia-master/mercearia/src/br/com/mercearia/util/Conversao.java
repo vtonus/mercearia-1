@@ -15,12 +15,6 @@ public class Conversao {
 		String resposta = new SimpleDateFormat("dd/MM/yyyy").format(date);
 		return resposta;
 	}
-
-	public static void teste(String textoEmData)
-	{
-		textoEmData = textoEmData.substring(9,11)+textoEmData.substring(6,8)+textoEmData.substring(0,4);
-		System.out.println(textoEmData);
-	}
 	
 	public static Calendar textoEmData(String textoEmData)
 			throws ParseException {
@@ -31,6 +25,12 @@ public class Conversao {
 		dataRetorno = Calendar.getInstance();
 		dataRetorno.setTime(date);
 		return dataRetorno;
+	}
+	public static Calendar dateEmCalendar(Date dec)
+			throws ParseException {
+		Calendar c = Calendar.getInstance();
+		c.setTime(dec);
+		return c;
 	}
 
 	public static Calendar textoEmDataHora(String textoEmData)

@@ -6,22 +6,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import br.com.mercearia.faces.NovoProdutoBean;
 import br.com.mercearia.modelo.Produto;
+import br.com.mercearia.util.Conversao;
 
 public class ProdutoDAO {
 	private Connection connection;
-
+	private Calendar calendar;
+	boolean bool = false;
 	public Produto busca(long id) {
 		connection = new Conexao().getConnection();
 
 		String sql = "select * from produto where id = ?";
 
-		try 
-		{
+		try {
 			Produto produto = new Produto();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			System.out.println(" id do produto buscado eh " + id);
@@ -30,12 +33,9 @@ public class ProdutoDAO {
 			while (rs.next()) {
 				produto.setNome(rs.getString("nome"));
 				produto.setQtd(rs.getInt("qtd"));
-				try 
-				{
+				try {
 					produto.setValidade(rs.getDate("val_max"));
-				}
-				catch (SQLException e)
-				{
+				} catch (SQLException e) {
 					System.out.println("Deu pau na data do produto.");
 				}
 				produto.setValor(rs.getFloat("valor"));
@@ -54,8 +54,7 @@ public class ProdutoDAO {
 
 		String sql = "select fabricante from produto";
 
-		try 
-		{
+		try {
 			List<String> fabricantes = new ArrayList<String>();
 			String fabricante = "";
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -71,14 +70,13 @@ public class ProdutoDAO {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public List<String> listaNomes() {
 		connection = new Conexao().getConnection();
 
 		String sql = "select nome from produto";
 
-		try 
-		{
+		try {
 			List<String> nomes = new ArrayList<String>();
 			String nome = "";
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -95,7 +93,122 @@ public class ProdutoDAO {
 		}
 	}
 
-	
+	public List<Produto> procura(NovoProdutoBean npd) {
+		// codigo, nome, valormin, valormax,fabricante, qtdmin, qtdmax,
+		// validademin, validademax
+
+		int i = 0;
+		String sql = "select * from produto ";
+
+		try {
+			if (npd.getId() > 0) {
+				sql.concat("where codigo = ? ");
+				i = 1;
+			}
+		} catch (NullPointerException e) {
+		}
+
+		if ((npd.getNome() != null) && (npd.getNome() != "")) {
+			if (i == 0) {
+				sql.concat("where ");
+				i = 1;
+			} else {
+				sql.concat("and ");
+			}
+			sql.concat("nome like '%?%' ");
+		}
+
+		try {
+			if (npd.getValorMin() > 0) {
+				if (i == 0) {
+					sql.concat("where ");
+					i = 1;
+				} else {
+					sql.concat("and ");
+				}
+				sql.concat("valor >= ? ");
+			}
+		} catch (NullPointerException e) {
+		}
+
+		try {
+			if (npd.getValorMax() > 0) {
+				if (i == 0) {
+					sql.concat("where ");
+					i = 1;
+				} else {
+					sql.concat("and ");
+				}
+				sql.concat("valor <= ? ");
+			}
+		} catch (NullPointerException e) {
+		}
+		
+		if ((npd.getFabricante() != null) && (npd.getFabricante() != "")) {
+			if (i == 0) {
+				sql.concat("where ");
+				i = 1;
+			} else {
+				sql.concat("and ");
+			}
+			sql.concat("fabricante like '%?%' ");
+		}
+		try {
+			if (npd.getQuantidadeMin() > 0) {
+				if (i == 0) {
+					sql.concat("where ");
+					i = 1;
+				} else {
+					sql.concat("and ");
+				}
+				sql.concat("qtd >= ? ");
+			}
+		} catch (NullPointerException e) {
+		}
+		try {
+			if (npd.getQuantidadeMax() > 0) {
+				if (i == 0) {
+					sql.concat("where ");
+					i = 1;
+				} else {
+					sql.concat("and ");
+				}
+				sql.concat("qtd <= ? ");
+			}
+		} catch (NullPointerException e) {
+		}
+		
+		try
+		{
+			calendar = Calendar.getInstance();
+			calendar = Conversao.dateEmCalendar(npd.getValidadeMin());
+			if (i == 0) {
+				sql.concat("where ");
+				i = 2;
+			} else {
+				sql.concat("and ");
+				i = 2;
+			}		
+		} catch (ParseException e){}
+		//Parei aqui
+		try
+		{
+			calendar = Calendar.getInstance();
+			calendar = Conversao.dateEmCalendar(npd.getValidadeMin());
+			if (i == 0) {
+				sql.concat("where ");
+				i = 2;
+			} else {
+				sql.concat("and ");
+				i = 2;
+			}		
+		} catch (ParseException e){}
+				
+		
+			
+		
+	}
+
 	public void adiciona(NovoProdutoBean produto) {
 		connection = new Conexao().getConnection();
 		//
