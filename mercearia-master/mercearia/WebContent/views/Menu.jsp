@@ -11,7 +11,9 @@
 				active: false,
 				heightStyle:"content"				
  		});
-	});	
+	});
+	
+	
 </script>
 <style type="text/css">
 #accordion{
@@ -36,7 +38,7 @@ a {
 </style>
 </head>
 <body class="body">
-<div align="right"> Funcionário: ${usuario} <input type="button" class="bVermelho" value="Deslogar"></div>
+<div align="right"> Funcionário: ${usuario} <button class="bVermelho" onclick="deslogar()">Sair</button></div>
 <div id="accordion" class="menu">
 		<img src="../images/Cliente.jpg" alt="Cliente" height="75" width="75" title="Cliente">
 		<div>
@@ -50,8 +52,8 @@ a {
 		</div>
 		<img src="../images/Produto.jpg" alt="Produto" height="75" width="75" title="Produto">
 		<div>
-			<p class="opcao"><a href="NovoProduto.xhtml" target="ctn">NOVO</a></p>
-			<p class="opcao"><a href="ProcuraProduto.xhtml" target="ctn">EXISTENTE</a></p>
+			<p class="opcao"><a href="NovoProduto.jsp" target="ctn">NOVO</a></p>
+			<p class="opcao"><a href="ProcuraProduto.jsp" target="ctn">EXISTENTE</a></p>
 		</div>
 		<img src="../images/Fornecimento.jpg" alt="Fornecimento" height="75" width="75" title="Fornecimento">
 		<div>

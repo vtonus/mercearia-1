@@ -15,13 +15,11 @@ function buscaDadosCliente() {
 	function(data, status) 
 	{
 		$("#fim").html(data);
+		$("#dAbaixo").css("visibility", "visible");
+		$	("#dEsquerda").css("visibility", "visible");
+		$("#dDireita").css("visibility", "visible");
 		$("#nome").val($("#nome0").val());
-		if ($("#doc0").val() > 9){
-		$("#doc").val("cnpj");
-		}
-		else {
 		$("#doc").val("cpf");
-		}
 		$("#docNumero").val($("#doc0").val());
 		$("#telefone").val($("#telefone0").val());
 		$("#email").val($("#email0").val());
@@ -71,6 +69,10 @@ function carregaCliente(i){
 	$("#docNumero").val($("#doc"+i).val());
 	$("#telefone").val($("#telefone"+i).val());
 	$("#email").val($("#email"+i).val());
-	$(
-		"#dataNascimento").val($("#data"+i).val());
+	$("#dataNascimento").val($("#data"+i).val());
+}
+
+function deslogar()
+{
+	document.location = "/Deslogando";
 }

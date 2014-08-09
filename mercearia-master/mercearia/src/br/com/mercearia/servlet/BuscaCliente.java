@@ -13,12 +13,13 @@ import br.com.mercearia.dao.ClienteDAO;
 import br.com.mercearia.modelo.Cliente;
 import br.com.mercearia.util.Conversao;
 
+@SuppressWarnings("serial")
 public class BuscaCliente extends HttpServlet {
 	ClienteDAO cdao = new ClienteDAO();
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String tipo = request.getParameter("tipo");
+		//String tipo = request.getParameter("tipo");
 		String palavraChave = request.getParameter("palavraChave");
 		String parametro = request.getParameter("parametro");
 		List<Cliente> listaCliente = new ArrayList<Cliente>();
@@ -30,7 +31,7 @@ public class BuscaCliente extends HttpServlet {
 					.getDataNascimento());
 			if (cliente != null) {
 				response.getWriter().write(
-						"<input type=\"hidden\" id=\"nome" + i + "\" value=\""
+								"<input type=\"hidden\" id=\"nome" + i + "\" value=\""
 								+ cliente.getNome() + "\">"
 								+ "<input type=\"hidden\" id=\"telefone" + i
 								+ "\" value=\"" + cliente.getTelefone() + "\">"
@@ -42,6 +43,7 @@ public class BuscaCliente extends HttpServlet {
 								+ "\" value=\"" + cliente.getSexo() + "\">"
 								+ "<input type=\"hidden\" id=\"data" + i
 								+ "\" value=\"" + dataNascimento + "\">");
+				
 			}
 			i++;
 		}

@@ -38,36 +38,61 @@ public class ClienteDAO {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public List<Cliente> busca(String palavraChave, String parametro) {
 		connection = new Conexao().getConnection();
-
-		String sql = "select * from cliente where nome like ?";
+		int i = 0;
+		String sql;
+		System.out.println(parametro);
+		if (parametro.equals("nome"))
+		{
+			sql = "select * from cliente where nome like ?";
+			i = 1;
+			System.out.println("primeira");
+		}
+		else if (parametro.equals("cpf"))
+		{
+			sql = "select * from cliente where doc like ?";
+			i = 2;
+			System.out.println("segunda");
+		}
+		else
+		{
+			sql = "select * from cliente where telefone like ?";
+			i = 2;			
+			System.out.println("terceiraa");
+		}
+		
+		System.out.println(i);
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
-			
+
 			ps = this.connection.prepareStatement(sql);
-			//ps.setString(1, parametro);
-			palavraChave= ("%"+palavraChave+"%");
-			ps.setString(1, palavraChave);//aqui o index eh 2...
+			/*
+			 * switch (i) { case 1: { ps.setString(1, palavraChave); } default:
+			 * { Long x = Long.parseLong(palavraChave); ps.setLong(1, x); } }
+			 */
+			palavraChave = ("%" + palavraChave + "%");
+			
+			ps.setString(1, palavraChave);
 			ResultSet rs = ps.executeQuery();
-			List <Cliente> listaCliente = new ArrayList<Cliente>();
-			rs.next();
-			do{
-			Cliente cliente = new Cliente();
-			//cliente.setId(rs.getInt("id_cliente"));
-			cliente.setNome(rs.getString("nome"));
-			cliente.setDoc(rs.getString("doc"));
-			cliente.setTelefone(Long.parseLong(rs.getString("telefone")));
-			cliente.setSexo(rs.getString("sexo"));
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(rs.getDate("dataNascimento"));
-			cliente.setDataNascimento(calendar);
-			cliente.setEmail(rs.getString("email"));
-			listaCliente.add(cliente);
+			List<Cliente> listaCliente = new ArrayList<Cliente>();
+			System.out.println("Antes " + sql + palavraChave);
+			while (rs.next()) {
+				Cliente cliente = new Cliente();
+				cliente.setNome(rs.getString("nome"));
+				System.out.println("La vai " + cliente.getNome());
+				cliente.setDoc(rs.getString("doc"));
+				cliente.setTelefone(Long.parseLong(rs.getString("telefone")));
+				cliente.setSexo(rs.getString("sexo"));
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(rs.getDate("dataNascimento"));
+				cliente.setDataNascimento(calendar);
+				cliente.setEmail(rs.getString("email"));
+				listaCliente.add(cliente);
 			}
-			while(rs.next());
+			System.out.println("depois");
 			return listaCliente;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

@@ -5,6 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import br.com.mercearia.dao.ProdutoDAO;
 import br.com.mercearia.modelo.Produto;
@@ -141,11 +145,15 @@ public class NovoProdutoBean {
 	public String procurar() {
 		ProdutoDAO dao = new ProdutoDAO();
 		List<Produto> produtos = dao.procura(this);
-		for (Produto produto : produtos)
-		{
-			System.out.println(produto.getNome());
-			System.out.println(produto.getId());
-		}
+		ExternalContext context =
+				FacesContext.getCurrentInstance().getExternalContext();
+		HttpServletRequest request =
+				(HttpServletRequest)context.getRequest();
+		HttpServletResponse response =
+				(HttpServletResponse)context.getResponse();
+		request.setAttribute("lista", produtos);
+		
+		
 		return "NovoProduto";
 	}
 
