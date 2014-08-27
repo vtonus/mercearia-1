@@ -5,7 +5,9 @@
 <title>Página não encontrada</title>
 </head>
 <body class="body">
-<p id="404"><h2>A página solicitada não foi encontrada.</h2>
-<a href="/Mercearia/views/Menu.jsp">Voltar ao menu.</a></p>
+<p id='404'>
+	<h2>A página solicitada não foi encontrada.</h2>
+	<a href="/mercearia/views/Menu.jsp">Voltar ao menu.</a>
+</p>
 </body>
 </html>

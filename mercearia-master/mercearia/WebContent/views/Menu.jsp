@@ -1,83 +1,73 @@
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
+<link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
 <title>Menu principal</title>
-<link rel="stylesheet" type="text/css" href="../css/style.css">
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><!-->
 <script type="text/javascript" src="../js/jquery.js"></script>
-<script type="text/javascript" src="../js/jquery-ui.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$("#accordion").accordion({
-		        collapsible: true,
-				active: false,
-				heightStyle:"content"				
- 		});
-	});
-	
+<script type="text/javascript" src="../jui/jquery-ui.js"></script>
+<script type="text/javascript" src="../js/scripts.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+<script>
+$( document ).ready(function() {
+    if($('#sessao').text()==''){
+    	window.alert('VOCE NAO TEM SESSAO');
+    	document.write($('#sessao').text());
+    }
+});
 	
 </script>
-<style type="text/css">
-#accordion{
-	margin-top:10px;
-	position:fixed;
-	border:2px solid;
-	padding:20px 20px; 
-	background:#dddddd;
-	width:80px;
-	border-radius:25px;
-}
-.opcao{
-	text-align:center;
-	margin:8;
-}
-a { 
-	text-decoration:none; 
-	font-size: 10px;
-	color:#666666;
-	font-weight:bold; 
-}
-</style>
 </head>
+<span id="sessao" style="display:none;">${usuario}</span>
 <body class="body">
-<div align="right"> Funcionário: ${usuario} <button class="bVermelho" onclick="deslogar()">Sair</button></div>
-<div id="accordion" class="menu">
-		<img src="../images/Cliente.jpg" alt="Cliente" height="75" width="75" title="Cliente">
-		<div>
-			<p class="opcao"><a href="NovoCliente.jsp" target="ctn" >NOVO</a></p>
-			<p class="opcao"><a href="ProcuraCliente.jsp" target="ctn">EXISTENTE</a></p>
+<div id="usertopo"> Funcionário: ${usuario} <button class="bVermelho" onclick="deslogar()">Sair</button></div>
+
+<div id="accordion" >
+		<img class="opcaoimg" src="../images/Cliente.png" alt="Cliente" height="75" width="75" title="Cliente">
+		
+		<div  >
+			<p class="opcao"><a  target="ctn" onclick="$('.content').load('NovoCliente.jsp')">NOVO</a></p>
+			<p class="opcao"><a  onclick="$('.content').load('ProcuraCliente.jsp')" target="ctn">EXISTENTE</a></p>
 		</div>
-		<img src="../images/Compra.jpg" alt="Compra" height="75" width="75" title="Compra">
+		
+		<img class="opcaoimg"  class="opcaoimg" src="../images/Compra.png" alt="Compra" height="75" width="75" title="Compra">
 		<div>
-			<p class="opcao"><a href="NovaCompra.jsp" target="ctn">NOVA</a></p>
-			<p class="opcao"><a href="ProcuraCompra.jsp" target="ctn">EXISTENTE</a></p>
+			<p class="opcao"><a   onclick="$('.content').load('NovaCompra.jsp')" target="ctn">NOVA</a></p>
+			<p class="opcao"><a   onclick="$('.content').load('ProcuraCompra.jsp')" target="ctn">EXISTENTE</a></p>
 		</div>
-		<img src="../images/Produto.jpg" alt="Produto" height="75" width="75" title="Produto">
+		<img class="opcaoimg" src="../images/Produto.png" alt="Produto" height="75" width="75" title="Produto">
+		<div  >
+			<p class="opcao"><a   onclick="$('.content').load('NovoProduto.jsp')" target="ctn">NOVO</a></p>
+			<p  class="opcao"><a onclick="$('.content').load('ProcuraProduto.jsp')" target="ctn">EXISTENTE</a></p>
+		</div>
+		<img class="opcaoimg"  src="../images/Fornecimento.png" alt="Fornecimento" height="75" width="75" title="Fornecimento">
+		<div >
+			<p class="opcao"><a  onclick="$('.content').load('NovoFornecimento.jsp')" target="ctn">NOVA</a></p>
+			<p class="opcao"><a   onclick="$('.content').load('ProcuraFornecimento.jsp')" target="ctn">EXISTENTE</a></p>
+		</div >
+		<img class="opcaoimg"  src="../images/Fornecedor.png" alt="Fornecedor" height="75" width="75" title="Fornecedor">
+		<div >
+			<p class="opcao"><a    onclick="$('.content').load('NovoFornecedor.jsp')" target="ctn">NOVO</a></p>
+			<p class="opcao"><a   onclick="$('.content').load('ProcuraFornecedor.jsp')" target="ctn">EXISTENTE</a></p>
+		</div>
+		<img class="opcaoimg"  src="../images/Funcionario.png" alt="Funcionario" height="75" width="75" title="Funcionario">
 		<div>
-			<p class="opcao"><a href="NovoProduto.jsp" target="ctn">NOVO</a></p>
-			<p class="opcao"><a href="ProcuraProduto.jsp" target="ctn">EXISTENTE</a></p>
+			<p class="opcao"><a  onclick="$('.content').load('NovoFuncionario.jsp')"  target="ctn">NOVO</a></p>
+			<p class="opcao"><a   onclick="$('.content').load('ProcuraFuncionario.jsp')" target="ctn">EXISTENTE</a></p>
 		</div>
-		<img src="../images/Fornecimento.jpg" alt="Fornecimento" height="75" width="75" title="Fornecimento">
-		<div>
-			<p class="opcao"><a href="NovoFornecimento.jsp" target="ctn">NOVA</a></p>
-			<p class="opcao"><a href="ProcuraFornecimento.jsp" target="ctn">EXISTENTE</a></p>
+		<img class="opcaoimg" src="../images/Relatorio.png" alt="Relatorio" height="75" width="75" title="Relatório">
+		<div class="menu">
+			<p class="opcao"><a  onclick="$('.content').load('exemploJSF.jsp')" target="ctn">GERENCIAR</a></p>
 		</div>
-		<img src="../images/Fornecedor.jpg" alt="Fornecedor" height="75" width="75" title="Fornecedor">
-		<div>
-			<p class="opcao"><a href="NovoFornecedor.jsp" target="ctn">NOVO</a></p>
-			<p class="opcao"><a href="ProcuraFornecedor.jsp" target="ctn">EXISTENTE</a></p>
-		</div>
-		<img src="../images/Funcionario.jpg" alt="Funcionario" height="75" width="75" title="Funcionario">
-		<div>
-			<p class="opcao"><a href="NovoFuncionario.jsp" target="ctn">NOVO</a></p>
-			<p class="opcao"><a href="ProcuraFuncionario.jsp" target="ctn">EXISTENTE</a></p>
-		</div>
-		<img src="../images/Relatorio.jpg" alt="Relatorio" height="75" width="75" title="Relatório">
-		<div>
-			<p class="opcao"><a href="exemploJSF.jsp" target="ctn">GERENCIAR</a></p>
-		</div>
-	<div class="content">
-		<iframe name="ctn" width="1200px" height="650px" frameBorder="0"></iframe>
+	</div>
+		<div class="content">
 	</div>
 	
+	<script>
+
+$("#accordion" ).accordion();
+	</script>
 
 </body>
 </html>

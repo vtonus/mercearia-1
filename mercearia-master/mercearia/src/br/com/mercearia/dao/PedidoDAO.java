@@ -41,7 +41,7 @@ public class PedidoDAO {
 			ps.setString(2, pedido.getDescricao());
 			ps.setInt(3, pedido.getFornecedor().getId());
 			ps.setLong(4, pedido.getFuncionario().getCpf());
-			ps.setTimestamp(5, Conversao.timeStamp(pedido.getDataHora().getTime()));
+			ps.setTimestamp(5, Conversao.dateEmTimestamp(pedido.getDataHora().getTime()));
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {

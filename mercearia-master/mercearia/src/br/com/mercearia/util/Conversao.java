@@ -35,6 +35,7 @@ public class Conversao {
 
 	public static Calendar textoEmDataHora(String textoEmData)
 			throws ParseException {
+		textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4);
 		Date date = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss")
 				.parse(textoEmData);
 		dataRetorno = Calendar.getInstance();
@@ -42,6 +43,19 @@ public class Conversao {
 		return dataRetorno;
 	}
 
+	public static Calendar textoEmDataHoraLocal(String textoEmData)
+			throws ParseException {
+		//2014-12-31T23%3A59
+		textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4) + 
+		" " + textoEmData.substring(11,13) + ":" + textoEmData.substring(11,13) + ":00"; 
+		Date date = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss")
+				.parse(textoEmData);
+		dataRetorno = Calendar.getInstance();
+		dataRetorno.setTime(date);
+		return dataRetorno;
+	}
+
+	
 	public static Calendar getCurrentTime() {
 		Calendar calendar;
 		DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
@@ -56,7 +70,7 @@ public class Conversao {
 		return calendar;
 	}
 
-	public static Timestamp timeStamp(Date dataUtil) {
+	public static Timestamp dateEmTimestamp(Date dataUtil) {
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		System.out.println("Data util " + df.format(dataUtil));
 		Timestamp timeStamp = new Timestamp(dataUtil.getTime());

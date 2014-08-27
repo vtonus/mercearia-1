@@ -95,6 +95,58 @@ public class ProdutoDAO {
 		}
 	}
 
+	public List<Produto> procuraNomeProduto(String nome) {
+		connection = new Conexao().getConnection();
+
+		String sql = "select * from produto where nome like ?";
+
+		try {
+			List<Produto> produtos = new ArrayList<Produto>();
+			Produto produto = new Produto();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			nome = ("%"+nome+"%");
+			ps.setString(1, nome);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				produto.setNome(rs.getString("nome"));
+				produto.setValor(rs.getFloat("valor"));
+				produto.setId(rs.getLong("id"));
+				produtos.add(produto);
+			}
+			ps.close();
+			connection.close();
+			return produtos;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public List<Produto> buscaCodigoProduto(Long codigo) {
+		connection = new Conexao().getConnection();
+
+		String sql = "select nome, valor from produto where id like ?";
+
+		try {
+			List<Produto> produtos = new ArrayList<Produto>();
+			Produto produto = new Produto();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			String cod = ("%"+codigo+"%");
+			ps.setString(1, cod);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				produto.setNome(rs.getString("nome"));
+				produto.setValor(rs.getFloat("valor"));
+				produtos.add(produto);
+			}
+			ps.close();
+			connection.close();
+			return produtos;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	
 	public List<Produto> procura(NovoProdutoBean npd) 
 	{
 		connection = new Conexao().getConnection();

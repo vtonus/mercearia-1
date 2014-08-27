@@ -14,16 +14,15 @@ import br.com.mercearia.modelo.Cliente;
 public class ClienteDAO {
 	private Connection connection;
 
-	public void adiciona(Cliente cliente) {
+	public boolean adiciona(Cliente cliente) {
 		connection = new Conexao().getConnection();
-		//
+		boolean bool = false;
 		String sql = "insert into cliente "
 				+ "(doc, nome, telefone, sexo, email, dataNascimento)"
 				+ " values (?, ?, ?, ?, ?, ?)";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
-
 			ps.setString(1, cliente.getDoc());
 			ps.setString(2, cliente.getNome());
 			ps.setLong(3, cliente.getTelefone());
@@ -32,57 +31,50 @@ public class ClienteDAO {
 			ps.setDate(6, new Date(cliente.getDataNascimento()
 					.getTimeInMillis()));
 			ps.execute();
+			bool = true;
 			ps.close();
 			connection.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+		return bool;
 	}
 
 	public List<Cliente> busca(String palavraChave, String parametro) {
 		connection = new Conexao().getConnection();
 		int i = 0;
 		String sql;
-		System.out.println(parametro);
-		if (parametro.equals("nome"))
-		{
+		if (parametro.equals("nome")) {
 			sql = "select * from cliente where nome like ?";
-			i = 1;
-			System.out.println("primeira");
-		}
-		else if (parametro.equals("cpf"))
-		{
+		} else if (parametro.equals("cpf")) {
 			sql = "select * from cliente where doc like ?";
-			i = 2;
-			System.out.println("segunda");
-		}
-		else
-		{
+		} else if (parametro.equals("id")) {
+			sql = "select * from cliente where id_cliente = ?";
+			i = 1;
+		} else {
 			sql = "select * from cliente where telefone like ?";
-			i = 2;			
-			System.out.println("terceiraa");
 		}
-		
-		System.out.println(i);
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 
 			ps = this.connection.prepareStatement(sql);
-			/*
-			 * switch (i) { case 1: { ps.setString(1, palavraChave); } default:
-			 * { Long x = Long.parseLong(palavraChave); ps.setLong(1, x); } }
-			 */
 			palavraChave = ("%" + palavraChave + "%");
-			
-			ps.setString(1, palavraChave);
+			if (i == 0) {
+				ps.setString(1, palavraChave);
+			} else {
+				try {
+					i = Integer.parseInt(palavraChave);
+				} catch (RuntimeException e) {
+					throw new RuntimeException(e);
+				}
+				ps.setInt(1, i);
+			}
 			ResultSet rs = ps.executeQuery();
 			List<Cliente> listaCliente = new ArrayList<Cliente>();
-			System.out.println("Antes " + sql + palavraChave);
 			while (rs.next()) {
 				Cliente cliente = new Cliente();
 				cliente.setNome(rs.getString("nome"));
-				System.out.println("La vai " + cliente.getNome());
 				cliente.setDoc(rs.getString("doc"));
 				cliente.setTelefone(Long.parseLong(rs.getString("telefone")));
 				cliente.setSexo(rs.getString("sexo"));
@@ -92,10 +84,53 @@ public class ClienteDAO {
 				cliente.setEmail(rs.getString("email"));
 				listaCliente.add(cliente);
 			}
-			System.out.println("depois");
 			return listaCliente;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public boolean exclui(int id) {
+		connection = new Conexao().getConnection();
+		boolean bool = false;
+		String sql = "delete from cliente where id_cliente = ?";
+
+		try { 
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.execute();
+			bool = true;
+			ps.close();
+			connection.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return bool;
+	}
+	
+	public boolean edita(Cliente cliente) {
+		connection = new Conexao().getConnection();
+		boolean bool = false;
+		String sql = "update cliente set doc= ?, nome= ?, telefone= ?, sexo = ?, email= ?, dataNascimento= ?, where id_cliente = ?";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			
+			ps.setString(1, cliente.getDoc());
+			ps.setString(2, cliente.getNome());
+			ps.setLong(3, cliente.getTelefone());
+			ps.setString(4, cliente.getSexo());
+			ps.setString(5, cliente.getEmail());
+			ps.setDate(6, new Date(cliente.getDataNascimento()
+					.getTimeInMillis()));
+			ps.setInt(7, cliente.getId());
+			ps.execute();
+			bool = true;
+			ps.close();
+			connection.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return bool;
 	}
 }

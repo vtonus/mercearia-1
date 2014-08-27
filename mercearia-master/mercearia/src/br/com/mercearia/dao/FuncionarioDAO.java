@@ -136,4 +136,29 @@ public class FuncionarioDAO {
 		}
 		return funcionario;
 	}
+
+	public List<String> buscaNomeFuncionario(String nome) {
+		connection = new Conexao().getConnection();
+
+		String sql = "select * from funcionario where nome like ?";
+
+		try {
+			List<String> nomes = new ArrayList<String>();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			nome = ("%"+nome+"%");
+			ps.setString(1, nome);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				nome = rs.getString("nome");
+				nomes.add(nome);
+			}
+			ps.close();
+			connection.close();
+			return nomes;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+
 }

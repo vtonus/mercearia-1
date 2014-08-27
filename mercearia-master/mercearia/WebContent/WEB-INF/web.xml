@@ -17,6 +17,78 @@
     <servlet-name>BuscaCliente</servlet-name>
     <servlet-class>br.com.mercearia.servlet.BuscaCliente</servlet-class>
   </servlet>
+  <servlet-mapping>
+    <servlet-name>BuscaCliente</servlet-name>
+    <url-pattern>/BuscaCliente</url-pattern>
+    <url-pattern>/views/BuscaCliente</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>NovoCliente</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.NovoCliente</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NovoCliente</servlet-name>
+    <url-pattern>/NovoCliente</url-pattern>
+    <url-pattern>/views/NovoCliente</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>BuscaNomeProduto</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.BuscaNomeProduto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BuscaNomeProduto</servlet-name>
+    <url-pattern>/BuscaNomeProduto</url-pattern>
+    <url-pattern>/views/BuscaNomeProduto</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>BuscaCodigoProduto</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.BuscaCodigoProduto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BuscaCodigoProduto</servlet-name>
+    <url-pattern>/BuscaCodigoProduto</url-pattern>
+    <url-pattern>/views/BuscaCodigoProduto</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>EditaCliente</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.EditaCliente</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditaCliente</servlet-name>
+    <url-pattern>/EditaCliente</url-pattern>
+    <url-pattern>/views/EditaCliente</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>BuscaNomeFuncionario</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.BuscaNomeFuncionario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BuscaNomeFuncionario</servlet-name>
+    <url-pattern>/BuscaNomeFuncionario</url-pattern>
+    <url-pattern>/views/BuscaNomeFuncionario</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>BuscaNomeCliente</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.BuscaNomeCliente</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BuscaNomeCliente</servlet-name>
+    <url-pattern>/BuscaNomeCliente</url-pattern>
+    <url-pattern>/views/BuscaNomeCliente</url-pattern>
+  </servlet-mapping>
+
+
 
   <servlet-mapping>
     <servlet-name>Deslogando</servlet-name>
@@ -28,11 +100,6 @@
     <servlet-class>br.com.mercearia.servlet.Deslogando</servlet-class>
   </servlet>
 
-  <servlet-mapping>
-    <servlet-name>BuscaCliente</servlet-name>
-    <url-pattern>/BuscaCliente</url-pattern>
-    <url-pattern>/views/BuscaCliente</url-pattern>
-  </servlet-mapping>
   <servlet>
     <servlet-name>Logando</servlet-name>
     <servlet-class>br.com.mercearia.controller.LoginController</servlet-class>

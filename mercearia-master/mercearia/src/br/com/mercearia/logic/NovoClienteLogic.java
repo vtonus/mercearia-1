@@ -26,20 +26,12 @@ public class NovoClienteLogic implements Logic {
 				&& request.getParameter("telefone") != "") {
 			telefone = Long.parseLong(request.getParameter("telefone"));
 		}
-		String stringSexo = request.getParameter("sexo");
+		String sexo = request.getParameter("sexo");
 
 		// if (request.getParameter("dataNascimento") != null){
-		System.out.println("Rola?");
 		cliente.setDataNascimento(Conversao.textoEmData(request
 					.getParameter("dataNascimento")));
-		if (stringSexo.contains("feminino")) {
-			cliente.setSexo("f");
-		} else if (stringSexo.contains("masculino")) {
-			cliente.setSexo("m");
-		} else {
-			cliente.setSexo("0");
-		}
-
+		cliente.setSexo(sexo);
 		cliente.setDoc(cpf);
 		cliente.setTelefone(telefone);
 

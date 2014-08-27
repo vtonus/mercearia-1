@@ -1,8 +1,13 @@
-* {
-	font-family: verdana;
-	font-size: 15px;
-	color:#888888;	
+/*menu*/
+*{
+	font-family: 'Vollkorn', serif;
+	
 }
+.menu{
+	border: 0px;
+	background: transparent;
+}
+
 input:focus{
 	color:#555555;
     background-color:#eeeeee;
@@ -56,21 +61,27 @@ input[type=submit]{
     font-size:12px;
     font-weight:bold;
 }
-
+input{
+	border-radius:5px;
+	-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	-moz-box-shadow:    6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	box-shadow:          6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	
+}
 .data{
 	width:160px;
 }
 .body {
-	background-image:url("fundo.jpg");
+	background-color: #DDDDDD;
 	background-size: 100% 100%;
 }
 
-h1{
+.h1{
 	font-family: Gabriola;
 	font-size: 40px;
 }
 
-h2{
+.h2{
 	font-family: Arial;
 	font-size: 25px;	
 }
@@ -92,8 +103,11 @@ h2{
 
 .content {
 	position: absolute;
-	left: 130px;
-	top: 0;
+	/* float:left; */
+	
+	/* top: 40px; */
+	top: 21px;
+	left: 200px;
 }
 
 .margemP{
@@ -113,8 +127,8 @@ h2{
 }
 
 .container{
-	height:100%;
-	padding:0px,0px;
+	height: 94%;
+	padding: 0px 0px;
 	top:0;
 }
 .metadeEsquerda{ 
@@ -138,4 +152,282 @@ th{
 }
 .inputTabela{
 		font-size:14px;
+}
+/*MENU do MENU.JSP*/
+#accordion{
+	position: relative;
+border: 0px solid;
+padding: 20px 20px;
+background: #eeeeee;
+width: 80px;
+border-radius: 25px;
+top: 50%;
+	margin-top: -323px;
+	height: auto;
+	/* float: left; */
+}
+#accordion .opcao{
+	text-align:center;
+	margin:8;
+	font-size:12px;
+	color: #747360;
+	font-weight:bold;
+	cursor:pointer;
+}
+#accordion .opcao:hover{
+	color:#000;
+}
+
+#accordion .opcaoimg{
+	cursor:pointer;	
+}
+
+/* FIM MENU do MENU.JSP*/
+/*
+Usuario Logado
+
+*/
+#usertopo{
+	position:absolute;
+	right:0;
+	top:0;
+	text-align:right;
+	width:100%
+}
+
+
+/*Novo CLiente*/
+		
+		
+		#NovoCliente .labels{
+			float:left;
+			width: 200px;
+		}
+		#NovoCliente .inputs{
+			float:left;
+			width:30px;
+		}
+		
+		#NovoCliente .confirmar{
+			width: 125px;
+			color: #fff;
+			font-weight: bold;
+			-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+			-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+			box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+			text-align: center;
+			font-size: 18px;
+			line-height: 35px;
+			height: 35px;
+			background-color: green;
+			border-radius: 5px;
+			brackground-sieze:100% 100%;
+			position: relative;
+			top: 49px;
+			left: 102px;
+			cursor:pointer;
+}
+		#NovoCliente .limpar{
+			width: 125px;
+			color: #fff;
+			font-weight: bold;
+			-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+			-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+			box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+			text-align: center;
+			font-size: 20px;
+			line-height: 35px;
+			height: 35px;
+			background-color: red;
+			border-radius: 5px;
+			brackground-sieze:100% 100%;
+			position: relative;
+			top: 14;
+			left: 237px;
+			cursor:pointer;
+}
+
+		#NovoCliente .cad{
+			width: 691px;
+			font-size: 26px;
+			position: relative;
+			top: 36px;
+			color: #747360;
+		}
+		#NovoCliente .titulo{	
+			font-size: 30PX;
+			position: relative;
+			left: 34px;
+			color: #747360;
+			font-weight: bold;
+		}
+	 select{
+			padding: 3px;
+			font-size: 18;
+			width: 132;
+			margin: 0;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			-webkit-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+			-moz-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+			box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+			background: #f8f8f8;
+			color: #888;
+			border: none;
+			outline: none;
+			display: inline-block;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			cursor: pointer;	
+		}
+	 .estiloso {position:relative}
+ .estiloso:after {
+	    content: '<>';
+			font: 15px "Consolas", monospace;
+			color: #aaa;
+			-webkit-transform: rotate(90deg);
+			-moz-transform: rotate(90deg);
+			-ms-transform: rotate(90deg);
+			transform: rotate(90deg);
+			right: 4px;
+			top: 9px;
+			padding: 0 0 2px;
+			border-bottom: 1px solid #ddd;
+			position: absolute;
+			pointer-events: none;
+		}
+	 .estiloso:before {
+	   content: '';
+		right: 14px;
+		top: 12px;
+		width: 20px;
+		height: 20px;
+		background: #f8f8f8;
+		position: absolute;
+		pointer-events: none;
+		display: block;
+	}
+	#meuForm .estiloso:before ,  .tabretorno .estiloso:before {
+    top: 0px;
+    /* right: -130px; */
+}
+	#meuForm .estiloso:after , .tabretorno .estiloso:after {
+    top: 0px;
+    /* right: -130px; */
+}
+	
+	#NovoCliente #nome{
+	width:300px;
+	
+	}
+	#NovoCliente #cpf{
+	
+	width: 200px;
+	}
+	#NovoCliente #Telefone{
+	
+	width: 200px;
+	}
+	#NovoCliente #sexo{
+	
+	/* width:300px; */
+	}
+	#NovoCliente #email{
+	
+	width:300px;
+	}
+	#NovoCliente #end{
+	width: 400px;
+	}
+	
+	#NovoCliente #datepicker{
+	
+	}
+	
+	/*cliente existente*/
+	#tabdados .tabretorno {
+			background-color: #fff;
+			border-radius: 5px;
+			border: 1px;
+			border-collapse: collapse;
+			border-color: #eee;
+	}
+	
+	#tabdados .tabretorno tr td, #tabdados .tabretorno th {
+			border: 7px solid;
+			border-color: #fff;
+	}
+	#nome0{
+	display:block;
+	
+	}
+	#tabdados .tabretorno th{
+	font-size: 20px;
+	background-color: #fff;
+	text-align: center;
+	border-radius: 5;
+	}
+	#tabdados input, #tabdados select, #tabdados label {
+    display: none;
+
+	}
+	#procli .fundoq{
+	width:100%;
+	height:100%;
+	background-color:#000;
+	opacity:0.7;
+	display:none;
+	position:fixed
+	;
+	top: 0;
+	left: 0;
+}
+	#procli .question{
+		width: 355;
+		background-color: #eee;
+		border-radius: 5px;
+		position: fixed;
+		top: 50%;
+		lefT: 50%;
+		height: 76px;
+		margin-left: -175px;
+		text-align: center;
+		display:none;
+	}
+#procli .question .yes,#procli .question .nope {	
+width: 50px;
+background-color: green;
+border-radius: 5px;
+color: #fff;
+cursor: pointer;
+left: 50%;
+position: relative;
+margin-left: -75px;
+-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+font-weight: bold;
+}
+
+#procli .question .nope{
+	background-color: red;
+margin-left: 25px;
+top: -21px;
+	
+}
+#procli .resposta{
+border-style: solid;
+border-color: green;
+border-radius: 5px;
+font-size: 14px;
+width: 100%;
+height: 50px;
+background-color: #fff;
+text-align: center;
+line-height: 50px;
+font-weight: bolder;
+display:none;
+position: absolute;
 }
