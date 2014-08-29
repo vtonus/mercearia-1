@@ -5,11 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import br.com.mercearia.modelo.Cliente;
+import br.com.mercearia.modelo.Compra;
 import br.com.mercearia.modelo.CompraProduto;
+import br.com.mercearia.modelo.Produto;
 
 public class CompraProdutoDAO {
 	private Connection connection;
@@ -22,7 +22,6 @@ public class CompraProdutoDAO {
 				+ " values (?, ?, ?, ?)";
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
-			System.out.println("8888888888" +compraProduto.getProduto().getId());
 			ps.setLong(1, compraProduto.getProduto().getId());
 			ps.setInt(2, compraProduto.getCompra().getId());
 			ps.setFloat(3, compraProduto.getValor());
@@ -38,42 +37,34 @@ public class CompraProdutoDAO {
 	public List<CompraProduto> buscaCompraProduto(int i) {
 		connection = new Conexao().getConnection();
 
+		String sql = "select id_produto, id_compra, cp.valor, cp.qtd, p.nome "
+				+ " from compraproduto cp inner join produto p on (cp.id_produto = p.id)"
+				+ "where cp.id_compra = ?";
 
-		String sql = "select " 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 
 			ps = this.connection.prepareStatement(sql);
-			palavraChave = ("%" + palavraChave + "%");
-			if (i == 0) {
-				ps.setString(1, palavraChave);
-			} else {
-				try {
-					i = Integer.parseInt(palavraChave);
-				} catch (RuntimeException e) {
-					throw new RuntimeException(e);
-				}
-				ps.setInt(1, i);
-			}
+			ps.setInt(1, i);
 			ResultSet rs = ps.executeQuery();
-			List<Cliente> listaCliente = new ArrayList<Cliente>();
+			List<CompraProduto> listaCp = new ArrayList<CompraProduto>();
 			while (rs.next()) {
-				Cliente cliente = new Cliente();
-				cliente.setNome(rs.getString("nome"));
-				cliente.setDoc(rs.getString("doc"));
-				cliente.setTelefone(Long.parseLong(rs.getString("telefone")));
-				cliente.setSexo(rs.getString("sexo"));
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(rs.getDate("dataNascimento"));
-				cliente.setDataNascimento(calendar);
-				cliente.setEmail(rs.getString("email"));
-				listaCliente.add(cliente);
+				Produto produto = new Produto();
+				CompraProduto cp = new CompraProduto();
+				Compra compra = new Compra();
+				compra.setId(rs.getInt("id_compra"));
+				produto.setId(rs.getLong("id_produto"));
+				cp.setValor(rs.getFloat("valor"));
+				cp.setQtd(rs.getInt("qtd"));
+				produto.setNome(rs.getString("nome"));
+				cp.setCompra(compra);
+				cp.setProduto(produto);
+
+				listaCp.add(cp);
 			}
-			return listaCliente;
+			return listaCp;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
 	}
 }

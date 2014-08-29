@@ -6,14 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import br.com.mercearia.faces.NovoProdutoBean;
 import br.com.mercearia.modelo.Produto;
-import br.com.mercearia.util.Conversao;
 
 public class ProdutoDAO {
 	private Connection connection;
@@ -32,12 +29,14 @@ public class ProdutoDAO {
 			System.out.println(" id do produto buscado eh " + id);
 			ps.setLong(1, id);
 			ResultSet rs = ps.executeQuery();
+			Calendar calendar = Calendar.getInstance();
 			while (rs.next()) {
 				produto.setNome(rs.getString("nome"));
 				produto.setQtd(rs.getInt("qtd"));
 				try {
-					produto.setValidade(rs.getDate("val_max"));
-				} catch (SQLException e) {
+					calendar.setTime(rs.getDate("validade"));
+					produto.setValidade(calendar);
+				} catch (SQLException | RuntimeException e) {
 					System.out.println("Deu pau na data do produto.");
 				}
 				produto.setValor(rs.getFloat("valor"));
@@ -147,23 +146,21 @@ public class ProdutoDAO {
 	}
 
 	
-	public List<Produto> procura(NovoProdutoBean npd) 
+	public List<Produto> busca(Produto produto) 
 	{
 		connection = new Conexao().getConnection();
 		Boolean[] boo = new Boolean[9];
-		for (int j = 0; j < 9; j++) 
+		  for (int j = 0; j < 9; j++) 
 		{
 			boo[j] = false;
 		}
-		// codigo, nome, valormin, valormax,fabricante, qtdmin, qtdmax,
-		// validademin, validademax
-
+		
 		int i = 0;
 		String sql = "select * from produto ";
 
 		try 
 		{
-			if (npd.getId() > 0) 
+			if (produto.getId() > 0) 
 			{
 				boo[0] = true;
 				sql = sql.concat("where id = ? ");
@@ -176,7 +173,7 @@ public class ProdutoDAO {
 
 		try
 		{
-			if (npd.getCompletandoN().trim().length() > 0) 
+			if (produto.getNome().trim().length() > 0) 
 			{
 			
 				boo[1] = true;
@@ -195,7 +192,7 @@ public class ProdutoDAO {
 		catch(NullPointerException e){}
 
 		try {
-				if (npd.getValorMin() > 0) {
+				if (produto.getValorMin() > 0) {
 					boo[2] = true;
 					if (i == 0) {
 						sql = sql.concat("where ");
@@ -208,7 +205,7 @@ public class ProdutoDAO {
 			} catch (NullPointerException e) {}
 
 			try {
-				if (npd.getValorMax() > 0) {
+				if (produto.getValorMax() > 0) {
 					boo[3] = true;
 					if (i == 0) {
 						sql = sql.concat("where ");
@@ -221,7 +218,7 @@ public class ProdutoDAO {
 			} catch (NullPointerException e) {
 			}
 
-			if (npd.getCompletandoF().trim().length() > 0) {
+			if (produto.getFabricante().trim().length() > 0) {
 				if (i == 0) {
 					boo[4] = true;
 					sql = sql.concat("where ");
@@ -231,122 +228,63 @@ public class ProdutoDAO {
 				}
 				sql = sql.concat("fabricante like ? ");
 			}
-			try {
-				if (npd.getQuantidadeMin() > 0) {
-					boo[5] = true;
-					if (i == 0) {
-						sql = sql.concat("where ");
-						i = 1;
-					} else {
-						sql = sql.concat("and ");
-					}
-					sql = sql.concat("qtd >= ? ");
-				}
-			} catch (NullPointerException e) {
-			}
-			try {
-				if (npd.getQuantidadeMax() > 0) {
-					boo[6] = true;
-					if (i == 0) {
-						sql = sql.concat("where ");
-						i = 1;
-					} else {
-						sql = sql.concat("and ");
-					}
-					sql = sql.concat("qtd <= ? ");
-				}
-			} catch (NullPointerException e) {
-			}
-
+			
 			try {
 				calendar = Calendar.getInstance();
-				calendar = Conversao.dateEmCalendar(npd.getValidadeMin());
-				boo[7] = true;
+				calendar = produto.getValidade();
+				boo[5] = true;
 				if (i == 0) {
 					sql = sql.concat("where ");
-					i = 2;
 				} else {
 					sql = sql.concat("and ");
-					i = 2;
 				}
-			} catch (ParseException | NullPointerException e) {}
+				sql = sql.concat("validade < ?");
+			} catch (NullPointerException e) {}
 
-			try {
-				calendar = Calendar.getInstance();
-				calendar = Conversao.dateEmCalendar(npd.getValidadeMin());
-				boo[8] = true;
-				if (i == 0) {
-					sql = sql.concat("where validade <= ?");
-					i = 3;
-				}
-
-				else if (i == 1) {
-					sql = sql.concat("and validade <= ?");
-					i = 3;
-				} else {
-					sql = sql.concat("validade between ? and ?");
-					i = 3;
-				}
-			} catch (ParseException | NullPointerException e) {}
-			if (i == 2) {
-				sql = sql.concat("validade >= ?");
-			}
-			System.out.println(sql);
-			try {
+						try {
+							
 				PreparedStatement ps = connection.prepareStatement(sql);
 				i = 1;
 				if (boo[0]) {
-					ps.setLong(i, npd.getId());
+					ps.setLong(i, produto.getId());
 					i++;
 				}
 				if (boo[1]) {
-					ps.setString(i, "%"+npd.getNome()+"%");
+					ps.setString(i, "%"+produto.getNome()+"%");
 					i++;
 				}
 				if (boo[2]) {
-					ps.setFloat(i, npd.getValorMin());
+					ps.setFloat(i, produto.getValorMin());
 					i++;
 				}
 				if (boo[3]) {
-					ps.setFloat(i, npd.getValorMax());
+					ps.setFloat(i, produto.getValorMax());
 					i++;
 				}
 				if (boo[4]) {
-					ps.setString(i, "%"+npd.getFabricante()+"%");
+					ps.setString(i, "%"+produto.getFabricante()+"%");
 					i++;
 				}
 				if (boo[5]) {
-					ps.setInt(i, npd.getQuantidadeMin());
+					ps.setDate(i, new Date (produto.getValidade().getTimeInMillis()));
 					i++;
 				}
-				if (boo[6]) {
-					ps.setInt(i, npd.getQuantidadeMax());
-					i++;
-				}
-				if (boo[7]) {
-					ps.setDate(i, new Date(npd.getValidadeMin().getTime()));
-					i++;
-				}
-				if (boo[8]) {
-					ps.setDate(i, new Date(npd.getValidadeMax().getTime()));
-				}
-				System.out.println(sql);
 				ResultSet rs = ps.executeQuery();
 				List<Produto> produtos = new ArrayList<Produto>();
-				Produto produto = new Produto();
+				Calendar calendar = Calendar.getInstance();
 				while (rs.next()) {
+					produto = new Produto();
 					produto.setNome(rs.getString("nome"));
 					produto.setQtd(rs.getInt("qtd"));
 					try {
-						produto.setValidade(rs.getDate("validade"));
-					} catch (SQLException e) {}
-					
+						calendar.setTime(rs.getDate("validade"));
+						produto.setValidade(calendar);
+					} catch (SQLException | RuntimeException e) {}
 					produto.setValor(rs.getFloat("valor"));
 					produto.setId(rs.getLong("id"));
 					produto.setFabricante(rs.getString("fabricante"));
-					System.out.println(produto.getNome());
+					produto.setEstoque(rs.getInt("estoque"));
 					produtos.add(produto);
-					produto = new Produto();
 				}
 				ps.close();
 				connection.close();
@@ -358,7 +296,7 @@ public class ProdutoDAO {
 		}
 	
 
-	public void adiciona(NovoProdutoBean produto) {
+	public boolean adiciona(Produto produto) {
 		connection = new Conexao().getConnection();
 		//
 		String sql = "insert into produto values (?, ?, ?, ?, ?, ?)";
@@ -374,20 +312,72 @@ public class ProdutoDAO {
 			} catch (SQLException e) {
 			}
 			try {
-				ps.setInt(5, produto.getQuantidade());
+				ps.setInt(5, produto.getQtd());
 			} catch (SQLException e) {
 			}
 			try {
-				ps.setDate(6, new Date(produto.getValidade().getTime()));
+				ps.setDate(6, new Date(produto.getValidade().getTimeInMillis()));
 			} catch (RuntimeException e) {
 				e.printStackTrace();
 				ps.setNull(6, Types.DATE);
 			}
+			try
+			{
+				ps.setInt(7, produto.getEstoque());
+			}
+			catch(SQLException e)
+			{
+			}
 			ps.execute();
+			bool = true;
 			ps.close();
 			connection.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+		return bool;
 	}
+	public boolean edita(Produto produto) {
+		connection = new Conexao().getConnection();
+		boolean bool = false;
+		String sql = "update produto set id= ?, nome= ?, valor= ?, fabricante= ?, qtd= ?, estoque= ?, validade= ? where id = ?";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			
+			ps.setLong(1, produto.getId());
+			ps.setString(2, produto.getNome());
+			ps.setFloat(3, produto.getValor());
+			ps.setString(4, produto.getFabricante());
+			ps.setInt(5, produto.getQtd());
+			ps.setInt(6, produto.getEstoque());
+			ps.setDate(7, new Date(produto.getValidade().getTimeInMillis()));
+			ps.setLong(8, produto.getId());
+			ps.execute();
+			bool = true;
+			ps.close();
+			connection.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return bool;
+	}
+	public boolean exclui(long id) {
+		connection = new Conexao().getConnection();
+		boolean bool = false;
+		String sql = "delete from produto where id = ?";
+
+		try { 
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setLong(1, id);
+			ps.execute();
+			bool = true;
+			ps.close();
+			connection.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return bool;
+	}
+
 }

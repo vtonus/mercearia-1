@@ -1,14 +1,41 @@
 package br.com.mercearia.modelo;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Produto {
 	private long id;
 	private float valor;
+	private float valorMax;
+	private float valorMin;
+	public float getValorMax() {
+		return valorMax;
+	}
+
+	public void setValorMax(float valorMax) {
+		this.valorMax = valorMax;
+	}
+
+	public float getValorMin() {
+		return valorMin;
+	}
+
+	public void setValorMin(float valorMin) {
+		this.valorMin = valorMin;
+	}
+
 	private String nome;
 	private String fabricante;
 	private int qtd;
-	private Date validade;
+	private Calendar validade;
+	private int estoque;
+
+	public int getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(int estoque) {
+		this.estoque = estoque;
+	}
 
 	public long getId() {
 		return id;
@@ -51,11 +78,11 @@ public class Produto {
 		this.fabricante = fabricante;
 	}
 
-	public Date getValidade() {
+	public Calendar getValidade() {
 		return validade;
 	}
 
-	public void setValidade(Date validade) {
+	public void setValidade(Calendar validade) {
 		this.validade = validade;
 	}
 
