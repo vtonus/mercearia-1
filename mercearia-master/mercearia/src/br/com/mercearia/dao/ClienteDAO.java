@@ -74,6 +74,7 @@ public class ClienteDAO {
 			List<Cliente> listaCliente = new ArrayList<Cliente>();
 			while (rs.next()) {
 				Cliente cliente = new Cliente();
+				cliente.setId(Integer.parseInt(rs.getString("id_cliente")));
 				cliente.setNome(rs.getString("nome"));
 				cliente.setDoc(rs.getString("doc"));
 				cliente.setTelefone(Long.parseLong(rs.getString("telefone")));
@@ -111,7 +112,7 @@ public class ClienteDAO {
 	public boolean edita(Cliente cliente) {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
-		String sql = "update cliente set doc= ?, nome= ?, telefone= ?, sexo = ?, email= ?, dataNascimento= ?, where id_cliente = ?";
+		String sql = "update cliente set doc= ?, nome= ?, telefone= ?, sexo = ?, email= ?, dataNascimento= ? where id_cliente = ?";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);

@@ -20,6 +20,7 @@ public class ExcluiCliente extends HttpServlet {
 		if (cdao.exclui(id))
 		{
 			response.setStatus(200);
+			System.out.println("Operação exclui cliente realizada com sucesso.");
 		}
 		else
 		{

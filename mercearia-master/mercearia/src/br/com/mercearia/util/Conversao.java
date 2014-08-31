@@ -16,14 +16,24 @@ public class Conversao {
 		return resposta;
 	}
 	
-	public static Calendar textoEmData(String textoEmData)
+	public static Calendar textoHEmData(String textoEmData)
 			throws ParseException {
-		//textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4);
+		textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4);
 		Date date = new SimpleDateFormat("dd/MM/yyyy").parse(textoEmData);
 		dataRetorno = Calendar.getInstance();
 		dataRetorno.setTime(date);
 		return dataRetorno;
 	}
+	
+	public static Calendar textoEmData(String textoEmData)
+			throws ParseException {
+		textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4);
+		Date date = new SimpleDateFormat("dd/MM/yyyy").parse(textoEmData);
+		dataRetorno = Calendar.getInstance();
+		dataRetorno.setTime(date);
+		return dataRetorno;
+	}
+	
 	public static Calendar dateEmCalendar(Date dec)
 			throws ParseException {
 		Calendar c = Calendar.getInstance();

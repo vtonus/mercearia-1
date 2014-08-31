@@ -34,7 +34,7 @@ public class NovoCliente extends HttpServlet {
 		cliente.setSexoC(request.getParameter("sexo"));
 
 		try {
-			cliente.setDataNascimento(Conversao.textoEmData(request
+			cliente.setDataNascimento(Conversao.textoHEmData(request
 					.getParameter("dtn")));
 		} catch (ParseException | RuntimeException e) {
 		}

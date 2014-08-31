@@ -25,15 +25,17 @@ public class EditaCliente extends HttpServlet {
 		cliente.setDoc(request.getParameter("cpf"));
 		cliente.setTelefone(Long.parseLong(request.getParameter("telefone")));
 		cliente.setEmail(request.getParameter("email"));
-		cliente.setEmail(request.getParameter("sexo"));
+		cliente.setSexo(request.getParameter("sexo"));
+		System.out.println("id "+cliente.getId()+"\nnome "+cliente.getNome()+"\ncpf "+cliente.getDoc()+"\ntelefone "+cliente.getTelefone()+"\nemail "+cliente.getEmail()+"\nsexo "+cliente.getSexo());
 		
 		try{
-			cliente.setDataNascimento(Conversao.textoEmData(request.getParameter("dataNascimento")));
-		}catch (ParseException e){};
+			cliente.setDataNascimento(Conversao.textoEmData(request.getParameter("dataDeNascimento")));
+		}catch (ParseException | NullPointerException e){};
 		
 		if(cdao.edita(cliente))
 		{
 			response.setStatus(200);
+			System.out.println("Operação edita cliente realizada com sucesso.");
 		}
 		else
 		{
