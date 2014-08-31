@@ -73,7 +73,7 @@ function editaCliente(pk){
 	$.ajax({
 		url:'EditaCliente',
 		data:{
-		id:$("#nome"+pk).val(),nome:$("#nome"+pk).val(),cpf:$("#doc"+pk).val(),telefone:$("#telefone"+pk).val(),email:$("#email"+pk).val(),sexo:$("#sexo"+pk).val(),dataDeNascimento:$("#data"+pk).val(),
+		id:$("#id"+pk).val(),nome:$(".nome"+pk).val(),cpf:$(".doc"+pk).val(),telefone:$(".telefone"+pk).val(),email:$(".email"+pk).val(),sexo:$(".sexo1"+pk).val(),dataDeNascimento:$(".data"+pk).val(),
 		},
 		type: 'POST',
 		sucess: function(back){
@@ -176,10 +176,10 @@ function buscaDadosCliente() {
 						"<tr> " +
 				"<td><span id='nome"+i+"'>" + $("#nome"+i).val()+ "</span><input  type='text' class='nome"+i+"' value='"+$("#nome"+i).val()+"'></input></td>" +
 		 		"<td><span id='telefone"+i+"'>" + $("#telefone"+i).val()+ " </span><input  type='text' class='telefone"+i+"' value='"+$("#telefone"+i).val()+"'></input></td>" +
-		 		"<td><span id='doc"+i+"'>" + $("#doc"+i).val()+ "</span><input  type='text' class='doc"+i+"' value='"+$("#doc"+i).val()+"'></input></td>" +
+		 		"<td><span id='doc"+i+"'>" + $("#cpf"+i).val()+ "</span><input  type='text' class='doc"+i+"' value='"+$("#cpf"+i).val()+"'></input></td>" +
 		 		"<td><span id='email"+i+"'>" + $("#email"+i).val()+ "</span><input  type='text' class='email"+i+"' value='"+$("#email"+i).val()+"'></input></td>" +
-		 		"<td><span id='sexo"+i+"' >" + $("#sexo"+i).val()+ "</span><label class='estiloso sexo"+i+"' ><select  name='sexo' class='sexo"+i+"' value='"+$("#sexo"+i).val()+"'><option value='m'>Masculino</option><option value='f'>Feminino </option></select></label> </td>" +
-		 		"<td><span id='data"+i+"'>" + $("#data"+i).val()+ "</span><input  type='text' class='data"+i+"' value='"+$("#data"+i).val()+"'></input></td>" +
+		 		"<td><span id='sexo"+i+"' >" + $("#sexo"+i).val()+ "</span><label class='estiloso sexo"+i+"' ><select  name='sexo' class='sexo"+i+" sexo1"+i+"' value='"+$("#sexo"+i).val()+"'><option value='m'>Masculino</option><option value='f'>Feminino </option></select></label> </td>" +
+		 		"<td><span id='data"+i+"'>" + $("#dataNascimento"+i).val()+ "</span><input  type='text' class='data"+i+"' value='"+$("#dataNascimento"+i).val()+"'></input></td>" +
 		 		"<td><img id='edita"+i+"' onclick='mostraedita("+i+")' src='../images/edita.png' /><img id='salva"+i+"' onclick='pEditaCliente("+i+")' style='display:none' src='../images/salva.png' /><img id='salva"+i+"' onclick='cEditaCliente("+i+")' style='display:none' src='../images/close15.png' /></td>"+
 		 		"<td><img onclick='pExcluiCliente("+i+")' src='../images/exclui.png' /></td>"+"</tr>";
 		 		 i++;
