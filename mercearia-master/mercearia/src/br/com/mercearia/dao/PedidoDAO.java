@@ -32,7 +32,7 @@ public class PedidoDAO {
 	public int adiciona(Pedido pedido) {
 		connection = new Conexao().getConnection();
 		int retorno = 0;
-		String sql = "insert into pedido (valor, comentario, fornecedor, funcionario, datahora) values (?, ?, ?, ?, ?)";
+		String sql = "insert into pedido (valor, descricao, fornecedor, funcionario, datahora) values (?, ?, ?, ?, ?)";
 		//
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);

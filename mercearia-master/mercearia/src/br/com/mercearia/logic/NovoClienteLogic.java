@@ -32,7 +32,7 @@ public class NovoClienteLogic implements Logic {
 		cliente.setDataNascimento(Conversao.textoEmData(request
 					.getParameter("dataNascimento")));
 		cliente.setSexo(sexo);
-		cliente.setDoc(cpf);
+		cliente.setCpf(cpf);
 		cliente.setTelefone(telefone);
 
 		ClienteDAO dao = new ClienteDAO();

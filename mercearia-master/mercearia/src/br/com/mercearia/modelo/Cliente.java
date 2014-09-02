@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 public class Cliente {
 	private int id;
-	private String doc;
+	private String cpf;
 	private String nome;
 	private String email;
 	private long telefone;
@@ -20,11 +20,11 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 	
-	public String getDoc() {
-		return doc;
+	public String getCpf() {
+		return cpf;
 	}
-	public void setDoc(String cpf) {
-		this.doc = cpf;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	public String getNome() {
 		return nome;

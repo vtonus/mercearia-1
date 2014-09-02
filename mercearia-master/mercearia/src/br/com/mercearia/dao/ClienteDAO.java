@@ -18,12 +18,12 @@ public class ClienteDAO {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
 		String sql = "insert into cliente "
-				+ "(doc, nome, telefone, sexo, email, dataNascimento)"
+				+ "(cpf, nome, telefone, sexo, email, dataNascimento)"
 				+ " values (?, ?, ?, ?, ?, ?)";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, cliente.getDoc());
+			ps.setString(1, cliente.getCpf());
 			ps.setString(2, cliente.getNome());
 			ps.setLong(3, cliente.getTelefone());
 			ps.setString(4, cliente.getSexo());
@@ -47,9 +47,9 @@ public class ClienteDAO {
 		if (parametro.equals("nome")) {
 			sql = "select * from cliente where nome like ?";
 		} else if (parametro.equals("cpf")) {
-			sql = "select * from cliente where doc like ?";
+			sql = "select * from cliente where cpf like ?";
 		} else if (parametro.equals("id")) {
-			sql = "select * from cliente where id_cliente = ?";
+			sql = "select * from cliente where id = ?";
 			i = 1;
 		} else {
 			sql = "select * from cliente where telefone like ?";
@@ -74,9 +74,9 @@ public class ClienteDAO {
 			List<Cliente> listaCliente = new ArrayList<Cliente>();
 			while (rs.next()) {
 				Cliente cliente = new Cliente();
-				cliente.setId(Integer.parseInt(rs.getString("id_cliente")));
+				cliente.setId(Integer.parseInt(rs.getString("id")));
 				cliente.setNome(rs.getString("nome"));
-				cliente.setDoc(rs.getString("doc"));
+				cliente.setCpf(rs.getString("cpf"));
 				cliente.setTelefone(Long.parseLong(rs.getString("telefone")));
 				cliente.setSexo(rs.getString("sexo"));
 				Calendar calendar = Calendar.getInstance();
@@ -94,7 +94,7 @@ public class ClienteDAO {
 	public boolean exclui(int id) {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
-		String sql = "delete from cliente where id_cliente = ?";
+		String sql = "delete from cliente where id = ?";
 
 		try { 
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -112,12 +112,12 @@ public class ClienteDAO {
 	public boolean edita(Cliente cliente) {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
-		String sql = "update cliente set doc= ?, nome= ?, telefone= ?, sexo = ?, email= ?, dataNascimento= ? where id_cliente = ?";
+		String sql = "update cliente set cpf= ?, nome= ?, telefone= ?, sexo = ?, email= ?, dataNascimento= ? where id = ?";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			
-			ps.setString(1, cliente.getDoc());
+			ps.setString(1, cliente.getCpf());
 			ps.setString(2, cliente.getNome());
 			ps.setLong(3, cliente.getTelefone());
 			ps.setString(4, cliente.getSexo());

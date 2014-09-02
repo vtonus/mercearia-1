@@ -33,7 +33,7 @@ public class BuscaCliente extends HttpServlet {
 								  "<input type=\"hidden\" id=\"id" + i
 								+ "\" value=\"" + cliente.getId() + "\">"
 								+ "<input type=\"hidden\" id=\"cpf" + i
-								+ "\" value=\"" + cliente.getDoc() + "\">"
+								+ "\" value=\"" + cliente.getCpf() + "\">"
 								+ "<input type=\"hidden\" id=\"nome" + i 
 								+ "\" value=\"" + cliente.getNome() + "\">"
 								+ "<input type=\"hidden\" id=\"telefone" + i

@@ -22,11 +22,11 @@ public class EditaCliente extends HttpServlet {
 		Cliente cliente = new Cliente();
 		cliente.setId(Integer.parseInt(request.getParameter("id")));
 		cliente.setNome(request.getParameter("nome"));
-		cliente.setDoc(request.getParameter("cpf"));
+		cliente.setCpf(request.getParameter("cpf"));
 		cliente.setTelefone(Long.parseLong(request.getParameter("telefone")));
 		cliente.setEmail(request.getParameter("email"));
 		cliente.setSexo(request.getParameter("sexo"));
-		System.out.println("id "+cliente.getId()+"\nnome "+cliente.getNome()+"\ncpf "+cliente.getDoc()+"\ntelefone "+cliente.getTelefone()+"\nemail "+cliente.getEmail()+"\nsexo "+cliente.getSexo());
+		System.out.println("id "+cliente.getId()+"\nnome "+cliente.getNome()+"\ncpf "+cliente.getCpf()+"\ntelefone "+cliente.getTelefone()+"\nemail "+cliente.getEmail()+"\nsexo "+cliente.getSexo());
 		
 		try{
 			cliente.setDataNascimento(Conversao.textoEmData(request.getParameter("dataDeNascimento")));

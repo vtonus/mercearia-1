@@ -5,6 +5,7 @@ public class ProdutoPedido {
 	private Pedido pedido;
 	private int qtd;
 	private float valor;
+	
 	public Produto getProduto() {
 		return produto;
 	}

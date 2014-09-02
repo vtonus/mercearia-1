@@ -5,8 +5,15 @@ import java.util.Calendar;
 public class Produto {
 	private long id;
 	private float valor;
+	private String nome;
+	private String fabricante;
+	private int qtd;
+	private Calendar validade;
+	private int estoque;
+	
 	private float valorMax;
 	private float valorMin;
+
 	public float getValorMax() {
 		return valorMax;
 	}
@@ -23,11 +30,6 @@ public class Produto {
 		this.valorMin = valorMin;
 	}
 
-	private String nome;
-	private String fabricante;
-	private int qtd;
-	private Calendar validade;
-	private int estoque;
 
 	public int getEstoque() {
 		return estoque;

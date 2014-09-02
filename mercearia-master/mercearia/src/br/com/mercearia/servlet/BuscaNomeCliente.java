@@ -30,7 +30,7 @@ public class BuscaNomeCliente extends HttpServlet {
 						"<input type=\"hidden\" id=\"nome" + i + "\" "
 						+ "value=\""+ c.getNome() +"\">"
 						+ "<input type=\"hidden\" id=\"cpf" + i + "\" "
-						+ "value=\""+ c.getDoc() +"\">"
+						+ "value=\""+ c.getCpf() +"\">"
 						+ "<input type=\"hidden\" id=\"dataNascimento" + i + "\" "
 						+ "value=\""+ c.getDataNascimento() +"\">");
 			}

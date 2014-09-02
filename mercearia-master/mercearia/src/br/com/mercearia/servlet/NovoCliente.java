@@ -27,7 +27,7 @@ public class NovoCliente extends HttpServlet {
 		}
 
 		try {
-			cliente.setDoc(request.getParameter("doc"));
+			cliente.setCpf(request.getParameter("doc"));
 		} catch (RuntimeException e) {
 		}
 
