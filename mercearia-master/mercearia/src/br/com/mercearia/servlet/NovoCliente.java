@@ -12,7 +12,7 @@ import br.com.mercearia.dao.ClienteDAO;
 import br.com.mercearia.modelo.Cliente;
 import br.com.mercearia.util.Conversao;
 
-@SuppressWarnifghfghngs("serial")
+@SuppressWarnings("serial")
 public class NovoCliente extends HttpServlet {
 	ClienteDAO cdao = new ClienteDAO();
 
