@@ -81,7 +81,7 @@ public class Cliente {
 		this.email = email;
 	}
 	public void setSexoC(String parameter) {
-		parameter = parameter..toLowerCase();
+		parameter = parameter.toLowerCase();
 		if (parameter.equals("masculino"))
 		{
 			this.setSexo("m");
