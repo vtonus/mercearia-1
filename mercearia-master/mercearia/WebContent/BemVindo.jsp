@@ -34,7 +34,7 @@
 <h3>Usuário </h3>
 <label>
 	<select name="usuario">
-	<jsp:useBean id="dao" class="br.com.mercearia.dao.FuncionarioDAO"/>
+	<jsp:useBean id="dao" class="br.com.mercearia.dao.FuncionarioDAO" scope="page"/>
 	<c:forEach var="funcionario" items="${dao.lista}">
 	<option value="${funcionario.usuario}">${funcionario.usuario}</option>
 	</c:forEach>

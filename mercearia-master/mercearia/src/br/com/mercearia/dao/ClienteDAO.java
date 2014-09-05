@@ -122,8 +122,12 @@ public class ClienteDAO {
 			ps.setLong(3, cliente.getTelefone());
 			ps.setString(4, cliente.getSexo());
 			ps.setString(5, cliente.getEmail());
-			ps.setDate(6, new Date(cliente.getDataNascimento()
-					.getTimeInMillis()));
+			
+			try {
+				ps.setDate(6, new Date(cliente.getDataNascimento()
+						.getTimeInMillis()));
+			}catch(NullPointerException e){}
+			
 			ps.setInt(7, cliente.getId());
 			ps.execute();
 			bool = true;
