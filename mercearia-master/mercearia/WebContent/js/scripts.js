@@ -31,14 +31,21 @@ function cExcluirCliente(pk){
 function excluiCliente(pk){
 	$.ajax({
 		url:'ExcluiCliente',
-		data: { id: pk },
+		data: { id: $("#id"+pk).val()},
 		type:'POST',	
-		sucess: function(back){
+		success: function(back){
+			
+	
 			cEditaCliente(pk);
-			buscaDadosCliente();
 			$("#procli .resposta").fadeIn();
 			setTimeout(function(){$("#procli .resposta").fadeOut();},3000);
-			$("#procli .resposta").html("	Cliente Excluido com sucesso!!");
+			console.log('teste2');
+			$("#procli .resposta").html("Cliente Excluido com sucesso!!");
+			setTimeout(function(){
+			$('.content').load('ProcuraCliente.jsp');
+			console.log('teste3');
+			buscaDadosCliente();},3000);
+			
 		},
 		error:function(){
 			cEditaCliente(pk);
@@ -76,7 +83,7 @@ function editaCliente(pk){
 		id:$("#id"+pk).val(),nome:$(".nome"+pk).val(),cpf:$(".doc"+pk).val(),telefone:$(".telefone"+pk).val(),email:$(".email"+pk).val(),sexo:$(".sexo1"+pk).val(),dataDeNascimento:$(".data"+pk).val(),
 		},
 		type: 'POST',
-		sucess: function(back){
+		success: function(back){
 			cEditaCliente(pk);
 			buscaDadosCliente();
 			$("#procli .resposta").fadeIn();
