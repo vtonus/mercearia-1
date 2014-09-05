@@ -47,22 +47,27 @@ public class Cliente {
 	public String getSexo() {
 		return sexo;
 	}
-	public void setSexo(String sexo) {
-		if (sexo.contains("feminino")) 
+	public String getSexoC() {
+		if (sexo.equals("m"))
 		{
-			this.sexo = "f";
+			return "masculino";
 		}
-		else if (sexo.contains("masculino")) 
+		if (sexo.equals("f"))
 		{
-			this.sexo = "m";
+			return "feminino";
 		}
-		else 
+		else
 		{
-			this.sexo = "0";
+			return "";
 		}
-				
+		
+	}
+	
+	public void setSexo(String sexo) 
+	{
 		this.sexo = sexo;
 	}
+
 	public Calendar getDataNascimento() {
 		return dataNascimento;
 	}
@@ -76,17 +81,18 @@ public class Cliente {
 		this.email = email;
 	}
 	public void setSexoC(String parameter) {
+		parameter = parameter..toLowerCase();
 		if (parameter.equals("masculino"))
 		{
 			this.setSexo("m");
 		}
 		else if (parameter.equals("feminino"))
 		{
-			this.setSexo("m");
+			this.setSexo("f");
 		}
 		else
 		{
-			this.setSexo("0");
+			this.setSexo("");
 		}
 		
 	}

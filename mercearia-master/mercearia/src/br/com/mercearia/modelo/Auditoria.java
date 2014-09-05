@@ -1,12 +1,11 @@
 package br.com.mercearia.modelo;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Calendar;
+import org.primefaces.component.calendar.Calendar;
 
 import br.com.mercearia.dao.Conexao;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 
 public class Auditoria {
 	

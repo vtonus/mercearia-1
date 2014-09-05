@@ -46,7 +46,7 @@ public class BuscaCliente extends HttpServlet {
 								+ "<input type=\"hidden\" id=\"email" + i
 								+ "\" value=\"" + cliente.getEmail() + "\">"
 								+ "<input type=\"hidden\" id=\"sexo" + i
-								+ "\" value=\"" + cliente.getSexo() + "\">"
+								+ "\" value=\"" + cliente.getSexoC() + "\">"
 								+ "<input type=\"hidden\" id=\"dataNascimento" + i
 								+ "\" value=\"" + dataNascimento + "\">");
 			}

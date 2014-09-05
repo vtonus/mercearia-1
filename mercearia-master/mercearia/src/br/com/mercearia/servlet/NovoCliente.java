@@ -12,7 +12,7 @@ import br.com.mercearia.dao.ClienteDAO;
 import br.com.mercearia.modelo.Cliente;
 import br.com.mercearia.util.Conversao;
 
-@SuppressWarnings("serial")
+@SuppressWarnifghfghngs("serial")
 public class NovoCliente extends HttpServlet {
 	ClienteDAO cdao = new ClienteDAO();
 
@@ -21,34 +21,21 @@ public class NovoCliente extends HttpServlet {
 		Cliente cliente = new Cliente();
 		boolean bool = false;
 		cliente.setNome(request.getParameter("nome"));
-		try {
-			cliente.setEmail(request.getParameter("email"));
-		} catch (RuntimeException e) {
-		}
-
-		try {
-			cliente.setCpf(request.getParameter("doc"));
-		} catch (RuntimeException e) {
-		}
-
+		cliente.setEmail(request.getParameter("email"));
+		cliente.setCpf(request.getParameter("doc"));
 		cliente.setSexoC(request.getParameter("sexo"));
 
 		try {
 			cliente.setDataNascimento(Conversao.textoHEmData(request
 					.getParameter("dtn")));
-		} catch (ParseException | RuntimeException e) {
-		}
+		} catch (ParseException | RuntimeException e) {}
 
 		try {
 			cliente.setTelefone(Long.parseLong(request.getParameter("telefone")));
-		} catch (RuntimeException e) {
-		}
+		} catch (RuntimeException e) {}
 
-		try {
-			cliente.setEndereco(request.getParameter("endereco"));
-		} catch (RuntimeException e) {
-		}
-
+		cliente.setEndereco(request.getParameter("endereco"));
+		
 		ClienteDAO dao = new ClienteDAO();
 		bool = dao.adiciona(cliente);
 		if (bool)

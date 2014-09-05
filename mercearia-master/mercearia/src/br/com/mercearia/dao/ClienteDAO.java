@@ -1,15 +1,11 @@
 package br.com.mercearia.dao;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import org.primefaces.component.calendar.Calendar;
 
 import br.com.mercearia.modelo.Cliente;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 
 public class ClienteDAO {
 	private Connection connection;
