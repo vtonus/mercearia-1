@@ -25,9 +25,14 @@ public class BuscaCliente extends HttpServlet {
 		List<Cliente> listaCliente = new ArrayList<Cliente>();
 		listaCliente = cdao.busca(palavraChave, parametro);
 		int i = 0;
+		String dataNascimento;
 		for (Cliente cliente : listaCliente) {
-			String dataNascimento = Conversao.calendarEmTexto(cliente
+			dataNascimento = "";
+			
+			try{
+				dataNascimento = Conversao.calendarEmTexto(cliente
 					.getDataNascimento());
+			}catch(RuntimeException e){}
 			if (cliente != null) {
 				response.getWriter().write(
 								  "<input type=\"hidden\" id=\"id" + i

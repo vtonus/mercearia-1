@@ -27,7 +27,7 @@ public class Conversao {
 	
 	public static Calendar textoEmData(String textoEmData)
 			throws ParseException {
-		textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4);
+		//textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4);
 		Date date = new SimpleDateFormat("dd/MM/yyyy").parse(textoEmData);
 		dataRetorno = Calendar.getInstance();
 		dataRetorno.setTime(date);

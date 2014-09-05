@@ -28,8 +28,12 @@ public class ClienteDAO {
 			ps.setLong(3, cliente.getTelefone());
 			ps.setString(4, cliente.getSexo());
 			ps.setString(5, cliente.getEmail());
+			try {
 			ps.setDate(6, new Date(cliente.getDataNascimento()
 					.getTimeInMillis()));
+			} catch(RuntimeException e){
+				ps.setNull(7, java.sql.Types.DATE);
+			}
 			ps.execute();
 			bool = true;
 			ps.close();
@@ -77,11 +81,17 @@ public class ClienteDAO {
 				cliente.setId(Integer.parseInt(rs.getString("id")));
 				cliente.setNome(rs.getString("nome"));
 				cliente.setCpf(rs.getString("cpf"));
-				cliente.setTelefone(Long.parseLong(rs.getString("telefone")));
+				try{
+					cliente.setTelefone(Long.parseLong(rs.getString("telefone")));
+				}catch(RuntimeException e){}
+				try{
 				cliente.setSexo(rs.getString("sexo"));
+				} catch(RuntimeException e){}
+				try{
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTime(rs.getDate("dataNascimento"));
 				cliente.setDataNascimento(calendar);
+				} catch(RuntimeException e){}
 				cliente.setEmail(rs.getString("email"));
 				listaCliente.add(cliente);
 			}
@@ -112,7 +122,7 @@ public class ClienteDAO {
 	public boolean edita(Cliente cliente) {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
-		String sql = "update cliente set cpf= ?, nome= ?, telefone= ?, sexo = ?, email= ?, dataNascimento= ? where id = ?";
+		String sql = "update cliente set cpf= ?, nome= ?, telefone= ?, sexo = ?, email= ?, dataNascimento=? where id = ?";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -123,10 +133,11 @@ public class ClienteDAO {
 			ps.setString(4, cliente.getSexo());
 			ps.setString(5, cliente.getEmail());
 			
-			try {
+			try 
+			{
 				ps.setDate(6, new Date(cliente.getDataNascimento()
 						.getTimeInMillis()));
-			}catch(NullPointerException e){}
+			} catch(NullPointerException e){}
 			
 			ps.setInt(7, cliente.getId());
 			ps.execute();
