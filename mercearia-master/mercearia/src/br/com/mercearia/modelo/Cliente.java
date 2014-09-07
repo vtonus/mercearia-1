@@ -92,7 +92,7 @@ public class Cliente {
 		}
 		else
 		{
-			this.setSexo("");
+			this.setSexo("0");
 		}
 		
 	}

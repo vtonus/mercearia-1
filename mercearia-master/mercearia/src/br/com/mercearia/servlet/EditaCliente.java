@@ -15,7 +15,7 @@ import br.com.mercearia.util.Conversao;
 @SuppressWarnings("serial")
 public class EditaCliente extends HttpServlet {
 	ClienteDAO cdao = new ClienteDAO();
-
+	public String error;
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
@@ -23,19 +23,25 @@ public class EditaCliente extends HttpServlet {
 		cliente.setId(Integer.parseInt(request.getParameter("id")));
 		cliente.setNome(request.getParameter("nome"));
 		cliente.setCpf(request.getParameter("cpf"));
-		cliente.setTelefone(Long.parseLong(request.getParameter("telefone")));
+		try{
+			cliente.setTelefone(Long.parseLong(request.getParameter("telefone")));
+		}catch(NullPointerException e){}
 		cliente.setEmail(request.getParameter("email"));
-		cliente.setSexo(request.getParameter("sexo"));
-		System.out.println("id "+cliente.getId()+"\nnome "+cliente.getNome()+"\ncpf "+cliente.getCpf()+"\ntelefone "+cliente.getTelefone()+"\nemail "+cliente.getEmail()+"\nsexo "+cliente.getSexo()+"\nData de nasc: "+cliente.getDataNascimento());
+		cliente.setSexoC(request.getParameter("sexo"));
+
 		
 		try{
 			cliente.setDataNascimento(Conversao.textoEmData(request.getParameter("dataDeNascimento")));
-		}catch (ParseException | NullPointerException e){};
-		
+		}catch (NullPointerException e){}
+		catch(ParseException e){
+			response.getWriter().write("\ndata de nascimento inválida.");
+			response.setStatus(500);
+			return;
+		};
+		System.out.println("id "+cliente.getId()+"\nnome "+cliente.getNome()+"\ncpf "+cliente.getCpf()+"\ntelefone "+cliente.getTelefone()+"\nemail "+cliente.getEmail()+"\nsexo "+cliente.getSexo()+"\nData de nasc: "+cliente.getDataNascimento());
 		if(cdao.edita(cliente))
 		{
 			response.setStatus(200);
-			System.out.println("Operação edita cliente realizada com sucesso.");
 		}
 		else
 		{

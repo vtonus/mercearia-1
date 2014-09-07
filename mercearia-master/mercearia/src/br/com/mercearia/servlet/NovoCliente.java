@@ -19,17 +19,17 @@ public class NovoCliente extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		Cliente cliente = new Cliente();
-		boolean bool = false;
 		cliente.setNome(request.getParameter("nome"));
 		cliente.setEmail(request.getParameter("email"));
 		cliente.setCpf(request.getParameter("doc"));
+		try{
 		cliente.setSexoC(request.getParameter("sexo"));
-
+		}catch(RuntimeException e){response.getWriter().write("\nsexo inválido");}
 		try {
 			cliente.setDataNascimento(Conversao.textoHEmData(request
 					.getParameter("dtn")));
-		} catch (ParseException | RuntimeException e) {}
-
+		} catch (ParseException e){response.getWriter().write("\ndata de nascimento inválida");} 
+		catch (NullPointerException e) {}
 		try {
 			cliente.setTelefone(Long.parseLong(request.getParameter("telefone")));
 		} catch (RuntimeException e) {}
@@ -37,8 +37,7 @@ public class NovoCliente extends HttpServlet {
 		cliente.setEndereco(request.getParameter("endereco"));
 		
 		ClienteDAO dao = new ClienteDAO();
-		bool = dao.adiciona(cliente);
-		if (bool)
+		if (dao.adiciona(cliente))
 		{
 			response.setStatus(200);
 		}
