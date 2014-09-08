@@ -24,8 +24,8 @@
 </div>
 
 <span class='retornando'></span>
-<div class="confirmar" onclick=""> Confirmar</div>
-<div class="limpar" onclick="$('.cad input').val('');">Cancelar</div>
+<div class="confirmar" onclick="confirmaCompra()"> Confirmar</div>
+<div class="limpar" onclick="cancelaCompra()">Cancelar</div>
  	
  	
 </div>		

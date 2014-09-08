@@ -9,7 +9,6 @@ function novoCliente(){
 		sucess:function(){
 			$('#cadastro').fadeIn();			
 		}
-		
 	});
 	
 }
@@ -235,7 +234,7 @@ var produtoscontrole = 0;
 function chamatelaCompra(){
 $('.content').load('NovaCompra.jsp');
 var iMax = 1000;
-var jMax = 4;
+var jMax = 5;
 
 
 
@@ -250,6 +249,7 @@ for (i=0;i<iMax;i++) {
 }
 
 function juntaCompra(){
+	
  $.ajax({
 	 url:"BuscaCodigoProduto",
 	 type: "POST",
@@ -274,6 +274,7 @@ function juntaCompra(){
 		 produtoscompra[i][1]=$('#valorAC').val();
 		 produtoscompra[i][2]=$('.qtd').val();
 		 produtoscompra[i][3]=produtoscompra[i][1]*produtoscompra[i][2];
+		 produtoscompra[i][4]=$(".cod").val();
 		}
 		
 		 dados+=	"<tr ondblclick=removeproduct("+i+")><td> "+ produtoscompra[i][0] +"</td>" +
@@ -324,9 +325,12 @@ function  limpacompras(){
 }
 var dados;
 function removeproduct(id){
-console.log('id=');
-console.log(id);
-		produtoscontrole--;
+        console.log('id=');
+        console.log(id);
+		
+        if(produtoscontrole>0){
+        	produtoscontrole--;
+        
 		produtoscompra.splice(id, 1);
 		 var dados="<tr>"+
 		   	"  <th> Descrição</th>"+
@@ -334,21 +338,32 @@ console.log(id);
 		   	"  <th> Preco</th>"+
 		   	"  <th> Sub-total</th>"+
 		   	"</tr>";
+		 
 		 for( i=0;i<produtoscontrole;i++){
 			 dados+=	"<tr ondblclick=removeproduct("+i+")><td> "+ produtoscompra[i][0] +"</td>" +
 			  	"<td> "+produtoscompra[i][2] +"</td>" +
 			  	"<td> "+produtoscompra[i][1] +"</td>" +
 			  	"<td> "+produtoscompra[i][3] +"</td></tr>" ;
-			    $('.comprado').html(dados);
+			   
 			 //   console.log(produtoscontrole);
 			   // $('.retornando').html("");
 			  //  limpacompras();
 		    }
+		$('.comprado').html(dados);
+        }else{
+        	produtoscompra.splice(id, 1);
+   		 var dados="<tr>"+
+   		   	"  <th> Descrição</th>"+
+   		   	"  <th> QTD</th>"+
+   		   	"  <th> Preco</th>"+
+   		   	"  <th> Sub-total</th>"+
+   		   	"</tr>";
+ 
+   			$('.comprado').html(dados);
+        }
 		 var total=0;
 		 for( i=0;i<produtoscontrole;i++){
-			 
 			total= produtoscompra[i][3]+total;
-			 
 		 }
 		var tabtotal= "<tr>"+
 	   	"  <th> Total</th>"+
@@ -361,6 +376,49 @@ console.log(id);
 		 }
 
 
+function confirmaCompra(){
+	produto = new Array();
+	qtd = new Array();
+	
+	for (i=0;i<produtoscontrole;i++){
+		produto[i]=produtoscompra[i][4];
+		qtd[i]=produtoscompra[i][2]
+		
+	}
+	$.ajax({
+		 url:"NovaCompra",
+		 type: "POST",
+		 data:{produto: produto, qtd: qtd}
+	 
+	});
+	
+	
+}
 
+
+function cancelaCompra(){
+	var iMax = 1000;
+	var jMax = 5;
+
+
+
+	for (i=0;i<iMax;i++) {
+		produtoscompra[i]=new Array();
+	 for (j=0;j<jMax;j++) {
+		 produtoscompra[i][j]=0;
+		 
+	 }
+	}
+	produtoscontrole=0;
+	dados="<tr>"+
+   	"  <th> Descrição</th>"+
+   	"  <th> QTD</th>"+
+   	"  <th> Preco</th>"+
+   	"  <th> Sub-total</th>"+
+   	"</tr>";
+	$('.comprado').html('');
+	limpacompras();
+	$('.totaltab').html('');
+}
 /*---fim de compra---*/
 
