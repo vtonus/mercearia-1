@@ -226,3 +226,141 @@ function deslogar()
 {
 	document.location = "/Deslogando";
 }
+
+
+/*---Funções de compra---*/
+var produtoscompra= new Array();
+var produtoscontrole = 0;
+
+function chamatelaCompra(){
+$('.content').load('NovaCompra.jsp');
+var iMax = 1000;
+var jMax = 4;
+
+
+
+for (i=0;i<iMax;i++) {
+	produtoscompra[i]=new Array();
+ for (j=0;j<jMax;j++) {
+	 produtoscompra[i][j]=0;
+	 
+ }
+}
+
+}
+
+function juntaCompra(){
+ $.ajax({
+	 url:"BuscaCodigoProduto",
+	 type: "POST",
+	 data:{produto: $(".cod").val()},	
+	 success:function(back){
+		if(back){
+			$('.retornando').html(back);
+		//
+		 $(".desc").val($('#nomeAC').val());
+		 $(".vlr").val($('#valorAC').val());
+		 var dados="<tr>"+
+		   	"  <th> Descrição</th>"+
+		   	"  <th> QTD</th>"+
+		   	"  <th> Preco</th>"+
+		   	"  <th> Sub-total</th>"+
+		   	"</tr>";
+		 produtoscontrole++;
+		
+	   for( i=0;i<produtoscontrole;i++){
+		if(produtoscompra[i][1]===0){
+		produtoscompra[i][0]=$('#nomeAC').val();
+		 produtoscompra[i][1]=$('#valorAC').val();
+		 produtoscompra[i][2]=$('.qtd').val();
+		 produtoscompra[i][3]=produtoscompra[i][1]*produtoscompra[i][2];
+		}
+		
+		 dados+=	"<tr ondblclick=removeproduct("+i+")><td> "+ produtoscompra[i][0] +"</td>" +
+		  	"<td> "+produtoscompra[i][2] +"</td>" +
+		  	"<td> "+produtoscompra[i][1] +"</td>" +
+		  	"<td> "+produtoscompra[i][3] +"</td></tr>" ;
+		    $('.comprado').html(dados);
+		 //   console.log(produtoscontrole);
+		   // $('.retornando').html("");
+		  //  limpacompras();
+	    }
+	   
+	
+	 }
+		var total=0;
+		 for( i=0;i<produtoscontrole;i++){
+			 
+			total= produtoscompra[i][3]+total;
+			 
+		 }
+		var tabtotal= "<tr>"+
+	   	"  <th> Total</th>"+
+	   	"</tr>"+
+	   	"<tr>"+
+	 	"  <td>"+ total+"</td>"+
+	   	"</tr>";
+		 $('.totaltab').html(tabtotal);
+		
+		
+	 }
+ });//fecha ajax
+	/*
+ $.ajax({
+	 url:"asd",
+	 type: "POST",
+	 data:{produto: produtoscompra}
+ 
+ });*/
+}
+
+function  limpacompras(){
+	
+	 $(".desc").val("");
+	 $(".cod").val("");
+	 $(".qtd").val("");
+	 $(".vlr").val("");
+	 $(".sb").val("");
+}
+var dados;
+function removeproduct(id){
+console.log('id=');
+console.log(id);
+		produtoscontrole--;
+		produtoscompra.splice(id, 1);
+		 var dados="<tr>"+
+		   	"  <th> Descrição</th>"+
+		   	"  <th> QTD</th>"+
+		   	"  <th> Preco</th>"+
+		   	"  <th> Sub-total</th>"+
+		   	"</tr>";
+		 for( i=0;i<produtoscontrole;i++){
+			 dados+=	"<tr ondblclick=removeproduct("+i+")><td> "+ produtoscompra[i][0] +"</td>" +
+			  	"<td> "+produtoscompra[i][2] +"</td>" +
+			  	"<td> "+produtoscompra[i][1] +"</td>" +
+			  	"<td> "+produtoscompra[i][3] +"</td></tr>" ;
+			    $('.comprado').html(dados);
+			 //   console.log(produtoscontrole);
+			   // $('.retornando').html("");
+			  //  limpacompras();
+		    }
+		 var total=0;
+		 for( i=0;i<produtoscontrole;i++){
+			 
+			total= produtoscompra[i][3]+total;
+			 
+		 }
+		var tabtotal= "<tr>"+
+	   	"  <th> Total</th>"+
+	   	"</tr>"+
+	   	"<tr>"+
+	 	"  <td>"+ total+"</td>"+
+	   	"</tr>";
+		 $('.totaltab').html(tabtotal);
+		
+		 }
+
+
+
+/*---fim de compra---*/
+

@@ -33,7 +33,7 @@ $( document ).ready(function() {
 		
 		<img class="opcaoimg"  class="opcaoimg" src="../images/Compra.png" alt="Compra" height="75" width="75" title="Compra">
 		<div>
-			<p class="opcao"><a   onclick="$('.content').load('NovaCompra.jsp')" target="ctn">NOVA</a></p>
+			<p class="opcao"><a   onclick="chamatelaCompra()" target="ctn">NOVA</a></p>
 			<p class="opcao"><a   onclick="$('.content').load('ProcuraCompra.jsp')" target="ctn">EXISTENTE</a></p>
 		</div>
 		<img class="opcaoimg" src="../images/Produto.png" alt="Produto" height="75" width="75" title="Produto">
