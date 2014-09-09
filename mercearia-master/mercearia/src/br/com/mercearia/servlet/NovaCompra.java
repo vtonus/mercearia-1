@@ -1,4 +1,5 @@
 package br.com.mercearia.servlet;
+package org.JSON;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -27,8 +28,18 @@ public class NovaCompra extends HttpServlet {
 		ClienteDAO cldao = new ClienteDAO();
 		ProdutoDAO pdao = new ProdutoDAO();
 		Produto produto = new Produto();
-		private long p;
-		p = request.getPara
+		List<Produto> listaProduto= new ArrayList<Produto>();
+		JSONObject my_obj = new JSONObject(request.getParameter("produto"));
+		JSONArray produtos = myobj.getJSONArray("produto");
+		JSONArray qtds = myobj.getJSONArray("qtd");
+		for (int i = 0; i < produtos.length(); i++) {
+			produto.setId(produtos.get(i));
+			produto.setQtd(qtds.get(i));
+			listaProduto.add(produto);
+		}
+		
+		
+		
 		int j;
 		
 		do {
@@ -55,6 +66,7 @@ public class NovaCompra extends HttpServlet {
 		compra.setFuncionario(funcionario);
 		compra.setValor(total);
 		CompraDAO comdao = new CompraDAO();
+		
 		if (boo) {
 			compra.setId(comdao.adicionaC(compra));
 		} else {
