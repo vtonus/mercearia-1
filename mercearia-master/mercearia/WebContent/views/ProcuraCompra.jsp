@@ -1,30 +1,26 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="../css/style.css">
-	<meta charset="UTF-8" />
-	<script src="../js/jquery.js"></script>
-	<script src="../js/scripts.js"></script>
-	<title>Compra existente</title>
-</head>
-<body>
-	<div class="container">
+<div id="procli">
+		
+		<form id="meuForm">
+			id: <input type="text" id="codigo" ></input>
+		Data Inicial: <input type="date" id="dtini" ></input>
+		Data Final:	<input type="date" id="dtfin" ></input>
+		Cliente:	<input type="text" id="cliente"></input>
+			Funcionario:	<input type="text" id="func"></input>
+		<input type="button" value="Buscar" onclick="buscaDadosCompra()"/>	
+		</br></br>
+		</form>
+		
+		<div id="result" style="display:none;">
+		
+		</div>		
+		<div class="resposta" >
 	
-		<div class="metadeEsquerda"><p class="margemP"><h1>Compra existente</h1></p> 
-			<p class="margemM form">
-				Data início: <br />
-				<input type="date" autofocus><br />
-				Data fim:<br />
-				<input type="date"><br />
-				
-				<input type="button" value="Buscar">	<br /><br />
-			</p>
-			<div id="fim">
-			</div>
+		</div>	
+		<div id="tabdados">
+		
 		</div>
-		<div class="metadeDireita"> 
+		<div class="fundoq">
 		</div>
-	</div>
-</body>
-</html>
+		<div class="question">
+	 </div>
+</div>	
