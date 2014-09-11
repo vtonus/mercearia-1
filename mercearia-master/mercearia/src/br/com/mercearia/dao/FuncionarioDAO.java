@@ -1,6 +1,5 @@
 package br.com.mercearia.dao;
 
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -17,7 +16,7 @@ public class FuncionarioDAO {
 	PreparedStatement ps;
 	private Connection connection;
 
-	public void adiciona(Funcionario funcionario) { 
+	public void adiciona(Funcionario funcionario) {
 		connection = new Conexao().getConnection();
 
 		sql = "insert into funcionario "
@@ -31,13 +30,15 @@ public class FuncionarioDAO {
 			ps.setString(2, funcionario.getNome());
 			ps.setString(3, funcionario.getUsuario());
 			ps.setString(4, funcionario.getSenha());
-			try{
+			try {
 				ps.setLong(6, funcionario.getTelefone());
-			}catch(RuntimeException e){}
-			try{
+			} catch (RuntimeException e) {
+			}
+			try {
 				ps.setLong(5, funcionario.getTelefone());
-			}catch(RuntimeException e){}
-			
+			} catch (RuntimeException e) {
+			}
+
 			ps.setDate(7, new Date(funcionario.getDataNascimento()
 					.getTimeInMillis()));
 			ps.execute();
@@ -48,9 +49,9 @@ public class FuncionarioDAO {
 		}
 	}
 
-	public boolean checaLogin(String usuario, String senha) {
+	public Funcionario checaLogin(String usuario, String senha) {
 		connection = new Conexao().getConnection();
-
+		Funcionario funcionario = new Funcionario();
 		sql = "select * from funcionario" + " where usuario=? and senha=?";
 
 		try {
@@ -58,20 +59,20 @@ public class FuncionarioDAO {
 			ps.setString(1, usuario);
 			ps.setString(2, senha);
 			ResultSet rs = ps.executeQuery();
+
 			if (rs.next()) {
-				System.out.println("True");
+				funcionario.setCpf(rs.getLong("cpf"));
+				funcionario.setNome(rs.getString("nome"));
 				ps.close();
 				connection.close();
-				return true;
+				return funcionario;
 			}
 			ps.close();
 			connection.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		System.out.println("false");
-
-		return false;
+		return funcionario;
 	}
 
 	public List<Funcionario> getLista() {
@@ -145,7 +146,7 @@ public class FuncionarioDAO {
 		try {
 			List<String> nomes = new ArrayList<String>();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			nome = ("%"+nome+"%");
+			nome = ("%" + nome + "%");
 			ps.setString(1, nome);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -160,5 +161,35 @@ public class FuncionarioDAO {
 		}
 	}
 
+	public Funcionario busca(Long id) {
+		connection = new Conexao().getConnection();
+		sql = "select * from funcionario where cpf = ?";
+		Funcionario funcionario = new Funcionario();
+		try {
+			ps = this.connection.prepareStatement(sql);
+			ps.setLong(1, id);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			try 
+			{
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(rs.getDate("dataNascimento"));
+				funcionario.setDataNascimento(calendar);
+			} catch (SQLException e) {
+				System.out.println("Erro na busca da data.");
+			}
+			funcionario.setNome(rs.getString("nome"));
+			funcionario.setUsuario(rs.getString("usuario"));
+			try {
+				funcionario.setTelefone(rs.getLong("telefone"));
+			} catch (SQLException e) {
+			}
+			funcionario.setCpf(rs.getLong("cpf"));
+			return funcionario;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return funcionario;
+	}
 
 }

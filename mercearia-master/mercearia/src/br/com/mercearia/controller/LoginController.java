@@ -9,27 +9,26 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.mercearia.dao.FuncionarioDAO;
-import br.com.mercearia.util.Conversao;
+import br.com.mercearia.modelo.Funcionario;
 
 @SuppressWarnings("serial")
-public class LoginController extends HttpServlet{
+public class LoginController extends HttpServlet {
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String usuario= request.getParameter("usuario");
+		String usuario = request.getParameter("usuario");
 		String senha = request.getParameter("senha");
 		FuncionarioDAO dao = new FuncionarioDAO();
-		if (dao.checaLogin(usuario, senha)){
+		Funcionario funcionario = new Funcionario();
+		funcionario = dao.checaLogin(usuario, senha);
+		if (funcionario.getCpf() > 0) {
 			HttpSession session = request.getSession();
-			session.setAttribute("usuario", usuario);
-			System.out.println("Acesso permitido!!");
+			session.setAttribute("usuario", funcionario.getNome());
+			session.setAttribute("usuarioCpf", funcionario.getCpf());
 			response.sendRedirect("views/Menu.jsp");
 			return;
-		}
-		else{
-			request.setAttribute("erro", "erro");
-			System.out.println("Acesso negado!!");
-			request.getRequestDispatcher("BemVindo.jsp").forward(request, response); 
+		} else {
+			request.getRequestDispatcher("BemVindo.jsp").forward(request,
+					response);
 		}
 	}
 }
-

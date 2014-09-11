@@ -4,14 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import br.com.mercearia.modelo.Compra;
-import br.com.mercearia.modelo.CompraProduto;
-import br.com.mercearia.modelo.Produto;
 import br.com.mercearia.util.Conversao;
 
 public class CompraDAO {
@@ -29,23 +26,27 @@ public class CompraDAO {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setFloat(1, compra.getValor());
 			ps.setLong(2, compra.getFuncionario().getCpf());
-			ps.setInt(3, compra.getCliente().getId());
-			ps.execute();
-			ps.close();
-			connection.close();
+			try {
+				ps.setInt(3, compra.getCliente().getId());
+			} catch (NullPointerException e) {
+				ps.setNull(3, java.sql.Types.INTEGER);
+				ps.execute();
+				ps.close();
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+			try {
+				ps = connection.prepareStatement("SELECT LAST_INSERT_ID()");
+				ResultSet rs = ps.executeQuery();
+				rs.next();
+				retorno = rs.getInt("last_insert_id()");
+				ps.close();
+				connection.close();
+			} catch (SQLException e) {
+			}
+
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		try {
-			PreparedStatement ps = connection
-					.prepareStatement("SELECT LAST_INSERT_ID()");
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			retorno = rs.getInt("last_insert_id()");
-			ps.close();
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		return retorno;
 	}
@@ -91,9 +92,9 @@ public class CompraDAO {
 		// id, dataHoraIni, dataHoraFim, id_funcionario, id_cliente
 
 		int i = 0;
-		String sql = "select id, valor, cl.nome, fu.nome, datahora from compra co " +
-						"inner join cliente cl on (co.id_cliente = cl.id_cliente) "+
-						"inner join funcionario fu on (fu.cpf = co.id_funcionario) ";
+		String sql = "select id, valor, cl.nome, fu.nome, datahora from compra co "
+				+ "inner join cliente cl on (co.id_cliente = cl.id_cliente) "
+				+ "inner join funcionario fu on (fu.cpf = co.id_funcionario) ";
 		try {
 			if (compra.getId() > 0) {
 				boo[0] = true;
@@ -184,14 +185,16 @@ public class CompraDAO {
 				i++;
 			}
 			if (boo[3]) {
-				ps.setTimestamp(i, Conversao.dateEmTimestamp(compra.getHoraIni().getTime()));
+				ps.setTimestamp(i, Conversao.dateEmTimestamp(compra
+						.getHoraIni().getTime()));
 				i++;
 			}
 			if (boo[4]) {
-				ps.setTimestamp(i, Conversao.dateEmTimestamp(compra.getHoraFim().getTime()));
+				ps.setTimestamp(i, Conversao.dateEmTimestamp(compra
+						.getHoraFim().getTime()));
 				i++;
 			}
-			//System.out.println(sql);
+			// System.out.println(sql);
 			ResultSet rs = ps.executeQuery();
 			List<Compra> compras = new ArrayList<Compra>();
 			while (rs.next()) {

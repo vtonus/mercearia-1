@@ -8,7 +8,7 @@ public class Compra {
 	private Calendar horaIni;
 	private Calendar horaFim;
 	private float valor;
-	private Funcionario funcionario;
+	private Funcionario funcionario;	
 	private String funcionarioNome;
 	private String clienteNome;
 	private Cliente cliente;

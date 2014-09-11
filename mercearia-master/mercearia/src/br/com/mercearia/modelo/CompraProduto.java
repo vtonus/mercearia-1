@@ -3,6 +3,13 @@ package br.com.mercearia.modelo;
 public class CompraProduto {
 	
 	private Compra compra;
+	private int compraId;
+	public int getCompraId() {
+		return compraId;
+	}
+	public void setCompraId(int compraId) {
+		this.compraId = compraId;
+	}
 	private float valor;
 	private int qtd;
 	private Produto produto;
