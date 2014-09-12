@@ -299,7 +299,7 @@ public class ProdutoDAO {
 	public boolean adiciona(Produto produto) {
 		connection = new Conexao().getConnection();
 		//
-		String sql = "insert into produto values (?, ?, ?, ?, ?, ?)";
+		String sql = "insert into produto values (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);

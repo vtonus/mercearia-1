@@ -23,7 +23,7 @@ public class ClienteDAO {
 		boolean bool = false;
 		String sql = "insert into cliente "
 				+ "(cpf, nome, telefone, sexo, email, dataNascimento)"
-				+ " values (?, ?, ?, ?, ?, ?)";
+				+ " values (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -36,8 +36,9 @@ public class ClienteDAO {
 			ps.setDate(6, new Date(cliente.getDataNascimento()
 					.getTimeInMillis()));
 			} catch(RuntimeException e){
-				ps.setNull(7, java.sql.Types.DATE);
+				ps.setNull(6, java.sql.Types.DATE);
 			}
+			ps.setString(7, cliente.getEndereco());
 			ps.execute();
 			bool = true;
 			ps.close();
