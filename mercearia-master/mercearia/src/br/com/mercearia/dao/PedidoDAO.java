@@ -32,7 +32,7 @@ public class PedidoDAO {
 	public int adiciona(Pedido pedido) {
 		connection = new Conexao().getConnection();
 		int retorno = 0;
-		String sql = "insert into pedido (valor, descricao, fornecedor, funcionario, datahora) values (?, ?, ?, ?, ?)";
+		String sql = "insert into pedido (valor, descricao, fornecedor, funcionario, datahora) values (?, ?, ?, ?, NOW())";
 		//
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -41,14 +41,9 @@ public class PedidoDAO {
 			ps.setString(2, pedido.getDescricao());
 			ps.setInt(3, pedido.getFornecedor().getId());
 			ps.setLong(4, pedido.getFuncionario().getCpf());
-			ps.setTimestamp(5, Conversao.dateEmTimestamp(pedido.getDataHora().getTime()));
 			ps.execute();
 			ps.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		try{
-			PreparedStatement ps = connection.prepareStatement("SELECT LAST_INSERT_ID()");
+			ps = connection.prepareStatement("SELECT LAST_INSERT_ID()");
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			retorno = rs.getInt("last_insert_id()");

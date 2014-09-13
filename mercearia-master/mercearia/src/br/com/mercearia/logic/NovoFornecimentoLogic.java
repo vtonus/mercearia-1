@@ -64,9 +64,9 @@ public class NovoFornecimentoLogic implements Logic {
 						.getParameter("codigo" + i)));
 				produtoPedido.setProduto(produto);
 				produtoPedido.setPedido(pedido);
-				produtoPedido.setQtd(Integer.parseInt(request
+				produtoPedido.getProduto().setQtd(Integer.parseInt(request
 						.getParameter("qtd" + i)));
-				produtoPedido.setValor(Float.parseFloat(request
+				produtoPedido.getProduto().setValor(Float.parseFloat(request
 						.getParameter("unid" + i++)));
 				ppdao.adiciona(produtoPedido);
 				try {

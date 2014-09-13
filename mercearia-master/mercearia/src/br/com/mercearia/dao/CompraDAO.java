@@ -32,11 +32,6 @@ public class CompraDAO {
 				ps.setNull(3, java.sql.Types.INTEGER);
 				ps.execute();
 				ps.close();
-				connection.close();
-			} catch (SQLException e) {
-				throw new RuntimeException(e);
-			}
-			try {
 				ps = connection.prepareStatement("SELECT LAST_INSERT_ID()");
 				ResultSet rs = ps.executeQuery();
 				rs.next();

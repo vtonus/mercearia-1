@@ -14,12 +14,13 @@ import org.JSON.JSONArray;
 import org.JSON.JSONObject;
 
 import br.com.mercearia.dao.ClienteDAO;
-import br.com.mercearia.dao.CompraDAO;
-import br.com.mercearia.dao.CompraProdutoDAO;
 import br.com.mercearia.dao.FuncionarioDAO;
-import br.com.mercearia.modelo.Compra;
-import br.com.mercearia.modelo.CompraProduto;
+import br.com.mercearia.dao.PedidoDAO;
+import br.com.mercearia.dao.ProdutoPedidoDAO;
+import br.com.mercearia.modelo.Fornecedor;
+import br.com.mercearia.modelo.Pedido;
 import br.com.mercearia.modelo.Produto;
+import br.com.mercearia.modelo.ProdutoPedido;
 
 @SuppressWarnings("serial")
 public class NovoPedido extends HttpServlet {
@@ -39,35 +40,39 @@ public class NovoPedido extends HttpServlet {
 			String jsonstr = "{\"produto\":" + produtos.get(i) + "}";
 			myobj = new JSONObject(jsonstr);
 			JSONArray jsonarray = myobj.getJSONArray("produto");
-			if ((Integer.parseInt((String) jsonarray.get(2).toString())) > 0) {
+			if ((Integer.parseInt((String) jsonarray.get(1).toString())) > 0) {
 				Produto produto = new Produto();
-				produto.setQtd(Integer.parseInt((String) jsonarray.get(2)
+				produto.setId(Long.parseLong((String) jsonarray.get(0)
 						.toString()));
-				produto.setId(Long.parseLong((String) jsonarray.get(4)
+				produto.setQtd(Integer.parseInt((String) jsonarray.get(1)
 						.toString()));
-				produto.setValor(Float.parseFloat((String) jsonarray.get(1)
+				produto.setValor(Float.parseFloat((String) jsonarray.get(2)
 						.toString()));
-				totalCompra = + (produto.getValor()*produto.getQtd());
-				System.out.println(produto.getValor());
+				totalPedido = + (produto.getValor()*produto.getQtd());
+				
 				listaProduto.add(produto);
 				bool = true;
 			} else
 				break;
 		}
 		if (bool) {
-			CompraDAO cdao = new CompraDAO();
-			Compra compra = new Compra();
-			compra.setValor(totalCompra);
+			PedidoDAO pdao = new PedidoDAO();
+			Pedido pedido = new Pedido();
+			Fornecedor fornecedor = new Fornecedor();
+			fornecedor.setId(Integer.parseInt(request.getParameter("idForn")));
+			pedido.setFornecedor(fornecedor);
 			FuncionarioDAO fdao = new FuncionarioDAO();
 			HttpSession session = request.getSession();
-			compra.setFuncionario(fdao.busca((Long) session.getAttribute("usuarioCpf")));
-			int id = cdao.adiciona(compra);
-			CompraProdutoDAO cpdao = new CompraProdutoDAO();
-			CompraProduto cp = new CompraProduto();
+			pedido.setFuncionario(fdao.busca((Long) session.getAttribute("usuarioCpf")));
+			pedido.setDescricao("desc");
+			pedido.setValor(totalPedido);
+			int id = pdao.adiciona(pedido);
+			ProdutoPedidoDAO ppdao = new ProdutoPedidoDAO();
+			ProdutoPedido pp = new ProdutoPedido();
 			for (Produto p : listaProduto){
-				cp.setCompraId(id);
-				cp.setProduto(p);
-				cpdao.adiciona(cp);
+				pp.setPedidoId(id);
+				pp.setProduto(p);
+				ppdao.adiciona(pp);
 			}
 			response.setStatus(200);
 		}

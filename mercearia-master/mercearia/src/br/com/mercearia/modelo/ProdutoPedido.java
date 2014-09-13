@@ -3,8 +3,15 @@ package br.com.mercearia.modelo;
 public class ProdutoPedido {
 	private Produto produto;
 	private Pedido pedido;
+	private int pedidoId;
 
 	
+	public int getPedidoId() {
+		return pedidoId;
+	}
+	public void setPedidoId(int pedidoId) {
+		this.pedidoId = pedidoId;
+	}
 	public Produto getProduto() {
 		return produto;
 	}

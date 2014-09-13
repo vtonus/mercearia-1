@@ -36,9 +36,9 @@ public class ProdutoPedidoDAO {
 			PreparedStatement ps = connection.prepareStatement(sql);
 
 			ps.setLong(1, produtoPedido.getProduto().getId());
-			ps.setInt(2, produtoPedido.getPedido().getId());
-			ps.setInt(3, produtoPedido.getQtd());
-			ps.setFloat(4, produtoPedido.getValor());
+			ps.setInt(2, produtoPedido.getPedidoId());
+			ps.setInt(3, produtoPedido.getProduto().getQtd());
+			ps.setFloat(4, produtoPedido.getProduto().getValor());
 			ps.execute();
 			ps.close();
 			connection.close();
