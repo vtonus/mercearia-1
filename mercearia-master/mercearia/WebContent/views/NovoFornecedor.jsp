@@ -1,25 +1,35 @@
-<html>
-<head>
-<title>Novo fornecedor</title>
-<link rel="stylesheet" type="text/css" href="../css/style.css">
-</head>
-<body>
-	<div class="titulo"><h1>Cadatro de um novo fornecedor:</h1></div>
-	<div class="esquerda"><form action="Control" method="post">
-		<p class="form">
-		Nome*:
-			<input type="text" name="nome" autofocus><br /> 
-		CNPJ:
-			<input	type="text" name="cnpj"><br /> 
-		Telefone: 
-			<input type="text"	name="telefone"><br /> 
-		Email: 
-			<input type="email" name="email"><br /> 
-		Endereço: 
-			<input type="text" name="endereco"><br /> 
-			<input type="hidden" name="logic" value="NovoFornecedorLogic">
-			*Preenchimento obrigatório<br>
-		<input type="submit" value="Confirma"> <input type="button" value="Limpa"></p>
-	</form></div>
-</body>
-</html>
+
+<div id="NovoCliente">
+<span class="titulo">CADASTRO DE NOVO FORNECEDOR</span>
+<form name="myForm" id="formulario">
+<table class="cad">
+
+		
+		<tr>	
+			<td>	<label for="nome">Nome*:</label></td>
+			<td>	<input required type="text" name="nome" id="nome" autofocus> </td>
+		</tr>
+			<tr>
+			<td>	<label for="doc">CNPJ:</label></td>
+			<td>	<input type="text" pattern="[0-9]{9}[A-Za-z0-9]{2}" id="cpf" name="CNPJ" > </td>
+ 			</tr>
+ 			<tr>
+ 			<td>	<label for="tel">Telefone:</label></td>
+ 			<td>	<input id="Telefone" type="text" name="telefone" min="8" max="14"></td>
+			</tr>
+			<tr>
+ 			<td>	<label for="end">Endereço:</label><br></td>
+ 			<td>	<input type="text" name="endereco" id="end"> </td>
+ 			</tr>
+ 			<tr>
+ 			<td>	<label for="email">Email:</label></td>
+			<td>	<input id="email" type="email" name="email"></td>
+			</tr>
+		
+			
+					</table>
+				</form>
+					<div class="confirmar" onclick="novoFornecedor()"> Confirmar</div>
+	 				<div class="limpar" onclick="$('.cad input').val('');">Limpar</input>
+ 				</p>
+	</div>

@@ -1,13 +1,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
-<link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+ <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
 <title>Menu principal</title>
 
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><!-->
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../jui/jquery-ui.js"></script>
 <script type="text/javascript" src="../js/scripts.js"></script>
+<script type="text/javascript" src="../js/cliente.js"></script>
+<script type="text/javascript" src="../js/compra.js"></script>
+<script type="text/javascript" src="../js/produto.js"></script>
+<script type="text/javascript" src="../js/fornecedor.js"></script>
+<script type="text/javascript" src="../js/jquery.transit.min.js"></script><!-- para fazer os animaes -->
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 <script>
 $( document ).ready(function() {
@@ -16,7 +21,6 @@ $( document ).ready(function() {
     	document.write($('#sessao').text());
     }
 });
-	
 </script>
 </head>
 <span id="sessao" style="display:none;">${usuario}</span>
@@ -62,8 +66,10 @@ $( document ).ready(function() {
 		</div>
 	</div>
 		<div class="content">
+		
+		<div onclick="mensagem('red','teste');">teste</div>
 	</div>
-	
+	<div id="respostafeed"></div>
 	<script>
 
 $("#accordion" ).accordion();

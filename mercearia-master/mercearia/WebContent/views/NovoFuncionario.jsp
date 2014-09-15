@@ -1,31 +1,47 @@
-<html>
-<head>
-<script type="text/javascript"  src="../js/scripts.js"></script>
-<title>Novo funcionario</title>
-<link rel="stylesheet" type="text/css" href="../css/style.css">
-</head>
-<body>
-<div class="titulo"><h1>Cadastro de um novo funcionario:</h1></div>
-<form action="Control" method="post">
-<div class="esquerda"><p class="form">
-Nome*:
- <input type="text" name="nome" autofocus><br />
-CPF*:
- <input type="text" name="cpf"><br />
-Usuário*:
- <input type="text" name="usuario"><br />
-Senha*:
- <input type="text" name="senha"><br />
-Email:
- <input type="email" name="email"><br />
-Telefone:
- <input type="text" name="telefone"><br />
-Data de nascimento:
- <input type="text" name="dataNascimento"><br />
- <input type="hidden" name="logic" value="NovoFuncionarioLogic">
- *Preenchimento obrigatório<br>
- <input type="submit" value="Confirma"> 
-<input type="button" value="Limpa">	</p></div>
-</form>
-</body>
-</html>
+
+<div id="NovoCliente">
+<span class="titulo">NOVO FUNCIONÁRIO</span>
+<form name="myForm" id="formulario">
+<table class="cad">
+
+		
+		<tr>	
+			<td>	<label for="nome">Nome*:</label></td>
+			<td>	<input required type="text" name="nome" id="nome" autofocus> </td>
+		</tr>
+			<tr>
+			<td>	<label for="doc">CPF:</label></td>
+			<td>	<input type="text" pattern="[0-9]{9}[A-Za-z0-9]{2}" id="cpf" name="doc" > </td>
+ 			</tr>
+ 			
+ 			<tr>
+ 			<td>	<label for="tel">Usuario:</label></td>
+ 			<td>	<input id="Telefone" type="text" name="usuario" min="8" max="14"></td>
+			</tr>
+			
+			<tr>
+ 			<td>	<label for="tel">senha:</label></td>
+ 			<td>	<input id="Telefone" type="text" name="senha" min="8" max="14"></td>
+			</tr>
+			
+			
+ 			<tr>
+ 			<td>	<label for="tel">Telefone:</label></td>
+ 			<td>	<input id="Telefone" type="text" name="telefone" min="8" max="14"></td>
+			</tr>
+ 		
+ 			<tr>
+ 			<td>	<label for="email">Email:</label></td>
+			<td>	<input id="email" type="email" name="email"></td>
+			</tr>
+			<tr>
+			<td>	<label for="dtn">Data de nascimento:</label></td>
+			<td>     <input type="date" name="dtn"> <br ></td>
+			</tr>	
+			
+					</table>
+				</form>
+					<div class="confirmar" onclick="novoFuncionario()"> Confirmar</div>
+	 				<div class="limpar" onclick="$('.cad input').val('');">Limpar</input>
+ 				</p>
+	</div>
