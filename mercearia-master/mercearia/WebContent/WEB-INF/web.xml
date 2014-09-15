@@ -22,7 +22,63 @@
     <url-pattern>/BuscaCliente</url-pattern>
     <url-pattern>/views/BuscaCliente</url-pattern>
   </servlet-mapping>
-
+  
+  
+  <servlet>
+    <servlet-name>NovoProduto</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.NovoProduto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NovoProduto</servlet-name>
+    <url-pattern>/NovoProduto</url-pattern>
+    <url-pattern>/views/NovoProduto</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>BuscaProduto</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.BuscaProduto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BuscaProduto</servlet-name>
+    <url-pattern>/BuscaProduto</url-pattern>
+    <url-pattern>/views/BuscaProduto</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>ExcluiProduto</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.ExcluiProduto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExcluiProduto</servlet-name>
+    <url-pattern>/ExcluiProduto</url-pattern>
+    <url-pattern>/views/ExcluiProduto</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+    <servlet>
+    <servlet-name>EditaProduto</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.EditaProduto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditaProduto</servlet-name>
+    <url-pattern>/EditaProduto</url-pattern>
+    <url-pattern>/views/EditaProduto</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+<servlet>
+    <servlet-name>BuscaCompra</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.BuscaCompra</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BuscaCompra</servlet-name>
+    <url-pattern>/BuscaCompra</url-pattern>
+    <url-pattern>/views/BuscaCompra</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <servlet-name>ExcluiCliente</servlet-name>

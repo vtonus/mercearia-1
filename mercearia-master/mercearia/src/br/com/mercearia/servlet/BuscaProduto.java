@@ -16,7 +16,7 @@ import br.com.mercearia.util.Conversao;
 
 @SuppressWarnings("serial")
 public class BuscaProduto extends HttpServlet {
-	public Produto produto;
+	public Produto produto = new Produto();
 	ProdutoDAO pdao = new ProdutoDAO();
 	
 	protected void doPost(HttpServletRequest request,
