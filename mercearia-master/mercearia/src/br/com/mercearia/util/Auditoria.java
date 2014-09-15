@@ -1,4 +1,4 @@
-package br.com.mercearia.modelo;
+package br.com.mercearia.util;
 
 import org.primefaces.component.calendar.Calendar;
 
