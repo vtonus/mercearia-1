@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -126,7 +127,7 @@ public class ClienteDAO {
 	public boolean edita(Cliente cliente) {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
-		String sql = "update cliente set cpf= ?, nome= ?, telefone= ?, sexo = ?, email= ?, dataNascimento=? where id = ?";
+		String sql = "update cliente set cpf= ?, nome= ?, telefone= ?, sexo = ?, email= ?, dataNascimento=?, endereco=? where id = ?";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -141,15 +142,16 @@ public class ClienteDAO {
 			{
 				ps.setDate(6, new Date(cliente.getDataNascimento()
 						.getTimeInMillis()));
-			} catch(NullPointerException e){}
-			
-			ps.setInt(7, cliente.getId());
+			} catch(NullPointerException e){ps.setNull(6, Types.DATE);}
+
+			ps.setString(7, cliente.getEndereco());
+			ps.setInt(8, cliente.getId());
 			ps.execute();
 			bool = true;
 			ps.close();
 			connection.close();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			e.printStackTrace();
 		}
 		return bool;
 	}

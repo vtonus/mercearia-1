@@ -33,6 +33,11 @@ public class BuscaCliente extends HttpServlet {
 				dataNascimento = Conversao.calendarEmTexto(cliente
 					.getDataNascimento());
 			}catch(RuntimeException e){}
+			String telefone;
+			if (cliente.getTelefone()==0){
+				telefone ="";
+			}
+			else telefone=""+cliente.getTelefone();
 			if (cliente != null) {
 				response.getWriter().write(
 								  "<input type=\"hidden\" id=\"id" + i
@@ -42,7 +47,7 @@ public class BuscaCliente extends HttpServlet {
 								+ "<input type=\"hidden\" id=\"nome" + i 
 								+ "\" value=\"" + cliente.getNome() + "\">"
 								+ "<input type=\"hidden\" id=\"telefone" + i
-								+ "\" value=\"" + cliente.getTelefone() + "\">"
+								+ "\" value=\"" + telefone + "\">"
 								+ "<input type=\"hidden\" id=\"email" + i
 								+ "\" value=\"" + cliente.getEmail() + "\">"
 								+ "<input type=\"hidden\" id=\"sexo" + i

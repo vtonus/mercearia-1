@@ -25,19 +25,16 @@ public class EditaCliente extends HttpServlet {
 		cliente.setCpf(request.getParameter("cpf"));
 		try{
 			cliente.setTelefone(Long.parseLong(request.getParameter("telefone")));
-		}catch(NullPointerException e){}
+		}catch(NullPointerException | NumberFormatException e){cliente.setTelefone(0);}
 		cliente.setEmail(request.getParameter("email"));
+		cliente.setEndereco(request.getParameter("endereco"));
 		cliente.setSexoC(request.getParameter("sexo"));
 
 		
 		try{
 			cliente.setDataNascimento(Conversao.textoEmData(request.getParameter("dataDeNascimento")));
 		}catch (NullPointerException e){}
-		catch(ParseException e){
-			response.getWriter().write("\ndata de nascimento inválida.");
-			response.setStatus(500);
-			return;
-		};
+		catch(ParseException e){}
 		System.out.println("id "+cliente.getId()+"\nnome "+cliente.getNome()+"\ncpf "+cliente.getCpf()+"\ntelefone "+cliente.getTelefone()+"\nemail "+cliente.getEmail()+"\nsexo "+cliente.getSexo()+"\nData de nasc: "+cliente.getDataNascimento());
 		if(cdao.edita(cliente))
 		{
