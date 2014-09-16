@@ -18,11 +18,14 @@ public class Conversao {
 	
 	public static Calendar textoHEmData(String textoEmData)
 			throws ParseException {
-		textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4);
-		Date date = new SimpleDateFormat("dd/MM/yyyy").parse(textoEmData);
-		dataRetorno = Calendar.getInstance();
-		dataRetorno.setTime(date);
-		return dataRetorno;
+		try{
+			textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4);
+			Date date = new SimpleDateFormat("dd/MM/yyyy").parse(textoEmData);
+			dataRetorno = Calendar.getInstance();
+			dataRetorno.setTime(date);
+			return dataRetorno;
+		}catch(StringIndexOutOfBoundsException e){}
+		return null;
 	}
 	
 	public static Calendar textoEmData(String textoEmData)

@@ -22,11 +22,12 @@ public class ClienteDAO {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
 		String sql = "insert into cliente "
-				+ "(cpf, nome, telefone, sexo, email, dataNascimento)"
+				+ "(cpf, nome, telefone, sexo, email, dataNascimento, endereco)"
 				+ " values (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
+			System.out.println(cliente.getCpf()+".\n"+cliente.getCpf()+".\n"+cliente.getNome()+".\n"+cliente.getTelefone()+".\n"+cliente.getSexo()+".\n"+cliente.getEmail()+".\n"+cliente.getDataNascimento());
 			ps.setString(1, cliente.getCpf());
 			ps.setString(2, cliente.getNome());
 			ps.setLong(3, cliente.getTelefone());
@@ -43,9 +44,7 @@ public class ClienteDAO {
 			bool = true;
 			ps.close();
 			connection.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+		} catch (SQLException e) {e.printStackTrace();}
 		return bool;
 	}
 

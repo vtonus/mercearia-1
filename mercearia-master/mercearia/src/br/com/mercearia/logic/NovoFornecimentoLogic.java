@@ -28,7 +28,7 @@ public class NovoFornecimentoLogic implements Logic {
 		pedido.setFuncionario(fudao.busca((String) session
 				.getAttribute("usuario")));
 		FornecedorDAO fodao = new FornecedorDAO(); // Fornecedor
-		pedido.setFornecedor(fodao.busca(request.getParameter("fornecedor")));
+		//pedido.setFornecedor(fodao.busca(request.getParameter("fornecedor")));
 		pedido.setDataHora(Conversao.textoEmDataHora(request
 				.getParameter("data") + " " + request.getParameter("hora")+":00")); // DataHora
 		pedido.setDescricao(request.getParameter("comentario"));// Comentario
