@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.JSON.JSONArray;
-import org.JSON.JSONException;
 import org.JSON.JSONObject;
 
 import br.com.mercearia.dao.ClienteDAO;
@@ -30,21 +29,17 @@ public class NovoPedido extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// ClienteDAO cldao = new ClienteDAO();
-		
+
 		JSONArray produtos;
-		
-		try{
-		JSONObject myobj = new JSONObject("{\"produto\":"
+		JSONObject myobj;
+		Float totalPedido = null;
+
+		myobj = new JSONObject("{\"produto\":"
 				+ request.getParameter("Produto") + "}");
 		produtos = myobj.getJSONArray("produto");
-		}catch(JSONException e)
-		{
-			e.printStackTrace();
-			
-		}
-		
+
 		List<Produto> listaProduto = new ArrayList<Produto>();
-		
+
 		boolean bool = false;
 		for (int i = 0; i < produtos.length(); i++) {
 			String jsonstr = "{\"produto\":" + produtos.get(i) + "}";
@@ -58,8 +53,8 @@ public class NovoPedido extends HttpServlet {
 						.toString()));
 				produto.setValor(Float.parseFloat((String) jsonarray.get(2)
 						.toString()));
-				totalPedido = + (produto.getValor()*produto.getQtd());
-				
+				totalPedido = +(produto.getValor() * produto.getQtd());
+
 				listaProduto.add(produto);
 				bool = true;
 			} else
@@ -73,19 +68,20 @@ public class NovoPedido extends HttpServlet {
 			pedido.setFornecedor(fornecedor);
 			FuncionarioDAO fdao = new FuncionarioDAO();
 			HttpSession session = request.getSession();
-			pedido.setFuncionario(fdao.busca((Long) session.getAttribute("usuarioCpf")));
+			pedido.setFuncionario(fdao.busca((Long) session
+					.getAttribute("usuarioCpf")));
 			pedido.setDescricao("desc");
 			pedido.setValor(totalPedido);
 			int id = pdao.adiciona(pedido);
 			ProdutoPedidoDAO ppdao = new ProdutoPedidoDAO();
 			ProdutoPedido pp = new ProdutoPedido();
-			for (Produto p : listaProduto){
+			for (Produto p : listaProduto) {
 				pp.setPedidoId(id);
 				pp.setProduto(p);
 				ppdao.adiciona(pp);
 			}
 			response.setStatus(200);
-		}
-		else response.setStatus(500);
+		} else
+			response.setStatus(500);
 	}
 }
