@@ -9,9 +9,23 @@ public class Pedido {
 	private Fornecedor fornecedor;
 	private Calendar dataHora;
 	private Funcionario funcionario;
+	private Calendar dataMax;
+	private Calendar dataMin;
 	
 	
 	
+	public Calendar getDataMax() {
+		return dataMax;
+	}
+	public void setDataMax(Calendar dataMax) {
+		this.dataMax = dataMax;
+	}
+	public Calendar getDataMin() {
+		return dataMin;
+	}
+	public void setDataMin(Calendar dataMin) {
+		this.dataMin = dataMin;
+	}
 	public int getId() {
 		return id;
 	}

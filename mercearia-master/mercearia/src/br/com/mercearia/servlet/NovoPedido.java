@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.JSON.JSONArray;
+import org.JSON.JSONException;
 import org.JSON.JSONObject;
 
 import br.com.mercearia.dao.ClienteDAO;
@@ -29,12 +30,21 @@ public class NovoPedido extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// ClienteDAO cldao = new ClienteDAO();
-
+		
+		JSONArray produtos;
+		
+		try{
 		JSONObject myobj = new JSONObject("{\"produto\":"
-				+ request.getParameter("produto") + "}");
-		JSONArray produtos = myobj.getJSONArray("produto");
+				+ request.getParameter("Produto") + "}");
+		produtos = myobj.getJSONArray("produto");
+		}catch(JSONException e)
+		{
+			e.printStackTrace();
+			
+		}
+		
 		List<Produto> listaProduto = new ArrayList<Produto>();
-		float totalPedido = 0;
+		
 		boolean bool = false;
 		for (int i = 0; i < produtos.length(); i++) {
 			String jsonstr = "{\"produto\":" + produtos.get(i) + "}";
