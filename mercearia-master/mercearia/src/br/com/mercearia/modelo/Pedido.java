@@ -11,9 +11,22 @@ public class Pedido {
 	private Funcionario funcionario;
 	private Calendar dataMax;
 	private Calendar dataMin;
+	private int fornecedorId;
+	private long funcionarioId;
 	
 	
-	
+	public int getFornecedorId() {
+		return fornecedorId;
+	}
+	public void setFornecedorId(int fornecedorId) {
+		this.fornecedorId = fornecedorId;
+	}
+	public long getFuncionarioId() {
+		return funcionarioId;
+	}
+	public void setFuncionarioId(long funcionarioId) {
+		this.funcionarioId = funcionarioId;
+	}
 	public Calendar getDataMax() {
 		return dataMax;
 	}

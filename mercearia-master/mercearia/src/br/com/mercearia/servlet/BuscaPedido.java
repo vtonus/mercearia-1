@@ -70,7 +70,7 @@ public class BuscaPedido extends HttpServlet {
 								+ "\" " + "value=\""
 								+ p.getFuncionario().getNome() + "\">"
 								+ "<input type=\"hidden\" id=\"datahora" + i
-								+ "\" " + "value=\"" + p.getDataHora() + "\">"
+								+ "\" " + "value=\"" + Conversao.calendarEmTexto(p.getDataHora()) + "\">"
 
 				);
 			}

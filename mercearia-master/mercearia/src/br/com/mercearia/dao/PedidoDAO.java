@@ -69,13 +69,12 @@ public class PedidoDAO {
 
 			ps.setInt(2, pedido.getId());
 			ps.setFloat(1, pedido.getValor());
-
 			ps.execute();
+			bool = true;
 			ps.close();
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return bool;
 		}
 		return bool;
 	}
@@ -104,7 +103,7 @@ public class PedidoDAO {
 
 	public List<Pedido> busca(Pedido pe) {
 		connection = new Conexao().getConnection();
-		Boolean[] boo = new Boolean[4];
+		Boolean[] boo = new Boolean[5];
 		Calendar calendar;
 		for (int j = 0; j < 4; j++) {
 			boo[j] = false;
@@ -112,7 +111,7 @@ public class PedidoDAO {
 
 		int i = 0;
 
-		String sql = "select id, descricao, fo.nome, fu.nome, datahora from pedido pe"
+		String sql = "select id, descricao, fo.nome, fo.id, fu.nome, fu.cpf, datahora from pedido pe"
 				+ "inner join funcionario fu on (co.funcionario = fu.cpf)"
 				+ "inner join fornecedor fo on (co.fornecedor = fo.id)";
 
@@ -147,7 +146,7 @@ public class PedidoDAO {
 			boo[2] = true;
 			if (i == 0) {
 				sql = sql.concat("where ");
-				i++;
+				i = 1;
 			} else {
 				sql = sql.concat("and ");
 			}
@@ -161,10 +160,25 @@ public class PedidoDAO {
 			boo[3] = true;
 			if (i == 0) {
 				sql = sql.concat("where ");
+				i = 1;
 			} else {
 				sql = sql.concat("and ");
 			}
 			sql = sql.concat("datahora < ?");
+		} catch (NullPointerException e) {
+		}
+
+		try {
+			if (pe.getId() > 0) {
+				boo[4] = true;
+				if (i == 0) {
+					sql = sql.concat("where ");
+					i = 1;
+				} else {
+					sql = sql.concat("and ");
+				}
+				sql = sql.concat("pe.id = ? ");
+			}
 		} catch (NullPointerException e) {
 		}
 
@@ -189,6 +203,10 @@ public class PedidoDAO {
 						Conversao.dateEmTimestamp(pe.getDataMin().getTime()));
 				i++;
 			}
+			if (boo[4]) {
+				ps.setInt(i, pe.getId());
+				i++;
+			}
 
 			ResultSet rs = ps.executeQuery();
 			List<Pedido> listaPe = new ArrayList<Pedido>();
@@ -198,7 +216,9 @@ public class PedidoDAO {
 				Funcionario fu = new Funcionario();
 				Fornecedor fo = new Fornecedor();
 				fu.setNome(rs.getString("fu.nome"));
+				fu.setCpf(rs.getLong("fu.cpf"));
 				fo.setNome(rs.getString("fo.nome"));
+				fo.setId(rs.getInt("id"));
 				pe.setFornecedor(fo);
 				pe.setFuncionario(fu);
 				pe.setId(rs.getInt("id"));
@@ -214,4 +234,39 @@ public class PedidoDAO {
 		}
 		return null;
 	}
+
+	public Pedido busca(int id) {
+		connection = new Conexao().getConnection();
+
+		String sql = "select * from pedido where id = ?";
+
+		try {
+			Pedido pedido = new Pedido();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			Calendar calendar = Calendar.getInstance();
+			while (rs.next()) {
+
+				// id valor descricao fornecedor funcionario datahora
+
+				pedido.setId(rs.getInt("pe.id"));
+				pedido.setDescricao(rs.getString("pe.descricao"));
+				pedido.setFornecedorId(rs.getInt("fo.id"));
+				pedido.setFuncionarioId(rs.getLong("fu.cpf"));
+				try {
+					calendar.setTime(rs.getDate("pe.datahora"));
+					pedido.setDataHora(calendar);
+				} catch (RuntimeException e) {
+					System.out.println("Deu pau na data do produto.");
+				}
+			}
+			ps.close();
+			connection.close();
+			return pedido;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 }

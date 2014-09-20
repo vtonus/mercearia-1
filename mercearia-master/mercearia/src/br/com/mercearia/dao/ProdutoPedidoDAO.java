@@ -35,9 +35,9 @@ public class ProdutoPedidoDAO {
 	 * } ps.close(); connection.close(); return produto; } catch (SQLException
 	 * e) { throw new RuntimeException(e); } }
 	 */
-	public void adiciona(ProdutoPedido produtoPedido) {
+	public boolean adiciona(ProdutoPedido produtoPedido) {
 		connection = new Conexao().getConnection();
-		//
+		boolean bool = false;
 		String sql = "insert into produtoPedido values (?, ?, ?, ?)";
 
 		try {
@@ -48,11 +48,12 @@ public class ProdutoPedidoDAO {
 			ps.setInt(3, produtoPedido.getProduto().getQtd());
 			ps.setFloat(4, produtoPedido.getProduto().getValor());
 			ps.execute();
+			bool = true;
 			ps.close();
 			connection.close();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		}
+		return bool;
 	}
 
 	public boolean exclui(int i) {

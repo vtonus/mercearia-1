@@ -1,4 +1,3 @@
-
 package br.com.mercearia.servlet;
 
 import java.io.IOException;
@@ -23,8 +22,6 @@ import br.com.mercearia.modelo.ProdutoPedido;
 @SuppressWarnings("serial")
 public class EditaDetalhesPedido extends HttpServlet {
 
-	//NAO ESTA COMPLETO!!!
-	//Testando............
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ProdutoPedidoDAO ppdao = new ProdutoPedidoDAO();
@@ -42,6 +39,7 @@ public class EditaDetalhesPedido extends HttpServlet {
 		} catch (JSONException e) {
 			e.printStackTrace();
 			response.setStatus(500);
+			
 			return;
 		}
 
@@ -65,32 +63,45 @@ public class EditaDetalhesPedido extends HttpServlet {
 
 				listaProduto.add(produto);
 				bool = true;
-			} else
+			} else {
 				break;
+			}
 		}
 
 		if (bool) {
 			pe.setId(Integer.parseInt(request.getParameter("idPedido")));
-			pe.setValor(totalPedido);			
-			
+			Pedido peBack = new Pedido();
+			peBack = pedao.busca(pe.getId());
+			pe.setValor(totalPedido);
 			if (pedao.editaValor(pe)) {
+				List<ProdutoPedido> ppBack = new ArrayList<ProdutoPedido>();
+				ppBack = ppdao.buscaPedido(pe.getId());
 				if (ppdao.exclui(pe.getId())) {
-					for (Produto p : listaProduto) {
+					  for (Produto p : listaProduto) {
 						pp.setPedido(pe);
 						pp.setProduto(p);
-						ppdao.adiciona(pp);
+						if (!(ppdao.adiciona(pp)))
+						{
+							ppdao.exclui(pe.getId());
+							for(ProdutoPedido ppBackup : ppBack){
+								ppdao.adiciona(ppBackup);
+							}
+							break;
+						}
 					}
 				}
-					if (ppdao.exclui(pp.getPedidoId())) {
-
-					}
-					ppdao.adiciona(pp);
+				else
+				{
+					pedao.editaValor(peBack);
+					response.setStatus(500);
+					return;
 				}
-			} else {
-				response.setStatus(500);
 			}
-			response.setStatus(200);
-	
-
+		}
+		else 
+		{
+			response.setStatus(500);
+		}
+		response.setStatus(200);
 	}
 }
