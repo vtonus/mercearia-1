@@ -20,7 +20,7 @@ public class FuncionarioDAO {
 	public boolean adiciona(Funcionario funcionario) {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
-		
+
 		sql = "insert into funcionario "
 				+ "(cpf, nome, usuario, senha, email, telefone, dataNascimento)"
 				+ " values (?, ?, ?, ?, ?, ?, ?)";
@@ -230,7 +230,7 @@ public class FuncionarioDAO {
 		boolean bool = false;
 		String sql = "delete from funcionario where id = ?";
 
-		try { 
+		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, id);
 			ps.execute();
@@ -242,4 +242,61 @@ public class FuncionarioDAO {
 		return bool;
 	}
 
+	public List<Funcionario> busca(String palavraChave, String parametro) {
+		connection = new Conexao().getConnection();
+		int i = 0;
+		String sql;
+		long telefone = 0;
+		if (parametro.equals("nome")) {
+			sql = "select * from cliente where nome like ?";
+		} else if (parametro.equals("cpf")) {
+			sql = "select * from cliente where cpf like ?";
+		} else if (parametro.equals("email")) {
+			sql = "select * from cliente where email like ?";
+		} else if (parametro.equals("telefone")) {
+			sql = "select * from cliente where telefone = ?";
+			i = 1;
+
+		} else {
+			return null;
+		}
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+
+			ps = this.connection.prepareStatement(sql);
+			palavraChave = ("%" + palavraChave + "%");
+			if (i == 0) {
+				ps.setString(1, palavraChave);
+			} else {
+				try {
+					telefone = Long.parseLong(palavraChave);
+				} catch (RuntimeException e) {
+					return null;
+				}
+				ps.setLong(1, telefone);
+			}
+			ResultSet rs = ps.executeQuery();
+			List<Funcionario> listaF = new ArrayList<Funcionario>();
+			while (rs.next()) {
+				Funcionario f = new Funcionario();
+				f.setCpf(rs.getString("cpf"));
+				f.setNome(rs.getString("nome"));
+				f.setTelefone(Long.parseLong(rs.getString("telefone")));
+				f.setEmail(rs.getString("email"));
+
+				try {
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTime(rs.getDate("dataNascimento"));
+					f.setDataNascimento(calendar);
+				} catch (SQLException e) {
+				}
+
+				listaF.add(f);
+			}
+			return listaF;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

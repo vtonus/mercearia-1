@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.mercearia.dao.FuncionarioDAO;
-import br.com.mercearia.modelo.Cliente;
 import br.com.mercearia.modelo.Funcionario;
 import br.com.mercearia.util.Conversao;
 
@@ -27,6 +26,7 @@ public class BuscaFuncionario extends HttpServlet {
 		listaF = fdao.busca(palavraChave, parametro);
 		int i = 0;
 		String dataNascimento;
+		boolean bool = false;
 		for (Funcionario f : listaF) {
 			dataNascimento = "";
 			
@@ -40,6 +40,7 @@ public class BuscaFuncionario extends HttpServlet {
 			}
 			else telefone=""+f.getTelefone();
 			if (f != null) {
+				bool = true;
 				response.getWriter().write(
 								  "<input type=\"hidden\" id=\"cpf" + i
 								+ "\" value=\"" + f.getCpf() + "\">"
@@ -53,6 +54,9 @@ public class BuscaFuncionario extends HttpServlet {
 								+ "\" value=\"" + dataNascimento + "\">");
 			}
 			i++;
+		}
+		if (!bool) {
+			response.setStatus(400);
 		}
 	}
 }
