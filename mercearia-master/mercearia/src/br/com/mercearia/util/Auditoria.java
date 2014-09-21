@@ -55,7 +55,7 @@ public class Auditoria {
 		this.passado = passado;
 	}
 	
-	public boolean adiciona() {
+/*	public boolean adiciona() {
 		connection = new Conexao().getConnection();
 		String sql = "insert into auditoria (cpf_funcionario, datahora, acao, tabela, presente, passado)"
 				+ " values()";
@@ -77,5 +77,5 @@ public class Auditoria {
 			throw new RuntimeException(e);
 		}
 		return bool;
-	}	
+	}*/	
 }

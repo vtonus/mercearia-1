@@ -14,7 +14,7 @@ public class NovoFuncionarioLogic implements Logic {
 			throws Exception, ServletException {
 		try {
 			Funcionario funcionario = new Funcionario();
-			funcionario.setCpf(Long.parseLong(request.getParameter("cpf")));
+			funcionario.setCpf(request.getParameter("cpf"));
 			funcionario.setNome(request.getParameter("nome"));
 			funcionario.setUsuario(request.getParameter("usuario"));
 			funcionario.setSenha(request.getParameter("senha"));

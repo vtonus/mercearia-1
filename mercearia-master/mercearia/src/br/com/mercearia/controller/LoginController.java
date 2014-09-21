@@ -20,7 +20,7 @@ public class LoginController extends HttpServlet {
 		FuncionarioDAO dao = new FuncionarioDAO();
 		Funcionario funcionario = new Funcionario();
 		funcionario = dao.checaLogin(usuario, senha);
-		if (funcionario.getCpf() > 0) {
+		if (funcionario.getCpf().trim().length() > 0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("usuario", funcionario.getNome());
 			session.setAttribute("usuarioCpf", funcionario.getCpf());

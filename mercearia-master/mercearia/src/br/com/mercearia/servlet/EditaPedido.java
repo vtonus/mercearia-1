@@ -30,7 +30,7 @@ public class EditaPedido extends HttpServlet {
 		Funcionario funcionario = new Funcionario();
 		fornecedor.setId(Integer.parseInt(request.getParameter("idForn")));
 		pedido.setDescricao(request.getParameter("desc"));
-		funcionario.setCpf(Long.parseLong(request.getParameter("funcionario")));
+		funcionario.setCpf(request.getParameter("funcionario"));
 		
 		try {
 		Calendar datahora = Calendar.getInstance();

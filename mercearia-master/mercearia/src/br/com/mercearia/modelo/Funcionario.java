@@ -3,7 +3,7 @@ package br.com.mercearia.modelo;
 import java.util.Calendar;
 
 public class Funcionario {
-	private long cpf;
+	private String cpf;
 	private String nome;
 	private String usuario;
 	private long telefone;
@@ -19,11 +19,11 @@ public class Funcionario {
 		this.email = email;
 	}
 
-	public long getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(long cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 

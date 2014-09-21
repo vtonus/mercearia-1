@@ -119,7 +119,6 @@ public class ClienteDAO {
 			ps.close();
 			connection.close();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		}
 		return bool;
 	}

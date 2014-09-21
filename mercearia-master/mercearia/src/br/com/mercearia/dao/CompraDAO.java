@@ -25,7 +25,7 @@ public class CompraDAO {
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setFloat(1, compra.getValor());
-			ps.setLong(2, compra.getFuncionario().getCpf());
+			ps.setString(2, compra.getFuncionario().getCpf());
 			try {
 				ps.setInt(3, compra.getCliente().getId());
 			} catch (NullPointerException e) {
@@ -57,7 +57,7 @@ public class CompraDAO {
 			PreparedStatement ps = connection.prepareStatement(sql);
 
 			ps.setFloat(1, compra.getValor());
-			ps.setLong(2, compra.getFuncionario().getCpf());
+			ps.setString(2, compra.getFuncionario().getCpf());
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {

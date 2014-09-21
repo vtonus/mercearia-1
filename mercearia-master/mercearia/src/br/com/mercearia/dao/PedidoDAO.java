@@ -45,7 +45,7 @@ public class PedidoDAO {
 			ps.setFloat(1, pedido.getValor());
 			ps.setString(2, pedido.getDescricao());
 			ps.setInt(3, pedido.getFornecedor().getId());
-			ps.setLong(4, pedido.getFuncionario().getCpf());
+			ps.setString(4, pedido.getFuncionario().getCpf());
 			ps.execute();
 			ps.close();
 			ps = connection.prepareStatement("SELECT LAST_INSERT_ID()");
@@ -89,7 +89,7 @@ public class PedidoDAO {
 
 			ps.setInt(1, pedido.getFornecedor().getId());
 			ps.setString(2, pedido.getDescricao());
-			ps.setLong(3, pedido.getFuncionario().getCpf());
+			ps.setString(3, pedido.getFuncionario().getCpf());
 			ps.setFloat(4, pedido.getValor());
 			ps.setInt(5, pedido.getId());
 			ps.execute();
@@ -216,7 +216,7 @@ public class PedidoDAO {
 				Funcionario fu = new Funcionario();
 				Fornecedor fo = new Fornecedor();
 				fu.setNome(rs.getString("fu.nome"));
-				fu.setCpf(rs.getLong("fu.cpf"));
+				fu.setCpf(rs.getString("fu.cpf"));
 				fo.setNome(rs.getString("fo.nome"));
 				fo.setId(rs.getInt("id"));
 				pe.setFornecedor(fo);
@@ -267,6 +267,22 @@ public class PedidoDAO {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	public boolean exclui(int id) {
+		connection = new Conexao().getConnection();
+		boolean bool = false;
+		String sql = "delete from pedido where id = ?";
+
+		try { 
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.execute();
+			bool = true;
+			ps.close();
+			connection.close();
+		} catch (SQLException e) {
+		}
+		return bool;
 	}
 
 }

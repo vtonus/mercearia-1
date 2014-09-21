@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -16,9 +17,10 @@ public class FuncionarioDAO {
 	PreparedStatement ps;
 	private Connection connection;
 
-	public void adiciona(Funcionario funcionario) {
+	public boolean adiciona(Funcionario funcionario) {
 		connection = new Conexao().getConnection();
-
+		boolean bool = false;
+		
 		sql = "insert into funcionario "
 				+ "(cpf, nome, usuario, senha, email, telefone, dataNascimento)"
 				+ " values (?, ?, ?, ?, ?, ?, ?)";
@@ -26,7 +28,7 @@ public class FuncionarioDAO {
 		try {
 			ps = connection.prepareStatement(sql);
 
-			ps.setLong(1, funcionario.getCpf());
+			ps.setString(1, funcionario.getCpf());
 			ps.setString(2, funcionario.getNome());
 			ps.setString(3, funcionario.getUsuario());
 			ps.setString(4, funcionario.getSenha());
@@ -42,11 +44,13 @@ public class FuncionarioDAO {
 			ps.setDate(7, new Date(funcionario.getDataNascimento()
 					.getTimeInMillis()));
 			ps.execute();
+			bool = true;
 			ps.close();
 			connection.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+		return bool;
 	}
 
 	public Funcionario checaLogin(String usuario, String senha) {
@@ -61,7 +65,7 @@ public class FuncionarioDAO {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				funcionario.setCpf(rs.getLong("cpf"));
+				funcionario.setCpf(rs.getString("cpf"));
 				funcionario.setNome(rs.getString("nome"));
 				ps.close();
 				connection.close();
@@ -85,7 +89,7 @@ public class FuncionarioDAO {
 
 			while (rs.next()) {
 				Funcionario funcionario = new Funcionario();
-				funcionario.setCpf(rs.getLong("cpf"));
+				funcionario.setCpf(rs.getString("cpf"));
 				try {
 					Calendar calendar = Calendar.getInstance();
 					calendar.setTime(rs.getDate("dataNascimento"));
@@ -116,7 +120,7 @@ public class FuncionarioDAO {
 			ps.setString(1, usuario);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			funcionario.setCpf(rs.getLong("cpf"));
+			funcionario.setCpf(rs.getString("cpf"));
 			try {
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTime(rs.getDate("dataNascimento"));
@@ -161,35 +165,81 @@ public class FuncionarioDAO {
 		}
 	}
 
-	public Funcionario busca(Long id) {
+	public Funcionario buscaId(String id) {
 		connection = new Conexao().getConnection();
 		sql = "select * from funcionario where cpf = ?";
-		Funcionario funcionario = new Funcionario();
+		Funcionario f = new Funcionario();
 		try {
 			ps = this.connection.prepareStatement(sql);
-			ps.setLong(1, id);
+			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			try 
-			{
+			try {
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTime(rs.getDate("dataNascimento"));
-				funcionario.setDataNascimento(calendar);
+				f.setDataNascimento(calendar);
 			} catch (SQLException e) {
 				System.out.println("Erro na busca da data.");
 			}
-			funcionario.setNome(rs.getString("nome"));
-			funcionario.setUsuario(rs.getString("usuario"));
+			f.setNome(rs.getString("nome"));
+			f.setUsuario(rs.getString("usuario"));
 			try {
-				funcionario.setTelefone(rs.getLong("telefone"));
+				f.setTelefone(rs.getLong("telefone"));
 			} catch (SQLException e) {
 			}
-			funcionario.setCpf(rs.getLong("cpf"));
-			return funcionario;
+			f.setCpf(id);
+			return f;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return funcionario;
+		return f;
+	}
+
+	public boolean edita(Funcionario f) {
+		connection = new Conexao().getConnection();
+		boolean bool = false;
+		String sql = "update funcionario set nome= ?, usuario= ?, senha = ?, telefone= ?, email=?, dataNascimento=? where cpf=?";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+
+			ps.setString(1, f.getNome());
+			ps.setString(2, f.getUsuario());
+			ps.setString(3, f.getSenha());
+			ps.setLong(4, f.getTelefone());
+			ps.setString(5, f.getEmail());
+
+			try {
+				ps.setDate(6, new Date(f.getDataNascimento().getTimeInMillis()));
+			} catch (NullPointerException e) {
+				ps.setNull(6, Types.DATE);
+			}
+
+			ps.execute();
+			bool = true;
+			ps.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return bool;
+	}
+
+	public boolean exclui(int id) {
+		connection = new Conexao().getConnection();
+		boolean bool = false;
+		String sql = "delete from funcionario where id = ?";
+
+		try { 
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.execute();
+			bool = true;
+			ps.close();
+			connection.close();
+		} catch (SQLException e) {
+		}
+		return bool;
 	}
 
 }

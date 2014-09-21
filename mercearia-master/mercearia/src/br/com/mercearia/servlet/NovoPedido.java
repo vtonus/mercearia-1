@@ -68,7 +68,7 @@ public class NovoPedido extends HttpServlet {
 			pedido.setFornecedor(fornecedor);
 			FuncionarioDAO fdao = new FuncionarioDAO();
 			HttpSession session = request.getSession();
-			pedido.setFuncionario(fdao.busca((Long) session
+			pedido.setFuncionario(fdao.busca((String) session
 					.getAttribute("usuarioCpf")));
 			pedido.setDescricao("desc");
 			pedido.setValor(totalPedido);
