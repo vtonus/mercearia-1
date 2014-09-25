@@ -167,6 +167,38 @@
   </servlet-mapping>
 
 
+  <servlet>
+    <servlet-name>NovoFornecedor</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.NovoFornecedor</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NovoFornecedor</servlet-name>
+    <url-pattern>/NovoFornecedor</url-pattern>
+    <url-pattern>/views/NovoFornecedor</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>BuscaFornecedor</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.BuscaFornecedor</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BuscaFornecedor</servlet-name>
+    <url-pattern>/BuscaFornecedor</url-pattern>
+    <url-pattern>/views/BuscaFornecedor</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>BuscaFuncionario</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.BuscaFuncionario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BuscaFuncionario</servlet-name>
+    <url-pattern>/BuscaFuncionario</url-pattern>
+    <url-pattern>/views/BuscaFuncionario</url-pattern>
+  </servlet-mapping>
+
+
 
   <servlet-mapping>
     <servlet-name>Deslogando</servlet-name>

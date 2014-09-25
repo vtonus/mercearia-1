@@ -16,19 +16,20 @@ public class FornecedorDAO {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
 		String sql = "insert into fornecedor "
-				+ "(nome, cnpj, telefone, email, endereco)" + " values (?, ?, ?, ?, ?)";
+				+ "(nome, cnpj, telefone, email, endereco)"
+				+ " values (?, ?, ?, ?, ?)";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 
 			ps.setString(1, fornecedor.getNome());
-			ps.setLong(2, fornecedor.getCnpj());		
+			ps.setLong(2, fornecedor.getCnpj());
 			ps.setLong(3, fornecedor.getTelefone());
 			ps.setString(4, fornecedor.getEmail());
 			ps.setString(5, fornecedor.getEndereco());
 
 			ps.execute();
-			bool=true;
+			bool = true;
 			ps.close();
 			connection.close();
 		} catch (SQLException e) {
@@ -58,6 +59,7 @@ public class FornecedorDAO {
 		}
 		return listaFornecedor;
 	}
+
 	public boolean edita(Fornecedor f) {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
@@ -65,7 +67,7 @@ public class FornecedorDAO {
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
-			
+
 			ps.setString(1, f.getNome());
 			ps.setLong(2, f.getCnpj());
 			ps.setLong(3, f.getTelefone());
@@ -81,12 +83,13 @@ public class FornecedorDAO {
 		}
 		return bool;
 	}
+
 	public boolean exclui(int id) {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
 		String sql = "delete from fornecedor where id = ?";
 
-		try { 
+		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, id);
 			ps.execute();
@@ -97,7 +100,7 @@ public class FornecedorDAO {
 		}
 		return bool;
 	}
-	
+
 	public List<Fornecedor> busca(String palavraChave, String parametro) {
 		connection = new Conexao().getConnection();
 		int i = 0;
@@ -133,11 +136,17 @@ public class FornecedorDAO {
 				Fornecedor f = new Fornecedor();
 				f.setId(Integer.parseInt(rs.getString("id")));
 				f.setNome(rs.getString("nome"));
-				f.setCnpj(Long.parseLong(rs.getString("cnpj")));
-				f.setTelefone(Long.parseLong("telefone"));
+				try {
+					f.setCnpj(Long.parseLong(rs.getString("cnpj")));
+				} catch (RuntimeException e) {
+				}
+				try {
+					f.setTelefone(Long.parseLong("telefone"));
+				} catch (RuntimeException e) {
+				}
 				f.setEmail(rs.getString("email"));
 				f.setEndereco(rs.getString("endereco"));
-				
+
 				listaF.add(f);
 			}
 			return listaF;

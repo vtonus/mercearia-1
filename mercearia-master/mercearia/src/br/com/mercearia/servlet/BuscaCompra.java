@@ -33,7 +33,7 @@ public class BuscaCompra extends HttpServlet {
 		try{
 			compra.setHoraIni(Conversao.textoEmDataHora(request.getParameter("dataHoraIni")));
 		}
-		catch(ParseException e){}
+		catch(RuntimeException | ParseException e){}
 		
 		try{
 			compra.setHoraFim(Conversao.textoEmDataHora(request.getParameter("dataHoraFim")));
@@ -60,7 +60,7 @@ public class BuscaCompra extends HttpServlet {
 						"<input type=\"hidden\" id=\"id" + i + "\" "
 						+ "value=\""+ c.getId() +"\">"
 						+ "<input type=\"hidden\" id=\"datahora" + i + "\" "
-						+ "value=\""+ c.getHora() +"\">"
+						+ "value=\""+ Conversao.calendarCEmTexto(c.getHora()) +"\">"
 						+ "<input type=\"hidden\" id=\"valor" + i + "\" "
 						+ "value=\""+ c.getValor() +"\">"
 						+ "<input type=\"hidden\" id=\"funcionario" + i + "\" "

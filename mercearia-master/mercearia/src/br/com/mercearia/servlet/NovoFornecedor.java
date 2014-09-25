@@ -19,14 +19,14 @@ public class NovoFornecedor extends HttpServlet {
 		Fornecedor f = new Fornecedor();
 		f.setNome(request.getParameter("nome"));
 		try {
-			f.setCnpj(Long.parseLong(request.getParameter("cnpj")));
-		} catch (NullPointerException e) {
+			f.setCnpj(Long.parseLong(request.getParameter("CNPJ")));
+		} catch (NullPointerException | NumberFormatException e) {
 			f.setCnpj(0);
 		}
 
 		try {
-			f.setTelefone(Long.parseLong(request.getParameter("doc")));
-		} catch (NullPointerException e) {
+			f.setTelefone(Long.parseLong(request.getParameter("telefone")));
+		} catch (NullPointerException | NumberFormatException e) {
 			f.setTelefone(0);
 		}
 		

@@ -16,6 +16,12 @@ public class Conversao {
 		return resposta;
 	}
 	
+	public static String calendarCEmTexto(Calendar calendar) {
+		Date date = calendar.getTime();
+		String resposta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+		return resposta;
+	}
+	
 	public static Calendar textoHEmData(String textoEmData)
 			throws ParseException {
 		try{
@@ -46,7 +52,9 @@ public class Conversao {
 
 	public static Calendar textoEmDataHora(String textoEmData)
 			throws ParseException {
-		textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4);
+		try{
+			textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4);
+		}catch(StringIndexOutOfBoundsException e){throw new ParseException(null, 0);}
 		Date date = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss")
 				.parse(textoEmData);
 		dataRetorno = Calendar.getInstance();

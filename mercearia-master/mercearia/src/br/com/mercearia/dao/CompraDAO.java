@@ -87,13 +87,14 @@ public class CompraDAO {
 		// id, dataHoraIni, dataHoraFim, id_funcionario, id_cliente
 
 		int i = 0;
-		String sql = "select id, valor, cl.nome, fu.nome, datahora from compra co "
-				+ "inner join cliente cl on (co.id_cliente = cl.id_cliente) "
+		String sql = "select co.id, co.valor, cl.nome, fu.nome, co.datahora from compra co "
+				+ "inner join cliente cl on (co.id_cliente = cl.id) "
 				+ "inner join funcionario fu on (fu.cpf = co.id_funcionario) ";
 		try {
 			if (compra.getId() > 0) {
 				boo[0] = true;
-				sql = sql.concat("where id = ? ");
+				System.out.println("0 eh true");
+				sql = sql.concat("where co.id = ? ");
 				i = 1;
 			}
 		} catch (RuntimeException e) {
@@ -102,6 +103,7 @@ public class CompraDAO {
 		try {
 			if (compra.getFuncionarioNome().trim().length() > 0) {
 				boo[1] = true;
+				System.out.println("1 eh true");
 				if (i == 0) {
 					sql = sql.concat("where ");
 					i = 1;
@@ -116,6 +118,7 @@ public class CompraDAO {
 		try {
 			if (compra.getClienteNome().trim().length() > 0) {
 				boo[2] = true;
+				System.out.println("2 eh true");
 				if (i == 0) {
 					sql = sql.concat("where ");
 					i = 1;
@@ -130,13 +133,21 @@ public class CompraDAO {
 		try {
 			calendar = Calendar.getInstance();
 			calendar = compra.getHoraIni();
-			boo[3] = true;
-			if (i == 0) {
-				sql = sql.concat("where ");
-				i = 2;
-			} else {
-				sql = sql.concat("and ");
-				i = 2;
+			try {
+				System.out.println("passou..."+Conversao.calendarEmTexto(calendar));
+			} catch (RuntimeException e) {
+			}
+			if (calendar.isLenient()) {
+				System.out.println("Passouuu!!!");
+				boo[3] = true;
+				System.out.println("3 eh true");
+				if (i == 0) {
+					sql = sql.concat("where ");
+					i = 2;
+				} else {
+					sql = sql.concat("and ");
+					i = 2;
+				}
 			}
 		} catch (NullPointerException e) {
 		}
@@ -144,19 +155,25 @@ public class CompraDAO {
 		try {
 			calendar = Calendar.getInstance();
 			calendar = compra.getHoraFim();
+			if (calendar.isLenient()) {
+				try {
+					System.out.println("passou..."+Conversao.calendarEmTexto(calendar));
+				} catch (RuntimeException e) {
+				}
+				boo[4] = true;
+				System.out.println("4 eh true");
+				if (i == 0) {
+					sql = sql.concat("where datahora <= ? ");
+					i = 3;
+				}
 
-			boo[4] = true;
-			if (i == 0) {
-				sql = sql.concat("where datahora <= ? ");
-				i = 3;
-			}
-
-			else if (i == 1) {
-				sql = sql.concat("and datahora <= ? ");
-				i = 3;
-			} else {
-				sql = sql.concat("datahora between ? and ? ");
-				i = 3;
+				else if (i == 1) {
+					sql = sql.concat("and datahora <= ? ");
+					i = 3;
+				} else {
+					sql = sql.concat("datahora between ? and ? ");
+					i = 3;
+				}
 			}
 		} catch (NullPointerException e) {
 		}
@@ -193,12 +210,12 @@ public class CompraDAO {
 			ResultSet rs = ps.executeQuery();
 			List<Compra> compras = new ArrayList<Compra>();
 			while (rs.next()) {
-				compra.setId(rs.getInt("id"));
+				compra.setId(rs.getInt("co.id"));
 				compra.setFuncionarioNome(rs.getString("fu.nome"));
 				compra.setClienteNome(rs.getString("cl.nome"));
-				compra.setValor(rs.getFloat("valor"));
+				compra.setValor(rs.getFloat("co.valor"));
 				calendar = Calendar.getInstance();
-				calendar.setTime(rs.getDate("datahora"));
+				calendar.setTime(rs.getTimestamp("co.datahora"));
 				compra.setHora(calendar);
 				compras.add(compra);
 			}

@@ -18,7 +18,10 @@ public class BuscaCodigoProduto extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		Long c = Long.parseLong(request.getParameter("produto"));
+		Long c = null;
+		try{
+		c = Long.parseLong(request.getParameter("produto"));
+		}catch(RuntimeException e){}
 		List<Produto> listaProduto = new ArrayList<Produto>();
 		listaProduto = pdao.buscaCodigoProduto(c);
 		for (Produto produto : listaProduto) {
