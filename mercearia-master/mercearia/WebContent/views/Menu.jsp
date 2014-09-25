@@ -1,6 +1,6 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
  <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
 <title>Menu principal</title>
 

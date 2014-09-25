@@ -5,7 +5,6 @@
 		<input type="text" id="palavraChave" autofocus>
 		<label class='estiloso'>
 		<select id="parametro">
-			<option value="id">Id</option>
 			<option value="nome">Nome</option>
 			<option value="cpf">CPF</option>
 			<option value="telefone">Telefone</option>

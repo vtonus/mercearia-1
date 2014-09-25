@@ -27,12 +27,12 @@ public class EditaCliente extends HttpServlet {
 			cliente.setTelefone(Long.parseLong(request.getParameter("telefone")));
 		}catch(NullPointerException | NumberFormatException e){cliente.setTelefone(0);}
 		cliente.setEmail(request.getParameter("email"));
-		cliente.setEndereco(request.getParameter("endereco"));
+		cliente.setEndereco(request.getParameter("end"));
 		cliente.setSexoC(request.getParameter("sexo"));
 
 		
 		try{
-			cliente.setDataNascimento(Conversao.textoEmData(request.getParameter("dataDeNascimento")));
+			cliente.setDataNascimento(Conversao.textoHEmData(request.getParameter("dataDeNascimento")));
 		}catch (NullPointerException e){}
 		catch(ParseException e){}
 		System.out.println("id "+cliente.getId()+"\nnome "+cliente.getNome()+"\ncpf "+cliente.getCpf()+"\ntelefone "+cliente.getTelefone()+"\nemail "+cliente.getEmail()+"\nsexo "+cliente.getSexo()+"\nData de nasc: "+cliente.getDataNascimento());

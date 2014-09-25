@@ -98,6 +98,7 @@ public class ClienteDAO {
 				cliente.setDataNascimento(calendar);
 				} catch(RuntimeException e){}
 				cliente.setEmail(rs.getString("email"));
+				cliente.setEndereco(rs.getString("endereco"));
 				listaCliente.add(cliente);
 			}
 			return listaCliente;

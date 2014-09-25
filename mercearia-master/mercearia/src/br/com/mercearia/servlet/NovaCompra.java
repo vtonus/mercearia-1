@@ -34,6 +34,8 @@ public class NovaCompra extends HttpServlet {
 		JSONArray produtos = myobj.getJSONArray("produto");
 		List<Produto> listaProduto = new ArrayList<Produto>();
 		float totalCompra = 0;
+		float froat;
+		Produto step = new Produto();
 		boolean bool = false;
 		for (int i = 0; i < produtos.length(); i++) {
 			String jsonstr = "{\"produto\":" + produtos.get(i) + "}";
@@ -47,9 +49,10 @@ public class NovaCompra extends HttpServlet {
 						.toString()));
 				produto.setValor(Float.parseFloat((String) jsonarray.get(1)
 						.toString()));
-				totalCompra = + (produto.getValor()*produto.getQtd());
-				System.out.println(produto.getValor());
+				totalCompra += (produto.getValor() * produto.getQtd());
+
 				listaProduto.add(produto);
+
 				bool = true;
 			} else
 				break;
@@ -60,17 +63,17 @@ public class NovaCompra extends HttpServlet {
 			compra.setValor(totalCompra);
 			FuncionarioDAO fdao = new FuncionarioDAO();
 			HttpSession session = request.getSession();
-			compra.setFuncionario(fdao.busca((String) session.getAttribute("usuarioCpf")));
+			compra.setFuncionarioId((String) session.getAttribute("usuarioCpf"));
 			int id = cdao.adiciona(compra);
 			CompraProdutoDAO cpdao = new CompraProdutoDAO();
 			CompraProduto cp = new CompraProduto();
-			for (Produto p : listaProduto){
+			for (Produto p : listaProduto) {
 				cp.setCompraId(id);
 				cp.setProduto(p);
 				cpdao.adiciona(cp);
 			}
 			response.setStatus(200);
-		}
-		else response.setStatus(500);
+		} else
+			response.setStatus(500);
 	}
 }

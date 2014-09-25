@@ -83,6 +83,7 @@ function editaCliente(pk){
 		url:'EditaCliente',
 		data:{
 		id:$("#id"+pk).val(),nome:$(".nome"+pk).val(),cpf:$(".doc"+pk).val(),telefone:$(".telefone"+pk).val(),email:$(".email"+pk).val(),sexo:$(".sexo1"+pk).val(),dataDeNascimento:$(".data"+pk).val(),
+		end:$(".end"+pk).val(),
 		},
 		type: 'POST',
 		success: function(back){
@@ -115,6 +116,7 @@ function cEditaCliente(pk){
 	$(".email"+pk).hide();
 	$(".sexo"+pk).hide();
 	$(".data"+pk).hide();
+	$(".end"+pk).hide();
 	
 	$(".tabretorno #nome"+pk).show();
 	$(".tabretorno #telefone"+pk).show();
@@ -123,7 +125,10 @@ function cEditaCliente(pk){
 	$(".tabretorno #sexo"+pk).show();
 	$(".tabretorno #data"+pk).show();
 	$(".tabretorno #edita"+pk).show();
+	$(".tabretorno #end"+pk).show();
+	
 	$(".tabretorno #salva"+pk).hide();
+	
 	
 	$('#procli .fundoq').hide();
 	$("#procli .question").hide();
@@ -138,6 +143,7 @@ function mostraedita(pk){
 	$(".email"+pk).show();
 	$(".sexo"+pk).show();
 	$(".data"+pk).show();
+	$(".end"+pk).show();
 	
 	$(".tabretorno #nome"+pk).hide();
 	$(".tabretorno #telefone"+pk).hide();
@@ -145,8 +151,10 @@ function mostraedita(pk){
 	$(".tabretorno #email"+pk).hide();
 	$(".tabretorno #sexo"+pk).hide();
 	$(".tabretorno #data"+pk).hide();
+	$(".tabretorno #end"+pk).hide();
 	$(".tabretorno #edita"+pk).hide();
 	$(".tabretorno #salva"+pk).show();
+	
 }
 
 
@@ -175,6 +183,7 @@ function buscaDadosCliente() {
 					"<th>Telefone</th>" +
 					"<th>CPF</th>" +
 					"<th>Email</th>" +
+					"<th>Endereco</th>" +
 					"<th>sexo</th>" +
 					"<th>data</th>" +
 					"<th>Editar</th>" +
@@ -187,9 +196,15 @@ function buscaDadosCliente() {
 		 		"<td><span id='telefone"+i+"'>" + $("#telefone"+i).val()+ " </span><input  type='text' class='telefone"+i+"' value='"+$("#telefone"+i).val()+"'></input></td>" +
 		 		"<td><span id='doc"+i+"'>" + $("#cpf"+i).val()+ "</span><input  type='text' class='doc"+i+"' value='"+$("#cpf"+i).val()+"'></input></td>" +
 		 		"<td><span id='email"+i+"'>" + $("#email"+i).val()+ "</span><input  type='text' class='email"+i+"' value='"+$("#email"+i).val()+"'></input></td>" +
-		 		"<td><span id='sexo"+i+"' >" + $("#sexo"+i).val()+ "</span><label class='estiloso sexo"+i+"' ><select  name='sexo' class='sexo"+i+" sexo1"+i+"' value='"+$("#sexo"+i).val()+"'><option value='m'>Masculino</option><option value='f'>Feminino </option></select></label> </td>" +
-		 		"<td><span id='data"+i+"'>" + $("#dataNascimento"+i).val()+ "</span><input  type='text' class='data"+i+"' value='"+$("#dataNascimento"+i).val()+"'></input></td>" +
+		 		
+		 		"<td><span id='end"+i+"'>" + $("#endereco"+i).val()+ "</span><input  type='text' class='end"+i+"' value='"+$("#endereco"+i).val()+"'></input></td>" +
+		 		
+		 		
+		 		"<td><span id='sexo"+i+"' >" + $("#sexo"+i).val()+ " </span><label class='estiloso sexo"+i+"' ><select  name='sexo' class='sexo"+i+" sexo1"+i+"' value='"+$("#sexo"+i).val()+"'><option value='masculino'>Masculino</option><option value='feminino'>Feminino </option></select></label> </td>" +
+		 		"<td><span id='data"+i+"'>" + $("#dataNascimento"+i).val()+ "</span><input  type='date' class='data"+i+"' value='"+$("#dataNascimento"+i).val()+"'></input></td>" +//+$("#dataNascimento"+i).val()+
+		 		
 		 		"<td><img id='edita"+i+"' onclick='mostraedita("+i+")' src='../images/edita.png' /><img id='salva"+i+"' onclick='pEditaCliente("+i+")' style='display:none' src='../images/salva.png' /><img id='salva"+i+"' onclick='cEditaCliente("+i+")' style='display:none' src='../images/close15.png' /></td>"+
+		 		
 		 		"<td><img onclick='pExcluiCliente("+i+")' src='../images/exclui.png' /></td>"+"</tr>";
 		 		 i++;
 				

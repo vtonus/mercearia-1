@@ -9,7 +9,24 @@ public class Compra {
 	private Calendar horaFim;
 	private float valor;
 	private Funcionario funcionario;	
+	private String funcionarioId;
 	private String funcionarioNome;
+	public String getFuncionarioNome() {
+		return funcionarioNome;
+	}
+
+	public void setFuncionarioNome(String funcionarioNome) {
+		this.funcionarioNome = funcionarioNome;
+	}
+
+	public String getFuncionarioId() {
+		return funcionarioId;
+	}
+
+	public void setFuncionarioId(String funcionarioId) {
+		this.funcionarioId = funcionarioId;
+	}
+
 	private String clienteNome;
 	private Cliente cliente;
 
@@ -76,13 +93,4 @@ public class Compra {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
-	public String getFuncionarioNome() {
-		return funcionarioNome;
-	}
-
-	public void setFuncionarioNome(String funcionarioNome) {
-		this.funcionarioNome = funcionarioNome;
-	}
-
 }

@@ -12,7 +12,7 @@ public class Conversao {
 
 	public static String calendarEmTexto(Calendar calendar) {
 		Date date = calendar.getTime();
-		String resposta = new SimpleDateFormat("dd/MM/yyyy").format(date);
+		String resposta = new SimpleDateFormat("yyyy-MM-dd").format(date);
 		return resposta;
 	}
 	
