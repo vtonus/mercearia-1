@@ -109,7 +109,7 @@ public class FornecedorDAO {
 			sql = "select * from fornecedor where nome like ?";
 		} else if (parametro.equals("cnpj")) {
 			sql = "select * from fornecedor where cnpj like ?";
-			i++;
+			//i++;
 		} else {
 			return null;
 		}

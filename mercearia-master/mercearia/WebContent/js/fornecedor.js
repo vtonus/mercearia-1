@@ -163,24 +163,25 @@ function buscaDadosFornecedor() {
 			$('#result').html(data);
 			var i=0;
 		var	dados="<table class='tabretorno'>" +
-					"<tr><th>Nome</th>" +
+					"<tr><th>Id</th>" +
+					"<th>Nome</th>" +
+					"<th>CNPJ</th>" +
 					"<th>Telefone</th>" +
-					"<th>CPF</th>" +
 					"<th>Email</th>" +
-					"<th>sexo</th>" +
-					"<th>data</th>" +
+					"<th>Endereco</th>" +
 					"<th>Editar</th>" +
 					"<th>Excluir</th></tr>"
-				;
+				
 			while($("#nome"+i).val()!=null){
 			  dados+="" +
 						"<tr> " +
-				"<td><span id='nome"+i+"'>" + $("#nome"+i).val()+ "</span><input  type='text' class='nome"+i+"' value='"+$("#nome"+i).val()+"'></input></td>" +
-		 		"<td><span id='telefone"+i+"'>" + $("#telefone"+i).val()+ " </span><input  type='text' class='telefone"+i+"' value='"+$("#telefone"+i).val()+"'></input></td>" +
-		 		"<td><span id='doc"+i+"'>" + $("#cpf"+i).val()+ "</span><input  type='text' class='doc"+i+"' value='"+$("#cpf"+i).val()+"'></input></td>" +
+				"<td><span id='id"+i+"'>" + $("#id"+i).val()+ "</span><input  type='text' class='id"+i+"' value='"+$("#id"+i).val()+"'></input></td>" +
+		 		"<td><span id='nome"+i+"'>" + $("#nome"+i).val()+ " </span><input  type='text' class='nome"+i+"' value='"+$("#nome"+i).val()+"'></input></td>" +
+		 		"<td><span id='cnpj"+i+"'>" + $("#cnpj"+i).val()+ "</span><input  type='text' class='cnpj"+i+"' value='"+$("#cnpj"+i).val()+"'></input></td>" +
+		 		"<td><span id='telefone"+i+"'>" + $("#telefone"+i).val()+ "</span><input  type='text' class='telefone"+i+"' value='"+$("#telefone"+i).val()+"'></input></td>" +
 		 		"<td><span id='email"+i+"'>" + $("#email"+i).val()+ "</span><input  type='text' class='email"+i+"' value='"+$("#email"+i).val()+"'></input></td>" +
-		 		"<td><span id='sexo"+i+"' >" + $("#sexo"+i).val()+ "</span><label class='estiloso sexo"+i+"' ><select  name='sexo' class='sexo"+i+" sexo1"+i+"' value='"+$("#sexo"+i).val()+"'><option value='m'>Masculino</option><option value='f'>Feminino </option></select></label> </td>" +
-		 		"<td><span id='data"+i+"'>" + $("#dataNascimento"+i).val()+ "</span><input  type='text' class='data"+i+"' value='"+$("#dataNascimento"+i).val()+"'></input></td>" +
+		 		"<td><span id='endereco"+i+"'>" + $("#endereco"+i).val()+ "</span><input  type='text' class='endereco"+i+"' value='"+$("#endereco"+i).val()+"'></input></td>" +
+		 		
 		 		"<td><img id='edita"+i+"' onclick='mostraedita("+i+")' src='../images/edita.png' /><img id='salva"+i+"' onclick='pEditaFornecedor("+i+")' style='display:none' src='../images/salva.png' /><img id='salva"+i+"' onclick='cEditaFornecedor("+i+")' style='display:none' src='../images/close15.png' /></td>"+
 		 		"<td><img onclick='pExcluiFornecedor("+i+")' src='../images/exclui.png' /></td>"+"</tr>";
 		 		 i++;

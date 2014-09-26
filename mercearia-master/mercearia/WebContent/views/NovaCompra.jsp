@@ -9,8 +9,6 @@
 <input class="qtd" type="text" name="qtd" >
   <label class="labelsvlr"  for="valor">Valor Unitário</label>
 <input class="vlr" type="text" name="valor" >
-  <label class="labelssb" for="subtotal">Sub-Total</label>
-<input class="sb" type="text" name="subtotal" >
 
 <div class="total">
  <table class="totaltab">

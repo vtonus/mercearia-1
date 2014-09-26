@@ -19,16 +19,7 @@ function mensagem(cor,msg){
 	$('#respostafeed').delay(2000).fadeOut();
 }
 
-
-
 /*---fim de compra---*/
-
-
-
-
-
-
-
 /*---FIM  procura compra---*/
 /*tela Novo Fornecimento
 

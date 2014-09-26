@@ -391,6 +391,8 @@ select {
 	border: 1px;
 	border-collapse: collapse;
 	border-color: #eee;
+	width: 100%;
+	position: relative;
 }
 
 #tabdados .tabretorno tr td, #tabdados .tabretorno th {
@@ -679,4 +681,9 @@ select {
 	top: 14;
 	left: 237px;
 	cursor: pointer;
+}
+#tabdados{
+width: 1148px;
+overflow: auto;
+height: 543px;
 }

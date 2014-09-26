@@ -204,6 +204,16 @@ function confirmaCompra() {
 		data : {
 			produto : jsonString
 		},
+		success : function(back) {
+			mensagem("green","Compra foi confirmada!!");
+			cancelaCompra();
+			
+		},
+		error : function(back) {
+			mensagem("red","Erro, contate seu administrador!");	
+			cancelaCompra();
+			
+		}
 
 	});
 
