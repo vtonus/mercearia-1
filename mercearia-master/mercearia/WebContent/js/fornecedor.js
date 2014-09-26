@@ -82,46 +82,40 @@ function editaFornecedor(pk){
 	$.ajax({
 		url:'EditaFornecedor',
 		data:{
-		id:$("#id"+pk).val(),nome:$(".nome"+pk).val(),cpf:$(".doc"+pk).val(),telefone:$(".telefone"+pk).val(),email:$(".email"+pk).val(),sexo:$(".sexo1"+pk).val(),dataDeNascimento:$(".data"+pk).val(),
+		id:$("#id"+pk).val(),nome:$(".nome"+pk).val(),cnpj:$(".cnpj"+pk).val()
+		,telefone:$(".telefone"+pk).val(),email:$(".email"+pk).val(),
+		endereco:$(".endereco"+pk).val()
 		},
 		type: 'POST',
 		success: function(back){
-			cEditaCFornecedor(pk);
+			cEditaFornecedor(pk);
 			buscaDadosFornecedor();
-			$("#procli .resposta").fadeIn();
-			setTimeout(function(){$("#procli .resposta").fadeOut();},3000);
-			$("#procli .resposta").html("	Cliente Editado com sucesso!!");
+			mensagem("green", "Fornecedor editado.");
 		},
 		error:function(){
 			cEditaFornecedor(pk);
 			buscaDadosFornecedor();
-			$("#procli .resposta").fadeIn();
-			setTimeout(function(){$("#procli .resposta").fadeOut();},3000);
-			$("#procli .resposta").css({
-				color:'red',
-				borderColor:"red"
-			});
-			
-			$("#procli .resposta").html("Ocorreu um erro, o Cliente não foi editado!!");
+			mensagem("red", "Fornecedor não foi editado.");
 		}
 	});
 	
 }
 
 function cEditaFornecedor(pk){
+
+	$(".id"+pk).hide();
 	$(".nome"+pk).hide();
+	$(".cnpj"+pk).hide();
 	$(".telefone"+pk).hide();
-	$(".doc"+pk).hide();
 	$(".email"+pk).hide();
-	$(".sexo"+pk).hide();
-	$(".data"+pk).hide();
+	$(".endereco"+pk).hide();
 	
+	$(".tabretorno #id"+pk).show();
 	$(".tabretorno #nome"+pk).show();
+	$(".tabretorno #cnpj"+pk).show();
 	$(".tabretorno #telefone"+pk).show();
-	$(".tabretorno #doc"+pk).show();
 	$(".tabretorno #email"+pk).show();
-	$(".tabretorno #sexo"+pk).show();
-	$(".tabretorno #data"+pk).show();
+	$(".tabretorno #endereco"+pk).show();
 	$(".tabretorno #edita"+pk).show();
 	$(".tabretorno #salva"+pk).hide();
 	
@@ -132,19 +126,21 @@ function cEditaFornecedor(pk){
 
 function mostraeditaFornecedor(pk){
 
-	$(".nome"+pk).show();
-	$(".telefone"+pk).show();
-	$(".doc"+pk).show();
-	$(".email"+pk).show();
-	$(".sexo"+pk).show();
-	$(".data"+pk).show();
 	
+	
+	$(".id"+pk).show();
+	$(".nome"+pk).show();
+	$(".cnpj"+pk).show();
+	$(".telefone"+pk).show();
+	$(".email"+pk).show();
+	$(".endereco"+pk).show();
+	
+	$(".tabretorno #id"+pk).hide();
 	$(".tabretorno #nome"+pk).hide();
+	$(".tabretorno #cnpj"+pk).hide();
 	$(".tabretorno #telefone"+pk).hide();
-	$(".tabretorno #doc"+pk).hide();
 	$(".tabretorno #email"+pk).hide();
-	$(".tabretorno #sexo"+pk).hide();
-	$(".tabretorno #data"+pk).hide();
+	$(".tabretorno #endereco"+pk).hide();
 	$(".tabretorno #edita"+pk).hide();
 	$(".tabretorno #salva"+pk).show();
 }
@@ -153,7 +149,8 @@ function mostraeditaFornecedor(pk){
 
 
 function buscaDadosFornecedor() {
-	
+	$('#tabdados').html('');
+	$('#result').html('');
 	$.ajax({
 		url:"BuscaFornecedor",
 		data:{palavraChave : $("#palavraChave").val(),
@@ -182,7 +179,7 @@ function buscaDadosFornecedor() {
 		 		"<td><span id='email"+i+"'>" + $("#email"+i).val()+ "</span><input  type='text' class='email"+i+"' value='"+$("#email"+i).val()+"'></input></td>" +
 		 		"<td><span id='endereco"+i+"'>" + $("#endereco"+i).val()+ "</span><input  type='text' class='endereco"+i+"' value='"+$("#endereco"+i).val()+"'></input></td>" +
 		 		
-		 		"<td><img id='edita"+i+"' onclick='mostraedita("+i+")' src='../images/edita.png' /><img id='salva"+i+"' onclick='pEditaFornecedor("+i+")' style='display:none' src='../images/salva.png' /><img id='salva"+i+"' onclick='cEditaFornecedor("+i+")' style='display:none' src='../images/close15.png' /></td>"+
+		 		"<td><img id='edita"+i+"' onclick='mostraeditaFornecedor("+i+")' src='../images/edita.png' /><img id='salva"+i+"' onclick='pEditaFornecedor("+i+")' style='display:none' src='../images/salva.png' /><img id='salva"+i+"' onclick='cEditaFornecedor("+i+")' style='display:none' src='../images/close15.png' /></td>"+
 		 		"<td><img onclick='pExcluiFornecedor("+i+")' src='../images/exclui.png' /></td>"+"</tr>";
 		 		 i++;
 				

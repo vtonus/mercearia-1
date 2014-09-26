@@ -169,7 +169,8 @@ function validateForm() {
 }
 
 function buscaDadosCliente() {
-	
+	$('#result').html('');
+	$('#tabdados').html('');
 	$.ajax({
 		url:"BuscaCliente",
 		data:{palavraChave : $("#palavraChave").val(),
