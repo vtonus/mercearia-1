@@ -141,7 +141,7 @@ public class FornecedorDAO {
 				} catch (RuntimeException e) {
 				}
 				try {
-					f.setTelefone(Long.parseLong("telefone"));
+					f.setTelefone(rs.getLong("telefone"));
 				} catch (RuntimeException e) {
 				}
 				f.setEmail(rs.getString("email"));

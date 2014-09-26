@@ -26,25 +26,27 @@ public class BuscaFornecedor extends HttpServlet {
 		int i = 0;
 
 		for (Fornecedor f : listaF) {
-			
+			System.out.println("Achou mais um");
 			String cnpj;
-			if (f.getCnpj()==0){
-				cnpj ="";
-			}
-			else cnpj=""+f.getCnpj();
-			
+			if (f.getCnpj() == 0) {
+				cnpj = "";
+			} else
+				cnpj = "" + f.getCnpj();
+
 			String telefone;
-			if (f.getTelefone()==0){
-				telefone ="";
+			if (f.getTelefone() == 0) {
+				telefone = "";
+			} else {
+				telefone = ("" + f.getTelefone());
 			}
-			else telefone=""+f.getTelefone();
+			System.out.println(telefone);
 			if (f != null) {
 				response.getWriter().write(
-								  "<input type=\"hidden\" id=\"id" + i
-								+ "\" value=\"" + f.getId() + "\">"
+						"<input type=\"hidden\" id=\"id" + i + "\" value=\""
+								+ f.getId() + "\">"
 								+ "<input type=\"hidden\" id=\"nome" + i
 								+ "\" value=\"" + f.getNome() + "\">"
-								+ "<input type=\"hidden\" id=\"cnpj" + i 
+								+ "<input type=\"hidden\" id=\"cnpj" + i
 								+ "\" value=\"" + cnpj + "\">"
 								+ "<input type=\"hidden\" id=\"telefone" + i
 								+ "\" value=\"" + telefone + "\">"
