@@ -67,7 +67,7 @@ $( document ).ready(function() {
 	</div>
 		<div class="content">
 		
-		<div onclick="mensagem('red','teste');">teste</div>
+
 	</div>
 	<div id="respostafeed"></div>
 	<script>

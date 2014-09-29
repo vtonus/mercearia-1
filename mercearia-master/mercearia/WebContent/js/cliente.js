@@ -4,7 +4,7 @@ function novoCliente(){
 		url:'NovoCliente',
 		data:$('#formulario').serialize(),
 		type:'POST',		
-		sucess:function(){
+		success:function(){
 			$('#cadastro').fadeIn();		
 			mensagem("green","O Cliente foi cadastrado!!");
 		},
@@ -39,14 +39,8 @@ function excluiCliente(pk){
 			
 	
 			cEditaCliente(pk);
-			$("#procli .resposta").fadeIn();
-			setTimeout(function(){$("#procli .resposta").fadeOut();},3000);
-			console.log('teste2');
-			$("#procli .resposta").html("Cliente Excluido com sucesso!!");
-			setTimeout(function(){
-			$('.content').load('ProcuraCliente.jsp');
-			console.log('teste3');
-			buscaDadosCliente();},3000);
+			mensagem("green", "Cliente Excluido");
+			buscaDadosCliente();
 			
 		},
 		error:function(){
@@ -89,22 +83,12 @@ function editaCliente(pk){
 		success: function(back){
 			cEditaCliente(pk);
 			buscaDadosCliente();
-			$("#procli .resposta").fadeIn();
-			setTimeout(function(){$("#procli .resposta").fadeOut();},3000);
-			$("#procli .resposta").html("	Cliente Editado com sucesso!!");
+			mensagem("green", "Cliente alterado");
 		},
 		error:function(){
 			cEditaCliente(pk);
 			buscaDadosCliente();
-			$("#procli .resposta").fadeIn();
-			setTimeout(function(){$("#procli .resposta").fadeOut();},3000);
-			$("#procli .resposta").css({
-				color:'red',
-				borderColor:"red"
-			});
-			
-			$("#procli .resposta").html("Ocorreu um erro, o Cliente não foi editado!!");
-		}
+			mensagem("green", "Cliente alterado");}
 	});
 	
 }
@@ -185,8 +169,8 @@ function buscaDadosCliente() {
 					"<th>CPF</th>" +
 					"<th>Email</th>" +
 					"<th>Endereco</th>" +
-					"<th>sexo</th>" +
-					"<th>data</th>" +
+					"<th>Sexo</th>" +
+					"<th>Data de Nasc.</th>" +
 					"<th>Editar</th>" +
 					"<th>Excluir</th></tr>"
 				;

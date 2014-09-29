@@ -211,6 +211,17 @@
   </servlet-mapping>
 
 
+  <servlet>
+    <servlet-name>ExcluiFornecedor</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.ExcluiFornecedor</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExcluiFornecedor</servlet-name>
+    <url-pattern>/ExcluiFornecedor</url-pattern>
+    <url-pattern>/views/ExcluiFornecedor</url-pattern>
+  </servlet-mapping>
+
+
 
   <servlet-mapping>
     <servlet-name>Deslogando</servlet-name>

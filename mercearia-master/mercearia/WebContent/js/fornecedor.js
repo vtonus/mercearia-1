@@ -4,7 +4,7 @@ function novoFornecedor(){
 		url:'NovoFornecedor',
 		data:$('#formulario').serialize(),
 		type:'POST',		
-		sucess:function(){
+		success:function(){
 			$('#cadastro').fadeIn();		
 			mensagem("green","O Fornecedor foi cadastrado!!");
 		},
@@ -18,7 +18,7 @@ function novoFornecedor(){
 function pExcluiFornecedor(pk){
 	var pergunta=	"<span style='width: 589px;    font-size: 16px;    font-weight: bold;'"+
 	">Voc&ecirc; realmente quer Excluir:<br>" + $('#nome'+pk).val()+"?</span>"+
-				 " <div class='yes' onclick='excluiCliente("+pk+")'>Sim</div> <div class='nope' onclick='cExcluirCliente("+pk+")'>N&atilde;o</div>";
+				 " <div class='yes' onclick='excluiFornecedor("+pk+")'>Sim</div> <div class='nope' onclick='cExcluirFornecedor("+pk+")'>N&atilde;o</div>";
 		$('#procli .fundoq').show();
 		$("#procli .question").show();
 		$("#procli .question").html(pergunta);
@@ -32,26 +32,22 @@ function cExcluirFornecedor(pk){
 
 function excluiFornecedor(pk){
 	$.ajax({
-		url:'ExcluiCliente',
+		url:'ExcluiFornecedor',
 		data: { id: $("#id"+pk).val()},
 		type:'POST',	
 		success: function(back){
 			
 	
 			cEditaFornecedor(pk);
-			$("#procli .resposta").fadeIn();
-			setTimeout(function(){$("#procli .resposta").fadeOut();},3000);
-			console.log('teste2');
-			$("#procli .resposta").html("Cliente Excluido com sucesso!!");
-			setTimeout(function(){
-			$('.content').load('ProcuraCliente.jsp');
-			console.log('teste3');
-			buscaDadosFornecedor();},3000);
+			mensagem("green", "FOrnecedor Excluido");
+			buscaDadosFornecedor();
+			//buscaDadosCliente();
 			
 		},
 		error:function(){
 			cEditaFornecedor(pk);
 			buscaDadosFornecedor();
+			//buscaDadosCliente();
 			/*$("#procli .resposta").fadeIn();
 			setTimeout(function(){$("#procli .resposta").fadeOut();},3000);
 			$("#procli .resposta").css({
@@ -63,6 +59,7 @@ function excluiFornecedor(pk){
 	
 			}
 	});
+
 }
 /*Fim da funções do NovoCliente.jsp*/
 /* Começa o cliente exeistente*/
@@ -167,7 +164,7 @@ function buscaDadosFornecedor() {
 					"<th>Email</th>" +
 					"<th>Endereco</th>" +
 					"<th>Editar</th>" +
-					"<th>Excluir</th></tr>"
+					"<th>Excluir</th></tr>";
 				
 			while($("#nome"+i).val()!=null){
 			  dados+="" +
