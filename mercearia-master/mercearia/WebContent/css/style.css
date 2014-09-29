@@ -687,3 +687,35 @@ width: 1148px;
 overflow: auto;
 height: 543px;
 }
+
+
+
+
+#tabelaped{
+	width: 840px;
+overflow-y: auto;
+left: 75px;
+height: 233px;
+position: relative;
+top: 11px;
+ 
+}
+#tabelapedcab{
+width: 840px;
+overflow-y: auto;
+left: 75px;
+position: relative;
+top: 11px;
+}
+
+#tabelapedcab table{
+	width:100%;	
+	text-align: left;
+background-color: #dddddd;
+	
+}
+.tabelaForn{
+	width:100%;	
+	
+	
+}
