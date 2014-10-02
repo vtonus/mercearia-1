@@ -1,14 +1,16 @@
 
 <div class="titulo">
-	<h1>Cadastro de um novo fornecimento:</h1>
+	Cadastro de um novo fornecimento:
 </div>
 
 <div class="esquerda">
 	<table>
 		<tr>
 			<td><label for="nome">Fornecedor*:</label></td>
-			<td><input type="text" name="fornecedor" style="width: 300px;"
-				autofocus> <br /></td>
+			<td><input id="fornnome" onkeyup="procuraNomedoFornecedor()" type="text" name="fornecedor" style="width: 300px;"
+				autofocus> <br />
+				<div id="resultForne" style="position: absolute;background: #fff;width: 300px;top: 72px;"></div>
+				</td>
 
 
 			<td><label for="doc">Data*:</label></td>
@@ -18,8 +20,8 @@
 		</tr>
 		<tr>
 			<td><label for="sex">Comentário:</label></td>
-			<td><textarea name="comentario" rows="3" cols="30"
-					maxlength="130"></textarea><br /></td>
+			<td><textarea id="comentarioforn" name="comentario" rows="3" cols="30"
+					maxlength="130">comentario</textarea><br /></td>
 
 
 		</tr>
@@ -30,7 +32,7 @@
 		<tr>
 			<th>Código</th>
 			<th>Produto</th>
-			<th>Unid.</th>
+			<th>Valor Unid.</th>
 			<th>Qtd.</th>
 			<th>Valor</th>
 			<th></th>
@@ -73,6 +75,7 @@
 
 <input type="hidden" name="logic" value="NovoFornecimentoLogic">
 <br />
-<input type="submit" value="Confirma">
+<input type="button" onclick='confirmaPedido()'>
 -
 <input type="button" value="Limpa">
+<span style="display:none" id="resultados"></span>

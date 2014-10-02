@@ -33,7 +33,15 @@
     <url-pattern>/views/EditaFornecedor</url-pattern>
   </servlet-mapping>
   
-  
+  <servlet>
+    <servlet-name>NovoPedido</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.NovoPedido</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NovoPedido</servlet-name>
+    <url-pattern>/NovoPedido</url-pattern>
+    <url-pattern>/views/NovoPedido</url-pattern>
+  </servlet-mapping>
   
   
   <servlet>
@@ -199,6 +207,18 @@
     <url-pattern>/BuscaFornecedor</url-pattern>
     <url-pattern>/views/BuscaFornecedor</url-pattern>
   </servlet-mapping>
+
+
+<servlet>
+    <servlet-name>BuscaNomeFornecedor</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.BuscaNomeFornecedor</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BuscaNomeFornecedor</servlet-name>
+    <url-pattern>/BuscaNomeFornecedor</url-pattern>
+    <url-pattern>/views/BuscaNomeFornecedor</url-pattern>
+  </servlet-mapping>
+
 
   <servlet>
     <servlet-name>BuscaFuncionario</servlet-name>

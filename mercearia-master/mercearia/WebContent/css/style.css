@@ -283,7 +283,7 @@ Usuario Logado
 	color: #747360;
 }
 
-#NovoCliente .titulo {
+ .titulo {
 	font-size: 30PX;
 	position: relative;
 	left: 34px;
@@ -392,13 +392,10 @@ select {
 	border-collapse: collapse;
 	border-color: #eee;
 	width: 100%;
-	position: relative;
+	position: relative;	
 }
 
-#tabdados .tabretorno tr td, #tabdados .tabretorno th {
-	border: 7px solid;
-	border-color: #fff;
-}
+
 
 #nome0 {
 	display: block;
@@ -407,8 +404,6 @@ select {
 #tabdados .tabretorno th {
 	font-size: 20px;
 	background-color: #fff;
-	text-align: center;
-	border-radius: 5;
 }
 
 #tabdados input, #tabdados select, #tabdados label {
@@ -715,7 +710,17 @@ background-color: #dddddd;
 	
 }
 .tabelaForn{
-	width:100%;	
+	width:100%;		
+}
+
+
+
+.impar{
 	
-	
+	background-color: #ddd;
+}
+
+
+.clickable{
+	cursor:pointer;
 }

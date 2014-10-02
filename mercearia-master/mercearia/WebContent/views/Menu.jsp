@@ -13,6 +13,7 @@
 <script type="text/javascript" src="../js/produto.js"></script>
 <script type="text/javascript" src="../js/fornecedor.js"></script>
 <script type="text/javascript" src="../js/fornecimento.js"></script>
+<script type="text/javascript" src="../js/funcionario.js"></script>
 <script type="text/javascript" src="../js/jquery.transit.min.js"></script><!-- para fazer os animaes -->
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 <script>

@@ -152,7 +152,13 @@ function removeproduct(id) {
 	$('.totaltab').html(tabtotal);
 
 }
-
+function fazerCompra(){
+	
+	
+	
+	//$('perguntafinal')
+	
+}
 function confirmaCompra() {
 	produto = new Array();
 	qtd = new Array();

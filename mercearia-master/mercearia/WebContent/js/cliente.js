@@ -153,6 +153,7 @@ function validateForm() {
 }
 
 function buscaDadosCliente() {
+	var impar="class='impar'";
 	$('#result').html('');
 	$('#tabdados').html('');
 	$.ajax({
@@ -163,7 +164,7 @@ function buscaDadosCliente() {
 		success: function(data){
 			$('#result').html(data);
 			var i=0;
-		var	dados="<table class='tabretorno'>" +
+		var	dados="<table class='tabretorno' cellspacing='0' cellspadding='0'>" +
 					"<tr><th>Nome</th>" +
 					"<th>Telefone</th>" +
 					"<th>CPF</th>" +
@@ -171,26 +172,39 @@ function buscaDadosCliente() {
 					"<th>Endereco</th>" +
 					"<th>Sexo</th>" +
 					"<th>Data de Nasc.</th>" +
-					"<th>Editar</th>" +
-					"<th>Excluir</th></tr>"
+					"<th></th>" +
+					"<th></th></tr>"
 				;
 			while($("#nome"+i).val()!=null){
-			  dados+="" +
-						"<tr> " +
+			if(i%2!=0){
+				 impar="class='impar'";
+				
+			}else{
+				 impar="";
+			}
+			 if($("#sexo"+i).val()=='feminino'){ 
+				 seleciona="selected";
+				 selecionam="";				 
+			 }else
+				 seleciona="";
+			    selecionam="selected";	
+			 
+				dados+="" +
+						"<tr "+impar+"> " +
 				"<td><span id='nome"+i+"'>" + $("#nome"+i).val()+ "</span><input  type='text' class='nome"+i+"' value='"+$("#nome"+i).val()+"'></input></td>" +
-		 		"<td><span id='telefone"+i+"'>" + $("#telefone"+i).val()+ " </span><input  type='text' class='telefone"+i+"' value='"+$("#telefone"+i).val()+"'></input></td>" +
-		 		"<td><span id='doc"+i+"'>" + $("#cpf"+i).val()+ "</span><input  type='text' class='doc"+i+"' value='"+$("#cpf"+i).val()+"'></input></td>" +
+		 		"<td><span id='telefone"+i+"'>" + $("#telefone"+i).val()+ " </span><input style='width:90px' type='text' class='telefone"+i+"' value='"+$("#telefone"+i).val()+"'></input></td>" +
+		 		"<td><span id='doc"+i+"'>" + $("#cpf"+i).val()+ "</span><input  type='text' class='doc"+i+"' value='"+$("#cpf"+i).val()+"'  style='width:104px'></input></td>" +
 		 		"<td><span id='email"+i+"'>" + $("#email"+i).val()+ "</span><input  type='text' class='email"+i+"' value='"+$("#email"+i).val()+"'></input></td>" +
 		 		
 		 		"<td><span id='end"+i+"'>" + $("#endereco"+i).val()+ "</span><input  type='text' class='end"+i+"' value='"+$("#endereco"+i).val()+"'></input></td>" +
 		 		
 		 		
-		 		"<td><span id='sexo"+i+"' >" + $("#sexo"+i).val()+ " </span><label class='estiloso sexo"+i+"' ><select  name='sexo' class='sexo"+i+" sexo1"+i+"' value='"+$("#sexo"+i).val()+"'><option value='masculino'>Masculino</option><option value='feminino'>Feminino </option></select></label> </td>" +
+		 		"<td><span id='sexo"+i+"' >" + $("#sexo"+i).val()+ " </span><label class='estiloso sexo"+i+"' ><select  name='sexo' class='sexo"+i+" sexo1"+i+"' value='"+$("#sexo"+i).val()+"'><option value='masculino' "+selecionam+">Masculino</option><option value='feminino' "+seleciona+">Feminino </option></select></label> </td>" +
 		 		"<td><span id='data"+i+"'>" + $("#dataNascimento"+i).val()+ "</span><input  type='date' class='data"+i+"' value='"+$("#dataNascimento"+i).val()+"'></input></td>" +//+$("#dataNascimento"+i).val()+
 		 		
-		 		"<td><img id='edita"+i+"' onclick='mostraedita("+i+")' src='../images/edita.png' /><img id='salva"+i+"' onclick='pEditaCliente("+i+")' style='display:none' src='../images/salva.png' /><img id='salva"+i+"' onclick='cEditaCliente("+i+")' style='display:none' src='../images/close15.png' /></td>"+
+		 		"<td><img  class='clickable' id='edita"+i+"' onclick='mostraedita("+i+")' src='../images/edita.png' alt='editar' />   <img alt='salvar' id='salva"+i+"' onclick='pEditaCliente("+i+")' style='display:none'  class='clickable' src='../images/salva.png' /><img class='clickable' id='salva"+i+"' onclick='cEditaCliente("+i+")' style='display:none' src='../images/close15.png' /></td>"+
 		 		
-		 		"<td><img onclick='pExcluiCliente("+i+")' src='../images/exclui.png' /></td>"+"</tr>";
+		 		"<td><img class='clickable' onclick='pExcluiCliente("+i+")' src='../images/exclui.png' alt='excluir'/></td>"+"</tr>";
 		 		 i++;
 				
 		}		

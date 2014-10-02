@@ -6,11 +6,11 @@ function novoProdutofaz(){
 		type:'POST',		
 		sucess:function(){
 			$('#cadastro').fadeIn();		
-			mensagem("green","O Cliente foi excluido!!");
+			mensagem("green","O Produo foi cadastrado!!!!");
 		},
 		error:function(){
 			$('#cadastro').fadeIn();		
-			mensagem("red","Ocorreu um erro, o Cliente não foi adicionado!!");
+			mensagem("red","Ocorreu um erro, o Produto não foi adicionado!!");
 		}
 	});	
 }
@@ -49,7 +49,7 @@ function excluiProduto(pk){
 			$("#procli .resposta").fadeIn();
 			setTimeout(function(){$("#procli .resposta").fadeOut();},3000);
 			console.log('teste2');
-			$("#procli .resposta").html("Cliente Excluido com sucesso!!");
+			$("#procli .resposta").html("Produto Excluido com sucesso!!");
 			setTimeout(function(){
 			$('.content').load('ProcuraCliente.jsp');
 			console.log('teste3');

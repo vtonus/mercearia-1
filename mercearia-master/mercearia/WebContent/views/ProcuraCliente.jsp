@@ -1,5 +1,6 @@
-<div id="procli">
-		
+<span class='titulo'>Procura Cliente</span>
+<div id="procli" style="top:26px; position: relative;">
+	
 		<form id="meuForm">
 		Palavra Chave:
 		<input type="text" id="palavraChave" autofocus>

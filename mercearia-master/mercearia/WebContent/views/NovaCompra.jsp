@@ -1,4 +1,11 @@
-
+<div class="fundoq" style="position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: #000;
+z-index: 9;
+opacity: 0.4;"></div>
 <div id="NovaCompra">
 <span class="titulo">Nova Compra</span>
   <label class="labelsdesc"  for="descricao">Descrição</label>
@@ -25,5 +32,10 @@
 <div class="confirmar" onclick="confirmaCompra()"> Confirmar</div>
 <div class="limpar" onclick="cancelaCompra()">Cancelar</div>
  	
- 	
-</div>		
+ 
+<div class="fundoq">
+		</div>
+		<div class="question">
+	 </div>
+</div>	
+ 		
