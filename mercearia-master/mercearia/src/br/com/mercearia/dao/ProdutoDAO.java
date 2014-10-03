@@ -316,14 +316,13 @@ public class ProdutoDAO {
 			} catch (SQLException e) {
 			}
 			try {
-				ps.setDate(6, new Date(produto.getValidade().getTimeInMillis()));
+				ps.setDate(7, new Date(produto.getValidade().getTimeInMillis()));
 			} catch (RuntimeException e) {
-				e.printStackTrace();
-				ps.setNull(6, Types.DATE);
+				ps.setNull(7, Types.DATE);
 			}
 			try
 			{
-				ps.setInt(7, produto.getEstoque());
+				ps.setInt(6, produto.getEstoque());
 			}
 			catch(SQLException e)
 			{
@@ -333,7 +332,7 @@ public class ProdutoDAO {
 			ps.close();
 			connection.close();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			e.printStackTrace();
 		}
 		return bool;
 	}

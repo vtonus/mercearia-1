@@ -20,11 +20,20 @@ public class NovoProduto extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		Produto produto = new Produto();
 		boolean bool = false;
-		produto.setId(Integer.parseInt(request.getParameter("id")));
+		try{
+		produto.setId(Long.parseLong(request.getParameter("id")));
+		} catch(NullPointerException | NumberFormatException e){
+			response.getWriter().write("Codigo de barras invalido");
+			response.setStatus(500);
+			return;
+		}
 		produto.setNome(request.getParameter("nome"));
 		try {
 			produto.setValor(Float.parseFloat(request.getParameter("valor")));
-		} catch (RuntimeException e) {
+		} catch (NumberFormatException e) {
+			response.getWriter().write("Valor do produto invalido");
+			response.setStatus(500);
+			return;
 		}
 
 		try {
@@ -34,19 +43,31 @@ public class NovoProduto extends HttpServlet {
 
 		try {
 			produto.setQtd(Integer.parseInt(request.getParameter("qtd")));
-		} catch (RuntimeException e) {
+		} catch (NullPointerException e) {}
+		catch(NumberFormatException e){
+			response.getWriter().write("Quantidade do produto invalida");
+			response.setStatus(500);
+			return;
 		}
 		
 		try {
-			produto.setValidade(Conversao.textoEmData(request
+			produto.setValidade(Conversao.textoHEmData(request
 					.getParameter("validade")));
-		} catch (ParseException | RuntimeException e) {
+		} catch (ParseException e) {
+			response.getWriter().write("Validade do produto invalida");
+			response.setStatus(500);
+			return;
 		}
+		catch(NullPointerException e){}
 
 		try {
 			produto.setEstoque(Integer.parseInt(request.getParameter("estoque")));
-		} catch (RuntimeException e) {
+		} catch (NumberFormatException e) {
+			response.getWriter().write("Estoque do produto invalido");
+			response.setStatus(500);
+			return;
 		}
+		catch(NullPointerException e){}
 		
 		ProdutoDAO pdao = new ProdutoDAO();
 		

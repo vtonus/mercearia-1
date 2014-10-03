@@ -33,7 +33,7 @@
 <form action="ValidandoLogin" method="post">
 <h3>Usuário </h3>
 <label>
-	<select name="usuario">
+	<select name="usuario" style="width:210px">
 	<jsp:useBean id="dao" class="br.com.mercearia.dao.FuncionarioDAO" scope="page"/>
 	<c:forEach var="funcionario" items="${dao.lista}">
 	<option value="${funcionario.usuario}">${funcionario.usuario}</option>
