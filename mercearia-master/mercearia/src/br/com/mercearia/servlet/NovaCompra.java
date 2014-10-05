@@ -64,6 +64,7 @@ public class NovaCompra extends HttpServlet {
 			FuncionarioDAO fdao = new FuncionarioDAO();
 			HttpSession session = request.getSession();
 			compra.setFuncionarioId((String) session.getAttribute("usuarioCpf"));
+			compra.setFuncId((String) session.getAttribute("usuarioCpf"));
 			int id = cdao.adiciona(compra);
 			CompraProdutoDAO cpdao = new CompraProdutoDAO();
 			CompraProduto cp = new CompraProduto();

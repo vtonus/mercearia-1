@@ -10,6 +10,7 @@ public class Produto {
 	private int qtd;
 	private Calendar validade;
 	private int estoque;
+	private String funcId;
 	
 	private float valorMax;
 	private float valorMin;
@@ -86,6 +87,14 @@ public class Produto {
 
 	public void setValidade(Calendar validade) {
 		this.validade = validade;
+	}
+
+	public String getFuncId() {
+		return funcId;
+	}
+
+	public void setFuncId(String funcId) {
+		this.funcId = funcId;
 	}
 
 }

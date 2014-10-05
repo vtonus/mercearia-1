@@ -134,7 +134,8 @@ public class CompraDAO {
 			calendar = Calendar.getInstance();
 			calendar = compra.getHoraIni();
 			try {
-				System.out.println("passou..."+Conversao.calendarEmTexto(calendar));
+				System.out.println("passou..."
+						+ Conversao.calendarEmTexto(calendar));
 			} catch (RuntimeException e) {
 			}
 			if (calendar.isLenient()) {
@@ -157,7 +158,8 @@ public class CompraDAO {
 			calendar = compra.getHoraFim();
 			if (calendar.isLenient()) {
 				try {
-					System.out.println("passou..."+Conversao.calendarEmTexto(calendar));
+					System.out.println("passou..."
+							+ Conversao.calendarEmTexto(calendar));
 				} catch (RuntimeException e) {
 				}
 				boo[4] = true;
@@ -229,21 +231,26 @@ public class CompraDAO {
 	}
 
 	public boolean exclui(int id) {
-		connection = new Conexao().getConnection();
-		boolean bool = false;
-		String sql = "delete from compra where id = ?";
+		CompraProdutoDAO cpdao = new CompraProdutoDAO();
+		if (cpdao.exclui(id)) {
+			connection = new Conexao().getConnection();
+			boolean bool = false;
+			String sql = "delete from compra where id = ?";
 
-		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setInt(1, id);
-			ps.execute();
-			bool = true;
-			ps.close();
-			connection.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			try {
+				PreparedStatement ps = connection.prepareStatement(sql);
+				ps.setInt(1, id);
+				ps.execute();
+				bool = true;
+				ps.close();
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+			return bool;
+		} else {
+			return false;
 		}
-		return bool;
 	}
 
 }

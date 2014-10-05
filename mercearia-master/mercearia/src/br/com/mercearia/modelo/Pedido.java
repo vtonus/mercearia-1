@@ -13,8 +13,15 @@ public class Pedido {
 	private Calendar dataMin;
 	private int fornecedorId;
 	private long funcionarioId;
+	private String funcId;
 	
 	
+	public String getFuncId() {
+		return funcId;
+	}
+	public void setFuncId(String funcId) {
+		this.funcId = funcId;
+	}
 	public int getFornecedorId() {
 		return fornecedorId;
 	}

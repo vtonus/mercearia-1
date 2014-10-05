@@ -11,6 +11,7 @@ public class CompraProduto {
 		this.compraId = compraId;
 	}
 	private float valor;
+	private String funcId;
 	private int qtd;
 	private Produto produto;
 	
@@ -38,6 +39,13 @@ public class CompraProduto {
 	public void setQtd(int qtd) {
 		this.qtd = qtd;
 	}
+	public String getFuncId() {
+		return funcId;
+	}
+	public void setFuncId(String funcId) {
+		this.funcId = funcId;
+	}
+	
 	
 
 }

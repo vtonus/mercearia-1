@@ -7,7 +7,8 @@ public class Fornecedor {
 	private long telefone;
 	private String email;
 	private long cnpj;
-
+	private String funcId;
+	
 	public long getCnpj() {
 		return cnpj;
 	}
@@ -54,5 +55,13 @@ public class Fornecedor {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getFuncId() {
+		return funcId;
+	}
+
+	public void setFuncId(String funcId) {
+		this.funcId = funcId;
 	}
 }

@@ -6,7 +6,14 @@ public class Fabricante {
 	private String email;
 	private long telefone;
 	private String descricao;
+	private String funcId;
 	
+	public String getFuncId() {
+		return funcId;
+	}
+	public void setFuncId(String funcId) {
+		this.funcId = funcId;
+	}
 	public int getId() {
 		return id;
 	}

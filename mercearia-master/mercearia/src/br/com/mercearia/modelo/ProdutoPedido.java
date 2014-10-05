@@ -4,8 +4,14 @@ public class ProdutoPedido {
 	private Produto produto;
 	private Pedido pedido;
 	private int pedidoId;
-
+	private String funcId;
 	
+	public String getFuncId() {
+		return funcId;
+	}
+	public void setFuncId(String funcId) {
+		this.funcId = funcId;
+	}
 	public int getPedidoId() {
 		return pedidoId;
 	}

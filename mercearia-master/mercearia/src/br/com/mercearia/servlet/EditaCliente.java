@@ -7,9 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.mercearia.dao.ClienteDAO;
 import br.com.mercearia.modelo.Cliente;
+import br.com.mercearia.util.Auditoria;
 import br.com.mercearia.util.Conversao;
 
 @SuppressWarnings("serial")
@@ -29,16 +31,23 @@ public class EditaCliente extends HttpServlet {
 		cliente.setEmail(request.getParameter("email"));
 		cliente.setEndereco(request.getParameter("end"));
 		cliente.setSexoC(request.getParameter("sexo"));
-
+		HttpSession session = request.getSession();
+		String funcId = (String) session.getAttribute("usuarioCpf");
 		
 		try{
 			cliente.setDataNascimento(Conversao.textoHEmData(request.getParameter("dataDeNascimento")));
 		}catch (NullPointerException e){}
 		catch(ParseException e){}
-		System.out.println("id "+cliente.getId()+"\nnome "+cliente.getNome()+"\ncpf "+cliente.getCpf()+"\ntelefone "+cliente.getTelefone()+"\nemail "+cliente.getEmail()+"\nsexo "+cliente.getSexo()+"\nData de nasc: "+cliente.getDataNascimento());
+		
 		if(cdao.edita(cliente))
 		{
 			response.setStatus(200);
+			Auditoria aud = new Auditoria();
+			aud.setFunc_id(funcId);
+			aud.setDados("id: "+cliente.getId()+", nome: "+cliente.getNome()+", cpf: "+cliente.getCpf()+", telefone: "+cliente.getTelefone()+", email: "+cliente.getEmail()+", endereco: "+cliente.getEndereco()+", sexo: "+cliente.getSexoC()+", dataNascimento: "+Conversao.calendarEmTexto(cliente.getDataNascimento()));
+			aud.setAcao(1);
+			aud.setTabela(2);
+			aud.adiciona();
 		}
 		else
 		{

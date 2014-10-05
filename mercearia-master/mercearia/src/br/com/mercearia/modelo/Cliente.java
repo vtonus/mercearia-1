@@ -11,6 +11,15 @@ public class Cliente {
 	private String sexo;
 	private String endereco;
 	private Calendar dataNascimento;
+	private String funcId;
+	
+	public String getFuncId() {
+		return funcId;
+	}
+
+	public void setFuncId(String funcId) {
+		this.funcId = funcId;
+	}
 
 	public String getEndereco() {
 		return endereco;

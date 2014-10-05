@@ -11,6 +11,16 @@ public class Compra {
 	private Funcionario funcionario;	
 	private String funcionarioId;
 	private String funcionarioNome;
+	private String funcId;
+	
+	public String getFuncId() {
+		return funcId;
+	}
+
+	public void setFuncId(String funcId) {
+		this.funcId = funcId;
+	}
+
 	public String getFuncionarioNome() {
 		return funcionarioNome;
 	}

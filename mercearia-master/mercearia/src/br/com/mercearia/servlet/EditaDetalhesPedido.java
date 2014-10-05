@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.JSON.JSONArray;
 import org.JSON.JSONException;
@@ -18,12 +19,16 @@ import br.com.mercearia.dao.ProdutoPedidoDAO;
 import br.com.mercearia.modelo.Pedido;
 import br.com.mercearia.modelo.Produto;
 import br.com.mercearia.modelo.ProdutoPedido;
+import br.com.mercearia.util.Auditoria;
 
 @SuppressWarnings("serial")
 public class EditaDetalhesPedido extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		Auditoria aud = new Auditoria();
+		HttpSession session = request.getSession();
+		String func_Id = (String) session.getAttribute("usuarioCpf");
 		ProdutoPedidoDAO ppdao = new ProdutoPedidoDAO();
 		ProdutoPedido pp = new ProdutoPedido();
 		PedidoDAO pedao = new PedidoDAO();
@@ -39,7 +44,7 @@ public class EditaDetalhesPedido extends HttpServlet {
 		} catch (JSONException e) {
 			e.printStackTrace();
 			response.setStatus(500);
-			
+
 			return;
 		}
 
@@ -74,32 +79,64 @@ public class EditaDetalhesPedido extends HttpServlet {
 			peBack = pedao.busca(pe.getId());
 			pe.setValor(totalPedido);
 			if (pedao.editaValor(pe)) {
+				aud.setFunc_id(func_Id);
+				aud.setDados("id_pedido: "+pe.getId() +"valor: "+ pe.getValor());
+				aud.setAcao(1);
+				aud.setTabela(8);
+				aud.adiciona();				
+				
 				List<ProdutoPedido> ppBack = new ArrayList<ProdutoPedido>();
 				ppBack = ppdao.buscaPedido(pe.getId());
 				if (ppdao.exclui(pe.getId())) {
-					  for (Produto p : listaProduto) {
+	
+					aud.setFunc_id(func_Id);
+					aud.setDados("id_pedido: "+pe.getId());
+					aud.setAcao(2);
+					aud.setTabela(10);
+					aud.adiciona();
+					for (Produto p : listaProduto) {
 						pp.setPedido(pe);
 						pp.setProduto(p);
-						if (!(ppdao.adiciona(pp)))
+						if (ppdao.adiciona(pp)) {
+							aud.setFunc_id(func_Id);
+							aud.setDados("id_produto: "+pp.getProduto().getId()+", id_pedido: "+pp.getPedido().getId()+", qtd: "+pp.getProduto().getQtd()+", valor: "+pp.getProduto().getValor());
+							aud.setAcao(0);
+							aud.setTabela(10);
+							aud.adiciona();
+						}
+						else
 						{
 							ppdao.exclui(pe.getId());
-							for(ProdutoPedido ppBackup : ppBack){
+							aud.setDados("id_pedido: "+pe.getId());
+							aud.setAcao(2);
+							aud.setTabela(10);
+							aud.adiciona();
+							for (ProdutoPedido ppBackup : ppBack) {
 								ppdao.adiciona(ppBackup);
+								aud.setDados("id_produto: "+ppBackup.getProduto().getId()+", id_pedido: "+ppBackup.getPedido().getId()+", qtd: "+ppBackup.getProduto().getQtd()+", valor: "+ppBackup.getProduto().getValor());
+								aud.setAcao(0);
+								aud.setTabela(10);
+								aud.adiciona();
 							}
-							break;
+							pedao.editaValor(peBack);
+							aud.setDados("id: "+peBack.getId()+", valor: "+peBack.getValor());
+							aud.setAcao(1);
+							aud.setTabela(8);
+							aud.adiciona();
+							break;							
 						}
 					}
-				}
-				else
-				{
+				} else {
 					pedao.editaValor(peBack);
+					aud.setDados("id: "+peBack.getId()+", valor: "+peBack.getValor());
+					aud.setAcao(1);
+					aud.setTabela(8);
+					aud.adiciona();
 					response.setStatus(500);
 					return;
 				}
 			}
-		}
-		else 
-		{
+		} else {
 			response.setStatus(500);
 		}
 		response.setStatus(200);

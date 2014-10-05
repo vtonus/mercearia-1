@@ -7,9 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.mercearia.dao.FuncionarioDAO;
 import br.com.mercearia.modelo.Funcionario;
+import br.com.mercearia.util.Auditoria;
 import br.com.mercearia.util.Conversao;
 
 @SuppressWarnings("serial")
@@ -18,7 +20,10 @@ public class EditaFuncionario extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
+		Auditoria aud = new Auditoria();
+		HttpSession session = request.getSession();
+		String func_id = (String) session.getAttribute("usuarioCpf");
+
 		Funcionario f = new Funcionario();
 		f.setCpf(request.getParameter("cpf"));
 		f.setNome(request.getParameter("nome"));
@@ -37,6 +42,11 @@ public class EditaFuncionario extends HttpServlet {
 		if(fdao.edita(f))
 		{
 			response.setStatus(200);
+			aud.setFunc_id(func_id);
+			aud.setDados("cpf: "+f.getCpf()+", nome: "+f.getNome()+", usuario: "+f.getUsuario()+", senha: "+f.getSenha()+", telefone: "+f.getTelefone()+", dataNascimento: "+Conversao.calendarEmTexto(f.getDataNascimento())+", email: "+f.getEmail());
+			aud.setAcao(1);
+			aud.setTabela(7);
+			aud.adiciona();
 		}
 		else
 		{

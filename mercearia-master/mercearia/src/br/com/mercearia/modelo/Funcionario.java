@@ -10,6 +10,15 @@ public class Funcionario {
 	private Calendar dataNascimento;
 	private String email;
 	private String senha;
+	private String funcId;
+	
+	public String getFuncId() {
+		return funcId;
+	}
+
+	public void setFuncId(String funcId) {
+		this.funcId = funcId;
+	}
 
 	public String getEmail() {
 		return email;

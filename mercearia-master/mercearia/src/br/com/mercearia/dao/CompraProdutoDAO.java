@@ -67,4 +67,24 @@ public class CompraProdutoDAO {
 			throw new RuntimeException(e);
 		}
 	}
+
+	public boolean exclui(int id) {
+		connection = new Conexao().getConnection();
+		boolean bool = false;
+		String sql = "delete from compraproduto where id_compra = ?";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.execute();
+			bool = true;
+			ps.close();
+			connection.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return bool;
+	}
+
+	
 }
