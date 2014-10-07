@@ -53,8 +53,7 @@ public class Auditoria extends HttpServlet{
 	public boolean adiciona() {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
-		HttpSession session = request.getSession();
-		compra.setFuncionarioId((String) session.getAttribute("usuarioCpf"));
+
 		String sql = "insert into auditoria (cpf_funcionario, datahora, acao, tabela, dados)"
 				+ " values(?, NOW(), ?, ?, ?)";
 

@@ -2,6 +2,7 @@ package br.com.mercearia.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,10 +17,11 @@ import org.JSON.JSONObject;
 import br.com.mercearia.dao.ClienteDAO;
 import br.com.mercearia.dao.CompraDAO;
 import br.com.mercearia.dao.CompraProdutoDAO;
-import br.com.mercearia.dao.FuncionarioDAO;
 import br.com.mercearia.modelo.Compra;
 import br.com.mercearia.modelo.CompraProduto;
 import br.com.mercearia.modelo.Produto;
+import br.com.mercearia.util.Auditoria;
+import br.com.mercearia.util.Conversao;
 
 @SuppressWarnings("serial")
 public class NovaCompra extends HttpServlet {
@@ -29,13 +31,16 @@ public class NovaCompra extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// ClienteDAO cldao = new ClienteDAO();
 
+		Auditoria aud = new Auditoria();
+		HttpSession session = request.getSession();
+		String func_id = (String) session.getAttribute("usuarioCpf");
+
 		JSONObject myobj = new JSONObject("{\"produto\":"
 				+ request.getParameter("produto") + "}");
 		JSONArray produtos = myobj.getJSONArray("produto");
 		List<Produto> listaProduto = new ArrayList<Produto>();
 		float totalCompra = 0;
-		float froat;
-		Produto step = new Produto();
+
 		boolean bool = false;
 		for (int i = 0; i < produtos.length(); i++) {
 			String jsonstr = "{\"produto\":" + produtos.get(i) + "}";
@@ -61,19 +66,31 @@ public class NovaCompra extends HttpServlet {
 			CompraDAO cdao = new CompraDAO();
 			Compra compra = new Compra();
 			compra.setValor(totalCompra);
-			FuncionarioDAO fdao = new FuncionarioDAO();
-			HttpSession session = request.getSession();
+
+			session = request.getSession();
 			compra.setFuncionarioId((String) session.getAttribute("usuarioCpf"));
 			compra.setFuncId((String) session.getAttribute("usuarioCpf"));
 			int id = cdao.adiciona(compra);
+			Calendar calendar = Calendar.getInstance();
+			aud.setFunc_id(func_id);
+			aud.setDados("id: "+id+", datahora: "+Conversao.calendarCEmTexto(calendar)+", valor: "+compra.getValor()+", id_funcionario: "+func_id+", id_cliente: "+compra.getClienteNome());
+			aud.setAcao(0);
+			aud.setTabela(3);
+			aud.adiciona();
 			CompraProdutoDAO cpdao = new CompraProdutoDAO();
 			CompraProduto cp = new CompraProduto();
 			for (Produto p : listaProduto) {
 				cp.setCompraId(id);
 				cp.setProduto(p);
 				cpdao.adiciona(cp);
+				
+				aud.setDados("id_produto: "+p.getId()+", id_compra: "+id+", valor"+p.getValor()+", qtd: "+p.getQtd());
+				aud.setAcao(0);
+				aud.setTabela(4);
+				aud.adiciona();
 			}
 			response.setStatus(200);
+			
 		} else
 			response.setStatus(500);
 	}

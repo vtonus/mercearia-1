@@ -19,9 +19,9 @@ import br.com.mercearia.modelo.Cliente;
 public class ClienteDAO {
 	private Connection connection;
 
-	public boolean adiciona(Cliente cliente) {
+	public int adiciona(Cliente cliente) {
 		connection = new Conexao().getConnection();
-		boolean bool = false;
+		int bool = 0;
 		String sql = "insert into cliente "
 				+ "(cpf, nome, telefone, sexo, email, dataNascimento, endereco)"
 				+ " values (?, ?, ?, ?, ?, ?, ?)";
@@ -42,7 +42,11 @@ public class ClienteDAO {
 			}
 			ps.setString(7, cliente.getEndereco());
 			ps.execute();
-			bool = true;
+			ps.close();
+			ps = connection.prepareStatement("SELECT LAST_INSERT_ID()");
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			bool = rs.getInt("last_insert_id()");
 			ps.close();
 			connection.close();
 		} catch (SQLException e) {e.printStackTrace();}

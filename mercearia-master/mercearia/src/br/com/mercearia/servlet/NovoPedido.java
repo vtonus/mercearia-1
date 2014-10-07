@@ -2,6 +2,7 @@ package br.com.mercearia.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -21,6 +22,8 @@ import br.com.mercearia.modelo.Fornecedor;
 import br.com.mercearia.modelo.Pedido;
 import br.com.mercearia.modelo.Produto;
 import br.com.mercearia.modelo.ProdutoPedido;
+import br.com.mercearia.util.Auditoria;
+import br.com.mercearia.util.Conversao;
 
 @SuppressWarnings("serial")
 public class NovoPedido extends HttpServlet {
@@ -30,6 +33,10 @@ public class NovoPedido extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// ClienteDAO cldao = new ClienteDAO();
 
+		Auditoria aud = new Auditoria();
+		HttpSession session = request.getSession();
+		String func_id = (String) session.getAttribute("usuarioCpf");
+		aud.setFunc_id(func_id);;
 		JSONArray produtos;
 		JSONObject myobj;
 		Float totalPedido = null;
@@ -67,18 +74,28 @@ public class NovoPedido extends HttpServlet {
 			fornecedor.setId(Integer.parseInt(request.getParameter("idForn")));
 			pedido.setFornecedor(fornecedor);
 			FuncionarioDAO fdao = new FuncionarioDAO();
-			HttpSession session = request.getSession();
+			session = request.getSession();
 			pedido.setFuncionario(fdao.busca((String) session
 					.getAttribute("usuarioCpf")));
 			pedido.setDescricao("desc");
 			pedido.setValor(totalPedido);
 			int id = pdao.adiciona(pedido);
+			aud.setFunc_id(func_id);
+			Calendar calendar = Calendar.getInstance();
+			aud.setDados("id: "+id+", valor: "+pedido.getValor()+", descricao: "+pedido.getDescricao()+", fornecedor: "+pedido.getFornecedor().getId()+", funcionario: "+pedido.getFuncId()+", datahora: "+ Conversao.calendarCEmTexto(calendar));
+			aud.setAcao(0);
+			aud.setTabela(8);
+			aud.adiciona();
 			ProdutoPedidoDAO ppdao = new ProdutoPedidoDAO();
 			ProdutoPedido pp = new ProdutoPedido();
 			for (Produto p : listaProduto) {
 				pp.setPedidoId(id);
 				pp.setProduto(p);
 				ppdao.adiciona(pp);
+				aud.setDados("id_produto: "+p.getId()+", id_pedido "+id+", qtd: "+p.getQtd()+", valor: "+p.getValor());
+				aud.setAcao(0);
+				aud.setTabela(8);
+				aud.adiciona();
 			}
 			response.setStatus(200);
 		} else
