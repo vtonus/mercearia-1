@@ -37,13 +37,13 @@ public class NovoPedido extends HttpServlet {
 		HttpSession session = request.getSession();
 		String func_id = (String) session.getAttribute("usuarioCpf");
 		aud.setFunc_id(func_id);;
-		JSONArray produtos;
-		JSONObject myobj;
+
+		
 		Float totalPedido = null;
 
-		myobj = new JSONObject("{\"produto\":"
-				+ request.getParameter("Produto") + "}");
-		produtos = myobj.getJSONArray("produto");
+		JSONObject myobj = new JSONObject("{\"produto\":"
+				+ request.getParameter("produto") + "}");
+		JSONArray produtos = myobj.getJSONArray("produto");
 
 		List<Produto> listaProduto = new ArrayList<Produto>();
 

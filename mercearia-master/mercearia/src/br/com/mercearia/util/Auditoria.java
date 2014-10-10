@@ -54,7 +54,7 @@ public class Auditoria extends HttpServlet{
 		connection = new Conexao().getConnection();
 		boolean bool = false;
 
-		String sql = "insert into auditoria (cpf_funcionario, datahora, acao, tabela, dados)"
+		String sql = "insert into auditoria (funcionario, datahora, acao, tabela, dados)"
 				+ " values(?, NOW(), ?, ?, ?)";
 
 		try {

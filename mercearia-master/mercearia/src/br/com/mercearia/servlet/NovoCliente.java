@@ -14,6 +14,7 @@ import br.com.mercearia.dao.ClienteDAO;
 import br.com.mercearia.modelo.Cliente;
 import br.com.mercearia.util.Auditoria;
 import br.com.mercearia.util.Conversao;
+import br.com.mercearia.util.ValidaCPF;
 
 @SuppressWarnings("serial")
 public class NovoCliente extends HttpServlet {
@@ -28,41 +29,60 @@ public class NovoCliente extends HttpServlet {
 		Cliente cliente = new Cliente();
 		cliente.setNome(request.getParameter("nome"));
 		cliente.setEmail(request.getParameter("email"));
-		cliente.setCpf(request.getParameter("doc"));
-		try{
-		cliente.setSexoC(request.getParameter("sexo"));
-		}catch(RuntimeException e){response.getWriter().write("\nsexo inválido");}
+		try {
+			String cpf = request.getParameter("doc");
+			if (ValidaCPF.isCPF(cpf)) {
+				cliente.setCpf(cpf);
+			} else {
+				response.getWriter().write("CPF invalido");
+				response.setStatus(501);
+				return;
+			}
+		} catch (NullPointerException e) {
+		}
+
+		try {
+			cliente.setSexoC(request.getParameter("sexo"));
+		} catch (RuntimeException e) {
+			response.getWriter().write("\nsexo inválido");
+		}
 		try {
 			cliente.setDataNascimento(Conversao.textoHEmData(request
 					.getParameter("dtn")));
-		} catch (ParseException e){response.getWriter().write("\ndata de nascimento inválida");} 
-		catch (NullPointerException e) {}
+		} catch (ParseException e) {
+			response.getWriter().write("\ndata de nascimento inválida");
+		} catch (NullPointerException e) {
+		}
 		try {
 			cliente.setTelefone(Long.parseLong(request.getParameter("telefone")));
-		} catch (RuntimeException e) {}
+		} catch (RuntimeException e) {
+		}
 
 		cliente.setEndereco(request.getParameter("endereco"));
-		
+
 		ClienteDAO dao = new ClienteDAO();
 		int j = dao.adiciona(cliente);
-		if (j > 0)
-		{
+		if (j > 0) {
 			Calendar calendar = Calendar.getInstance();
-			String data ="";
-			try{
+			String data = "";
+			try {
 				calendar = cliente.getDataNascimento();
 				data = Conversao.calendarEmTexto(calendar);
-			}catch(RuntimeException e){
+				System.out.println("Aqui esta----"+ data);
+			} catch (RuntimeException e) {
 			}
 			aud.setFunc_id(func_id);
-			aud.setDados("id: "+j+", "+", cpf: "+cliente.getCpf()+", nome: "+cliente.getNome()+", telefone: "+cliente.getTelefone()+", endereco: "+cliente.getEndereco()+", sexo: "+cliente.getSexoC()+ ", email: "+ cliente.getEmail()+", dataNascimento: "+data);
+			aud.setDados("id: " + j + ", cpf: " + cliente.getCpf()
+					+ ", nome: " + cliente.getNome() + ", telefone: "
+					+ cliente.getTelefone() + ", endereco: "
+					+ cliente.getEndereco() + ", sexo: " + cliente.getSexoC()
+					+ ", email: " + cliente.getEmail() + ", dataNascimento: "
+					+ data);
 			aud.setAcao(0);
 			aud.setTabela(2);
 			aud.adiciona();
 			response.setStatus(200);
-		}
-		else
-		{
+		} else {
 			response.setStatus(500);
 		}
 	}

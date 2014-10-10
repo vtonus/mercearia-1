@@ -15,7 +15,7 @@ public class Deslogando extends HttpServlet {
 		HttpSession session = request.getSession();
 		System.out.println("Usuario "+session.getAttribute("usuario")+" deslogou.");
 		session.setAttribute("usuario", null);
-		response.sendRedirect("url");  
+		response.sendRedirect("/mercearia/BemVindo.jsp");  
 		return;
 		}
 }

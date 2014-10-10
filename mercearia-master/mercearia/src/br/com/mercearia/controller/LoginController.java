@@ -20,15 +20,20 @@ public class LoginController extends HttpServlet {
 		FuncionarioDAO dao = new FuncionarioDAO();
 		Funcionario funcionario = new Funcionario();
 		funcionario = dao.checaLogin(usuario, senha);
-		if (funcionario.getCpf().trim().length() > 0) {
+		boolean bool = false;
+		try{
+			if (funcionario.getCpf().trim().length() > 0){
+				bool = true;
+			}
+		}catch(NullPointerException e){}
+		if (bool) {
 			HttpSession session = request.getSession();
 			session.setAttribute("usuario", funcionario.getNome());
 			session.setAttribute("usuarioCpf", funcionario.getCpf());
 			response.sendRedirect("views/Menu.jsp");
 			return;
 		} else {
-			request.getRequestDispatcher("BemVindo.jsp").forward(request,
-					response);
+			response.setStatus(400);
 		}
 	}
 }
