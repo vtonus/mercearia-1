@@ -45,6 +45,6 @@
 				</form>
 					<div class="confirmar" onclick="novoCliente()"> Confirmar</div>
 	 				<div class="limpar" onclick="$('.cad input').val('');">Limpar</input>
- 				</p>
+ 			
 	</div>
 

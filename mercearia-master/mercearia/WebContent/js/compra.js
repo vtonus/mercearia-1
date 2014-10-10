@@ -2,6 +2,7 @@
 var produtoscompra = new Array();
 var produtoscontrole = 0;
 var produtosdef = new Array();
+var totalmax=0;
 function chamatelaCompra() {
 	$('.content').load('NovaCompra.jsp');
 	var iMax = 1000;
@@ -24,9 +25,15 @@ function chamatelaCompra() {
 	}
 
 }
-
+var teclado;
 function juntaCompra() {
 	var codigoProduto = $(".cod").val();
+	
+	$(document).keypress(function(event){
+		teclado=event.which; 
+	 });
+	console.log(teclado);
+	 if(teclado=='13'){
 	$.ajax({
 		url : "BuscaCodigoProduto",
 		type : "POST",
@@ -71,6 +78,7 @@ function juntaCompra() {
 					// $('.retornando').html("");
 					// limpacompras();
 				}
+				
 
 			}
 			var total = 0;
@@ -79,13 +87,17 @@ function juntaCompra() {
 				total = produtoscompra[i][3] + total;
 				// total= parseFloat( Math.round(total * 100) / 100).toFixed(2)
 				// ;
-				var teste = total.toFixed(2);
+				var valortotalcompra = total.toFixed(2);
+				valortotalcompra = valortotalcompra.replace(".",",")
 			}
 			var tabtotal = "<tr>" + "  <th> Total</th>" + "</tr>" + "<tr>"
-					+ "  <td> R$" + teste + "</td>" + "</tr>";
+					+ "  <td> R$" + valortotalcompra + "</td>" + "</tr>";
 			$('.totaltab').html(tabtotal);
-
+			totalmax=valortotalcompra.replace(".",",");
+			$("input").val("");
+			$(".qtd").val("1");
 		}
+		
 	});// fecha ajax
 	/*
 	 * $.ajax({ url:"asd", type: "POST", data:{produto: produtoscompra}
@@ -93,6 +105,7 @@ function juntaCompra() {
 	 * });
 	 */
 }
+	 }
 
 function limpacompras() {
 
@@ -103,6 +116,8 @@ function limpacompras() {
 	$(".sb").val("");
 }
 var dados;
+
+
 function removeproduct(id) {
 	console.log('id=');
 	console.log(id);
@@ -141,17 +156,26 @@ function removeproduct(id) {
 				+ "  <th> Sub-total</th>" + "</tr>";
 
 		$('.comprado').html(dados);
+		
 	}
+	var teste=0
 	var total = 0;
+	console.log(produtoscontrole);
 	for (i = 0; i < produtoscontrole; i++) {
 		total = produtoscompra[i][3] + total;
-		var teste = total.toFixed(2);
+		teste = total.toFixed(2);
 	}
+	
+	
 	var tabtotal = "<tr>" + "  <th> Total</th>" + "</tr>" + "<tr>"
 			+ "  <td> R$" + teste + "</td>" + "</tr>";
 	$('.totaltab').html(tabtotal);
-
+	totalmax=tabtotal;
 }
+
+
+
+
 function fazerCompra(){
 	
 	
@@ -208,14 +232,19 @@ function confirmaCompra() {
 		url : "NovaCompra",
 		type : "POST",
 		data : {
-			produto : jsonString
+			produto : jsonString,
+		    troco: $("#trocado").val(),
+		    desc:  $("#descount").val(),
+		    pago:  $("#pagado").val(),
+			
 		},
 		success : function(back) {
 			mensagem("green","Compra foi confirmada!!");
 			cancelaCompra();
+			cancelapergunta();
 			
 		},
-		error : function(back) {
+		error : function(back){
 			mensagem("red","Erro, contate seu administrador!");	
 			cancelaCompra();
 			
@@ -248,8 +277,7 @@ function cancelaCompra() {
 
 function buscaDadosCompra() {
 
-	$
-			.ajax({
+	$.ajax({
 				url : "BuscaCompra",
 				data : {
 					id : $('#codigo').val(),
@@ -348,4 +376,70 @@ function BuscaDetalhesCompra(id) {
 		type : 'POST',
 	});
 
+}
+
+
+function formatReal( int )
+{
+        var tmp = int+'';
+        tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
+        if( tmp.length > 6 )
+                tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+ 
+        return tmp;
+}
+
+function mascara(este){
+	var teste=$(este).val().replace(",","");
+	teste=teste.replace(".","");
+	$(este).val(formatReal(teste));
+	
+}
+function trocando(este){
+	var testetroca=$("#trocado").val().replace(",","");
+	testetroca=testetroca.replace(".","");
+	$("#trocado").val(formatReal(testetroca).replace(".",""));
+	
+}
+
+function calculo(){
+	
+	var pagado=$("#pagado").val().replace(",","");
+	pagado=pagado.replace(".","");
+	var descount=$("#descount").val().replace(",","");
+	descount=descount.replace(".","");
+	var total=$("#total").val().replace(",","");
+	total=total.replace(".","");
+	var trocado=$("#trocado").val().replace(",","");
+	trocado=trocado.replace(".","");
+	
+	var totalpa=total-descount;
+	var troco=pagado-totalpa;
+	$("#trocado").val(troco);
+	trocando();
+	
+	
+}
+
+
+function pagamentoCompra(){
+	$(".fundoq").show();
+	$(".questao").show();
+	console.log(totalmax);
+	$("#trocado").val("0,00");
+	$("#descount").val("0,00");
+	$("#pagado").val(totalmax);	
+	$("#total").val(totalmax);
+	
+	
+}
+
+function cancelapergunta(){
+	$(".fundoq").hide();
+	$(".questao").hide();
+	console.log(totalmax);
+	$("#trocado").val("0,00");
+	$("#descount").val("0,00");
+	$("#pagado").val("0,00");	
+	
 }

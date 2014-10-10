@@ -1,7 +1,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
- <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+ <!-- <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'> -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,300,800,700' rel='stylesheet' type='text/css'>
+
 <title>Menu principal</title>
 
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><!-->
@@ -21,7 +23,9 @@ $( document ).ready(function() {
     if($('#sessao').text()==''){
     	window.alert('VOCE NAO TEM SESSAO');
     	document.write($('#sessao').text());
+    	
     }
+   
 });
 </script>
 </head>

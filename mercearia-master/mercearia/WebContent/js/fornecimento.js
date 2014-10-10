@@ -148,3 +148,66 @@ var p=0;
 }
 
 
+
+function buscacodigoforn(){
+var codigoProduto = $(".cod").val();
+	
+	$(document).keypress(function(event){
+		teclado=event.which; 
+	 });
+	console.log(teclado);
+	 if(teclado=='13'){
+	$.ajax({
+		url : "BuscaCodigoProduto",
+		type : "POST",
+		data : {
+			produto : $("#cod").val()
+		},
+		success : function(back) {
+			if (back) {
+				$('.retornando').html(back);
+				//
+				$("#prod").val($('#nomeAC').val());
+				$("#unid").val($('#valorAC').val());
+				$('#qtd').focus();
+			}
+		   }
+		});
+
+	 }
+}
+
+
+function adcProdutoFornqtd(){
+	$(document).keypress(function(event){
+		teclado=event.which; 
+	 });
+	console.log(teclado);
+	var total=$('#unid').val()*$('#qtd').val();
+	var valortotalcompra = total.toFixed(2);
+	valortotalcompra = valortotalcompra.replace(".",",");
+	$('#vlr').val(valortotalcompra);
+	
+	 if(teclado=='13'){
+	adcProdutoForn();
+	}
+	
+	
+}
+
+
+function BuscaPedido(){
+	
+	$.ajax({
+		url:"BuscaPedido",
+		data:{palavraChave : $("#palavraChave").val(),
+		parametro : $("#parametro").val()},
+		type: 'POST',
+		success: function(data){
+			
+		
+		}
+	
+	
+	});
+}

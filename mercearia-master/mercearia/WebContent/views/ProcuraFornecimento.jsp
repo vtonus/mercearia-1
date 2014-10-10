@@ -1,17 +1,15 @@
-<span class='titulo'>Procura Cliente</span>
-<div id="procli" style="top:26px; position: relative;">
-	
+<div id="procli">
+		
 		<form id="meuForm">
 		Palavra Chave:
 		<input type="text" id="palavraChave" autofocus>
 		<label class='estiloso'>
 		<select id="parametro">
 			<option value="nome">Nome</option>
-			<option value="cpf">CPF</option>
-			<option value="telefone">Telefone</option>
+			<option value="cnpj">cnpj</option>
 		</select>
 		</label>
-		<input type="button" value="Buscar" onclick="buscaDadosFuncionario()">	<br /><br />
+		<input type="button" value="Buscar" onclick="BuscaPedido()">	<br /><br />
 		</form>
 		
 		<div id="result" style="display:none;">
