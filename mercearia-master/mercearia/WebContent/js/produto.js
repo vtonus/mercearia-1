@@ -193,7 +193,7 @@ function buscaDadosProduto() {
 			  dados+="" +
 						"<tr> " +
 				"<td><span id='id"+i+"'>" + $("#id"+i).val()+ "</span><input  type='text' class='id"+i+"' value='"+$("#id"+i).val()+"'></input></td>" +
-		 		"<td><span id='Nome"+i+"'>" + $("#Nome"+i).val()+ " </span><input  type='text' class='Nome"+i+"' value='"+$("#Nome"+i).val()+"'></input></td>" +
+		 		"<td><span id='Nome"+i+"'>" + $("#nome"+i).val()+ " </span><input  type='text' class='Nome"+i+"' value='"+$("#nome"+i).val()+"'></input></td>" +
 		 		"<td><span id='valor"+i+"'>" + $("#valor"+i).val()+ "</span><input  type='text' class='valor"+i+"' value='"+$("#valor"+i).val()+"'></input></td>" +
 		 		"<td><span id='fabricante"+i+"'>" + $("#fabricante"+i).val()+ "</span><input  type='text' class='fabricante"+i+"' value='"+$("#fabricante"+i).val()+"'></input></td>" +
 		 		"<td><span id='quantidade"+i+"'>" + $("#quantidade"+i).val()+ "</span><input  type='text' class='quantidade"+i+"' value='"+$("#quantidade"+i).val()+"'></input></td>" +

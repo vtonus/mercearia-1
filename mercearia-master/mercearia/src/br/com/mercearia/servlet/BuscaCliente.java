@@ -1,11 +1,8 @@
 package br.com.mercearia.servlet;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,9 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.mercearia.dao.ClienteDAO;
-import br.com.mercearia.dao.Conexao;
 import br.com.mercearia.modelo.Cliente;
-import br.com.mercearia.modelo.Produto;
 import br.com.mercearia.util.Conversao;
 
 @SuppressWarnings("serial")
@@ -44,6 +39,7 @@ public class BuscaCliente extends HttpServlet {
 				telefone ="";
 			}
 			else telefone=""+cliente.getTelefone();
+			
 			if (cliente != null) {
 				response.getWriter().write(
 								  "<input type=\"hidden\" id=\"id" + i
