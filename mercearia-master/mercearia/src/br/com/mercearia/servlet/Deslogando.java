@@ -14,8 +14,7 @@ public class Deslogando extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		System.out.println("Usuario "+session.getAttribute("usuario")+" deslogou.");
-		session.setAttribute("usuario", null);
-		response.sendRedirect("/mercearia/BemVindo.jsp");  
+		session.setAttribute("usuario", null);  
 		return;
 		}
 }

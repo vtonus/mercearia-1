@@ -70,6 +70,8 @@ public class NovaCompra extends HttpServlet {
 			session = request.getSession();
 			compra.setFuncionarioId((String) session.getAttribute("usuarioCpf"));
 			compra.setFuncId((String) session.getAttribute("usuarioCpf"));
+			compra.setMetodo(Integer.parseInt(request.getParameter("metodoPag")));
+			
 			int id = cdao.adiciona(compra);
 			Calendar calendar = Calendar.getInstance();
 			aud.setFunc_id(func_id);

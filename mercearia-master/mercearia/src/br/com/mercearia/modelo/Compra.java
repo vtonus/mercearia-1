@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 public class Compra {
 	private int id;
+	private int metodo;
 	private Calendar hora;
 	private Calendar horaIni;
 	private Calendar horaFim;
@@ -12,6 +13,15 @@ public class Compra {
 	private String funcionarioId;
 	private String funcionarioNome;
 	private String funcId;
+
+	public int getMetodo() {
+		return metodo;
+	}
+
+	public void setMetodo(int metodo) {
+		this.metodo = metodo;
+	}
+
 	
 	public String getFuncId() {
 		return funcId;

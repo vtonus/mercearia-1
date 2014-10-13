@@ -40,25 +40,7 @@ public class NovoProduto extends HttpServlet {
 			produto.setFabricante(request.getParameter("fabricante"));
 		} catch (RuntimeException e) {
 		}
-
-		try {
-			produto.setQtd(Integer.parseInt(request.getParameter("qtd")));
-		} catch (NullPointerException e) {}
-		catch(NumberFormatException e){
-			response.getWriter().write("Quantidade do produto invalida");
-			response.setStatus(500);
-			return;
-		}
 		
-		try {
-			produto.setValidade(Conversao.textoHEmData(request
-					.getParameter("validade")));
-		} catch (ParseException e) {
-			response.getWriter().write("Validade do produto invalida");
-			response.setStatus(500);
-			return;
-		}
-		catch(NullPointerException e){}
 
 		try {
 			produto.setEstoque(Integer.parseInt(request.getParameter("estoque")));
