@@ -225,7 +225,12 @@ function confirmaCompra() {
 		}
 
 	}
-
+	if($("#metod1").checked){
+		var metodo="1";
+	}else if($("#metod2").checked){
+		var metodo="0";
+	}else
+		var metodo="2";
 	// var jsonString = JSON.stringify(produtosdef);
 	var jsonString = JSON.stringify(produtoscompra);
 	$.ajax({
@@ -236,6 +241,7 @@ function confirmaCompra() {
 		    troco: $("#trocado").val(),
 		    desc:  $("#descount").val(),
 		    pago:  $("#pagado").val(),
+		    metodoPag: metodo,
 			
 		},
 		success : function(back) {

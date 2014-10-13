@@ -14,9 +14,11 @@ border-radius: 10px;
 display:none">
 
 <div style="width: 86px;height: 100px;margin: auto;position: relative;top: 18px;">
-<input checked type="radio" name="pagamento" value="dinhiro" style="-webkit-box-shadow: none;">Dinheiro<br>
-<input type="radio" name="pagamento" value="card" style="-webkit-box-shadow: none;">Cartão<br>
-<input type="radio" name="pagamento" value="fiado" style="-webkit-box-shadow: none;">Prazo<br>
+
+<input id="metod1" checked type="radio" name="metodoPag" value="dinheiro" style="-webkit-box-shadow: none;">Dinheiro<br>
+<input id="metod2" type="radio" name="metodoPag" value="card" style="-webkit-box-shadow: none;">Cartão<br>
+<input id="metod3" type="radio" name="metodoPag" value="fiado" style="-webkit-box-shadow: none;">Prazo<br>
+
 </div>
 
 
