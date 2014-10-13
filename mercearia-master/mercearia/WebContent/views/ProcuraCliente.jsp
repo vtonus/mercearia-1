@@ -2,8 +2,9 @@
 <div id="procli" style="top:26px; position: relative;">
 	
 		<form id="meuForm">
-		Palavra Chave:
+		Procurar: 
 		<input type="text" id="palavraChave" autofocus>
+		 Por:
 		<label class='estiloso'>
 		<select id="parametro">
 			<option value="nome">Nome</option>

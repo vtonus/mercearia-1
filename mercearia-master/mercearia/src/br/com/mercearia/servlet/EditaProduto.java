@@ -17,7 +17,7 @@ import br.com.mercearia.util.Conversao;
 @SuppressWarnings("serial")
 public class EditaProduto extends HttpServlet {
 	ProdutoDAO pdao = new ProdutoDAO();
-	
+
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		Auditoria aud = new Auditoria();
@@ -31,28 +31,31 @@ public class EditaProduto extends HttpServlet {
 		produto.setFabricante(request.getParameter("fabricante"));
 		produto.setQtd(Integer.parseInt(request.getParameter("qtd")));
 		produto.setEstoque(Integer.parseInt(request.getParameter("estoque")));
-		try
-		{
-			produto.setValidade(Conversao.textoEmData(request.getParameter("validade")));
-		}catch(ParseException e){}
-		if(pdao.edita(produto))
-		{
-			aud.setFunc_id(func_id);
-			String data="";
-			try{
-				data = Conversao.calendarEmTexto(produto.getValidade());	
-			}catch(NullPointerException e){}
-			
-			aud.setDados("id: "+produto.getId()+", nome: "+produto.getNome()+", valor: "+produto.getValor()+", fabricante: "+produto.getFabricante()+", qtd:"+produto.getQtd()+", estoque: "+produto.getEstoque()+", validade: "+data);	
-			aud.setAcao(1);
-			aud.setTabela(9);
-			aud.adiciona();
-			
-			response.setStatus(200);
-		}
-		else
-		{
-			response.setStatus(500);
+		try {
+			produto.setValidade(Conversao.textoHEmData(request
+					.getParameter("validade")));
+		} catch (ParseException e) {
+			if (pdao.edita(produto)) {
+				aud.setFunc_id(func_id);
+				String data = "";
+				try {
+					data = Conversao.calendarEmTexto(produto.getValidade());
+				} catch (NullPointerException e1) {
+				}
+
+				aud.setDados("id: " + produto.getId() + ", nome: "
+						+ produto.getNome() + ", valor: " + produto.getValor()
+						+ ", fabricante: " + produto.getFabricante() + ", qtd:"
+						+ produto.getQtd() + ", estoque: "
+						+ produto.getEstoque() + ", validade: " + data);
+				aud.setAcao(1);
+				aud.setTabela(9);
+				aud.adiciona();
+
+				response.setStatus(200);
+			} else {
+				response.setStatus(500);
+			}
 		}
 	}
 }

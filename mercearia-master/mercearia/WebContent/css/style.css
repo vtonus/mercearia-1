@@ -57,16 +57,12 @@ input {
 }
 
 input[type=button] {
-	line-height: 20px;
-	border: 1px solid black;
-	border-radius: 15%;
-	color: #444444;
-	text-align: center;
-	text-decoration: none;
-	background: #c0c0c0;
-	box-shadow: 0 0 1px gray;
-	font-size: 12px;
-	font-weight: bold;
+	width: 125px;  color: #fff;  font-weight: bold;  -webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);  -moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);  box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);  text-align: center;  font-size: 18px;  
+	line-height: 21px;  
+	height: 30px;  background-color: green;  border-radius: 5px;  
+	brackground-size: 100% 100%;  position: relative;  
+	top: 4px;  
+	left: 12px;  cursor: pointer;
 }
 
 input[type=submit] {
