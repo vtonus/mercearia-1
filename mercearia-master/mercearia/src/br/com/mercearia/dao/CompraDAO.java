@@ -17,7 +17,7 @@ public class CompraDAO {
 	public int adicionaC(Compra compra) {
 		connection = new Conexao().getConnection();
 		int retorno = 0;
-
+		
 		String sql = "insert into compra "
 				+ "(datahora, valor, id_funcionario, id_cliente)"
 				+ " values (NOW(), ?, ?, ?)";
@@ -51,13 +51,14 @@ public class CompraDAO {
 		connection = new Conexao().getConnection();
 
 		String sql = "insert into compra "
-				+ "(datahora, valor, id_funcionario)" + " values (NOW(), ?, ?)";
+				+ "(datahora, valor, id_funcionario, metodo)" + " values (NOW(), ?, ?, ?)";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 
 			ps.setFloat(1, compra.getValor());
 			ps.setString(2, compra.getFuncionarioId());
+			ps.setInt(3, compra.getMetodo());
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
@@ -80,16 +81,26 @@ public class CompraDAO {
 	public List<Compra> buscaCompra(Compra compra) {
 		connection = new Conexao().getConnection();
 		Calendar calendar;
+		boolean a = false;
 		Boolean[] boo = new Boolean[5];
 		for (int j = 0; j < 5; j++) {
 			boo[j] = false;
 		}
 		// id, dataHoraIni, dataHoraFim, id_funcionario, id_cliente
-
+		String sql ="";
 		int i = 0;
-		String sql = "select co.id, co.valor, cl.nome, fu.nome, co.datahora from compra co "
-				+ "inner join cliente cl on (co.id_cliente = cl.id) "
-				+ "inner join funcionario fu on (fu.cpf = co.id_funcionario) ";
+		
+		if (compra.getClienteNome().trim().length() > 0) {
+			sql = "select co.id, co.valor, cl.nome, fu.nome, co.datahora from compra co "
+					+ "inner join cliente cl on (co.id_cliente = cl.id) "
+					+ "inner join funcionario fu on (fu.cpf = co.id_funcionario) ";
+					a = true;
+		}
+		else{
+			sql = "select co.id, co.valor, fu.nome, co.datahora from compra co "
+					+ "inner join funcionario fu on (fu.cpf = co.id_funcionario) ";
+		}
+		
 		try {
 			if (compra.getId() > 0) {
 				boo[0] = true;
@@ -214,7 +225,9 @@ public class CompraDAO {
 			while (rs.next()) {
 				compra.setId(rs.getInt("co.id"));
 				compra.setFuncionarioNome(rs.getString("fu.nome"));
+				if (a){
 				compra.setClienteNome(rs.getString("cl.nome"));
+				}
 				compra.setValor(rs.getFloat("co.valor"));
 				calendar = Calendar.getInstance();
 				calendar.setTime(rs.getTimestamp("co.datahora"));
