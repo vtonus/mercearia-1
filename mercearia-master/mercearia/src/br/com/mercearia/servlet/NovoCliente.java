@@ -89,7 +89,7 @@ public class NovoCliente extends HttpServlet {
 				cliente.setTelefone(0);
 			}
 			else cliente.setTelefone(Long.parseLong(request.getParameter("telefone")));
-			
+
 			
 		} catch (NullPointerException e) {cliente.setTelefone(0);
 		} catch (NumberFormatException e) {
@@ -98,7 +98,7 @@ public class NovoCliente extends HttpServlet {
 			return;
 		}
 		
-		if ((request.getParameter("endereco").trim().length() > 5 && request.getParameter("nome").length() < 60) || request.getParameter("endereco").isEmpty()){
+		if ((request.getParameter("endereco").trim().length() > 5 && request.getParameter("endereco").length() < 60) || request.getParameter("endereco").isEmpty()){
 			cliente.setEndereco(request.getParameter("endereco"));
 		}
 		else{

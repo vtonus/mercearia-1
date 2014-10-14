@@ -26,12 +26,11 @@ public class BuscaFornecedor extends HttpServlet {
 		int i = 0;
 
 		for (Fornecedor f : listaF) {
-			System.out.println("Achou mais um");
 			String cnpj;
-			if (f.getCnpj() == 0) {
+			if (f.getCnpj().toString() == "0") {
 				cnpj = "";
 			} else
-				cnpj = "" + f.getCnpj();
+				cnpj = f.getCnpj();
 
 			String telefone;
 			if (f.getTelefone() == 0) {

@@ -23,7 +23,7 @@ public class FornecedorDAO {
 			PreparedStatement ps = connection.prepareStatement(sql);
 
 			ps.setString(1, fornecedor.getNome());
-			ps.setLong(2, fornecedor.getCnpj());
+			ps.setString(2, fornecedor.getCnpj());
 			ps.setLong(3, fornecedor.getTelefone());
 			ps.setString(4, fornecedor.getEmail());
 			ps.setString(5, fornecedor.getEndereco());
@@ -69,7 +69,7 @@ public class FornecedorDAO {
 			PreparedStatement ps = connection.prepareStatement(sql);
 
 			ps.setString(1, f.getNome());
-			ps.setLong(2, f.getCnpj());
+			ps.setString(2, f.getCnpj());
 			ps.setLong(3, f.getTelefone());
 			ps.setString(4, f.getEmail());
 			ps.setString(5, f.getEndereco());
@@ -137,7 +137,7 @@ public class FornecedorDAO {
 				f.setId(Integer.parseInt(rs.getString("id")));
 				f.setNome(rs.getString("nome"));
 				try {
-					f.setCnpj(Long.parseLong(rs.getString("cnpj")));
+					f.setCnpj(rs.getString("cnpj"));
 				} catch (RuntimeException e) {
 				}
 				try {
