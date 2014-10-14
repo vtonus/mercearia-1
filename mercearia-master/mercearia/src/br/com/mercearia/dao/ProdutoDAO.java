@@ -103,7 +103,7 @@ public class ProdutoDAO {
 			List<Produto> produtos = new ArrayList<Produto>();
 			Produto produto = new Produto();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			nome = ("%" + nome + "%");
+			nome = ("%"+nome+"%");
 			ps.setString(1, nome);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -129,7 +129,7 @@ public class ProdutoDAO {
 			List<Produto> produtos = new ArrayList<Produto>();
 			Produto produto = new Produto();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			String cod = ("%" + codigo + "%");
+			String cod = ("%"+codigo+"%");
 			ps.setString(1, cod);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -145,83 +145,93 @@ public class ProdutoDAO {
 		}
 	}
 
-	public List<Produto> busca(Produto produto) {
+	
+	public List<Produto> busca(Produto produto) 
+	{
 		connection = new Conexao().getConnection();
 		Boolean[] boo = new Boolean[9];
-		for (int j = 0; j < 9; j++) {
+		  for (int j = 0; j < 9; j++) 
+		{
 			boo[j] = false;
 		}
-
+		
 		int i = 0;
 		String sql = "select * from produto ";
 
-		try {
-			if (produto.getId() > 0) {
+		try 
+		{
+			if (produto.getId() > 0) 
+			{
 				boo[0] = true;
 				sql = sql.concat("where id = ? ");
 				i = 1;
 			}
-		} catch (NullPointerException e) {
+		} 
+		catch (NullPointerException e) 
+		{
 		}
 
-		try {
-			if (produto.getNome().trim().length() > 0) {
-
+		try
+		{
+			if (produto.getNome().trim().length() > 0) 
+			{
+			
 				boo[1] = true;
-				if (i == 0) {
+				if (i == 0) 
+				{
 					sql = sql.concat("where ");
 					i = 1;
-				} else {
+				}
+				else 
+				{
 					sql = sql.concat("and ");
 				}
 				sql = sql.concat("nome like ? ");
 			}
-		} catch (NullPointerException e) {
 		}
+		catch(NullPointerException e){}
 
 		try {
-			if (produto.getValorMin() > 0) {
-				boo[2] = true;
+				if (produto.getValorMin() > 0) {
+					boo[2] = true;
+					if (i == 0) {
+						sql = sql.concat("where ");
+						i = 1;
+					} else {
+						sql = sql.concat("and ");
+					}
+					sql = sql.concat("valor >= ? ");
+				}
+			} catch (NullPointerException e) {}
+
+			try {
+				if (produto.getValorMax() > 0) {
+					boo[3] = true;
+					if (i == 0) {
+						sql = sql.concat("where ");
+						i = 1;
+					} else {
+						sql = sql.concat("and ");
+					}
+					sql = sql.concat("valor <= ? ");
+				}
+			} catch (NullPointerException e) {
+			}
+
+			if (produto.getFabricante().trim().length() > 0) {
 				if (i == 0) {
+					boo[4] = true;
 					sql = sql.concat("where ");
 					i = 1;
 				} else {
 					sql = sql.concat("and ");
 				}
-				sql = sql.concat("valor >= ? ");
+				sql = sql.concat("fabricante like ? ");
 			}
-		} catch (NullPointerException e) {
-		}
-
-		try {
-			if (produto.getValorMax() > 0) {
-				boo[3] = true;
-				if (i == 0) {
-					sql = sql.concat("where ");
-					i = 1;
-				} else {
-					sql = sql.concat("and ");
-				}
-				sql = sql.concat("valor <= ? ");
-			}
-		} catch (NullPointerException e) {
-		}
-
-		if (produto.getFabricante().trim().length() > 0) {
-			if (i == 0) {
-				boo[4] = true;
-				sql = sql.concat("where ");
-				i = 1;
-			} else {
-				sql = sql.concat("and ");
-			}
-			sql = sql.concat("fabricante like ? ");
-		}
-
-		try {
-			calendar = Calendar.getInstance();
-			calendar = produto.getValidade();
-			if (calendar.isLenient()) {
+			
+			try {
+				calendar = Calendar.getInstance();
+				calendar = produto.getValidade();
 				boo[5] = true;
 				if (i == 0) {
 					sql = sql.concat("where ");
@@ -229,64 +239,62 @@ public class ProdutoDAO {
 					sql = sql.concat("and ");
 				}
 				sql = sql.concat("validade < ?");
-			}
-		} catch (NullPointerException e) {
-		}
+			} catch (NullPointerException e) {}
 
-		try {
-
-			PreparedStatement ps = connection.prepareStatement(sql);
-			i = 1;
-			if (boo[0]) {
-				ps.setLong(i, produto.getId());
-				i++;
-			}
-			if (boo[1]) {
-				ps.setString(i, "%" + produto.getNome() + "%");
-				i++;
-			}
-			if (boo[2]) {
-				ps.setFloat(i, produto.getValorMin());
-				i++;
-			}
-			if (boo[3]) {
-				ps.setFloat(i, produto.getValorMax());
-				i++;
-			}
-			if (boo[4]) {
-				ps.setString(i, "%" + produto.getFabricante() + "%");
-				i++;
-			}
-			if (boo[5]) {
-				ps.setDate(i, new Date(produto.getValidade().getTimeInMillis()));
-				i++;
-			}
-			ResultSet rs = ps.executeQuery();
-			List<Produto> produtos = new ArrayList<Produto>();
-			Calendar calendar = Calendar.getInstance();
-			while (rs.next()) {
-				produto = new Produto();
-				produto.setNome(rs.getString("nome"));
-				produto.setQtd(rs.getInt("qtd"));
-				try {
-					calendar.setTime(rs.getDate("validade"));
-					produto.setValidade(calendar);
-				} catch (SQLException | RuntimeException e) {
+						try {
+							
+				PreparedStatement ps = connection.prepareStatement(sql);
+				i = 1;
+				if (boo[0]) {
+					ps.setLong(i, produto.getId());
+					i++;
 				}
-				produto.setValor(rs.getFloat("valor"));
-				produto.setId(rs.getLong("id"));
-				produto.setFabricante(rs.getString("fabricante"));
-				produto.setEstoque(rs.getInt("estoque"));
-				produtos.add(produto);
+				if (boo[1]) {
+					ps.setString(i, "%"+produto.getNome()+"%");
+					i++;
+				}
+				if (boo[2]) {
+					ps.setFloat(i, produto.getValorMin());
+					i++;
+				}
+				if (boo[3]) {
+					ps.setFloat(i, produto.getValorMax());
+					i++;
+				}
+				if (boo[4]) {
+					ps.setString(i, "%"+produto.getFabricante()+"%");
+					i++;
+				}
+				if (boo[5]) {
+					ps.setDate(i, new Date (produto.getValidade().getTimeInMillis()));
+					i++;
+				}
+				ResultSet rs = ps.executeQuery();
+				List<Produto> produtos = new ArrayList<Produto>();
+				Calendar calendar = Calendar.getInstance();
+				while (rs.next()) {
+					produto = new Produto();
+					produto.setNome(rs.getString("nome"));
+					produto.setQtd(rs.getInt("qtd"));
+					try {
+						calendar.setTime(rs.getDate("validade"));
+						produto.setValidade(calendar);
+					} catch (SQLException | RuntimeException e) {}
+					produto.setValor(rs.getFloat("valor"));
+					produto.setId(rs.getLong("id"));
+					produto.setFabricante(rs.getString("fabricante"));
+					produto.setEstoque(rs.getInt("estoque"));
+					produtos.add(produto);
+				}
+				ps.close();
+				connection.close();
+				return produtos;
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
 			}
-			ps.close();
-			connection.close();
-			return produtos;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			
 		}
-
-	}
+	
 
 	public boolean adiciona(Produto produto) {
 		connection = new Conexao().getConnection();
@@ -312,9 +320,12 @@ public class ProdutoDAO {
 			} catch (RuntimeException e) {
 				ps.setNull(7, Types.DATE);
 			}
-			try {
+			try
+			{
 				ps.setInt(6, produto.getEstoque());
-			} catch (SQLException e) {
+			}
+			catch(SQLException e)
+			{
 			}
 			ps.execute();
 			bool = true;
@@ -325,7 +336,6 @@ public class ProdutoDAO {
 		}
 		return bool;
 	}
-
 	public boolean edita(Produto produto) {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
@@ -333,7 +343,7 @@ public class ProdutoDAO {
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
-
+			
 			ps.setLong(1, produto.getId());
 			ps.setString(2, produto.getNome());
 			ps.setFloat(3, produto.getValor());
@@ -351,13 +361,12 @@ public class ProdutoDAO {
 		}
 		return bool;
 	}
-
 	public boolean exclui(long id) {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
 		String sql = "delete from produto where id = ?";
 
-		try {
+		try { 
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setLong(1, id);
 			ps.execute();

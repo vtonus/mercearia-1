@@ -13,13 +13,12 @@ import br.com.mercearia.util.Conversao;
 
 public class CompraDAO {
 	private Connection connection;
-
 	public int adicionaC(Compra compra) {
 		connection = new Conexao().getConnection();
 		int retorno = 0;
 		
 		String sql = "insert into compra "
-				+ "(datahora, valor, id_funcionario, id_cliente)"
+				+ "(datahora, valor, id_funcionario, id_cliente, metodo)"
 				+ " values (NOW(), ?, ?, ?)";
 
 		try {
@@ -30,6 +29,7 @@ public class CompraDAO {
 				ps.setInt(3, compra.getCliente().getId());
 			} catch (NullPointerException e) {
 				ps.setNull(3, java.sql.Types.INTEGER);
+				ps.setInt(4, compra.getMetodo());
 				ps.execute();
 				ps.close();
 				ps = connection.prepareStatement("SELECT LAST_INSERT_ID()");
