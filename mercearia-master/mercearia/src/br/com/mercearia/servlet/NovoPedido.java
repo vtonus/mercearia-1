@@ -77,8 +77,18 @@ public class NovoPedido extends HttpServlet {
 			session = request.getSession();
 			pedido.setFuncionario(fdao.busca((String) session
 					.getAttribute("usuarioCpf")));
+			if (!(request.getParameter("desc").trim().length() < 60)){
+				response.getWriter().write("descricao do pedido invalido, este deve ter no maximo 60 caracteres");
+				response.setStatus(501);
+				return;
+			}
 			pedido.setDescricao("desc");
 			pedido.setValor(totalPedido);
+			if (pedido.getValor()>999999){
+				response.getWriter().write("valor da compra excedeu o limite de 999.999 reais");
+				response.setStatus(501);
+				return;
+			}
 			int id = pdao.adiciona(pedido);
 			aud.setFunc_id(func_id);
 			Calendar calendar = Calendar.getInstance();

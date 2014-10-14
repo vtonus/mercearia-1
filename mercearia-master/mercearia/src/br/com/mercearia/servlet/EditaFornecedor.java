@@ -25,13 +25,7 @@ public class EditaFornecedor extends HttpServlet {
 		Fornecedor f = new Fornecedor();
 		f.setId(Integer.parseInt(request.getParameter("id")));
 		f.setNome(request.getParameter("nome"));
-		try
-		{
-		f.setCnpj(Long.parseLong(request.getParameter("cnpj")));
-		}catch(NullPointerException e)
-		{
-			f.setCnpj(0);
-		}
+		f.setCnpj(request.getParameter("cnpj"));
 		try
 		{
 		f.setTelefone(Long.parseLong(request.getParameter("telefone")));
