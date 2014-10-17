@@ -42,26 +42,30 @@ public class NovaCompra extends HttpServlet {
 		float totalCompra = 0;
 
 		boolean bool = false;
-		for (int i = 0; i < produtos.length(); i++) {
-			String jsonstr = "{\"produto\":" + produtos.get(i) + "}";
-			myobj = new JSONObject(jsonstr);
-			JSONArray jsonarray = myobj.getJSONArray("produto");
-			if ((Integer.parseInt((String) jsonarray.get(2).toString())) > 0) {
-				Produto produto = new Produto();
-				produto.setQtd(Integer.parseInt((String) jsonarray.get(2)
-						.toString()));
-				produto.setId(Long.parseLong((String) jsonarray.get(4)
-						.toString()));
-				produto.setValor(Float.parseFloat((String) jsonarray.get(1)
-						.toString()));
-				totalCompra += (produto.getValor() * produto.getQtd());
+		
+		synchronized (listaProduto) {
+			for (int i = 0; i < produtos.length(); i++) {
+				String jsonstr = "{\"produto\":" + produtos.get(i) + "}";
+				myobj = new JSONObject(jsonstr);
+				JSONArray jsonarray = myobj.getJSONArray("produto");
+				if ((Integer.parseInt((String) jsonarray.get(2).toString())) > 0) {
+					Produto produto = new Produto();
+					produto.setQtd(Integer.parseInt((String) jsonarray.get(2)
+							.toString()));
+					produto.setId(Long.parseLong((String) jsonarray.get(4)
+							.toString()));
+					produto.setValor(Float.parseFloat((String) jsonarray.get(1)
+							.toString()));
+					totalCompra += (produto.getValor() * produto.getQtd());
 
-				listaProduto.add(produto);
+					listaProduto.add(produto);
 
-				bool = true;
-			} else
-				break;
+					bool = true;
+				} else
+					break;
+			}
 		}
+		
 		if (bool) {
 			CompraDAO cdao = new CompraDAO();
 			Compra compra = new Compra();

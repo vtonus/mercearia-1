@@ -1,4 +1,4 @@
-package br.com.mercearia.logic;
+/*package br.com.mercearia.logic;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,3 +42,4 @@ public class NovoFornecedorLogic implements Logic {
 		rd.forward(request, response);
 	}
 }
+*/

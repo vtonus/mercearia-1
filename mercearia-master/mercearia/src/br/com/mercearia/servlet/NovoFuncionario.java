@@ -74,21 +74,42 @@ public class NovoFuncionario extends HttpServlet {
 			response.setStatus(501);
 			return;
 		}
-		f.setEmail(request.getParameter("email"));
+		String email = request.getParameter("email");
+		if (!email.isEmpty()){
+		if (email.length() > 50 || (email.length() < 10)){
+			response.getWriter().write("email invalido, este deve conter entre 10 e 50 caracteres.");
+			response.setStatus(501);
+			return;			
+		}
+		boolean bool = false; 
+		for( int i=0; i<email.length(); i++ ) {
+		    if( email.charAt(i) == '@' ) {
+		    	bool = true;
+		    	break;
+		    } 
+		}
+		if (!bool){
+			response.getWriter().write("email invalido, este deve estar no formato \"exemplo@exemplo.com\"");
+			response.setStatus(501);
+			return;
+		}
+		}
+    	f.setEmail(request.getParameter("email"));
+		
 		try {
 			f.setDataNascimento(Conversao.textoHEmData(request
-					.getParameter("dataNascimento")));
+					.getParameter("dtn")));
+			System.out.println("Foi....");
 		}catch (NullPointerException e) {}
 		catch (ParseException e){
 			response.getWriter().write("data de nascimento inválida");
-			
 			response.setStatus(501);
 			return;
 		}
 		
 		
 		FuncionarioDAO fdao = new FuncionarioDAO();
-		if (fdao.adiciona(f))		{
+		if (fdao.adiciona(f)){
 			String data="";
 			try{
 				Calendar calendar = Calendar.getInstance();

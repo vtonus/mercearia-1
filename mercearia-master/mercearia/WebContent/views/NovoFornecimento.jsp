@@ -40,7 +40,7 @@
 		<tr>
 			<td><input id="cod" type="text" name="hora" onkeyup="buscacodigoforn();"/></td>
 			<td><input id="prod" type="text" name="hora" readonly/></td>
-			<td><input id="unid" type="text" name="hora" readonly/></td>
+			<td><input id="unid" type="text" name="hora" /></td>
 			<td><input id="qtd" type="text" name="hora" onkeyup="adcProdutoFornqtd()"/></td>
 			<td><input id="vlr" type="text" name="hora" /></td>
 			<td><img onclick="adcProdutoForn()"

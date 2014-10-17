@@ -23,6 +23,16 @@
     <url-pattern>/views/BuscaCliente</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>NovoFuncionario</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.NovoFuncionario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NovoFuncionario</servlet-name>
+    <url-pattern>/NovoFuncionario</url-pattern>
+    <url-pattern>/views/NovoFuncionario</url-pattern>
+  </servlet-mapping>
+
     <servlet>
     <servlet-name>EditaFornecedor</servlet-name>
     <servlet-class>br.com.mercearia.servlet.EditaFornecedor</servlet-class>
