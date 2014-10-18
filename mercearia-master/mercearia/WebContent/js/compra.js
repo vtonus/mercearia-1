@@ -294,9 +294,9 @@ function buscaDadosCompra() {
 					var dados = "<table class='tabretorno'>"
 							+ "<tr><th>ID</th>" + "<th>Cliente</th>"
 							+ "<th>Funcionario</th>" + "<th>Data e Hora</th>"
-							+ "<th>Valor</th>" + "<th>Editar</th>"
+							+ "<th>Valor</th>" + "<th>Detalhes</th>"
 							+ "<th>Excluir</th></tr>";
-					while ($("#nome" + i).val() != null) {
+					while ($("#id" + i).val() != null) {
 						dados += "" + "<tr> " + "<td><span id='tid"
 								+ i
 								+ "'>"
@@ -327,11 +327,11 @@ function buscaDadosCompra() {
 								+ "<td><span id='tdata"
 								+ i
 								+ "'>"
-								+ $("#data" + i).val()
+								+ $("#datahora" + i).val()
 								+ "</span><input  type='text' class='email"
 								+ i
 								+ "' value='"
-								+ $("#data" + i).val()
+								+ $("#datahora" + i).val()
 								+ "'></input></td>"
 								+ "<td><span id='tvalor"
 								+ i
@@ -342,11 +342,10 @@ function buscaDadosCompra() {
 								+ "' value='"
 								+ $("#valor" + i).val()
 								+ "'></input></td>"
-								+ "<td><img id='tbusca"
-								+ i
-								+ "' onclick=' BuscaDetalhesCompra("
+								+ "<td><img id='tbusca"	+ i
+								+ "' onclick='BuscaDetalhesCompra("
 								+ $("#id" + i).val()
-								+ ")' src='../images/edita.png' /><img id='salva"
+								+ ")' src='../images/plus.png' /><img id='salva"
 								+ i
 								+ "' onclick='pEditaCompra("
 								+ i
@@ -370,7 +369,7 @@ function buscaDadosCompra() {
 
 function BuscaDetalhesCompra(id) {
 	$.ajax({
-		url : "DeletaCompra",
+		url : "BuscaDetalhesCompra",
 		data : {
 			id : id
 		},

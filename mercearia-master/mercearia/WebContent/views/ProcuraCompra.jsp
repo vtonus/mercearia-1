@@ -13,7 +13,7 @@
 		
 		</form>
 		
-		<div id="result" style="display:none;">
+		<div id="result" style="display:none">
 		
 		</div>		
 		<div class="resposta" >
