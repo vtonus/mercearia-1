@@ -31,14 +31,14 @@ public class BuscaCompra extends HttpServlet {
 		catch(RuntimeException e){}
 		
 		try{
-			compra.setHoraIni(Conversao.textoEmDataHora(request.getParameter("dataHoraIni")));
+			compra.setHoraIni(Conversao.textoHEmData(request.getParameter("dataHoraIni")));
 		}
-		catch(RuntimeException | ParseException e){}
+		catch(RuntimeException | ParseException e){System.out.println("Data ini error");}
 		
 		try{
-			compra.setHoraFim(Conversao.textoEmDataHora(request.getParameter("dataHoraFim")));
+			compra.setHoraFim(Conversao.textoHEmData(request.getParameter("dataHoraFim")));
 		}
-		catch(ParseException e){}
+		catch(RuntimeException | ParseException e){System.out.println("Data ini error");}
 		
 		try{
 			compra.setFuncionarioNome(request.getParameter("funcionario"));

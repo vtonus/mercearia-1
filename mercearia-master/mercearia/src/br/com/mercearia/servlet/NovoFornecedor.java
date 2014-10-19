@@ -47,15 +47,20 @@ public class NovoFornecedor extends HttpServlet {
 		}
 		
 		try {
-			f.setTelefone(Long.parseLong(request.getParameter("telefone")));
+			if (request.getParameter("telefone") == ""){
+				f.setTelefone(0);
+			}
+			else f.setTelefone(Long.parseLong(request.getParameter("telefone")));
+
+			
 		} catch (NullPointerException e) {
 			f.setTelefone(0);
-		} catch(NumberFormatException e){
-			response.getWriter().write("telefone invalido, utilize somente numeros.");
+		} catch (NumberFormatException e) {
+			response.getWriter().write("telefone do cliente invalido, este deve conter somente com numeros");
 			response.setStatus(501);
 			return;
 		}
-		
+
 		
 		String email = request.getParameter("email");
 		if (!email.isEmpty()){

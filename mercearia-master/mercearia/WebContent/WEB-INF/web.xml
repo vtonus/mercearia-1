@@ -301,6 +301,18 @@
     <url-pattern>/ValidandoLogin</url-pattern>
     <url-pattern>/views/ValidandoLogin</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>EditaFuncionario</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.EditaFuncionario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditaFuncionario</servlet-name>
+    <url-pattern>/EditaFuncionario</url-pattern>
+    <url-pattern>/views/EditaFuncionario</url-pattern>
+  </servlet-mapping>
+  
+  
   <error-page>
     <error-code>404</error-code>
     <location>/404.jsp</location>
