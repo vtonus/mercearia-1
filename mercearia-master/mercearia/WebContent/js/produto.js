@@ -4,7 +4,7 @@ function novoProdutofaz(){
 		url:'NovoProduto',
 		data:$('#formulario').serialize(),
 		type:'POST',		
-		sucess:function(){
+		success:function(){
 			$('#cadastro').fadeIn();		
 			mensagem("green","O Produo foi cadastrado!!!!");
 		},

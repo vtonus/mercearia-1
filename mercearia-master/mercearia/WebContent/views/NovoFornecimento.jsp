@@ -1,10 +1,10 @@
-
+<div id="fornecimentoestilo">
 <div class="titulo">
-	Cadastro de um novo fornecimento:
+	Cadastro de Fornecimento:
 </div>
 
 <div class="esquerda">
-	<table>
+	<table id="fornecimentoestilo">
 		<tr>
 			<td><label for="nome">Fornecedor*:</label></td>
 			<td><input id="fornnome" onkeyup="procuraNomedoFornecedor()" type="text" name="fornecedor" style="width: 300px;"
@@ -21,7 +21,7 @@
 		<tr>
 			<td><label for="sex">Comentário:</label></td>
 			<td><textarea id="comentarioforn" name="comentario" rows="3" cols="30"
-					maxlength="130">comentario</textarea><br /></td>
+					maxlength="130" placehold="comentário"></textarea><br /></td>
 
 
 		</tr>
@@ -75,7 +75,8 @@
 
 <input type="hidden" name="logic" value="NovoFornecimentoLogic">
 <br />
-<input type="button" onclick='confirmaPedido()' value="Confirmar">
+<input type="button" onclick='confirmaPedido()'  class="confirmar" value="Confirmar">
 <div class="retornando" style="display:none"></div>
-<input type="button" value="Limpa">
+<div type="button" class="limpar">Limpa<div>
 <span style="display:none" id="resultados"></span>
+</div>

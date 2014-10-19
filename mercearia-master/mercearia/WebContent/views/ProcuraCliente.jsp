@@ -1,10 +1,10 @@
 <span class='titulo'>Procura Cliente</span>
 <div id="procli" style="top:26px; position: relative;">
 	
-		<form id="meuForm">
+		<form id="meuForm" onSubmit="JavaScript:handleClick1()">
 		Procurar: 
 		<input type="text" id="palavraChave" autofocus>
-		 Por:
+		 &nbsp;&nbsp;&nbsp;Por:
 		<label class='estiloso'>
 		<select id="parametro">
 			<option value="nome">Nome</option>
@@ -12,7 +12,7 @@
 			<option value="telefone">Telefone</option>
 		</select>
 		</label>
-		<input type="button" value="Buscar" onclick="buscaDadosCliente()">	<br /><br />
+		<input type="submit" value="Buscar" class="buscarestilo">	<br /><br />
 		</form>
 		
 		<div id="result" style="display:none;">

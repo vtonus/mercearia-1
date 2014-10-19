@@ -1,7 +1,7 @@
 
 <div id="NovoCliente">
 <span class="titulo">CADASTRO DE NOVO FORNECEDOR</span>
-<form name="myForm" id="formulario">
+<form name="myForm" id="formulario" onSubmit="JavaScript:handleClick6()">
 <table class="cad">
 
 		
@@ -28,8 +28,8 @@
 		
 			
 					</table>
-				</form>
-					<div class="confirmar" onclick="novoFornecedor()"> Confirmar</div>
+				
+					<input type="submit" class="confirmar" value="confirmar"></input>
 	 				<div class="limpar" onclick="$('.cad input').val('');">Limpar</input>
- 				</p>
+ 				</form>
 	</div>

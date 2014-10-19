@@ -14,6 +14,7 @@
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../jui/jquery-ui.js"></script>
 <script type="text/javascript" src="../js/scripts.js"></script>
+<script type="text/javascript" src="../js/handlers.js"></script>
 <script type="text/javascript" src="../js/cliente.js"></script>
 <script type="text/javascript" src="../js/compra.js"></script>
 <script type="text/javascript" src="../js/produto.js"></script>

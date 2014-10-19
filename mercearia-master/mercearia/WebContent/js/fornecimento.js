@@ -33,8 +33,8 @@ function adcProdutoForn() {
 	var impar="";
 
 	dados += "<tr id='tr"+contrforn+"'" + impar + " ondblclick=removeproduct(" + contrforn + ")><td> "
-			+ "<input id='cod"+contrforn+"' type='text' value='"+$('#cod').val()+"'/></td><td> <input id='prod"+contrforn+"' type='text' value='"+$('#prod').val()+"'/></td>"
-			+ "<td> <input id='vlrud"+contrforn+"' type='text' value='"+$('#unid').val()+"'/></td>" + "<td><input id='qtd"+contrforn+"' type='text' value='"+$('#qtd').val()+"'/> </td>" + "<td><input id='cod"+contrforn+"' type='text' value='"+$('#vlr').val()+"'/></td><td onclick='remeped("+contrforn+")'>X</td></tr>";
+			+ "<input readonly id='cod"+contrforn+"' type='text' value='"+$('#cod').val()+"'/></td><td> <input readonly id='prod"+contrforn+"' type='text' value='"+$('#prod').val()+"'/></td>"
+			+ "<td> <input readonly id='vlrud"+contrforn+"' type='text' value='"+$('#unid').val()+"'/></td>" + "<td><input readonly id='qtd"+contrforn+"' type='text' value='"+$('#qtd').val()+"'/> </td>" + "<td><input readonly id='cod"+contrforn+"' type='text' value='"+$('#vlr').val()+"'/></td><td onclick='remeped("+contrforn+")'>X</td></tr>";
 	$('.tabelaForn').html(dados);
 	contrforn++;
 	}

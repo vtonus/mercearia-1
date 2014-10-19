@@ -1,6 +1,6 @@
 <div id="procli">
 		
-		<form id="meuForm">
+		<form id="meuForm" onSubmit="JavaScript:handleClick7()">
 		Palavra Chave:
 		<input type="text" id="palavraChave" autofocus>
 		<label class='estiloso'>
@@ -9,7 +9,7 @@
 			<option value="cnpj">cnpj</option>
 		</select>
 		</label>
-		<input type="button" value="Buscar" onclick="buscaDadosFornecedor()">	<br /><br />
+		<input type="submit" class="buscarestilo" value="Buscar" >	<br /><br />
 		</form>
 		
 		<div id="result" style="display:none;">

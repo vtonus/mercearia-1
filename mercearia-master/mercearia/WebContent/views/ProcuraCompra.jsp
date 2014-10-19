@@ -1,14 +1,20 @@
 <div id="procli">
+
+<span class="titulo">Procura Compra</span>
+		<form id="meuForm" onSubmit="JavaScript:handleClick2()">
+		<div class="frame">
 		
-		<form id="meuForm">
-		<table>
-		<tr> <td>id:</td><td> <input type="text" id="codigo" ></input></td></tr>
-	<tr>	<td>Data Inicial:</td> <td><input type="date" id="dtini" ></input></td></tr>
-	<tr>	<td>Data Final:</td>	<td><input type="date" id="dtfin" ></input></td></tr>
-	<tr><td>	Cliente:	</td><td><input type="text" id="cliente"></input></td></tr>
-	<tr>	<td>	Funcionario:</td><td>	<input type="text" id="func"></input></td></tr>
-			 </table>
-		<input type="button" value="Buscar" onclick="buscaDadosCompra()"/>	
+		
+		id:<br> <input type="text" id="codigo" ></input>
+	
+	Cliente:<br> <input type="text" id="cliente"></input>
+		Funcionario:<br> <input type="text" id="func"></input>
+		</div>
+	<div class="frame1">
+	Data Inicial:<br> <input type="date" id="dtini" ></input><br>
+	Data Final:<br> <input type="date" id="dtfin" ></input>
+		</div>
+		<input type="submit" class="buscarestilo compra" value="Buscar" />	
 		</br></br>
 		
 		</form>

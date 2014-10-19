@@ -56,28 +56,6 @@ input {
 	background: #f00000 !important;
 }
 
-input[type=button] {
-	width: 125px;  color: #fff;  font-weight: bold;  -webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);  -moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);  box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);  text-align: center;  font-size: 18px;  
-	line-height: 21px;  
-	height: 30px;  background-color: green;  border-radius: 5px;  
-	brackground-size: 100% 100%;  position: relative;  
-	top: 4px;  
-	left: 12px;  cursor: pointer;
-}
-
-input[type=submit] {
-	line-height: 20px;
-	border: 1px solid black;
-	border-radius: 15%;
-	color: #444444;
-	text-align: center;
-	text-decoration: none;
-	background: #c0c0c0;
-	box-shadow: 0 0 1px gray;
-	font-size: 12px;
-	font-weight: bold;
-}
-
 input {
 	/* border-radius: 5px; */
 	-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
@@ -181,30 +159,34 @@ th {
 	border: 0px solid;
 	padding-right: 20px;
 	padding-left: 20px;
-	background-color: #ccc;
+	background-color: #f4f4f4;
 	width: 80px;
 	border-radius: 0;
 	top: 4%;
 	/* margin-top: -323px; */
 	height: 96%;
 	/* float: left; */
+	border-right: 1px solid #EEEEEE;
 }
 
 #accordion .opcao {
 	text-align: center;
-	margin: 8;
+	margin: 0;
 	font-size: 12px;
 	color: #747360;
 	font-weight: bold;
 	cursor: pointer;
+	width: 100%;
 }
 
 #accordion .opcao:hover {
 	color: #000;
+	background-color: #eee;
 }
 
 #accordion .opcaoimg {
 	cursor: pointer;
+	margin-top: 8px;
 }
 
 /* FIM MENU do MENU.JSP*/
@@ -218,7 +200,8 @@ Usuario Logado
 	top: 0;
 	text-align: right;
 	width: 100%;
-	background-color: #ccc;
+	background-color: #f4f4f4;
+	border-bottom: 1px solid #EEE;
 }
 
 /*Novo CLiente*/
@@ -245,11 +228,13 @@ Usuario Logado
 	height: 35px;
 	background-color: green;
 	border-radius: 5px;
-	brackground-sieze: 100% 100%;
+	brackground-size: 100% 100%;
 	position: relative;
 	top: 49px;
 	left: 102px;
 	cursor: pointer;
+	/* padding-bottom: 4px; */
+	border: 0px;
 }
 
 .limpar {
@@ -298,9 +283,9 @@ select {
 	border-radius: 4px;
 	-webkit-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
 	-moz-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
-	box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
-	background: #f8f8f8;
-	color: #888;
+	box-shadow: 0 3px 0 #4586A2, 0 -1px #4586FF inset;
+	background: #4586F4;
+	color: #fff;
 	border: none;
 	outline: none;
 	display: inline-block;
@@ -317,7 +302,7 @@ select {
 .estiloso:after {
 	content: '<>';
 	font: 15px "Consolas", monospace;
-	color: #aaa;
+	color: #fff;
 	-webkit-transform: rotate(90deg);
 	-moz-transform: rotate(90deg);
 	-ms-transform: rotate(90deg);
@@ -325,7 +310,7 @@ select {
 	right: 4px;
 	top: 9px;
 	padding: 0 0 2px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #fff;
 	position: absolute;
 	pointer-events: none;
 }
@@ -336,7 +321,7 @@ select {
 	top: 12px;
 	width: 20px;
 	height: 20px;
-	background: #f8f8f8;
+	background: #4586F4;
 	position: absolute;
 	pointer-events: none;
 	display: block;
@@ -521,6 +506,7 @@ select {
 
 #NovaCompra .comprado {
 	width: 100%;
+	border-collapse: collapse;
 }
 
 #NovaCompra .totaltab {
@@ -565,6 +551,7 @@ select {
 
 #NovaCompra .impar, #NovaCompra .impar td {
 	background-color: #ccc;
+	border-spacing: 0px;
 }
 
 #NovaCompra .limpar {
@@ -677,7 +664,7 @@ select {
 #tabdados{
 width: 1148px;
 overflow: auto;
-height: 543px;
+height: 321px;
 }
 
 
@@ -752,4 +739,92 @@ left: 13px;
 font-size: 16px;
 position: relative;
 margin-top: 8px;
+}
+
+
+.buscarestilo{
+	width: 89px;
+color: #fff;
+font-weight: bold;
+-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+text-align: center;
+font-size: 17px;
+/* line-height: 0; */
+height: 29px;
+background-color: #4586F4;
+border-radius: 5px;
+brackground-size: 100% 100%;
+position: relative;
+top: 0px;
+left: 17px;
+cursor: pointer;
+/* padding-bottom: 4px; */
+border: 0px;
+	
+	
+	
+}
+
+
+#meuForm{
+width: 691px;
+font-size: 17px;
+position: relative;
+top: 18px;
+color: #333;
+}
+
+
+#NovaCompra label{
+font-size: 17px;
+color: #747360;
+	
+}
+
+#procli .frame1{
+	border: 1px solid #333;
+width: 201px;
+	position: absolute;
+	top: 0px;
+	left: 253px;
+	padding: 13px;
+}
+
+#procli .frame{
+	border: 1px solid #333;
+width: 201px;
+	padding: 13px;
+}
+	
+#procli .frame1:before{
+	/* border: 1px solid #333; */
+
+	width: 100px;
+content:'Filtrar data';
+	background-color: #fff;
+	position: absolute;
+	top: -9px;
+	left: 4px;
+}
+	
+#procli .frame:before{
+	width: 100px;  content: 'Filtrar data';  background-color: #fff;  position: absolute;  top: -9px;  left: 4px;
+
+	/* width: 20px; */
+content:'Filtrar dados';
+	}
+	
+	
+	#procli .compra{
+    position: absolute;
+    top: 145px;
+    left: 259px;
+}
+
+#fornecimentoestilo{
+	font-size: 17px;
+color: #747360;
+	
 }
