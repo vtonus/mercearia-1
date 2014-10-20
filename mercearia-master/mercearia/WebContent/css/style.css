@@ -61,6 +61,8 @@ input {
 	-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
 	-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
 	/* box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
+	border: 1px solid #ddd;
+	/* background-color: #F4F4F4; */
 }
 
 .data {
@@ -147,7 +149,7 @@ input {
 
 th {
 	text-align: left;
-	background-color: #dddddd;
+	background-color: #f1f1f1;
 }
 
 .inputTabela {
@@ -162,7 +164,7 @@ th {
 	background-color: #f4f4f4;
 	width: 80px;
 	border-radius: 0;
-	top: 4%;
+	top: 24px;
 	/* margin-top: -323px; */
 	height: 96%;
 	/* float: left; */
@@ -500,7 +502,7 @@ select {
 	position: absolute;
 	height: 142px;
 	width: 401px;
-	border: solid;
+	border: 2px solid #aaa;
 	top: 367px;
 }
 
@@ -524,7 +526,7 @@ select {
 	position: absolute;
 	height: 142px;
 	width: 639px;
-	border: solid;
+	border: 2px solid #aaa;
 	height: 472px;
 	top: 118px;
 	left: 491px;
@@ -550,7 +552,7 @@ select {
 }
 
 #NovaCompra .impar, #NovaCompra .impar td {
-	background-color: #ccc;
+	background-color: #eee;
 	border-spacing: 0px;
 }
 
@@ -615,7 +617,7 @@ select {
 }
 
 #NovoProduto .cad {
-	width: 691px;
+	width: 446px;
 	font-size: 26px;
 	position: relative;
 	top: 36px;
@@ -671,7 +673,7 @@ height: 321px;
 
 
 #tabelaped{
-	width: 840px;
+	width: 872px;
 overflow-y: auto;
 left: 75px;
 height: 233px;
@@ -679,8 +681,14 @@ position: relative;
 top: 11px;
  
 }
+
+#tabelaped tr:nth-child(2n) {
+background-color:#eee;
+}
+
+
 #tabelapedcab{
-width: 840px;
+width: 872px;
 overflow-y: auto;
 left: 75px;
 position: relative;
@@ -701,7 +709,7 @@ background-color: #dddddd;
 
 .impar{
 	
-	background-color: #ddd;
+	background-color: #f4f4f4;
 }
 
 
@@ -826,5 +834,17 @@ content:'Filtrar dados';
 #fornecimentoestilo{
 	font-size: 17px;
 color: #747360;
+	
+}
+
+
+#comentarioforn{
+	/* border-radius: 5px; */
+-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+/* box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
+border: 1px solid #ddd;
+/* background-color: #F4F4F4; */
+	
 	
 }

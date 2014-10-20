@@ -1,5 +1,5 @@
 <div id="procli">
-		
+		<span class="titulo">Procura Fornecedor</span>
 		<form id="meuForm" onSubmit="JavaScript:handleClick7()">
 		Palavra Chave:
 		<input type="text" id="palavraChave" autofocus>

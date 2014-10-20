@@ -1,6 +1,6 @@
 <div id="fornecimentoestilo">
 <div class="titulo">
-	Cadastro de Fornecimento:
+	Cadastro de Pedido:
 </div>
 
 <div class="esquerda">
@@ -27,21 +27,21 @@
 		</tr>
 	</table>
 
-
-	<table>
+<br><br>
+	<table id="fornecimentoestilo2" style="border-collapse: collapse;">
 		<tr>
-			<th>Código</th>
-			<th>Produto</th>
-			<th>Valor Unid.</th>
-			<th>Qtd.</th>
-			<th>Valor</th>
+			<th>Código*</th>
+			<th>Produto*</th>
+			<th>Valor Unid.*</th>
+			<th>Qtd.*</th>
+			<th>Valor*</th>
 			<th></th>
 		</tr>
 		<tr>
-			<td><input id="cod" type="text" name="hora" onkeyup="buscacodigoforn();"/></td>
+			<td><input id="cod" type="text" name="hora" onkeydown="buscacodigoforn();"/></td>
 			<td><input id="prod" type="text" name="hora" readonly/></td>
 			<td><input id="unid" type="text" name="hora" /></td>
-			<td><input id="qtd" type="text" name="hora" onkeyup="adcProdutoFornqtd()"/></td>
+			<td><input id="qtd" type="text" name="hora" onkeypress="adcProdutoFornqtd()"/></td>
 			<td><input id="vlr" type="text" name="hora" /></td>
 			<td><img onclick="adcProdutoForn()"
 				src="../images/plus.png"  style="cursor:pointer"/></td>
@@ -65,7 +65,7 @@
 		</table>
 		</div>
 <div id="tabelaped">
-	<table border="1" class="tabelaForn">
+	<table border="0" class="tabelaForn">
 		
 
 	</table>

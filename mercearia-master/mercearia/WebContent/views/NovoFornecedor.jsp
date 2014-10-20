@@ -1,6 +1,6 @@
 
 <div id="NovoCliente">
-<span class="titulo">CADASTRO DE NOVO FORNECEDOR</span>
+<span class="titulo">Cadastro De Fornecedor</span>
 <form name="myForm" id="formulario" onSubmit="JavaScript:handleClick6()">
 <table class="cad">
 
@@ -11,7 +11,7 @@
 		</tr>
 			<tr>
 			<td>	<label for="doc">CNPJ:</label></td>
-			<td>	<input type="text" pattern="[0-9]{9}[A-Za-z0-9]{2}" id="cpf" name="CNPJ" > </td>
+			<td>	<input type="text"  required id="cpf" name="CNPJ" > </td>
  			</tr>
  			<tr>
  			<td>	<label for="tel">Telefone:</label></td>
