@@ -50,7 +50,7 @@ public class BuscaFuncionario extends HttpServlet {
 								+ "\" value=\"" + telefone + "\">"
 								+ "<input type=\"hidden\" id=\"email" + i
 								+ "\" value=\"" + f.getEmail() + "\">"
-								+ "<input type=\"hidden\" id=\"sexo" + i
+								+ "<input type=\"hidden\" id=\"dataNascimento" + i
 								+ "\" value=\"" + dataNascimento + "\">");
 			}
 			i++;
