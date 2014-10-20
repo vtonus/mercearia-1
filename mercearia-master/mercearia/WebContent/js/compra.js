@@ -2,7 +2,7 @@
 var produtoscompra = new Array();
 var produtoscontrole = 0;
 var produtosdef = new Array();
-var totalmax=0;
+var totalmax = 0;
 function chamatelaCompra() {
 	$('.content').load('NovaCompra.jsp');
 	var iMax = 1000;
@@ -28,12 +28,12 @@ function chamatelaCompra() {
 var teclado;
 function juntaCompra() {
 	var codigoProduto = $(".cod").val();
-	
-	$(document).keypress(function(event){
-		teclado=event.which; 
-	 });
+
+	$(document).keypress(function(event) {
+		teclado = event.which;
+	});
 	console.log(teclado);
-	 if(teclado=='13'){
+
 	$.ajax({
 		url : "BuscaCodigoProduto",
 		type : "POST",
@@ -44,68 +44,74 @@ function juntaCompra() {
 			if (back) {
 				$('.retornando').html(back);
 				//
+				if ($('.qtd').val() < 1) {
+					$('.qtd').val('1');
+				}
 				$(".desc").val($('#nomeAC').val());
 				$(".vlr").val($('#valorAC').val());
-				var dados = "<tr>" + "  <th> Descri&ccedil;&atilde;o</th>"
-						+ "  <th> QTD</th>" + "  <th> Preco</th>"
-						+ "  <th> Sub-total</th>" + "</tr>";
-				produtoscontrole++;
+				if (teclado == '13') {
+					var dados = "<tr>" + "  <th> Descri&ccedil;&atilde;o</th>"
+							+ "  <th> QTD</th>" + "  <th> Preco</th>"
+							+ "  <th> Sub-total</th>" + "</tr>";
+					produtoscontrole++;
 
-				for (i = 0; i < produtoscontrole; i++) {
-					if (produtoscompra[i][1] === 0) {
-						produtoscompra[i][0] = $('#nomeAC').val();
-						produtoscompra[i][1] = $('#valorAC').val();
-						produtoscompra[i][2] = $('.qtd').val();
-						produtoscompra[i][3] = produtoscompra[i][1]
-								* produtoscompra[i][2];
-						produtoscompra[i][4] = codigoProduto;
+					for (i = 0; i < produtoscontrole; i++) {
+						if (produtoscompra[i][1] === 0) {
+							produtoscompra[i][0] = $('#nomeAC').val();
+							produtoscompra[i][1] = $('#valorAC').val();
+							produtoscompra[i][2] = $('.qtd').val();
+							produtoscompra[i][3] = produtoscompra[i][1]
+									* produtoscompra[i][2];
+							produtoscompra[i][4] = codigoProduto;
+						}
+						var impar;
+						if (i % 2 != 0) {
+
+							impar = "class='impar'";
+
+						} else
+							impar = "";
+
+						dados += "<tr " + impar + " ondblclick=removeproduct("
+								+ i + ")><td> " + produtoscompra[i][0]
+								+ "</td>" + "<td> " + produtoscompra[i][2]
+								+ "</td>" + "<td> " + produtoscompra[i][1]
+								+ "</td>" + "<td> " + produtoscompra[i][3]
+								+ "</td></tr>";
+						$('.comprado').html(dados);
+						// console.log(produtoscontrole);
+						// $('.retornando').html("");
+						// limpacompras();
 					}
-					var impar;
-					if (i % 2 != 0) {
 
-						impar = "class='impar'";
-
-					} else
-						impar = "";
-
-					dados += "<tr " + impar + " ondblclick=removeproduct(" + i
-							+ ")><td> " + produtoscompra[i][0] + "</td>"
-							+ "<td> " + produtoscompra[i][2] + "</td>"
-							+ "<td> " + produtoscompra[i][1] + "</td>"
-							+ "<td> " + produtoscompra[i][3] + "</td></tr>";
-					$('.comprado').html(dados);
-					// console.log(produtoscontrole);
-					// $('.retornando').html("");
-					// limpacompras();
-				}
 				
+				var total = 0;
+				for (i = 0; i < produtoscontrole; i++) {
 
+					total = produtoscompra[i][3] + total;
+					// total= parseFloat( Math.round(total * 100) /
+					// 100).toFixed(2)
+					// ;
+					var valortotalcompra = total.toFixed(2);
+					valortotalcompra = valortotalcompra.replace(".", ",")
+				}
+				var tabtotal = "<tr>" + "  <th> Total</th>" + "</tr>" + "<tr>"
+						+ "  <td> R$" + valortotalcompra + "</td>" + "</tr>";
+				$('.totaltab').html(tabtotal);
+				totalmax = valortotalcompra.replace(".", ",");
+				$("input").val("");
+				$(".qtd").val("1");
+				}
 			}
-			var total = 0;
-			for (i = 0; i < produtoscontrole; i++) {
-
-				total = produtoscompra[i][3] + total;
-				// total= parseFloat( Math.round(total * 100) / 100).toFixed(2)
-				// ;
-				var valortotalcompra = total.toFixed(2);
-				valortotalcompra = valortotalcompra.replace(".",",")
-			}
-			var tabtotal = "<tr>" + "  <th> Total</th>" + "</tr>" + "<tr>"
-					+ "  <td> R$" + valortotalcompra + "</td>" + "</tr>";
-			$('.totaltab').html(tabtotal);
-			totalmax=valortotalcompra.replace(".",",");
-			$("input").val("");
-			$(".qtd").val("1");
 		}
-		
 	});// fecha ajax
 	/*
 	 * $.ajax({ url:"asd", type: "POST", data:{produto: produtoscompra}
 	 * 
 	 * });
 	 */
+
 }
-	 }
 
 function limpacompras() {
 
@@ -116,7 +122,6 @@ function limpacompras() {
 	$(".sb").val("");
 }
 var dados;
-
 
 function removeproduct(id) {
 	console.log('id=');
@@ -156,32 +161,26 @@ function removeproduct(id) {
 				+ "  <th> Sub-total</th>" + "</tr>";
 
 		$('.comprado').html(dados);
-		
+
 	}
-	var teste=0
+	var teste = 0
 	var total = 0;
 	console.log(produtoscontrole);
 	for (i = 0; i < produtoscontrole; i++) {
 		total = produtoscompra[i][3] + total;
 		teste = total.toFixed(2);
 	}
-	
-	
+
 	var tabtotal = "<tr>" + "  <th> Total</th>" + "</tr>" + "<tr>"
 			+ "  <td> R$" + teste + "</td>" + "</tr>";
 	$('.totaltab').html(tabtotal);
-	totalmax=tabtotal;
+	totalmax = tabtotal;
 }
 
+function fazerCompra() {
 
+	// $('perguntafinal')
 
-
-function fazerCompra(){
-	
-	
-	
-	//$('perguntafinal')
-	
 }
 function confirmaCompra() {
 	produto = new Array();
@@ -225,7 +224,7 @@ function confirmaCompra() {
 		}
 
 	}
-	console.log($( "input:checked" ).val());
+	console.log($("input:checked").val());
 	// var jsonString = JSON.stringify(produtosdef);
 	var jsonString = JSON.stringify(produtoscompra);
 	$.ajax({
@@ -233,22 +232,22 @@ function confirmaCompra() {
 		type : "POST",
 		data : {
 			produto : jsonString,
-		    troco: $("#trocado").val(),
-		    desc:  $("#descount").val(),
-		    pago:  $("#pagado").val(),
-		    metodoPag: metododepag,
-			
+			troco : $("#trocado").val(),
+			desc : $("#descount").val(),
+			pago : $("#pagado").val(),
+			metodoPag : metododepag,
+
 		},
 		success : function(back) {
-			mensagem("green","Compra foi confirmada!!");
+			mensagem("green", "Compra foi confirmada!!");
 			cancelaCompra();
 			cancelapergunta();
-			
+
 		},
-		error : function(back){
-			mensagem("red","Erro, contate seu administrador!");	
-			cancelaCompra();
-			
+		error : function(back) {
+			mensagem("red", "Erro, contate seu administrador!");
+		//	cancelaCompra();
+
 		}
 
 	});
@@ -278,7 +277,8 @@ function cancelaCompra() {
 
 function buscaDadosCompra() {
 
-	$.ajax({
+	$
+			.ajax({
 				url : "BuscaCompra",
 				data : {
 					id : $('#codigo').val(),
@@ -297,7 +297,14 @@ function buscaDadosCompra() {
 							+ "<th>Valor</th>" + "<th>Detalhes</th>"
 							+ "<th>Excluir</th></tr>";
 					while ($("#id" + i).val() != null) {
-						dados += "" + "<tr> " + "<td><span id='tid"
+						if(i%2!=0){
+							 impar="class='impar'";
+							
+						}else{
+							 impar="";
+						}
+						
+						dados += "" + "<tr "+impar+"> " + "<td><span id='tid"
 								+ i
 								+ "'>"
 								+ $("#id" + i).val()
@@ -342,7 +349,8 @@ function buscaDadosCompra() {
 								+ "' value='"
 								+ $("#valor" + i).val()
 								+ "'></input></td>"
-								+ "<td><img id='tbusca"	+ i
+								+ "<td><img id='tbusca"
+								+ i
 								+ "' onclick='BuscaDetalhesCompra("
 								+ $("#id" + i).val()
 								+ ")' src='../images/plus.png' /><img id='salva"
@@ -378,73 +386,122 @@ function BuscaDetalhesCompra(id) {
 
 }
 
+function formatReal(int) {
+	var tmp = int + '';
+	tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
+	if (tmp.length > 6)
+		tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
 
-function formatReal( int )
-{
-        var tmp = int+'';
-        tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
-        if( tmp.length > 6 )
-                tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
- 
-        return tmp;
+	return tmp;
 }
 
-function mascara(este){
-	var teste=$(este).val().replace(",","");
-	teste=teste.replace(".","");
+function mascara(este) {
+	var teste = $(este).val().replace(",", "");
+	teste = teste.replace(".", "");
 	$(este).val(formatReal(teste));
-	
+
 }
-function trocando(este){
-	var testetroca=$("#trocado").val().replace(",","");
-	testetroca=testetroca.replace(".","");
-	$("#trocado").val(formatReal(testetroca).replace(".",""));
-	
+function trocando(este) {
+	var testetroca = $("#trocado").val().replace(",", "");
+	testetroca = testetroca.replace(".", "");
+	$("#trocado").val(formatReal(testetroca).replace(".", ""));
+
 }
 
-function calculo(){
-	
-	var pagado=$("#pagado").val().replace(",","");
-	pagado=pagado.replace(".","");
-	var descount=$("#descount").val().replace(",","");
-	descount=descount.replace(".","");
-	var total=$("#total").val().replace(",","");
-	total=total.replace(".","");
-	var trocado=$("#trocado").val().replace(",","");
-	trocado=trocado.replace(".","");
-	
-	var totalpa=total-descount;
-	var troco=pagado-totalpa;
+function calculo() {
+
+	var pagado = $("#pagado").val().replace(",", "");
+	pagado = pagado.replace(".", "");
+	var descount = $("#descount").val().replace(",", "");
+	descount = descount.replace(".", "");
+	var total = $("#total").val().replace(",", "");
+	total = total.replace(".", "");
+	var trocado = $("#trocado").val().replace(",", "");
+	trocado = trocado.replace(".", "");
+
+	var totalpa = total - descount;
+	var troco = pagado - totalpa;
 	$("#trocado").val(troco);
 	trocando();
-	
-	
+
 }
 
-
-function pagamentoCompra(){
-	$(".fundoq").show();
-	$(".questao").show();
-	console.log(totalmax);
-	$("#trocado").val("0,00");
-	$("#descount").val("0,00");
-	$("#pagado").val(totalmax);	
-	$("#total").val(totalmax);
-	
-	
+function pagamentoCompra() {
+	console.log(produtoscontrole);
+	if(produtoscontrole > 0){
+		$(".fundoq").show();
+		$(".questao").show();
+		console.log(totalmax);
+		$("#trocado").val("0,00");
+		$("#descount").val("0,00");
+		$("#pagado").val(totalmax);
+		$("#total").val(totalmax);
+	}else{
+		mensagem( 'red','Algum Produto precisa ser inserido' );		
+		
+	}
+		
 }
 
-function cancelapergunta(){
+function cancelapergunta() {
 	$(".fundoq").hide();
 	$(".questao").hide();
 	console.log(totalmax);
 	$("#trocado").val("0,00");
 	$("#descount").val("0,00");
-	$("#pagado").val("0,00");	
-	
+	$("#pagado").val("0,00");
+
 }
-var metododepag=1;
-function metodopag(pag){
-	metododepag=pag;
+var metododepag = 1;
+function metodopag(pag) {
+	metododepag = pag;
+
+}
+
+
+
+
+function pExcluiCompra(pk){
+	var pergunta=	"<span style='width: 589px;    font-size: 16px;    font-weight: bold;'"+
+	">Voc&ecirc; realmente quer Excluir: Compra<br>" + $('#id'+pk).val()+"?</span>"+
+				 " <div class='yes' onclick='excluiCompra("+pk+")'>Sim</div> <div class='nope' onclick='cExcluirCompra("+pk+")'>N&atilde;o</div>";
+		$('#procli .fundoq').show();
+		$("#procli .question").show();
+		$("#procli .question").html(pergunta);
+
+}
 	
+function cExcluirCompra(pk){
+	$('#procli .fundoq').hide();
+	$("#procli .question").hide();
+}
+
+function excluiCompra(pk){
+	$.ajax({
+		url:'DeletaCompra',
+		data: { id: $("#id"+pk).val()},
+		type:'POST',	
+		success: function(back){
+			
+	
+			cExcluirCompra(pk);
+			
+			mensagem("green", "Compra Excluida");
+			buscaDadosCompra();
+			
+		},
+		error:function(){
+			cExcluirCompra(pk);
+			buscaDadosCompra();
+			/*$("#procli .resposta").fadeIn();
+			setTimeout(function(){$("#procli .resposta").fadeOut();},3000);
+			$("#procli .resposta").css({
+				color:'red',
+				borderColor:"red",
+					
+				});
+			$("#procli .resposta").html("Ocorreu um erro, o Cliente não foi excluido!!");*/
+	
+			}
+	});
 }

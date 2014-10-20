@@ -5,7 +5,7 @@ opacity: 0.4; display:none">
 top: 29;
 width: 400px;
 height: 600px;
-background-color: #ddd;
+background-color: #f4f4f4;
 z-index: 10;
 display: block;
 margin-left: 50%;
@@ -16,7 +16,7 @@ display:none">
 <div style="width: 86px;height: 100px;margin: auto;position: relative;top: 18px;">
 
 <input id="metod1" checked onclick="metodopag(1)"type="radio" name="metodoPag" value="dinheiro" style="-webkit-box-shadow: none;">Dinheiro<br>
-<input id="metod2" onclick="metodopag(0)" type="radio" name="metodoPag" value="card" style="webkit-box-shadow: none;">Cartão<br>
+<input id="metod2" onclick="metodopag(0)" type="radio" name="metodoPag" value="card" style="-webkit-box-shadow: none;">Cartão<br>
 <input id="metod3" onclick="metodopag(2)" type="radio" name="metodoPag" value="fiado" style="-webkit-box-shadow: none;">Prazo<br>
 
 </div>

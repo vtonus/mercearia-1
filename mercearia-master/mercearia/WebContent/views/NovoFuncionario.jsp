@@ -1,6 +1,6 @@
 
 <div id="NovoCliente">
-<span class="titulo">NOVO FUNCIONÁRIO</span>
+<span class="titulo">Novo Funcionário</span>
 <form name="myForm" id="formulario" onSubmit="JavaScript:handleClick8()">
 <table class="cad">
 

@@ -1,9 +1,9 @@
-var dados;
+var dadosforn;
 var contrforn=0;
 function remeped(id){
 	$('#tr'+id).remove();
 	console.log(id);
-	dados=$('.tabelaForn').html();
+	dadosforn=$('.tabelaForn').html();
 	//contrforn--;
 }
 
@@ -32,10 +32,11 @@ function adcProdutoForn() {
 	
 	var impar="";
 
-	dados += "<tr id='tr"+contrforn+"'" + impar + " ondblclick=removeproduct(" + contrforn + ")><td> "
+	dadosforn += "<tr id='tr"+contrforn+"'" + impar + " ondblclick=removeproduct(" + contrforn + ")><td> "
 			+ "<input readonly id='cod"+contrforn+"' type='text' value='"+$('#cod').val()+"'/></td><td> <input readonly id='prod"+contrforn+"' type='text' value='"+$('#prod').val()+"'/></td>"
-			+ "<td> <input readonly id='vlrud"+contrforn+"' type='text' value='"+$('#unid').val()+"'/></td>" + "<td><input readonly id='qtd"+contrforn+"' type='text' value='"+$('#qtd').val()+"'/> </td>" + "<td><input readonly id='cod"+contrforn+"' type='text' value='"+$('#vlr').val()+"'/></td><td onclick='remeped("+contrforn+")'>X</td></tr>";
-	$('.tabelaForn').html(dados);
+			+ "<td> <input readonly id='vlrud"+contrforn+"' type='text' value='"+$('#unid').val()+"'/></td>" + "<td><input readonly id='qtd"+contrforn+"' type='text' value='"+$('#qtd').val()+"'/> </td>" + "<td><input readonly id='cod"+contrforn+"' type='text' value='"+$('#vlr').val()+"'/>" +
+					"</td><td onclick='remeped("+contrforn+")'><img style='cursor:pointer' src='../images/exclui.png' /></td></tr>";
+	$('.tabelaForn').html(dadosforn);
 	contrforn++;
 	}
 		
@@ -152,9 +153,9 @@ var p=0;
 function buscacodigoforn(){
 var codigoProduto = $(".cod").val();
 	
-	$(document).keypress(function(event){
-		teclado=event.which; 
-	 });
+$(document).keypress(function(event){
+	teclado=event.which; 
+ });
 	console.log(teclado);
 	 if(teclado=='13'){
 	$.ajax({
@@ -197,11 +198,17 @@ function adcProdutoFornqtd(){
 
 
 function BuscaPedido(){
-	
 	$.ajax({
 		url:"BuscaPedido",
-		data:{palavraChave : $("#palavraChave").val(),
-		parametro : $("#parametro").val()},
+		data:{
+			id : $('#codigo').val(),
+		
+			dataMin : $('#dtini').val(),
+			dataMax : $('#dtfin').val(),
+			forn : $('#forn').val(),
+			func : $('#func').val(),
+			Produto: '',
+		},
 		type: 'POST',
 		success: function(data){
 			

@@ -85,7 +85,7 @@ function deslogando(){
 			alt="Fornecimento" height="75" width="75" title="Fornecimento">
 		<div>
 			<p class="opcao">
-				<a onclick="$('.content').load('NovoFornecimento.jsp')" target="ctn">NOVA</a>
+				<a onclick="$('.content').load('NovoFornecimento.jsp'); dadosforn='';" target="ctn">NOVA</a>
 			</p>
 			<p class="opcao">
 				<a onclick="$('.content').load('ProcuraFornecimento.jsp')"

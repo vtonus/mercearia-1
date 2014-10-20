@@ -7,6 +7,7 @@ function novoCliente(){
 		success:function(){
 			$('#cadastro').fadeIn();		
 			mensagem("green","O Cliente foi cadastrado!!");
+			$('.cad input').val('');
 		},
 		error:function(){
 			$('#cadastro').fadeIn();		

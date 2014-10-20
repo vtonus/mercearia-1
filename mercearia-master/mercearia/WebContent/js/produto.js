@@ -7,6 +7,7 @@ function novoProdutofaz(){
 		success:function(){
 			$('#cadastro').fadeIn();		
 			mensagem("green","O Produo foi cadastrado!!!!");
+			$('.cad input').val('');
 		},
 		error:function(){
 			$('#cadastro').fadeIn();		
