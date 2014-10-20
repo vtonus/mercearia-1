@@ -150,9 +150,8 @@ public class CompraDAO {
 			} catch (RuntimeException e) {
 			}
 			if (calendar.isLenient()) {
-				System.out.println("Passouuu!!!");
 				boo[3] = true;
-				System.out.println("3 eh true");
+				
 				if (i == 0) {
 					sql = sql.concat("where ");
 					i = 2;

@@ -21,11 +21,42 @@ public class BuscaProduto extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		produto.setId(Long.parseLong(request.getParameter("id")));
+		if(!(request.getParameter("id") == "")){
+			try{
+				produto.setId(Long.parseLong(request.getParameter("id")));
+			}catch(NumberFormatException e){
+				response.getWriter().write("parametro id incorreto, insira somente numeros.");
+				response.setStatus(501);
+				return;
+			}
+		}
 		produto.setNome(request.getParameter("nome"));
-		produto.setValorMax(Float.parseFloat(request.getParameter("valorMin")));
-		produto.setValorMin(Float.parseFloat(request.getParameter("valorMax")));
-		produto.setFabricante(request.getParameter("fabricante"));
+		
+		if(!(request.getParameter("valorMin") == "")){
+			try{
+				produto.setValorMax(Float.parseFloat(request.getParameter("valorMin")));
+			}catch(NumberFormatException e){
+				response.getWriter().write("parametro valorMin incorreto, insira somente numeros.");
+				response.setStatus(501);
+				return;
+			}
+		}
+		
+		if(!(request.getParameter("valorMax") == "")){
+			try{
+				produto.setValorMin(Float.parseFloat(request.getParameter("valorMax")));
+			}catch(NumberFormatException e){
+				response.getWriter().write("parametro valorMax incorreto, insira somente numeros.");
+				response.setStatus(501);
+				return;
+			}
+		}
+		
+		if(request.getParameter("fabricante") == ""){
+		}
+		else{
+			produto.setFabricante(request.getParameter("fabricante"));
+		}
 		try
 		{
 			produto.setValidade(Conversao.textoEmData(request.getParameter("validade")));
@@ -56,6 +87,8 @@ public class BuscaProduto extends HttpServlet {
 								+ "\" value=\"" + validade + "\">");
 			}
 			i++;
+			response.setStatus(200);
+			return;
 		}
 	}
 }

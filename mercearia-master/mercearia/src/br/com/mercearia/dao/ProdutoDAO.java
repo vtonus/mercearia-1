@@ -207,30 +207,35 @@ public class ProdutoDAO {
 		} catch (NullPointerException e) {
 		}
 
-		if (produto.getFabricante().trim().length() > 0) {
-			if (i == 0) {
-				boo[4] = true;
-				sql = sql.concat("where ");
-				i = 1;
-			} else {
-				sql = sql.concat("and ");
-			}
-			sql = sql.concat("fabricante like ? ");
-		}
-
 		try {
-			calendar = Calendar.getInstance();
-			calendar = produto.getValidade();
-			boo[5] = true;
-			if (i == 0) {
-				sql = sql.concat("where ");
-			} else {
-				sql = sql.concat("and ");
+			if (produto.getFabricante().trim().length() > 0) {
+				//System.out.println(produto.getFabricante().trim());
+				if (i == 0) {
+					boo[4] = true;
+					sql = sql.concat("where ");
+					i = 1;
+				} else {
+					sql = sql.concat("and ");
+				}
+				sql = sql.concat("fabricante like ? ");
 			}
-			sql = sql.concat("validade < ?");
 		} catch (NullPointerException e) {
 		}
 
+		try {
+			calendar = produto.getValidade();
+			if (calendar.isLenient()) {
+				boo[5] = true;
+				if (i == 0) {
+					sql = sql.concat("where ");
+				} else {
+					sql = sql.concat("and ");
+				}
+				sql = sql.concat("validade < ?");
+			}
+		} catch (NullPointerException e) {
+		}
+		System.out.println(sql);
 		try {
 
 			PreparedStatement ps = connection.prepareStatement(sql);

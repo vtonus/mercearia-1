@@ -199,7 +199,7 @@ public class FuncionarioDAO {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
 		String sql = "update funcionario set nome= ?, telefone= ?, email=?, dataNascimento=?, sexo=? where cpf=?";
-
+		//CORRIGIR....
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 

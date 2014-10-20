@@ -141,30 +141,32 @@ public class PedidoDAO {
 		}
 
 		try {
-			calendar = Calendar.getInstance();
 			calendar = pe.getDataMin();
-			boo[2] = true;
-			if (i == 0) {
-				sql = sql.concat("where ");
-				i = 1;
-			} else {
-				sql = sql.concat("and ");
+			if (calendar.isLenient()) {
+				boo[2] = true;
+				if (i == 0) {
+					sql = sql.concat("where ");
+					i = 1;
+				} else {
+					sql = sql.concat("and ");
+				}
+				sql = sql.concat("datahora > ?");
 			}
-			sql = sql.concat("datahora > ?");
 		} catch (NullPointerException e) {
 		}
 
 		try {
-			calendar = Calendar.getInstance();
-			calendar = pe.getDataMax();
-			boo[3] = true;
-			if (i == 0) {
-				sql = sql.concat("where ");
-				i = 1;
-			} else {
-				sql = sql.concat("and ");
+			calendar = pe.getDataMin();
+			if (calendar.isLenient()) {
+				boo[3] = true;
+				if (i == 0) {
+					sql = sql.concat("where ");
+					i = 1;
+				} else {
+					sql = sql.concat("and ");
+				}
+				sql = sql.concat("datahora < ?");
 			}
-			sql = sql.concat("datahora < ?");
 		} catch (NullPointerException e) {
 		}
 
@@ -268,12 +270,13 @@ public class PedidoDAO {
 			throw new RuntimeException(e);
 		}
 	}
+
 	public boolean exclui(int id) {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
 		String sql = "delete from pedido where id = ?";
 
-		try { 
+		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, id);
 			ps.execute();
