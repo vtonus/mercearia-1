@@ -198,23 +198,21 @@ public class FuncionarioDAO {
 	public boolean edita(Funcionario f) {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
-		String sql = "update funcionario set nome= ?, usuario= ?, senha = ?, telefone= ?, email=?, dataNascimento=? where cpf=?";
+		String sql = "update funcionario set nome= ?, telefone= ?, email=?, dataNascimento=?, sexo=? where cpf=?";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 
 			ps.setString(1, f.getNome());
-			ps.setString(2, f.getUsuario());
-			ps.setString(3, f.getSenha());
-			ps.setLong(4, f.getTelefone());
-			ps.setString(5, f.getEmail());
+			ps.setLong(2, f.getTelefone());
+			ps.setString(3, f.getEmail());
 
 			try {
-				ps.setDate(6, new Date(f.getDataNascimento().getTimeInMillis()));
+				ps.setDate(4, new Date(f.getDataNascimento().getTimeInMillis()));
 			} catch (NullPointerException e) {
-				ps.setNull(6, Types.DATE);
+				ps.setNull(4, Types.DATE);
 			}
-
+			ps.setString(5, f.getCpf());
 			ps.execute();
 			bool = true;
 			ps.close();
@@ -248,13 +246,13 @@ public class FuncionarioDAO {
 		String sql;
 		long telefone = 0;
 		if (parametro.equals("nome")) {
-			sql = "select * from cliente where nome like ?";
+			sql = "select * from funcionario where nome like ?";
 		} else if (parametro.equals("cpf")) {
-			sql = "select * from cliente where cpf like ?";
+			sql = "select * from funcionario where cpf like ?";
 		} else if (parametro.equals("email")) {
-			sql = "select * from cliente where email like ?";
+			sql = "select * from funcionario where email like ?";
 		} else if (parametro.equals("telefone")) {
-			sql = "select * from cliente where telefone = ?";
+			sql = "select * from funcionario where telefone = ?";
 			i = 1;
 
 		} else {
@@ -284,11 +282,12 @@ public class FuncionarioDAO {
 				f.setNome(rs.getString("nome"));
 				f.setTelefone(Long.parseLong(rs.getString("telefone")));
 				f.setEmail(rs.getString("email"));
+				System.out.println("Dataa...."+rs.getDate("dataNascimento")+"Nome....."+rs.getString("nome"));
 
-				try {
-					Calendar calendar = Calendar.getInstance();
-					calendar.setTime(rs.getDate("dataNascimento"));
-					f.setDataNascimento(calendar);
+				try{
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(rs.getDate("dataNascimento"));
+				f.setDataNascimento(calendar);
 				} catch (SQLException e) {
 				}
 

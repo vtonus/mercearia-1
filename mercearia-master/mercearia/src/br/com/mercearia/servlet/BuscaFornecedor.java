@@ -27,11 +27,14 @@ public class BuscaFornecedor extends HttpServlet {
 
 		for (Fornecedor f : listaF) {
 			String cnpj;
+			try{
 			if (f.getCnpj().toString() == "0") {
 				cnpj = "";
 			} else
 				cnpj = f.getCnpj();
-
+			} catch(NullPointerException e){
+				cnpj ="";
+			}
 			String telefone;
 			if (f.getTelefone() == 0) {
 				telefone = "";
