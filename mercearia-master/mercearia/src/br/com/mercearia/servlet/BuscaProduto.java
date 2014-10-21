@@ -16,11 +16,12 @@ import br.com.mercearia.util.Conversao;
 
 @SuppressWarnings("serial")
 public class BuscaProduto extends HttpServlet {
-	public Produto produto = new Produto();
-	ProdutoDAO pdao = new ProdutoDAO();
+	
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		ProdutoDAO pdao = new ProdutoDAO();
+		Produto produto = new Produto();
 		if(!(request.getParameter("id") == "")){
 			try{
 				produto.setId(Long.parseLong(request.getParameter("id")));
@@ -64,7 +65,7 @@ public class BuscaProduto extends HttpServlet {
 		List<Produto> listaProduto = new ArrayList<Produto>();
 		listaProduto = pdao.busca(produto);
 		int i = 0;
-		for (Produto produto : listaProduto) {
+		for (Produto p : listaProduto) {
 			String validade = ""; 
 			try {
 				validade = Conversao.calendarEmTexto(produto.getValidade());	
@@ -72,17 +73,17 @@ public class BuscaProduto extends HttpServlet {
 			if (produto != null) {
 				response.getWriter().write(
 								  "<input type=\"hidden\" id=\"id" + i
-								+ "\" value=\"" + produto.getId() + "\">"
+								+ "\" value=\"" + p.getId() + "\">"
 								+ "<input type=\"hidden\" id=\"nome" + i
-								+ "\" value=\"" + produto.getNome() + "\">"
+								+ "\" value=\"" + p.getNome() + "\">"
 								+ "<input type=\"hidden\" id=\"valor" + i 
-								+ "\" value=\"" + produto.getValor() + "\">"
+								+ "\" value=\"" + p.getValor() + "\">"
 								+ "<input type=\"hidden\" id=\"fabricante" + i
-								+ "\" value=\"" + produto.getFabricante() + "\">"
+								+ "\" value=\"" + p.getFabricante() + "\">"
 								+ "<input type=\"hidden\" id=\"quantidade" + i
-								+ "\" value=\"" + produto.getQtd() + "\">"
+								+ "\" value=\"" + p.getQtd() + "\">"
 								+ "<input type=\"hidden\" id=\"estoque" + i
-								+ "\" value=\"" + produto.getEstoque() + "\">"
+								+ "\" value=\"" + p.getEstoque() + "\">"
 								+ "<input type=\"hidden\" id=\"validade" + i
 								+ "\" value=\"" + validade + "\">");
 			}
@@ -90,5 +91,6 @@ public class BuscaProduto extends HttpServlet {
 		}
 		response.setStatus(200);
 		return;
+
 	}
 }

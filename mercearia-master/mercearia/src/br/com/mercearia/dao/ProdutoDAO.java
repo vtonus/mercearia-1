@@ -343,7 +343,9 @@ public class ProdutoDAO {
 			ps.setString(4, produto.getFabricante());
 			ps.setInt(5, produto.getQtd());
 			ps.setInt(6, produto.getEstoque());
-			ps.setDate(7, new Date(produto.getValidade().getTimeInMillis()));
+			try{
+				ps.setDate(7, new Date(produto.getValidade().getTimeInMillis()));
+			} catch(NullPointerException e){ps.setNull(7, Types.DATE);}
 			ps.setLong(8, produto.getId());
 			ps.execute();
 			bool = true;
