@@ -86,8 +86,8 @@ public class BuscaProduto extends HttpServlet {
 								+ "<input type=\"hidden\" id=\"validade" + i
 								+ "\" value=\"" + validade + "\">");
 			}
+			i++;
 		}
-		i++;
 		response.setStatus(200);
 		return;
 	}
