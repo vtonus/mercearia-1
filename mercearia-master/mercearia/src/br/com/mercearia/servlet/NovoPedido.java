@@ -19,6 +19,7 @@ import br.com.mercearia.dao.FuncionarioDAO;
 import br.com.mercearia.dao.PedidoDAO;
 import br.com.mercearia.dao.ProdutoPedidoDAO;
 import br.com.mercearia.modelo.Fornecedor;
+import br.com.mercearia.modelo.Funcionario;
 import br.com.mercearia.modelo.Pedido;
 import br.com.mercearia.modelo.Produto;
 import br.com.mercearia.modelo.ProdutoPedido;
@@ -72,11 +73,16 @@ public class NovoPedido extends HttpServlet {
 			Pedido pedido = new Pedido();
 			Fornecedor fornecedor = new Fornecedor();
 			fornecedor.setId(Integer.parseInt(request.getParameter("idForn")));
+			if (fornecedor.getId() == 0){
+				response.getWriter().write("Fornecedor invalido, escolha um fornecedor existente, ou cadastre um novo.");
+				response.setStatus(501);
+				return;
+			}
 			pedido.setFornecedor(fornecedor);
-			FuncionarioDAO fdao = new FuncionarioDAO();
 			session = request.getSession();
-			pedido.setFuncionario(fdao.busca((String) session
-					.getAttribute("usuarioCpf")));
+			Funcionario f = new Funcionario();
+			f.setCpf(func_id);
+			pedido.setFuncionario(f);
 			if (!(request.getParameter("desc").trim().length() < 60)){
 				response.getWriter().write("descricao do pedido invalido, este deve ter no maximo 60 caracteres");
 				response.setStatus(501);

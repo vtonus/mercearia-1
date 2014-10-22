@@ -76,12 +76,17 @@ public class NovoCliente extends HttpServlet {
 			cliente.setSexoC(request.getParameter("sexo"));
 		} catch (RuntimeException e) {
 			response.getWriter().write("\nsexo inválido");
+			response.setStatus(501);
+			return;
 		}
 		try {
 			cliente.setDataNascimento(Conversao.textoHEmData(request
 					.getParameter("dtn")));
 		} catch (ParseException e) {
 			response.getWriter().write("data de nascimento inválida");
+			response.setStatus(501);
+			return;
+			
 		} catch (NullPointerException e) {
 		}
 		try {

@@ -34,7 +34,9 @@ public class EditaProduto extends HttpServlet {
 		try
 		{
 			produto.setValidade(Conversao.textoEmData(request.getParameter("validade")));
-		}catch(ParseException e){}
+		}catch(ParseException e){
+			
+		}
 		if(pdao.edita(produto))
 		{
 			aud.setFunc_id(func_id);
