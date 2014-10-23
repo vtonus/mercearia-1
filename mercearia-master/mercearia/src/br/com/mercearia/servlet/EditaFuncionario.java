@@ -35,7 +35,7 @@ public class EditaFuncionario extends HttpServlet {
 		f.setEmail(request.getParameter("email"));
 		
 		try{
-			f.setDataNascimento(Conversao.textoEmData(request.getParameter("dataNascimento")));
+			f.setDataNascimento(Conversao.textoHEmData(request.getParameter("dataDeNascimento")));
 		}catch (NullPointerException e){}
 		catch(ParseException e){response.getWriter().write(" data de nascimento inválida.");}
 		

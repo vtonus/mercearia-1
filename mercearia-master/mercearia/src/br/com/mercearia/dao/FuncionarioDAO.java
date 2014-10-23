@@ -198,7 +198,7 @@ public class FuncionarioDAO {
 	public boolean edita(Funcionario f) {
 		connection = new Conexao().getConnection();
 		boolean bool = false;
-		String sql = "update funcionario set nome= ?, telefone= ?, email=?, dataNascimento=?, sexo=? where cpf=?";
+		String sql = "update funcionario set nome= ?, telefone= ?, email=?, dataNascimento=? where cpf=?";
 		//CORRIGIR....
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -212,6 +212,7 @@ public class FuncionarioDAO {
 			} catch (NullPointerException e) {
 				ps.setNull(4, Types.DATE);
 			}
+
 			ps.setString(5, f.getCpf());
 			ps.execute();
 			bool = true;
@@ -282,7 +283,6 @@ public class FuncionarioDAO {
 				f.setNome(rs.getString("nome"));
 				f.setTelefone(Long.parseLong(rs.getString("telefone")));
 				f.setEmail(rs.getString("email"));
-				System.out.println("Dataa...."+rs.getDate("dataNascimento")+"Nome....."+rs.getString("nome"));
 
 				try{
 				Calendar calendar = Calendar.getInstance();

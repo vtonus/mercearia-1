@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.mercearia.dao.PedidoDAO;
+import br.com.mercearia.dao.ProdutoPedidoDAO;
+import br.com.mercearia.modelo.ProdutoPedido;
 import br.com.mercearia.util.Auditoria;
 
 @SuppressWarnings("serial")
@@ -23,6 +25,8 @@ public class ExcluiPedido extends HttpServlet {
 		String func_id = (String) session.getAttribute("usuarioCpf");
 
 		int id = Integer.parseInt(request.getParameter("id"));
+		ProdutoPedidoDAO ppdao = new ProdutoPedidoDAO();
+		if(ppdao.exclui(id)){
 		if (pedao.exclui(id))
 		{
 			aud.setFunc_id(func_id);
@@ -33,9 +37,13 @@ public class ExcluiPedido extends HttpServlet {
 			
 			response.setStatus(200);
 		}
+		else{
+			response.setStatus(501);
+			}
+		}
 		else
 		{
-			response.setStatus(500);
+			response.setStatus(501);
 		}
 	}
 }

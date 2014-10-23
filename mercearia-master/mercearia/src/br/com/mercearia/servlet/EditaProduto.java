@@ -25,7 +25,7 @@ public class EditaProduto extends HttpServlet {
 		String func_id = (String) session.getAttribute("usuarioCpf");
 
 		Produto produto = new Produto();
-		produto.setId(Integer.parseInt(request.getParameter("id")));
+		produto.setId(Long.parseLong(request.getParameter("id")));
 		produto.setNome(request.getParameter("nome"));
 		produto.setValor(Float.parseFloat(request.getParameter("valor")));
 		produto.setFabricante(request.getParameter("fabricante"));
@@ -33,9 +33,8 @@ public class EditaProduto extends HttpServlet {
 		produto.setEstoque(Integer.parseInt(request.getParameter("estoque")));
 		try
 		{
-			produto.setValidade(Conversao.textoEmData(request.getParameter("validade")));
+			produto.setValidade(Conversao.textoHEmData(request.getParameter("validade")));
 		}catch(ParseException e){
-			
 		}
 		if(pdao.edita(produto))
 		{
@@ -45,6 +44,7 @@ public class EditaProduto extends HttpServlet {
 				data = Conversao.calendarEmTexto(produto.getValidade());	
 			}catch(NullPointerException e){}
 			
+			aud.setFunc_id(func_id);
 			aud.setDados("id: "+produto.getId()+", nome: "+produto.getNome()+", valor: "+produto.getValor()+", fabricante: "+produto.getFabricante()+", qtd:"+produto.getQtd()+", estoque: "+produto.getEstoque()+", validade: "+data);	
 			aud.setAcao(1);
 			aud.setTabela(9);

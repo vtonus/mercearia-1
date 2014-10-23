@@ -34,7 +34,7 @@ public class EditaCliente extends HttpServlet {
 		}
 
 		try {
-			String cpf = request.getParameter("doc");
+			String cpf = request.getParameter("cpf");
 			if (ValidaCPF.isCPF(cpf) || cpf.isEmpty()) {
 				cliente.setCpf(cpf);
 			} else {

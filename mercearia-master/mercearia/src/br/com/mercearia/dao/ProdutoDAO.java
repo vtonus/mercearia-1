@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.com.mercearia.modelo.Produto;
+import br.com.mercearia.util.Conversao;
 
 public class ProdutoDAO {
 	private Connection connection;
@@ -120,26 +121,22 @@ public class ProdutoDAO {
 		}
 	}
 
-	public List<Produto> buscaCodigoProduto(Long codigo) {
+	public Produto buscaCodigoProduto(Long codigo) {
 		connection = new Conexao().getConnection();
 
-		String sql = "select nome, valor from produto where id like ?";
+		String sql = "select nome, valor from produto where id = ?";
 
 		try {
-			List<Produto> produtos = new ArrayList<Produto>();
 			Produto produto = new Produto();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			String cod = ("%" + codigo + "%");
-			ps.setString(1, cod);
+			ps.setLong(1, codigo);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				produto.setNome(rs.getString("nome"));
-				produto.setValor(rs.getFloat("valor"));
-				produtos.add(produto);
-			}
+			rs.next();
+			produto.setNome(rs.getString("nome"));
+			produto.setValor(rs.getFloat("valor"));
 			ps.close();
 			connection.close();
-			return produtos;
+			return produto;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -345,7 +342,9 @@ public class ProdutoDAO {
 			ps.setInt(6, produto.getEstoque());
 			try{
 				ps.setDate(7, new Date(produto.getValidade().getTimeInMillis()));
-			} catch(NullPointerException e){ps.setNull(7, Types.DATE);}
+			} catch(NullPointerException e){
+				ps.setNull(7, Types.DATE);
+				}
 			ps.setLong(8, produto.getId());
 			ps.execute();
 			bool = true;

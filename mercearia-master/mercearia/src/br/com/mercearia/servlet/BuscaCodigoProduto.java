@@ -22,14 +22,12 @@ public class BuscaCodigoProduto extends HttpServlet {
 		try{
 		c = Long.parseLong(request.getParameter("produto"));
 		}catch(RuntimeException e){}
-		List<Produto> listaProduto = new ArrayList<Produto>();
-		listaProduto = pdao.buscaCodigoProduto(c);
-		for (Produto produto : listaProduto) {
-			response.getWriter().write(
-					"<input type=\"hidden\" id=\"nomeAC\""
-					+ "value=\"" + produto.getNome() + "\">"
-					+ "<input type=\"hidden\" id=\"valorAC\""
-					+ "value=\"" + produto.getValor() + "\">");
+		//List<Produto> listaProduto = new ArrayList<Produto>();
+		Produto p = pdao.buscaCodigoProduto(c);
+		response.getWriter().write(
+				"<input type=\"hidden\" id=\"nomeAC\""
+				+ "value=\"" + p.getNome() + "\">"
+				+ "<input type=\"hidden\" id=\"valorAC\""
+				+ "value=\"" + p.getValor() + "\">");
 		}
 	}
-}

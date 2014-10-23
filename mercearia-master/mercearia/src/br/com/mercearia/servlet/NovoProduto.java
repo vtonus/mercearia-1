@@ -53,7 +53,8 @@ public class NovoProduto extends HttpServlet {
 		return;
 		}
 
-		if (request.getParameter("fabricante").length() > 30 || request.getParameter("fabricante").length() < 3 ){
+		
+		if ((request.getParameter("fabricante").length() > 30 || request.getParameter("fabricante").length() < 3 ) && !(request.getParameter("fabricante").length() == 0)){
 			response.getWriter().write("fabricante do produto invalido, este deve ter entre 3 e 40 caracteres");
 			response.setStatus(501);
 			return;

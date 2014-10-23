@@ -37,10 +37,10 @@ public class NovoPedido extends HttpServlet {
 		Auditoria aud = new Auditoria();
 		HttpSession session = request.getSession();
 		String func_id = (String) session.getAttribute("usuarioCpf");
-		aud.setFunc_id(func_id);;
+		aud.setFunc_id(func_id);
 
 		
-		Float totalPedido = null;
+		Float totalPedido = (float) 0;
 
 		JSONObject myobj = new JSONObject("{\"produto\":"
 				+ request.getParameter("produto") + "}");
@@ -61,7 +61,8 @@ public class NovoPedido extends HttpServlet {
 						.toString()));
 				produto.setValor(Float.parseFloat((String) jsonarray.get(2)
 						.toString()));
-				totalPedido = +(produto.getValor() * produto.getQtd());
+				System.out.println("Aqui .. . . ." +produto.getValor() +";"+ produto.getQtd());
+				totalPedido = totalPedido + (produto.getValor() * produto.getQtd());
 
 				listaProduto.add(produto);
 				bool = true;

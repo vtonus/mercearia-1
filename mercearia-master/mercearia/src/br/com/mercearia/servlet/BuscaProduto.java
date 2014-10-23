@@ -68,7 +68,7 @@ public class BuscaProduto extends HttpServlet {
 		for (Produto p : listaProduto) {
 			String validade = ""; 
 			try {
-				validade = Conversao.calendarEmTexto(produto.getValidade());	
+				validade = Conversao.calendarEmTexto(p.getValidade());	
 			}catch(NullPointerException e){}
 			if (produto != null) {
 				response.getWriter().write(

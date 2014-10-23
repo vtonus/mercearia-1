@@ -1,6 +1,7 @@
 package br.com.mercearia.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -97,7 +98,7 @@ public class PedidoDAO {
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}	
 		return bool;
 	}
 
@@ -105,15 +106,15 @@ public class PedidoDAO {
 		connection = new Conexao().getConnection();
 		Boolean[] boo = new Boolean[5];
 		Calendar calendar;
-		for (int j = 0; j < 4; j++) {
+		for (int j = 0; j < 5; j++) {
 			boo[j] = false;
 		}
 
 		int i = 0;
 
-		String sql = "select id, descricao, fo.nome, fo.id, fu.nome, fu.cpf, datahora from pedido pe"
-				+ "inner join funcionario fu on (co.funcionario = fu.cpf)"
-				+ "inner join fornecedor fo on (co.fornecedor = fo.id)";
+		String sql = "select pe.id, pe.valor, descricao, fo.nome, fo.id, fu.nome, fu.cpf, datahora from pedido pe"
+				+ " inner join funcionario fu on (pe.funcionario = fu.cpf)"
+				+ " inner join fornecedor fo on (pe.fornecedor = fo.id) ";
 
 		// id valor descricao fornecedor funcionario datahora
 
@@ -139,7 +140,7 @@ public class PedidoDAO {
 			}
 		} catch (NullPointerException e) {
 		}
-
+		
 		try {
 			calendar = pe.getDataMin();
 			if (calendar.isLenient()) {
@@ -150,7 +151,7 @@ public class PedidoDAO {
 				} else {
 					sql = sql.concat("and ");
 				}
-				sql = sql.concat("datahora > ?");
+				sql = sql.concat("datahora > ? ");
 			}
 		} catch (NullPointerException e) {
 		}
@@ -165,7 +166,7 @@ public class PedidoDAO {
 				} else {
 					sql = sql.concat("and ");
 				}
-				sql = sql.concat("datahora < ?");
+				sql = sql.concat("datahora < ? ");
 			}
 		} catch (NullPointerException e) {
 		}
@@ -190,26 +191,30 @@ public class PedidoDAO {
 			if (boo[0]) {
 				ps.setString(i, "%" + pe.getFornecedor().getNome() + "%");
 				i++;
+				System.out.println(i+" nome_for: "+pe.getFornecedor().getNome());
 			}
 			if (boo[1]) {
 				ps.setString(i, "%" + pe.getFuncionario().getNome() + "%");
 				i++;
+				System.out.println(i+ " fun_nome: "+pe.getFuncionario().getNome());
 			}
 			if (boo[2]) {
-				ps.setTimestamp(i,
-						Conversao.dateEmTimestamp(pe.getDataMin().getTime()));
+				ps.setDate(i, new Date(pe.getDataMin().getTimeInMillis()));
 				i++;
+				System.out.println(i+ " datamin: "+ Conversao.calendarCEmTexto(pe.getDataMin()));
 			}
 			if (boo[3]) {
-				ps.setTimestamp(i,
-						Conversao.dateEmTimestamp(pe.getDataMin().getTime()));
+				ps.setDate(i, new Date(pe.getDataMax().getTimeInMillis()));
 				i++;
+				System.out.println(i+ " datamax: "+ Conversao.calendarCEmTexto(pe.getDataMax()));
 			}
 			if (boo[4]) {
 				ps.setInt(i, pe.getId());
 				i++;
+				System.out.println(i+" id: "+pe.getId());
 			}
-
+			System.out.println("sql: "+sql);
+			
 			ResultSet rs = ps.executeQuery();
 			List<Pedido> listaPe = new ArrayList<Pedido>();
 			calendar = Calendar.getInstance();
@@ -224,15 +229,23 @@ public class PedidoDAO {
 				pe.setFornecedor(fo);
 				pe.setFuncionario(fu);
 				pe.setId(rs.getInt("id"));
-				pe.setValor(rs.getFloat("valor"));
+				pe.setValor(rs.getFloat("pe.valor"));
 				pe.setDescricao(rs.getString("descricao"));
 				calendar.setTime(rs.getDate("datahora"));
+				pe.setDataHora(calendar);
 				listaPe.add(pe);
 			}
 			ps.close();
 			connection.close();
+			if(listaPe.isEmpty()){
+				System.out.println("vazio..");
+			}
+			else{
+				System.out.println("nao vazio..");
+			}
 			return listaPe;
 		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -284,6 +297,7 @@ public class PedidoDAO {
 			ps.close();
 			connection.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return bool;
 	}
