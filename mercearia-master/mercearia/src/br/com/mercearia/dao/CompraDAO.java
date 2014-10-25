@@ -222,16 +222,17 @@ public class CompraDAO {
 			ResultSet rs = ps.executeQuery();
 			List<Compra> compras = new ArrayList<Compra>();
 			while (rs.next()) {
-				compra.setId(rs.getInt("co.id"));
-				compra.setFuncionarioNome(rs.getString("fu.nome"));
+				Compra c = new Compra();
+				c.setId(rs.getInt("co.id"));
+				c.setFuncionarioNome(rs.getString("fu.nome"));
 				if (a){
-				compra.setClienteNome(rs.getString("cl.nome"));
+				c.setClienteNome(rs.getString("cl.nome"));
 				}
-				compra.setValor(rs.getFloat("co.valor"));
+				c.setValor(rs.getFloat("co.valor"));
 				calendar = Calendar.getInstance();
 				calendar.setTime(rs.getTimestamp("co.datahora"));
-				compra.setHora(calendar);
-				compras.add(compra);
+				c.setHora(calendar);
+				compras.add(c);
 			}
 			ps.close();
 			connection.close();
