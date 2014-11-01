@@ -15,12 +15,12 @@ public class RelatorioD {
 	private float prazo;
 	
 	private ArrayList<Calendar> listaCalendar;
-	private ArrayList<Float> venda;
+	private ArrayList<Float> venda;//24 horas
 	
-	
-	
-	private ArrayList<Float> valor;
+	private ArrayList<Float> valor;//30 dias
 	private float mmensal;
+	
+	//----------------------
 	
 	public float getMmensal() {
 		return mmensal;
@@ -62,8 +62,8 @@ public class RelatorioD {
 	public ArrayList<Calendar> getListaCalendar() {
 		return listaCalendar;
 	} 
-	public void setListaCalendar(ArrayList<Calendar> listaCalendar) {
-		this.listaCalendar = listaCalendar;
+	public void setListaCalendar(ArrayList<Calendar> listaCalendar1) {
+		this.listaCalendar = listaCalendar1;
 	}
 	public List<Float> getVenda() {
 		return venda;
