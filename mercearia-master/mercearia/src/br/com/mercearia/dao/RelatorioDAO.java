@@ -63,8 +63,7 @@ public class RelatorioDAO {
 				ResultSet rs = ps.executeQuery();
 				if (rs.next()) {
 					intlist[x] = i;
-					System.out.println("menos: " + i + " e o size: "
-							+ intlist.length);
+					
 					x++;
 				}
 				ps.close();
@@ -81,7 +80,6 @@ public class RelatorioDAO {
 							.prepareStatement("select SUM(valor) AS total, DATE(datahora) as data from compra where DATE(datahora) = DATE_SUB( ? , INTERVAL ? DAY)");
 
 					ps.setDate(1, new Date(dia.getTimeInMillis()));
-					System.out.println("i é " + i+ " e menos "+ intlist[i]);
 					ps.setInt(2, intlist[i]);
 					ResultSet rs = ps.executeQuery();
 					
@@ -113,6 +111,7 @@ public class RelatorioDAO {
 
 			ps.setDate(1, new Date(dia.getTimeInMillis()));
 			ps.setInt(2, 29);
+			
 			ps.setDate(3, new Date(dia.getTimeInMillis()));
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -134,8 +133,9 @@ public class RelatorioDAO {
 			ArrayList<Integer> al3 = new ArrayList<Integer>();
 
 			while (rs.next()) {
-				al2.add(rs.getString("p.nome"));
-				al3.add(rs.getInt("total"));
+				al2.add(new String (rs.getString("p.nome")));
+				al3.add(new Integer (rs.getInt("total")));
+				System.out.println("chegou aqui"+rs.getInt("total"));
 			}
 			rd.setNome(al2);
 			rd.setQtd(al3);
@@ -185,14 +185,14 @@ public class RelatorioDAO {
 					if (rs.getFloat("total") > 0) {
 						froat = rs.getFloat("total");
 						al1.add(froat);
-						System.out.println("valor maior q 0" + froat);
+						
 					} else {
 						al1.add(froat);
-						System.out.println("0 adicionado" + froat);
+						
 					}
 				} else {
 					al1.add(froat);
-					System.out.println("adicionou 0" + froat);
+					
 				}
 				ps.close(); // connection.close();
 			} catch (SQLException e) {

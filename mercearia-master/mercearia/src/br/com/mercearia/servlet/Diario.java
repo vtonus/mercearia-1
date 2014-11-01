@@ -31,9 +31,7 @@ public class Diario extends HttpServlet {
 		int i = 0;
 		response.setCharacterEncoding("utf-8");
 		String output = new String();
-		System.out.println(Conversao.calendarEmTexto((Calendar) rd.getListaCalendar().get(0)));
 		for (Calendar c : rd.getListaCalendar()) {
-			System.out.println("Passando... "+i);
 			if (!(c == null)) {
 				output = output.concat(" <input type=\"hidden\" id=\"dia" + i + "\" "
 				+ " value=\"" + Conversao.calendarEmTexto(c) + "\">"
@@ -45,7 +43,8 @@ public class Diario extends HttpServlet {
 		output = output.concat(" <input type=\"hidden\" id=\"mmensal\"" + " value=\""
 				+ rd.getMmensal() + "\">");
 		i = 0;
-		while (rd.getQtd().get(i) < 0) {
+		while (i < rd.getQtd().size()) {
+			System.out.println("Entrou....");
 			output = output.concat(" <input type=\"hidden\" id=\"nome" + i + "\" "
 					+ " value=\"" + rd.getNome().get(i) + "\">"
 					+ " <input type=\"hidden\" id=\"qtd" + i + "\" "
@@ -66,7 +65,6 @@ public class Diario extends HttpServlet {
 		for (int j = 0; j < 24; j++) {
 			output = output.concat(" <input type=\"hidden\" id=\"valor" + j + "\""
 					+ " value=\"" + rd.getVenda().get(j) + "\">");
-			System.out.println("j vale "+rd.getVenda().get(j));
 		}
 		System.out.println("output é: "+output);
 		response.getWriter().write(output);

@@ -72,7 +72,7 @@ public class RelatorioD {
 		this.venda = valor;
 	}
 
-	public List<Integer> getQtd() {
+	public ArrayList<Integer> getQtd() {
 		return qtd;
 	}
 	public void setQtd(ArrayList<Integer> qtd) {
