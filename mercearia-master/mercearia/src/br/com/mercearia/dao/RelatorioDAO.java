@@ -46,9 +46,12 @@ public class RelatorioDAO {
 		ArrayList<Calendar> listaC = new ArrayList<Calendar>();
 		connection = new Conexao().getConnection();
 
-		int contador = 0;
-
-		for (int i = 1; i < 31; i++) {
+		Integer[] intlist = new Integer[30];
+		for (int i = 0; i < 30; i++) {
+			intlist[i] = -1;
+		}
+		int x = 0;
+		for (int i = 0; i < 30; i++) {
 
 			try {
 				PreparedStatement ps = connection
@@ -58,53 +61,66 @@ public class RelatorioDAO {
 				ps.setDate(1, new Date(dia.getTimeInMillis()));
 				ps.setInt(2, i);
 				ResultSet rs = ps.executeQuery();
-				if (!(rs.next())) {
-					break;
+				if (rs.next()) {
+					intlist[x] = i;
+					System.out.println("menos: " + i + " e o size: "
+							+ intlist.length);
+					x++;
 				}
-				contador++;
 				ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 		ArrayList<Float> valor = new ArrayList<Float>();
-		System.out.println(".,,"+contador);
-		for (int i = 0; i <= contador; i++) {
-			try {
-				PreparedStatement ps = connection
-						.prepareStatement("select SUM(valor) AS total, DATE(datahora) as data from compra where DATE(datahora) = DATE_SUB( ? , INTERVAL ? DAY)");
+		for (int i = 0; i < 30; i++) {
+			if (intlist[i] >= 0) {
+				try {
 
-				ps.setDate(1, new Date(dia.getTimeInMillis()));
-				ps.setInt(2, i);
-				ResultSet rs = ps.executeQuery();
-				rs.next();
-				valor.add(rs.getFloat("total"));
-				Calendar calendar = Calendar.getInstance();
-				try{
-					calendar = Conversao.textoHEmData(rs.getString("data"));
-				}catch(ParseException e){}
-				System.out.println(" . . ."+Conversao.calendarEmTexto(calendar));
-				listaC.add(calendar);
-				ps.close();
-			} catch (SQLException e) {
-				System.out.println("Erro grave no DAO.");
-				return null;
+					PreparedStatement ps = connection
+							.prepareStatement("select SUM(valor) AS total, DATE(datahora) as data from compra where DATE(datahora) = DATE_SUB( ? , INTERVAL ? DAY)");
+
+					ps.setDate(1, new Date(dia.getTimeInMillis()));
+					System.out.println("i é " + i+ " e menos "+ intlist[i]);
+					ps.setInt(2, intlist[i]);
+					ResultSet rs = ps.executeQuery();
+					
+					if (rs.next()) {
+						valor.add(rs.getFloat("total"));
+						Calendar calendar = Calendar.getInstance();
+						try {
+							calendar = Conversao.textoHEmData(rs
+									.getString("data"));
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+						listaC.add(calendar);
+						ps.close();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
 			}
+			else break;
 		}
 		rd.setValor(valor);
 		rd.setListaCalendar(listaC);
+
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("select AVG(valor) AS media from compra where DATE(datahora) is between DATE(DATE_SUB( ? , INTERVAL ? DAY)) and ?");
+					.prepareStatement("select AVG(valor) AS media from compra where DATE(datahora) between DATE(DATE_SUB( ? , INTERVAL ? DAY)) and ?");
 
 			ps.setDate(1, new Date(dia.getTimeInMillis()));
-			ps.setInt(2, (contador - 1));
+			ps.setInt(2, 29);
 			ps.setDate(3, new Date(dia.getTimeInMillis()));
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			rd.setMmensal(rs.getFloat("media"));
 			ps.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 
 		try {
@@ -125,9 +141,12 @@ public class RelatorioDAO {
 			rd.setQtd(al3);
 			ps.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
-
+		ArrayList<Float> al1 = new ArrayList<Float>();
 		for (int i = 0; i < 24; i++) {
+			Float froat = new Float(0);
 			try {
 				PreparedStatement ps = connection
 						.prepareStatement("select SUM(valor) as total from compra where datahora between ? and ? ");
@@ -135,17 +154,16 @@ public class RelatorioDAO {
 				String data1 = Conversao.calendarEmTexto(dia);
 				String data2 = Conversao.calendarEmTexto(dia);
 				if (i <= 9) {
-					data1 = data1+(" 0" + i + ":00:00");
-					data2 = data2+(" 0" + i + ":59:59");
+					data1 = data1 + (" 0" + i + ":00:00");
+					data2 = data2 + (" 0" + i + ":59:59");
 				} else {
-					data1 = data1+(" " + i + ":00:00");
-					data2 = data2+(" " + i + ":59:59");
+					data1 = data1 + (" " + i + ":00:00");
+					data2 = data2 + (" " + i + ":59:59");
 				}
 				Calendar c1 = Calendar.getInstance();
 				Calendar c2 = Calendar.getInstance();
 
 				try {
-					System.out.println(data1);
 					c1 = Conversao.textoEmDataHoraLocal(data1);
 				} catch (ParseException e) {
 					e.printStackTrace();
@@ -153,30 +171,37 @@ public class RelatorioDAO {
 				}
 
 				try {
-					System.out.println(data2);
 					c2 = Conversao.textoEmDataHoraLocal(data2);
 				} catch (ParseException e) {
 					e.printStackTrace();
 					return null;
 				}
 
-				ps.setDate(1, new Date(c1.getTimeInMillis()));
-				ps.setDate(2, new Date(c2.getTimeInMillis()));
+				ps.setTimestamp(1, Conversao.dateEmTimestamp(c1.getTime()));
+				ps.setTimestamp(2, Conversao.dateEmTimestamp(c2.getTime()));
 
 				ResultSet rs = ps.executeQuery();
-				ArrayList<Integer> al1 = new ArrayList<Integer>();
-				while (rs.next()) {
-					al1.add(rs.getInt("total"));
+				if (rs.next()) {
+					if (rs.getFloat("total") > 0) {
+						froat = rs.getFloat("total");
+						al1.add(froat);
+						System.out.println("valor maior q 0" + froat);
+					} else {
+						al1.add(froat);
+						System.out.println("0 adicionado" + froat);
+					}
+				} else {
+					al1.add(froat);
+					System.out.println("adicionou 0" + froat);
 				}
-				rd.setQtd(al1);
-				ps.close();
-				//connection.close();
+				ps.close(); // connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return null;
 			}
-		}
 
+		}
+		rd.setVenda(al1);
 		try {
 			PreparedStatement ps = connection
 					.prepareStatement("select valor from caixa where DATE(datahora) = ? and operacao = 0");
@@ -236,7 +261,7 @@ public class RelatorioDAO {
 			e.printStackTrace();
 			return null;
 		}
-
+		System.out.println("chegou ateh o fim!!!!!");
 		return rd;
 
 	}
@@ -265,7 +290,7 @@ public class RelatorioDAO {
 				valores.add(rs.getFloat("total"));
 				ps.close();
 			} catch (SQLException e) {
-				System.out.println("Erro grave no DAO.");
+				e.printStackTrace();
 				return null;
 			}
 		}
@@ -283,7 +308,7 @@ public class RelatorioDAO {
 				valoresf.add(rs.getFloat("total"));
 				ps.close();
 			} catch (SQLException e) {
-				System.out.println("Erro grave no DAO.");
+				e.printStackTrace();
 				return null;
 			}
 		}
@@ -302,7 +327,7 @@ public class RelatorioDAO {
 			}
 			ps.close();
 		} catch (SQLException e) {
-			System.out.println("Erro grave no DAO.");
+			e.printStackTrace();
 			return null;
 		}
 
@@ -322,14 +347,14 @@ public class RelatorioDAO {
 			}
 			ps.close();
 		} catch (SQLException e) {
-			System.out.println("Erro grave no DAO.");
+			e.printStackTrace();
 			return null;
 		}
 
 		rp.setNomef(nomesf);
 		rp.setQtdf(valoresf);
-		
+
 		return rp;
 	}
-	
+
 }
