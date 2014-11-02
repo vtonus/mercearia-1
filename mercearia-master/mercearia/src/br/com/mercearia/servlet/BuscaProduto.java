@@ -63,6 +63,7 @@ public class BuscaProduto extends HttpServlet {
 		{
 			produto.setValidade(Conversao.textoHEmData(request.getParameter("validade")));
 		}catch(ParseException e){System.out.println("erro na conversao da data.");}
+		catch(NullPointerException e){}
 		List<Produto> listaProduto = new ArrayList<Produto>();
 		listaProduto = pdao.busca(produto);
 		int i = 0;
