@@ -34,7 +34,31 @@
     <url-pattern>/views/BuscaDetalhesCompra</url-pattern>
   </servlet-mapping>
   
+ 
+    <servlet>
+    <servlet-name>DeletaPedido</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.DeletaPedido</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeletaPedido</servlet-name>
+    <url-pattern>/DeletaPedido</url-pattern>
+    <url-pattern>/views/DeletaPedido</url-pattern>
+  </servlet-mapping>
   
+  
+  
+  
+  
+  
+  <servlet>
+    <servlet-name>BuscaDetalhesPedido</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.BuscaDetalhesPedido</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BuscaDetalhesPedido</servlet-name>
+    <url-pattern>/BuscaDetalhesPedido</url-pattern>
+    <url-pattern>/views/BuscaDetalhesPedido</url-pattern>
+  </servlet-mapping>
   
   
   <servlet>

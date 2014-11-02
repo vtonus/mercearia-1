@@ -38,7 +38,11 @@ function adcProdutoForn() {
 					"</td><td onclick='remeped("+contrforn+")'><img style='cursor:pointer' src='../images/exclui.png' /></td></tr>";
 	$('.tabelaForn').html(dadosforn);
 	contrforn++;
+	total();
 	}
+	
+	
+
 		
 }
 
@@ -92,7 +96,35 @@ function enviacodigo(i){
 	
 }
 
-
+function total(){
+	var produtoped = new Array();
+	var iMax = 1000;
+	var jMax = 3;
+var i=0;
+var j=0;
+var p=0;
+var soma=0;
+	for (i = 0; i < iMax; i++) {
+		produtoped[i] = new Array();
+		for (j = 0; j < jMax; j++) {
+			produtoped[i][j] = 0;
+		}
+	}
+	
+	
+	for(i=0;i<contrforn;i++){
+		var $object=$("#tr"+i);
+		if($object.length){
+			soma = soma + parseFloat($("#qtd"+i).val());
+			p++;
+			
+		}
+		
+	}
+	console.log(soma);
+	$("#totaltabela").html(String(soma));
+	
+}
 
 
 function confirmaPedido(){
@@ -151,26 +183,27 @@ var p=0;
 
 
 function buscacodigoforn(){
-var codigoProduto = $(".cod").val();
-	
-$(document).keypress(function(event){
+
+	$(document).keypress(function(event){
 	teclado=event.which; 
  });
 	console.log(teclado);
 	 if(teclado=='13'){
+    var codigoProduto = $("#cod").val();
 	$.ajax({
 		url : "BuscaCodigoProduto",
 		type : "POST",
 		data : {
-			produto : $("#cod").val()
+			produto : codigoProduto
 		},
 		success : function(back) {
 			if (back) {
 				$('.retornando').html(back);
 				//
 				$("#prod").val($('#nomeAC').val());
-				$("#unid").val($('#valorAC').val());
-				$('#qtd').focus();
+				//$("#unid").val($('#valorAC').val());
+				//$('#qtd').focus();
+				$("#unid").focus();
 			}
 		   }
 		});
@@ -184,13 +217,15 @@ function adcProdutoFornqtd(){
 		teclado=event.which; 
 	 });
 	console.log(teclado);
-	var total=$('#unid').val()*$('#qtd').val();
+	var unidade=$('#unid').val();
+	var qtd = $('#qtd').val();
+	var total= unidade * qtd;
 	var valortotalcompra = total.toFixed(2);
-	valortotalcompra = valortotalcompra.replace(".",",");
+    valortotalcompra = valortotalcompra.replace(",",".");
 	$('#vlr').val(valortotalcompra);
 	
 	 if(teclado=='13'){
-	adcProdutoForn();
+	//adcProdutoForn();
 	}
 	
 	
@@ -211,10 +246,149 @@ function BuscaPedido(){
 		},
 		type: 'POST',
 		success: function(data){
-			
+			$('#result').html(data);
+			var i = 0;
+			var dados = "<table class='tabretorno'>"
+					+ "<tr><th>ID</th>" + "<th>Fornecedor</th>"
+					+ "<th>Funcionario</th>" + "<th>Data e Hora</th>"
+					+ "<th>Valor</th>" + "<th>Detalhes</th>"
+					+ "<th>Excluir</th></tr>";
+			while ($("#id" + i).val() != null) {
+				if(i%2!=0){
+					 impar="class='impar'";
+					
+				}else{
+					 impar="";
+				}
+				
+				dados += "" + "<tr "+impar+"> " + "<td><span id='tid"
+						+ i
+						+ "'>"
+						+ $("#id" + i).val()
+						+ "</span><input  type='text' class='nome"
+						+ i
+						+ "' value='"
+						+ $("#id" + i).val()
+						+ "'></input></td>"
+						+ "<td><span id='tcliente"
+						+ i
+						+ "'>"
+						+ $("#fornecedor" + i).val()
+						+ " </span><input  type='text' class='telefone"
+						+ i
+						+ "' value='"
+						+ $("#fornecedor" + i).val()
+						+ "'></input></td>"
+						+ "<td><span id='tfuncionario"
+						+ i
+						+ "'>"
+						+ $("#funcionario" + i).val()
+						+ "</span><input  type='text' class='doc"
+						+ i
+						+ "' value='"
+						+ $("#funcionario" + i).val()
+						+ "'></input></td>"
+						+ "<td><span id='tdata"
+						+ i
+						+ "'>"
+						+ $("#datahora" + i).val()
+						+ "</span><input  type='text' class='email"
+						+ i
+						+ "' value='"
+						+ $("#datahora" + i).val()
+						+ "'></input></td>"
+						+ "<td><span id='tvalor"
+						+ i
+						+ "'>"
+						+ $("#valorTotal" + i).val()
+						+ "</span><input  type='text' class='data"
+						+ i
+						+ "' value='"
+						+ $("#valorTotal" + i).val()
+						+ "'></input></td>"
+						+ "<td><img id='tbusca"
+						+ i
+						+ "' onclick='BuscaDetalhesPedido("
+						+ $("#id" + i).val()
+						+ ")' src='../images/plus.png' /><img id='salva"
+						+ i
+						+ "' onclick='pEditaCompra("
+						+ i
+						+ ")' style='display:none' src='../images/salva.png' /><img id='salva"
+						+ i
+						+ "' onclick='cEditaCompra("
+						+ i
+						+ ")' style='display:none' src='../images/close15.png' /></td>"
+						+ "<td><img onclick='pExcluiPedido(" + i
+						+ ")' src='../images/exclui.png' /></td>"
+						+ "</tr>";
+				i++;
+
+			}
+			dados += "</table>";
+
+			$('#tabdados').html(dados);
 		
 		}
 	
 	
 	});
+}
+
+
+function pExcluiPedido(pk){
+	var pergunta=	"<span style='width: 589px;    font-size: 16px;    font-weight: bold;'"+
+	">Voc&ecirc; realmente quer Excluir: Pedido<br>" + $('#id'+pk).val()+"?</span>"+
+				 " <div class='yes' onclick='excluiPedido("+pk+")'>Sim</div> <div class='nope' onclick='cExcluirCompra("+pk+")'>N&atilde;o</div>";
+		$('#procli .fundoq').show();
+		$("#procli .question").show();
+		$("#procli .question").html(pergunta);
+
+}
+function BuscaDetalhesPedido(id) {
+	$.ajax({
+		url : "BuscaDetalhesPedido",
+		data : {
+			id : id
+		},
+		type : 'POST',
+	});
+
+}
+
+
+function cExcluirPedido(pk){
+	$('#procli .fundoq').hide();
+	$("#procli .question").hide();
+}
+
+function excluiPedido(pk){
+	$.ajax({
+		url:'DeletaPedido',
+		data: { id: $("#id"+pk).val()},
+		type:'POST',	
+		success: function(back){
+			
+	
+			cExcluirCompra(pk);
+			
+			mensagem("green", "Pedido Excluida");
+			BuscaPedido();
+			
+		},
+		error:function(){
+			cExcluirCompra(pk);
+			BuscaPedido();
+	
+			}
+	});
+}
+
+
+function limpapedi(){
+$("input").val('');
+$("textarea").val('');
+$(".tabelaForn").html('');
+dadosforn='';
+$(".confirmar").val('Confirmar');
 }

@@ -493,14 +493,6 @@ function excluiCompra(pk){
 		error:function(){
 			cExcluirCompra(pk);
 			buscaDadosCompra();
-			/*$("#procli .resposta").fadeIn();
-			setTimeout(function(){$("#procli .resposta").fadeOut();},3000);
-			$("#procli .resposta").css({
-				color:'red',
-				borderColor:"red",
-					
-				});
-			$("#procli .resposta").html("Ocorreu um erro, o Cliente não foi excluido!!");*/
 	
 			}
 	});

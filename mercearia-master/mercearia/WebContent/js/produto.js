@@ -47,27 +47,13 @@ function excluiProduto(pk){
 			
 	
 			cEditaProduto(pk);
-			$("#procli .resposta").fadeIn();
-			setTimeout(function(){$("#procli .resposta").fadeOut();},3000);
-			console.log('teste2');
-			$("#procli .resposta").html("Produto Excluido com sucesso!!");
-			setTimeout(function(){
-			$('.content').load('ProcuraCliente.jsp');
-			console.log('teste3');
-			buscaDadosProduto();},3000);
+			mensagem("green", "Produto Excluido");
+			buscaDadosProduto();
 			
 		},
 		error:function(){
 			cEditaProduto(pk);
 			buscaDadosProduto();
-			/*$("#procli .resposta").fadeIn();
-			setTimeout(function(){$("#procli .resposta").fadeOut();},3000);
-			$("#procli .resposta").css({
-				color:'red',
-				borderColor:"red",
-					
-				});
-			$("#procli .resposta").html("Ocorreu um erro, o Cliente não foi excluido!!");*/
 	
 			}
 	});
@@ -100,7 +86,7 @@ function editaProduto(pk){
 		success: function(back){
 			cEditaProduto(pk);
 			buscaDadosProduto();
-			mensagem('green','O produto alterado com sucesso- ERRO');
+			mensagem('green','O produto alterado com sucesso');
 		},
 		error:function(){
 			cEditaProduto(pk);

@@ -38,10 +38,10 @@
 			<th></th>
 		</tr>
 		<tr>
-			<td><input id="cod" type="text" name="hora" onkeydown="buscacodigoforn();"/></td>
+			<td><input id="cod" type="text" name="hora" onkeyup="buscacodigoforn();"/></td>
 			<td><input id="prod" type="text" name="hora" readonly/></td>
 			<td><input id="unid" type="text" name="hora" /></td>
-			<td><input id="qtd" type="text" name="hora" onkeypress="adcProdutoFornqtd()"/></td>
+			<td><input id="qtd" type="text" name="hora" onkeyup="adcProdutoFornqtd()"/></td>
 			<td><input id="vlr" type="text" name="hora" /></td>
 			<td><img onclick="adcProdutoForn()"
 				src="../images/plus.png"  style="cursor:pointer"/></td>
@@ -65,18 +65,21 @@
 		</table>
 		</div>
 <div id="tabelaped">
-	<table border="0" class="tabelaForn">
+	<table border="0" class="tabelaForn" style="border-collapse: collapse;">
 		
 
 	</table>
+	
+	
+	
 </div>
-
+<table id="totaltabela"></table>
 
 
 <input type="hidden" name="logic" value="NovoFornecimentoLogic">
 <br />
 <input type="button" onclick='confirmaPedido()'  class="confirmar" value="Confirmar">
 <div class="retornando" style="display:none"></div>
-<div type="button" class="limpar">Limpa<div>
+<div type="button" onclick="limpapedi()" class="limpar">Limpa<div>
 <span style="display:none" id="resultados"></span>
 </div>

@@ -13,7 +13,7 @@
 		Valor Min:<input type="text" id="valorMin" >
 		Valor Max:<input type="text" id="valorMax" >
 	
-		validade:<input type="date" id="validade" >
+	<!--	validade:<input type="date" id="validade" > !-->
 	</div>
 	<br>
 		<input type="submit" class="buscarestilo" value="Buscar" >	<br /><br />
