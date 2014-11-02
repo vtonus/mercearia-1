@@ -30,6 +30,7 @@ import br.com.mercearia.util.Conversao;
 public class NovoPedido extends HttpServlet {
 	ClienteDAO cdao = new ClienteDAO();
 
+	//Testando pra ver se sobe...
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// ClienteDAO cldao = new ClienteDAO();
