@@ -186,6 +186,7 @@ public class ProdutoDAO {
 					sql = sql.concat("and ");
 				}
 				sql = sql.concat("valor >= ? ");
+				System.out.println("Valor menor: "+produto.getValorMin());
 			}
 		} catch (NullPointerException e) {
 		}
@@ -200,6 +201,7 @@ public class ProdutoDAO {
 					sql = sql.concat("and ");
 				}
 				sql = sql.concat("valor <= ? ");
+				System.out.println("Valor maior: "+produto.getValorMax());
 			}
 		} catch (NullPointerException e) {
 		}
@@ -207,8 +209,9 @@ public class ProdutoDAO {
 		try {
 			if (produto.getFabricante().trim().length() > 0) {
 				//System.out.println(produto.getFabricante().trim());
+				boo[4] = true;
 				if (i == 0) {
-					boo[4] = true;
+		
 					sql = sql.concat("where ");
 					i = 1;
 				} else {
