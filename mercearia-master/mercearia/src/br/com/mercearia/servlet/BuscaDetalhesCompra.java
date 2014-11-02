@@ -16,7 +16,7 @@ import br.com.mercearia.modelo.CompraProduto;
 public class BuscaDetalhesCompra extends HttpServlet {
 	
 	CompraProdutoDAO cpdao = new CompraProdutoDAO();
-	
+	//Testando pra ver se sobe....
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
