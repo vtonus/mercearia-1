@@ -22,6 +22,7 @@ public class NovoCliente extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("utf-8");
 		Auditoria aud = new Auditoria();
 		HttpSession session = request.getSession();
 		String func_id = (String) session.getAttribute("usuarioCpf");
@@ -105,6 +106,7 @@ public class NovoCliente extends HttpServlet {
 		
 		if ((request.getParameter("endereco").trim().length() > 5 && request.getParameter("endereco").length() < 60) || request.getParameter("endereco").isEmpty()){
 			cliente.setEndereco(request.getParameter("endereco"));
+			System.out.println("endereço é: "+cliente.getEndereco());
 		}
 		else{
 			response.getWriter().write("endereco do cliente invalido, este deve ter entre 5 e 60 caracteres");

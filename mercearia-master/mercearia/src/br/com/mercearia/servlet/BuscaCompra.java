@@ -56,6 +56,7 @@ public class BuscaCompra extends HttpServlet {
 		int i = 0;
 		for (Compra c : listaCompras) {
 			if (c != null) {
+				response.setCharacterEncoding("utf-8");
 				response.getWriter().write(
 						"<input type=\"hidden\" id=\"id" + i + "\" "
 						+ "value=\""+ c.getId() +"\">"

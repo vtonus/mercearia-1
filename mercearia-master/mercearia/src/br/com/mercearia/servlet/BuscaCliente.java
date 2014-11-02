@@ -41,6 +41,7 @@ public class BuscaCliente extends HttpServlet {
 			else telefone=""+cliente.getTelefone();
 			
 			if (cliente != null) {
+				response.setCharacterEncoding("utf-8");
 				response.getWriter().write(
 								  "<input type=\"hidden\" id=\"id" + i
 								+ "\" value=\"" + cliente.getId() + "\">"
@@ -58,6 +59,7 @@ public class BuscaCliente extends HttpServlet {
 								+ "\" value=\"" + cliente.getEndereco() + "\">"
 								+ "<input type=\"hidden\" id=\"dataNascimento" + i
 								+ "\" value=\"" + dataNascimento + "\">");
+				System.out.println("Aqui está o endereço ... "+ cliente.getEndereco());
 				
 			}
 			i++;

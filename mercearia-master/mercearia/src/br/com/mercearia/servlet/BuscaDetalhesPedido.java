@@ -28,6 +28,7 @@ public class BuscaDetalhesPedido extends HttpServlet {
 		i=0;
 		for (ProdutoPedido pp : listaPp)
 		{
+			response.setCharacterEncoding("utf-8");
 			response.getWriter().write(
 				"<input type=\"hidden\" value=\"" + pp.getProduto().getNome() + "\" id=\"nome_prod"+ i + "\">" +
 						"<input type=\"hidden\" value=\"" + pp.getProduto().getQtd() + "\" id=\"qtd_prod"+ i + "\">" +

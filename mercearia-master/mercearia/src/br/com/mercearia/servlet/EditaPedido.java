@@ -23,7 +23,7 @@ public class EditaPedido extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-	
+		response.setCharacterEncoding("utf-8");	
 
 		
 		Auditoria aud = new Auditoria();

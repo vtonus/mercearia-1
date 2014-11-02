@@ -26,6 +26,7 @@ public class EditaDetalhesPedido extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("utf-8");
 		Auditoria aud = new Auditoria();
 		HttpSession session = request.getSession();
 		String func_Id = (String) session.getAttribute("usuarioCpf");

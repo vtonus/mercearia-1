@@ -21,7 +21,7 @@ public class EditaCliente extends HttpServlet {
 	public String error;
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
+		response.setCharacterEncoding("utf-8");		
 		Cliente cliente = new Cliente();
 		cliente.setId(Integer.parseInt(request.getParameter("id")));
 		if (request.getParameter("nome").trim().length() > 5 && request.getParameter("nome").length() < 40){

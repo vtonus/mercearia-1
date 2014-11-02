@@ -41,6 +41,7 @@ public class BuscaFuncionario extends HttpServlet {
 			else telefone=""+f.getTelefone();
 			if (f != null) {
 				bool = true;
+				response.setCharacterEncoding("utf-8");
 				response.getWriter().write(
 								  "<input type=\"hidden\" id=\"cpf" + i
 								+ "\" value=\"" + f.getCpf() + "\">"

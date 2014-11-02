@@ -15,6 +15,7 @@ import br.com.mercearia.util.Auditoria;
 public class ExcluiFornecedor extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("utf-8");
 		FornecedorDAO fdao = new FornecedorDAO();
 		Auditoria aud = new Auditoria();
 		HttpSession session = request.getSession();

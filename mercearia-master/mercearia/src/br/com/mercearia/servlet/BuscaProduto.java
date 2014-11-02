@@ -20,6 +20,7 @@ public class BuscaProduto extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("utf-8");
 		ProdutoDAO pdao = new ProdutoDAO();
 		Produto produto = new Produto();
 		if(!(request.getParameter("id") == "")){
@@ -60,8 +61,8 @@ public class BuscaProduto extends HttpServlet {
 		}
 		try
 		{
-			produto.setValidade(Conversao.textoEmData(request.getParameter("validade")));
-		}catch(ParseException e){}
+			produto.setValidade(Conversao.textoHEmData(request.getParameter("validade")));
+		}catch(ParseException e){System.out.println("erro na conversao da data.");}
 		List<Produto> listaProduto = new ArrayList<Produto>();
 		listaProduto = pdao.busca(produto);
 		int i = 0;

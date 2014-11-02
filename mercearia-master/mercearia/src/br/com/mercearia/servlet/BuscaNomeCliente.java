@@ -26,6 +26,7 @@ public class BuscaNomeCliente extends HttpServlet {
 		{
 			if (c != null) 
 			{
+				response.setCharacterEncoding("utf-8");
 				response.getWriter().write(
 						"<input type=\"hidden\" id=\"nome" + i + "\" "
 						+ "value=\""+ c.getNome() +"\">"
