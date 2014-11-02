@@ -24,6 +24,7 @@ public class BuscaNomeProduto extends HttpServlet {
 		int i=0;
 		for (Produto p: listaProduto) {
 			if (p != null) {
+				response.setCharacterEncoding("utf-8");
 				response.getWriter().write(
 						  "<input type=\"hidden\" id=\"valor" + i + "\" "
 						+ "value=\"" + p.getValor() + "\">"
@@ -34,6 +35,5 @@ public class BuscaNomeProduto extends HttpServlet {
 			}
 			i++;
 		}
-		response.getWriter().write("\n</table>");
 	}
 }

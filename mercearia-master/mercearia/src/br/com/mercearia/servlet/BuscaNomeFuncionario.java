@@ -22,8 +22,9 @@ public class BuscaNomeFuncionario extends HttpServlet {
 		listaFuncionario = fdao.buscaNomeFuncionario(palavra);
 		int i=0;
 		for (String f: listaFuncionario) {
-			if (f != null) 
+			if (f != null)
 			{
+				response.setCharacterEncoding("utf-8");
 				response.getWriter().write(
 						"<input type=\"hidden\" id=\"nome" + i + "\" "
 								+ "value=\""+ f +"\">");

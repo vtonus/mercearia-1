@@ -39,6 +39,7 @@ public class BuscaPedido extends HttpServlet {
 			try {
 				pedido.setId(Integer.parseInt(request.getParameter("id")));
 			} catch (RuntimeException e) {
+				response.setCharacterEncoding("utf-8");
 				response.getWriter().write(
 						"insira somente numeros no campo Id.");
 				response.setStatus(501);
@@ -64,6 +65,7 @@ public class BuscaPedido extends HttpServlet {
 			for (Pedido p : listaPe) {
 				if (p != null) {
 					bool = true;
+					response.setCharacterEncoding("utf-8");
 					response.getWriter()
 							.write("<input type=\"hidden\" id=\"id"
 									+ i
@@ -109,7 +111,7 @@ public class BuscaPedido extends HttpServlet {
 			if (bool) {
 				response.setStatus(200);
 			} else {
-				response.setStatus(500);
+				response.setStatus(400);
 			}
 		}
 	}

@@ -17,6 +17,7 @@ public class EditaFornecedor extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("utf-8");
 		Auditoria aud = new Auditoria();				
 		HttpSession session = request.getSession();
 		String func_id = (String) session.getAttribute("usuarioCpf");

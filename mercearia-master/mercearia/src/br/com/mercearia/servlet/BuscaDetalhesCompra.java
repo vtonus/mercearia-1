@@ -28,6 +28,7 @@ public class BuscaDetalhesCompra extends HttpServlet {
 		for (CompraProduto cp : listaCp)
 		{
 			subtotal = cp.getValor() * cp.getQtd();
+			response.setCharacterEncoding("utf-8");
 			response.getWriter().write(
 				"<input type=\"hidden\" value=\"" + cp.getProduto().getId() + "\" id=\"id_produto"+ i + "\">" +
 						"<input type=\"hidden\" value=\"" + cp.getProduto().getNome() + "\" id=\"nome_produto"+ i + "\">" +

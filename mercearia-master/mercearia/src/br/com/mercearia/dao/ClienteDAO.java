@@ -103,6 +103,7 @@ public class ClienteDAO {
 				} catch(RuntimeException e){}
 				cliente.setEmail(rs.getString("email"));
 				cliente.setEndereco(rs.getString("endereco"));
+				System.out.println("Endereço do DAO: "+cliente.getEndereco());
 				listaCliente.add(cliente);
 			}
 			return listaCliente;

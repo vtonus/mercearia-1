@@ -18,6 +18,7 @@ public class NovoProduto extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("utf-8");
 		Produto produto = new Produto();
 		boolean bool = false;
 		

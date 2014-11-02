@@ -24,6 +24,7 @@ public class BuscaCodigoProduto extends HttpServlet {
 		}catch(RuntimeException e){}
 		//List<Produto> listaProduto = new ArrayList<Produto>();
 		Produto p = pdao.buscaCodigoProduto(c);
+		response.setCharacterEncoding("utf-8");
 		response.getWriter().write(
 				"<input type=\"hidden\" id=\"nomeAC\""
 				+ "value=\"" + p.getNome() + "\">"

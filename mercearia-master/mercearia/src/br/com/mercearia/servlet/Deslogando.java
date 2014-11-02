@@ -13,6 +13,7 @@ public class Deslogando extends HttpServlet {
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		response.setCharacterEncoding("utf-8");
 		System.out.println("Usuario "+session.getAttribute("usuario")+" deslogou.");
 		session.setAttribute("usuario", null);  
 		return;

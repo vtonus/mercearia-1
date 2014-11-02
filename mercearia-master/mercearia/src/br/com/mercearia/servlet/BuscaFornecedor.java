@@ -43,6 +43,7 @@ public class BuscaFornecedor extends HttpServlet {
 			}
 			System.out.println(telefone);
 			if (f != null) {
+				response.setCharacterEncoding("utf-8");
 				response.getWriter().write(
 						"<input type=\"hidden\" id=\"id" + i + "\" value=\""
 								+ f.getId() + "\">"

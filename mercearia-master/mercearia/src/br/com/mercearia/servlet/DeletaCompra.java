@@ -18,6 +18,7 @@ public class DeletaCompra extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException 
 	{
+		response.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		String funcId = (String) session.getAttribute("usuarioCpf");
 		int id = Integer.parseInt(request.getParameter("id"));
