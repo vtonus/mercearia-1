@@ -176,8 +176,8 @@ function buscaDadosFornecedor() {
 		 		"<td><span id='email"+i+"'>" + $("#email"+i).val()+ "</span><input  type='text' class='email"+i+"' value='"+$("#email"+i).val()+"'></input></td>" +
 		 		"<td><span id='endereco"+i+"'>" + $("#endereco"+i).val()+ "</span><input  type='text' class='endereco"+i+"' value='"+$("#endereco"+i).val()+"'></input></td>" +
 		 		
-		 		"<td><img id='edita"+i+"' onclick='mostraeditaFornecedor("+i+")' src='../images/edita.png' /><img id='salva"+i+"' onclick='pEditaFornecedor("+i+")' style='display:none' src='../images/salva.png' /><img id='salva"+i+"' onclick='cEditaFornecedor("+i+")' style='display:none' src='../images/close15.png' /></td>"+
-		 		"<td><img onclick='pExcluiFornecedor("+i+")' src='../images/exclui.png' /></td>"+"</tr>";
+		 		"<td><img style='cursor:pointer' id='edita"+i+"' onclick='mostraeditaFornecedor("+i+")' src='../images/edita.png' /><img  id='salva"+i+"' onclick='pEditaFornecedor("+i+")' style='display:none;cursor:pointer' src='../images/salva.png' /><img id='salva"+i+"' onclick='cEditaFornecedor("+i+")' style='display:none;cursor:pointer' src='../images/close15.png' /></td>"+
+		 		"<td><img style='cursor:pointer' onclick='pExcluiFornecedor("+i+")' src='../images/exclui.png' /></td>"+"</tr>";
 		 		 i++;
 				
 		}		
