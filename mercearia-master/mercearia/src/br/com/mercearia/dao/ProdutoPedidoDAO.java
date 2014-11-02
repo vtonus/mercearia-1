@@ -124,6 +124,7 @@ public class ProdutoPedidoDAO {
 				Pedido pe = new Pedido();
 				pe.setId(i);
 				pp.setPedido(pe);
+				pp.setProduto(pr);
 				listaPp.add(pp);
 			}
 			return listaPp;
