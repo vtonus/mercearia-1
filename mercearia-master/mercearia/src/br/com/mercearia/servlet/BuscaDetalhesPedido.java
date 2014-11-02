@@ -14,7 +14,7 @@ import br.com.mercearia.modelo.ProdutoPedido;
 
 @SuppressWarnings("serial")
 public class BuscaDetalhesPedido extends HttpServlet {
-	
+	//...
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
