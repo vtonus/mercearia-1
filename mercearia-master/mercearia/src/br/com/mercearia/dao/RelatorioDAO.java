@@ -75,12 +75,12 @@ public class RelatorioDAO {
 					e.printStackTrace();
 				}
 			} else {
-				Calendar calendar = Calendar.getInstance();
+				Calendar calendar = (Calendar) dia.clone();
 				if (i <= 9) {
-					calendar = Conversao.subtracaoCalendar(dia,
+					Conversao.subtracaoCalendar(calendar,
 							"00-00-0"+i);
 				} else {
-					calendar = Conversao.subtracaoCalendar(dia,
+					Conversao.subtracaoCalendar(calendar,
 							"00-00-"+i);
 				}
 				valor.add((float) 0);
@@ -252,6 +252,8 @@ public class RelatorioDAO {
 
 	}
 
+	//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	
 	public RelatorioPeriodo buscaPeriodo(Calendar dia, int cont) {
 		RelatorioPeriodo rp = new RelatorioPeriodo();
 
@@ -263,32 +265,37 @@ public class RelatorioDAO {
 		ArrayList<Float> qtdsf = new ArrayList<Float>();
 
 		connection = new Conexao().getConnection();
-
-		for (int i = 0; i < cont; i++) {
+		Calendar dia2 = Calendar.getInstance();
+		dia2 = (Calendar) dia.clone();
+		Conversao.adicaoCalendar(dia2, "00-01-00");
+		for (int i = 0; i <= cont; i++) {
 			try {
 				PreparedStatement ps = connection
-						.prepareStatement("select SUM(valor) AS total as data from compra where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(?)");
+						.prepareStatement("select SUM(valor) AS total from compra where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(DATE_SUB(?, INTERVAL ? MONTH))");
 				ps.setDate(1, new Date(dia.getTimeInMillis()));
 				ps.setInt(2, i);
-				ps.setDate(3, new Date(dia.getTimeInMillis()));
+				ps.setDate(3, new Date(dia2.getTimeInMillis()));
+				ps.setInt(4, i);
 				ResultSet rs = ps.executeQuery();
 				rs.next();
-				valores.add(rs.getFloat("total"));
+				System.out.println("valor " +rs.getFloat("total"));
+				valores.add(new Float(rs.getFloat("total")));
 				ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return null;
+				valores.add(new Float(0));
 			}
 		}
 		rp.setValor(valores);
 
-		for (int i = 0; i < cont; i++) {
+		for (int i = 0; i <= cont; i++) {
 			try {
 				PreparedStatement ps = connection
-						.prepareStatement("select SUM(valor) AS total, as data from pedido where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(?)");
+						.prepareStatement("select SUM(valor) AS total from pedido where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(DATE_SUB(?, INTERVAL ? MONTH))");
 				ps.setDate(1, new Date(dia.getTimeInMillis()));
 				ps.setInt(2, i);
-				ps.setDate(3, new Date(dia.getTimeInMillis()));
+				ps.setDate(3, new Date(dia2.getTimeInMillis()));
+				ps.setInt(4, i);
 				ResultSet rs = ps.executeQuery();
 				rs.next();
 				valoresf.add(rs.getFloat("total"));
@@ -302,10 +309,11 @@ public class RelatorioDAO {
 
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("select p.nome, SUM(cp.valor) AS total from compraproduto cp inner join  compra co on (cp.id_compra = co.id) inner join produto p on (cp.id_produto = p.id) where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(?) group by cp.id_produto LIMIT 15");
+					.prepareStatement("select p.nome, SUM(cp.valor) AS total from compraproduto cp inner join  compra co on (cp.id_compra = co.id) inner join produto p on (cp.id_produto = p.id) where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(?) group by cp.id_produto order by total ASC LIMIT 15");
 			ps.setDate(1, new Date(dia.getTimeInMillis()));
 			ps.setInt(2, cont);
-			ps.setDate(3, new Date(dia.getTimeInMillis()));
+			Conversao.adicaoCalendar(dia2, "00-01-00");
+			ps.setDate(3, new Date(dia2.getTimeInMillis()));
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				nomesp.add(rs.getString("p.nome"));
@@ -322,14 +330,15 @@ public class RelatorioDAO {
 
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("select f.nome, SUM(p.valor) AS total from pedido p inner join fornecedor f on (p.fornecedor = f.id) where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(?) group by p.fornecedor LIMIT 15");
+					.prepareStatement("select f.nome, SUM(p.valor) AS total from pedido p inner join fornecedor f on (p.fornecedor = f.id) where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(?) group by f.id LIMIT 15");
 			ps.setDate(1, new Date(dia.getTimeInMillis()));
 			ps.setInt(2, cont);
-			ps.setDate(3, new Date(dia.getTimeInMillis()));
+			Conversao.adicaoCalendar(dia2, "00-01-00");
+			ps.setDate(3, new Date(dia2.getTimeInMillis()));
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				nomesf.add(rs.getString("f.nome"));
-				qtdsf.add(rs.getFloat("total"));
+				qtdsf.add(new Float(rs.getFloat("total")));
 			}
 			ps.close();
 		} catch (SQLException e) {
@@ -338,7 +347,7 @@ public class RelatorioDAO {
 		}
 
 		rp.setNomef(nomesf);
-		rp.setQtdf(valoresf);
+		rp.setQtdf(qtdsf);
 
 		return rp;
 	}

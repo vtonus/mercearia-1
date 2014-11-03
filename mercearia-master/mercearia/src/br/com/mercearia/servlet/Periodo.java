@@ -3,6 +3,7 @@ package br.com.mercearia.servlet;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Collections;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -118,7 +119,7 @@ public class Periodo extends HttpServlet {
 			response.getWriter().write(
 					"Erro grave, recarregue a pagina e tente novamente.");
 			System.out.println("Erro no mes2");
-			response.setStatus(500);
+			response.setStatus(501);
 			return;
 		}
 
@@ -127,7 +128,7 @@ public class Periodo extends HttpServlet {
 			response.getWriter().write(
 					"Erro grave, recarregue a pagina e tente novamente.");
 			System.out.println("Erro no data1");
-			response.setStatus(500);
+			response.setStatus(501);
 			return;
 		}
 
@@ -141,7 +142,7 @@ public class Periodo extends HttpServlet {
 			response.getWriter().write(
 					"Erro grave, recarregue a pagina e tente novamente.");
 			System.out.println("Erro no data1");
-			response.setStatus(500);
+			response.setStatus(501);
 			return;
 		}
 
@@ -150,7 +151,7 @@ public class Periodo extends HttpServlet {
 			response.getWriter().write(
 					"Erro grave, recarregue a pagina e tente novamente.");
 			System.out.println("Erro no data2");
-			response.setStatus(500);
+			response.setStatus(501);
 			return;
 		}
 
@@ -161,7 +162,7 @@ public class Periodo extends HttpServlet {
 			response.getWriter().write(
 					"Erro grave, recarregue a pagina e tente novamente.");
 			System.out.println("Erro no data2");
-			response.setStatus(500);
+			response.setStatus(501);
 			return;
 		}
 
@@ -174,28 +175,28 @@ public class Periodo extends HttpServlet {
 
 		if (ano1 > ano2) {
 			response.getWriter()
-					.write("Erro leve, data inserida inválida. data1 deve ser maior que data2");
+					.write("Erro, data inserida inválida. data1 deve ser maior que data2");
 			System.out.println("Erro com os anos");
 			response.setStatus(500);
 			return;
 		}
 		if ((ano2 - ano1) > 1) {
 			response.getWriter()
-					.write("Erro leve, datas inseridas inválidas. data1 deve ser maior que data2 em no máximo 12 meses");
+					.write("Erro, datas inseridas inválidas. data1 deve ser maior que data2 em no máximo 12 meses");
 			System.out.println("Erro com as datas, soma maior que 12");
-			response.setStatus(500);
+			response.setStatus(501);
 			return;
 		} else if (ano1 == ano2 && imes1 >= imes2) {
 			response.getWriter()
 					.write("Erro leve, data inserida inválida. data1 deve ser maior que data2");
 			System.out.println("Erro com os meses");
-			response.setStatus(500);
+			response.setStatus(501);
 			return;
 		} else if (ano1 < ano2 && 12 < (imes2 + 12 - imes1)) {
 			response.getWriter()
 					.write("Erro leve, datas inseridas inválidas. data1 deve ser maior que data2 em no máximo 12 meses");
 			System.out.println("Erro com as datas, soma maior que 12");
-			response.setStatus(500);
+			response.setStatus(501);
 			return;
 		} else if (ano1 == ano2) {
 			cont = imes2 - imes1;
@@ -205,55 +206,64 @@ public class Periodo extends HttpServlet {
 
 		RelatorioDAO rdao = new RelatorioDAO();
 		RelatorioPeriodo rp = rdao.buscaPeriodo(c2, cont);
-
+		
+		if(rp == null){
+			response.getWriter().write("Datas inválidas, certifique-se que existiram trnasações entre as datas escolhidas.");
+		}
+		Collections.reverse(rp.getNomef());
+		Collections.reverse(rp.getNomep());
+		Collections.reverse(rp.getQtdf());
+		Collections.reverse(rp.getValor());
+		Collections.reverse(rp.getValorf());
+		Collections.reverse(rp.getValorp());
+		
 		String output = "";
-
+		
 		Calendar cnovo = (Calendar) c1.clone();
-
+		System.out.println("cont eh"+cont);
 		int x;
-
-		for (int i = 0; i < cont; i++) {
-			x = cnovo.get(Calendar.MONTH);
+		x = cnovo.get(Calendar.MONTH);
+		for (int i = 0; i <= cont; i++) {
 			cnovo.set(Calendar.MONTH, x + i);
-			output.concat(" <input type=\"hidden\" id=\"mes" + i + "\" "
+			output = output.concat(" <input type=\"hidden\" id=\"mes" + i + "\" "
 					+ " value=\"" + Conversao.calendarEmTexto(cnovo) + "\">");
 		}
+		
 		int i = 0;
 		for (String s : rp.getNomep()) {
-			output.concat(" <input type=\"hidden\" id=\"nomep" + i++ + "\" "
+			output = output.concat(" <input type=\"hidden\" id=\"nomep" + i++ + "\" "
 					+ " value=\"" + s + "\">");
 		}
 
 		i = 0;
 		for (Float f : rp.getValorp()) {
-			output.concat(" <input type=\"hidden\" id=\"valorp" + i++ + "\" "
+			output = output.concat(" <input type=\"hidden\" id=\"valorp" + i++ + "\" "
 					+ " value=\"" + f.toString() + "\">");
 		}
 
 		i = 0;
 		for (String s : rp.getNomef()) {
-			output.concat(" <input type=\"hidden\" id=\"nomef" + i++ + "\" "
+			output = output.concat(" <input type=\"hidden\" id=\"nomef" + i++ + "\" "
 					+ " value=\"" + s + "\">");
 		}
-
+		
 		i = 0;
 		for (Float f : rp.getQtdf()) {
-			output.concat(" <input type=\"hidden\" id=\"qtdf" + i++ + "\" "
+			output = output.concat(" <input type=\"hidden\" id=\"qtdf" + i++ + "\" "
 					+ " value=\"" + f.toString() + "\">");
 		}
 
 		i = 0;
 		for (Float f : rp.getValor()) {
-			output.concat(" <input type=\"hidden\" id=\"valor" + i++ + "\" "
+			output = output.concat(" <input type=\"hidden\" id=\"valor" + i++ + "\" "
 					+ " value=\"" + f.toString() + "\">");
 		}
 
 		i = 0;
 		for (Float f : rp.getValorf()) {
-			output.concat(" <input type=\"hidden\" id=\"valorf" + i++ + "\" "
+			output = output.concat(" <input type=\"hidden\" id=\"valorf" + i++ + "\" "
 					+ " value=\"" + f.toString() + "\">");
 		}
-
 		response.getWriter().write(output);
 	}
 }

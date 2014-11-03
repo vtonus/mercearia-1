@@ -34,6 +34,17 @@
   </servlet-mapping>
   
   
+   <servlet>
+    <servlet-name>Periodo</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.Periodo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Periodo</servlet-name>
+    <url-pattern>/Periodo</url-pattern>
+    <url-pattern>/views/Periodo</url-pattern>
+  </servlet-mapping>
+  
+  
   <servlet>
     <servlet-name>BuscaDetalhesCompra</servlet-name>
     <servlet-class>br.com.mercearia.servlet.BuscaDetalhesCompra</servlet-class>
