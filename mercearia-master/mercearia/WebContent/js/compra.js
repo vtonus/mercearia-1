@@ -365,8 +365,12 @@ function buscaDadosCompra() {
 								+ "<td><img onclick='pExcluiCompra(" + i
 								+ ")' src='../images/exclui.png' /></td>"
 								+ "</tr>";
+									
 						i++;
-
+						
+					
+						
+						
 					}
 					dados += "</table>";
 
@@ -382,10 +386,47 @@ function BuscaDetalhesCompra(id) {
 			id : id
 		},
 		type : 'POST',
+		success:function(data){
+			$('#result').html(data);
+			var i = 0;
+			var dados = "<table class='tabretorno'>"
+					+ "<tr><th>Codigo de barras</th>" + "<th>Nome do Produto</th>"
+					+ "<th>Valor</th>" + "<th>Quantidade</th>"
+					+ "<th>Sub-total</th>";
+			while ($("#id_produto" + i).val() != null) {
+				if(i%2!=0){
+					 impar="class='impar'";
+					
+				}else{
+					 impar="";
+				}
+				
+			dados +=  "<tr "+impar+"> " +
+			"<td><span id='idp"+ i+ "'>"+ $("#id_produto" + i).val()+ "</td>" +
+			"<td><span id='nomep"+ i+ "'>"+ $("#nome_produto" + i).val()+ "</td>" +
+			"<td><span id='valorp"+ i+ "'>"+ $("#valor_produto" + i).val()+ "</td>" +
+			"<td><span id='quantidadep"+ i+ "'>"+ $("#quantidade" + i).val()+ "</td>" +
+			"<td><span id='subtotalp"+ i+ "'>"+ $("#subtotal" + i).val()+ "</td>"+ "</tr>";
+							
+				i++;
+				
+	}
+			
+			dados += "</table>  <div class='fechar' onclick='fechadetalhe()'>X</div>";
+			$('#detalhes').html(dados);
+			
+			$('#detalhes').show();
+			
+		}
+		
+		
+		
 	});
 
 }
-
+function fechadetalhe(){
+	$("#detalhes").hide()
+	};
 function formatReal(int) {
 	var tmp = int + '';
 	tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
@@ -463,7 +504,7 @@ function metodopag(pag) {
 
 function pExcluiCompra(pk){
 	var pergunta=	"<span style='width: 589px;    font-size: 16px;    font-weight: bold;'"+
-	">Voc&ecirc; realmente quer Excluir: Compra<br>" + $('#id'+pk).val()+"?</span>"+
+	">Voc&ecirc; realmente quer Excluir: Compra<br>" + $('.nome'+pk).val()+"?</span>"+
 				 " <div class='yes' onclick='excluiCompra("+pk+")'>Sim</div> <div class='nope' onclick='cExcluirCompra("+pk+")'>N&atilde;o</div>";
 		$('#procli .fundoq').show();
 		$("#procli .question").show();
