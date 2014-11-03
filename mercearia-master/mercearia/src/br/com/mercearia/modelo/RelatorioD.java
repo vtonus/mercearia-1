@@ -78,8 +78,7 @@ public class RelatorioD {
 	public void setQtd(ArrayList<Integer> qtd) {
 		this.qtd = qtd;
 	}
-	
-	
+		
 	public List<String> getNome() {
 		return nome;
 	}
@@ -93,6 +92,4 @@ public class RelatorioD {
 	public void setValor(ArrayList<Float> lista) {
 		this.valor = lista;
 	}
-	
-	
 }

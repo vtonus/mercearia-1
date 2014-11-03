@@ -16,31 +16,6 @@ import br.com.mercearia.util.Conversao;
 public class RelatorioDAO {
 	private Connection connection;
 
-	/*
-	 * public int adiciona(Cliente cliente) { connection = new
-	 * Conexao().getConnection(); int bool = 0; String sql =
-	 * "insert into cliente " +
-	 * "(cpf, nome, telefone, sexo, email, dataNascimento, endereco)" +
-	 * " values (?, ?, ?, ?, ?, ?, ?)";
-	 * 
-	 * try { PreparedStatement ps = connection.prepareStatement(sql);
-	 * System.out.
-	 * println(cliente.getCpf()+".\n"+cliente.getCpf()+".\n"+cliente.getNome
-	 * ()+".\n"
-	 * +cliente.getTelefone()+".\n"+cliente.getSexo()+".\n"+cliente.getEmail
-	 * ()+".\n"+cliente.getDataNascimento()); ps.setString(1, cliente.getCpf());
-	 * ps.setString(2, cliente.getNome()); ps.setLong(3, cliente.getTelefone());
-	 * ps.setString(4, cliente.getSexo()); ps.setString(5, cliente.getEmail());
-	 * try { ps.setDate(6, new Date(cliente.getDataNascimento()
-	 * .getTimeInMillis())); } catch(RuntimeException e){ ps.setNull(6,
-	 * java.sql.Types.DATE); } ps.setString(7, cliente.getEndereco());
-	 * ps.execute(); ps.close(); ps =
-	 * connection.prepareStatement("SELECT LAST_INSERT_ID()"); ResultSet rs =
-	 * ps.executeQuery(); rs.next(); bool = rs.getInt("last_insert_id()");
-	 * ps.close(); connection.close(); } catch (SQLException e)
-	 * {e.printStackTrace();} return bool; }
-	 */
-
 	public RelatorioD buscaDiario(Calendar dia) {
 		RelatorioD rd = new RelatorioD();
 		ArrayList<Calendar> listaC = new ArrayList<Calendar>();
@@ -57,13 +32,13 @@ public class RelatorioDAO {
 				PreparedStatement ps = connection
 						.prepareStatement("select id from caixa where "
 								+ "DATE(datahora) = DATE_SUB( ? , INTERVAL ? DAY)"
-								+ "AND operacao = 2");
+								+ "AND operacao = 0");
 				ps.setDate(1, new Date(dia.getTimeInMillis()));
 				ps.setInt(2, i);
 				ResultSet rs = ps.executeQuery();
 				if (rs.next()) {
 					intlist[x] = i;
-					
+
 					x++;
 				}
 				ps.close();
@@ -73,6 +48,7 @@ public class RelatorioDAO {
 		}
 		ArrayList<Float> valor = new ArrayList<Float>();
 		for (int i = 0; i < 30; i++) {
+			System.out.println("..."+i);
 			if (intlist[i] >= 0) {
 				try {
 
@@ -82,7 +58,7 @@ public class RelatorioDAO {
 					ps.setDate(1, new Date(dia.getTimeInMillis()));
 					ps.setInt(2, intlist[i]);
 					ResultSet rs = ps.executeQuery();
-					
+
 					if (rs.next()) {
 						valor.add(rs.getFloat("total"));
 						Calendar calendar = Calendar.getInstance();
@@ -97,21 +73,30 @@ public class RelatorioDAO {
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
-					return null;
 				}
+			} else {
+				Calendar calendar = Calendar.getInstance();
+				if (i <= 9) {
+					calendar = Conversao.subtracaoCalendar(dia,
+							"00-00-0"+i);
+				} else {
+					calendar = Conversao.subtracaoCalendar(dia,
+							"00-00-"+i);
+				}
+				valor.add((float) 0);
+				listaC.add(calendar);
 			}
-			else break;
 		}
 		rd.setValor(valor);
 		rd.setListaCalendar(listaC);
 
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("select AVG(valor) AS media from compra where DATE(datahora) between DATE(DATE_SUB( ? , INTERVAL ? DAY)) and ?");
-
+					.prepareStatement("select AVG(valor) AS media from compra where id DATE(datahora) between DATE(DATE_SUB( ? , INTERVAL ? DAY)) and ?");
+			
 			ps.setDate(1, new Date(dia.getTimeInMillis()));
 			ps.setInt(2, 29);
-			
+
 			ps.setDate(3, new Date(dia.getTimeInMillis()));
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -119,8 +104,8 @@ public class RelatorioDAO {
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
-		}
+			rd.setMmensal((float) 0);
+		} 
 
 		try {
 			PreparedStatement ps = connection
@@ -133,9 +118,9 @@ public class RelatorioDAO {
 			ArrayList<Integer> al3 = new ArrayList<Integer>();
 
 			while (rs.next()) {
-				al2.add(new String (rs.getString("p.nome")));
-				al3.add(new Integer (rs.getInt("total")));
-				System.out.println("chegou aqui"+rs.getInt("total"));
+				al2.add(new String(rs.getString("p.nome")));
+				al3.add(new Integer(rs.getInt("total")));
+				System.out.println("chegou aqui" + rs.getInt("total"));
 			}
 			rd.setNome(al2);
 			rd.setQtd(al3);
@@ -185,14 +170,14 @@ public class RelatorioDAO {
 					if (rs.getFloat("total") > 0) {
 						froat = rs.getFloat("total");
 						al1.add(froat);
-						
+
 					} else {
 						al1.add(froat);
-						
+
 					}
 				} else {
 					al1.add(froat);
-					
+
 				}
 				ps.close(); // connection.close();
 			} catch (SQLException e) {
@@ -215,7 +200,7 @@ public class RelatorioDAO {
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			rd.setAbriu((float) 0);
 		}
 
 		try {
@@ -231,7 +216,7 @@ public class RelatorioDAO {
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			rd.setFechou((float) 0);
 		}
 
 		try {
@@ -241,9 +226,11 @@ public class RelatorioDAO {
 			ps.setDate(1, new Date(dia.getTimeInMillis()));
 
 			ResultSet rs = ps.executeQuery();
-
+			rd.setCartao(0);
+			rd.setDinheiro(0);
+			rd.setPrazo(0);
 			while (rs.next()) {
-
+				
 				switch (rs.getInt("metodo")) {
 				case 0:
 					rd.setCartao(rs.getFloat("total"));
@@ -261,7 +248,6 @@ public class RelatorioDAO {
 			e.printStackTrace();
 			return null;
 		}
-		System.out.println("chegou ateh o fim!!!!!");
 		return rd;
 
 	}

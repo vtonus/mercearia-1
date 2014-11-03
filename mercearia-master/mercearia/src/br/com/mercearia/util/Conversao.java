@@ -10,6 +10,20 @@ import java.util.Date;
 public class Conversao {
 	static Calendar dataRetorno;
 
+	public static Calendar subtracaoCalendar(Calendar dia, String menos){
+		int menosano = Integer.parseInt(menos.substring(0,2));
+		int menosmes = Integer.parseInt(menos.substring(3,5));
+		int menosdia = Integer.parseInt(menos.substring(6,8));
+		dia = Calendar.getInstance();
+		dia.add(Calendar.DATE, -menosdia);
+		dia.add(Calendar.MONTH, -menosmes);
+		dia.add(Calendar.YEAR, -menosano);
+		return dia;
+	}
+	
+	
+	
+	
 	public static String calendarEmTexto(Calendar calendar) {
 		Date date = calendar.getTime();
 		String resposta = new SimpleDateFormat("yyyy-MM-dd").format(date);
