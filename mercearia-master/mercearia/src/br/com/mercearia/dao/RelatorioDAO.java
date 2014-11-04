@@ -42,7 +42,7 @@ public class RelatorioDAO {
 	 * {e.printStackTrace();} return bool; }
 	 */
 
-	public RelatorioD busca(Calendar dia) {
+	public RelatorioD buscaDiario(Calendar dia) {
 		RelatorioD rd = new RelatorioD();
 		List<Calendar> listaC = new ArrayList<Calendar>();
 		connection = new Conexao().getConnection();
@@ -157,16 +157,77 @@ public class RelatorioDAO {
 				ResultSet rs = ps.executeQuery();
 
 				while (rs.next()) {
-					rd.setQtd(i+1, rs.getInt("total"));
+					rd.setQtd(i + 1, rs.getInt("total"));
 				}
 				ps.close();
 				connection.close();
 			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
 			}
 		}
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select valor from caixa where DATE(datahora) = ? and operacao = 0");
+
+			ps.setDate(1, new Date(dia.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+
+			rs.next();
+			rd.setAbriu(Float.parseFloat(rs.getString("valor")));
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select valor from caixa where DATE(datahora) = ? and operacao = 1");
+
+			ps.setDate(1, new Date(dia.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+
+			rs.next();
+			rd.setFechou(Float.parseFloat(rs.getString("valor")));
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select SUM(valor) as total, metodo from compra where DATE(datahora) = ? group by metodo order by metodo asc");
+
+			ps.setDate(1, new Date(dia.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				switch (rs.getInt("metodo")) {
+				case 0:
+					rd.setCartao(rs.getFloat("total"));
+					break;
+				case 1:
+					rd.setDinheiro(rs.getFloat("total"));
+					break;
+				case 2:
+					rd.setPrazo(rs.getFloat("total"));
+					break;
+				}
+			}
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 		return rd;
-  
- }
 
-
+	}
 }

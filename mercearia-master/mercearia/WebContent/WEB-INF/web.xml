@@ -45,7 +45,7 @@
   </servlet-mapping>
   
  
-    <servlet>
+  <servlet>
     <servlet-name>DeletaPedido</servlet-name>
     <servlet-class>br.com.mercearia.servlet.DeletaPedido</servlet-class>
   </servlet>
@@ -56,8 +56,15 @@
   </servlet-mapping>
   
   
-  
-  
+  <servlet>
+    <servlet-name>Diario</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.Diario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Diario</servlet-name>
+    <url-pattern>/Diario</url-pattern>
+    <url-pattern>/views/Diario</url-pattern>
+  </servlet-mapping>
   
   
   <servlet>
@@ -346,16 +353,6 @@
     <url-pattern>/views/EditaFuncionario</url-pattern>
   </servlet-mapping>
 
-  <servlet>
-    <servlet-name>Diario</servlet-name>
-    <servlet-class>br.com.mercearia.servlet.Diario</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Diario</servlet-name>
-    <url-pattern>/Diario</url-pattern>
-    <url-pattern>/views/Diario</url-pattern>
-  </servlet-mapping>
-    
   
   <error-page>
     <error-code>404</error-code>

@@ -14,11 +14,13 @@ import br.com.mercearia.modelo.RelatorioD;
 import br.com.mercearia.util.Conversao;
 
 @SuppressWarnings("serial")
-public class Diario extends HttpServlet {
+public class Periodo extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// String tipo = request.getParameter("tipo");
+
+		//PRECISO VER COMO O CLEBER VAI MANDAR AS 2 DATAS..
+		
 		String dia = request.getParameter("dia");
 		Calendar calendar = Calendar.getInstance(); 
 		try{
