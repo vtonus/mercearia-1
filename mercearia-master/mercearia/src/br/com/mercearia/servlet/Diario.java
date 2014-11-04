@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
 import br.com.mercearia.dao.RelatorioDAO;
 import br.com.mercearia.modelo.Produto;
 import br.com.mercearia.modelo.RelatorioD;
@@ -20,10 +22,13 @@ public class Diario extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// String tipo = request.getParameter("tipo");
 		String dia = request.getParameter("dia");
-		Calendar calendar = Conversao.textoHEmData(dia);
+		Calendar calendar = Calendar.getInstance(); 
+		try{
+			calendar = Conversao.textoHEmData(dia);
+		}catch(ParseException e){}
 		RelatorioDAO rdao = new RelatorioDAO();
 		RelatorioD rd = new RelatorioD();
-		rd = rdao.busca(dia);
+		rd = rdao.busca(calendar);
 		int i = 0;
 		float total;
 		response.setCharacterEncoding("utf-8");
@@ -32,20 +37,19 @@ public class Diario extends HttpServlet {
 			output.concat(" <input type=\"hidden\" id=\"dia" + i + "\" "
 					+ " value=\"" + Conversao.calendarEmTexto(c) + "\">"
 					+ " <input type=\"hidden\" id=\"venda" + i + "\" "
-					+ " value=\"" + rd.getVenda()[i] + "\">");
-			total += rd.getVenda()[i];
+					+ " value=\"" + rd.getVenda(i) + "\">");
+			total += rd.getVenda(i);
 			i++;
 		}
 		output.concat(" <input type=\"hidden\" id=\"mmensal\"" + " value=\""
 				+ total + "\">");
 		i = 0;
-		for (Produto p : rd.getProdutos()) {
+		while (rd.getQtd(i) > 0){
 			output.concat(" <input type=\"hidden\" id=\"nome" + i + "\" "
-					+ " value=\"" + p.getNome() + "\">"
+					+ " value=\"" + rd.getNome(i) + "\">"
 					+ " <input type=\"hidden\" id=\"qtd" + i + "\" "
-					+ " value=\"" + p.getQtd() + "\">"
+					+ " value=\"" + rd.getQtd(i++) + "\">"
 			);
-			i++;
 		}
 		output.concat(" <input type=\"hidden\" id=\"abriu\" "
 				+ " value=\"" + rd.getAbriu() + "\">"
@@ -61,11 +65,9 @@ public class Diario extends HttpServlet {
 		i=0;
 		for (int j=0 ; j<24; j++){
 			output.concat(" <input type=\"hidden\" id=\"valor"+j+"\""
-					+ " value=\"" + rd.getValor()[j] + "\">"
-			);	
-			
+					+ " value=\"" + rd.getValor(j) + "\">"
+			);		
 		}
-	
 		response.getWriter().write(output);
 	}
 }

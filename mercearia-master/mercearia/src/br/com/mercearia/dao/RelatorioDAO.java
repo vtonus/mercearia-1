@@ -5,158 +5,122 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import br.com.mercearia.modelo.Cliente;
+import br.com.mercearia.modelo.RelatorioD;
 
 public class RelatorioDAO {
 	private Connection connection;
 
-	public int adiciona(Cliente cliente) {
-		connection = new Conexao().getConnection();
-		int bool = 0;
-		String sql = "insert into cliente "
-				+ "(cpf, nome, telefone, sexo, email, dataNascimento, endereco)"
-				+ " values (?, ?, ?, ?, ?, ?, ?)";
+	/*
+	 * public int adiciona(Cliente cliente) { connection = new
+	 * Conexao().getConnection(); int bool = 0; String sql =
+	 * "insert into cliente " +
+	 * "(cpf, nome, telefone, sexo, email, dataNascimento, endereco)" +
+	 * " values (?, ?, ?, ?, ?, ?, ?)";
+	 * 
+	 * try { PreparedStatement ps = connection.prepareStatement(sql);
+	 * System.out.
+	 * println(cliente.getCpf()+".\n"+cliente.getCpf()+".\n"+cliente.getNome
+	 * ()+".\n"
+	 * +cliente.getTelefone()+".\n"+cliente.getSexo()+".\n"+cliente.getEmail
+	 * ()+".\n"+cliente.getDataNascimento()); ps.setString(1, cliente.getCpf());
+	 * ps.setString(2, cliente.getNome()); ps.setLong(3, cliente.getTelefone());
+	 * ps.setString(4, cliente.getSexo()); ps.setString(5, cliente.getEmail());
+	 * try { ps.setDate(6, new Date(cliente.getDataNascimento()
+	 * .getTimeInMillis())); } catch(RuntimeException e){ ps.setNull(6,
+	 * java.sql.Types.DATE); } ps.setString(7, cliente.getEndereco());
+	 * ps.execute(); ps.close(); ps =
+	 * connection.prepareStatement("SELECT LAST_INSERT_ID()"); ResultSet rs =
+	 * ps.executeQuery(); rs.next(); bool = rs.getInt("last_insert_id()");
+	 * ps.close(); connection.close(); } catch (SQLException e)
+	 * {e.printStackTrace();} return bool; }
+	 */
 
-		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
-			System.out.println(cliente.getCpf()+".\n"+cliente.getCpf()+".\n"+cliente.getNome()+".\n"+cliente.getTelefone()+".\n"+cliente.getSexo()+".\n"+cliente.getEmail()+".\n"+cliente.getDataNascimento());
-			ps.setString(1, cliente.getCpf());
-			ps.setString(2, cliente.getNome());
-			ps.setLong(3, cliente.getTelefone());
-			ps.setString(4, cliente.getSexo());
-			ps.setString(5, cliente.getEmail());
+	public RelatorioD busca(Calendar dia) {
+		RelatorioD rd = new RelatorioD();
+		List<Calendar> listaC = new ArrayList<Calendar>();
+		connection = new Conexao().getConnection();
+
+		int contador = 0;
+
+		for (int i = 1; i < 31; i++) {
+
 			try {
-			ps.setDate(6, new Date(cliente.getDataNascimento()
-					.getTimeInMillis()));
-			} catch(RuntimeException e){
-				ps.setNull(6, java.sql.Types.DATE);
+				PreparedStatement ps = connection
+						.prepareStatement("select id from caixa where "
+								+ "DATE(datahora) = DATE_SUB( ? , INTERVAL ? DAY)"
+								+ "AND operacao = 2");
+				ps.setDate(1, new Date(dia.getTimeInMillis()));
+				ps.setInt(2, i);
+				ResultSet rs = ps.executeQuery();
+				if (!(rs.next())) {
+					break;
+				}
+				contador++;
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			ps.setString(7, cliente.getEndereco());
-			ps.execute();
-			ps.close();
-			ps = connection.prepareStatement("SELECT LAST_INSERT_ID()");
+		}
+
+		for (int i = 0; i < contador; i++) {
+			try {
+				PreparedStatement ps = connection
+						.prepareStatement("select SUM(valor) AS total, DATE(datahora) as data from compra where DATE(datahora) = DATE_SUB( ? , INTERVAL ? DAY)");
+
+				ps.setDate(1, new Date(dia.getTimeInMillis()));
+				ps.setInt(2, i);
+				ResultSet rs = ps.executeQuery();
+				rs.next();
+				rd.setValor(i, rs.getFloat("total"));
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(rs.getDate("data"));
+				listaC.add(calendar);
+				ps.close();
+			} catch (SQLException e) {
+				System.out.println("Erro grave no DAO.");
+				return null;
+			}
+		}
+		rd.setListaCalendar(listaC);
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select AVG(valor) AS media from compra where DATE(datahora) is between DATE(DATE_SUB( ? , INTERVAL ? DAY)) and ?");
+
+			ps.setDate(1, new Date(dia.getTimeInMillis()));
+			ps.setInt(2, (contador - 1));
+			ps.setDate(3, new Date(dia.getTimeInMillis()));
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			bool = rs.getInt("last_insert_id()");
+			rd.setMmensal(rs.getFloat("media"));
 			ps.close();
-			connection.close();
-		} catch (SQLException e) {e.printStackTrace();}
-		return bool;
-	}
-
-	public List<RelatorioD> busca(Calendar dia) {
-		connection = new Conexao().getConnection();
-		
-		boolean bool;
-		for (int i; i<30; i++){
-		sql = "select id from caixa where DATE(datahora) = DATE_SUB( ? , INTERVAL ? DAY)";
-		}
-		if (parametro.equals("nome")) {
-			sql = "select * from cliente where nome like ?";
-		} else if (parametro.equals("cpf")) {
-			sql = "select * from cliente where cpf like ?";
-		} else if (parametro.equals("id")) {
-			sql = "select * from cliente where id = ?";
-			i = 1;
-		} else {
-			sql = "select * from cliente where telefone like ?";
+		} catch (SQLException e) {
 		}
 
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			PreparedStatement ps = connection
+					.prepareStatement("select p.nome, SUM(cp.qtd) as total from compraproduto cp inner join  produto p on (cp.id_produto = p.id) inner join compra c on (cp.id_compra = c.id) where DATE(c.datahora) = ? group by p.id order by cp.qtd desc limit 15");
 
-			ps = this.connection.prepareStatement(sql);
-			palavraChave = ("%" + palavraChave + "%");
-			if (i == 0) {
-				ps.setString(1, palavraChave);
-			} else {
-				try {
-					i = Integer.parseInt(palavraChave);
-				} catch (RuntimeException e) {
-					throw new RuntimeException(e);
-				}
-				ps.setInt(1, i);
-			}
+			ps.setDate(1, new Date(dia.getTimeInMillis()));
 			ResultSet rs = ps.executeQuery();
-			List<Cliente> listaCliente = new ArrayList<Cliente>();
-			while (rs.next()) {
-				Cliente cliente = new Cliente();
-				cliente.setId(Integer.parseInt(rs.getString("id")));
-				cliente.setNome(rs.getString("nome"));
-				cliente.setCpf(rs.getString("cpf"));
-				try{
-					cliente.setTelefone(Long.parseLong(rs.getString("telefone")));
-				}catch(RuntimeException e){}
-				try{
-				cliente.setSexo(rs.getString("sexo"));
-				} catch(RuntimeException e){}
-				try{
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(rs.getDate("dataNascimento"));
-				cliente.setDataNascimento(calendar);
-				} catch(RuntimeException e){}
-				cliente.setEmail(rs.getString("email"));
-				cliente.setEndereco(rs.getString("endereco"));
-				System.out.println("Endereço do DAO: "+cliente.getEndereco());
-				listaCliente.add(cliente);
+			
+			int i=0;
+			
+			while(rs.next()){
+				rd.setNome(i, rs.getString("p.nome"));
+				rd.setQtd(i++, rs.getInt("total"));
 			}
-			return listaCliente;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	public boolean exclui(int id) {
-		connection = new Conexao().getConnection();
-		boolean bool = false;
-		String sql = "delete from cliente where id = ?";
-
-		try { 
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setInt(1, id);
-			ps.execute();
-			bool = true;
 			ps.close();
-			connection.close();
 		} catch (SQLException e) {
 		}
-		return bool;
-	}
-	
-	public boolean edita(Cliente cliente) {
-		connection = new Conexao().getConnection();
-		boolean bool = false;
-		String sql = "update cliente set cpf= ?, nome= ?, telefone= ?, sexo = ?, email= ?, dataNascimento=?, endereco=? where id = ?";
-
-		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+		return rd;
 			
-			ps.setString(1, cliente.getCpf());
-			ps.setString(2, cliente.getNome());
-			ps.setLong(3, cliente.getTelefone());
-			ps.setString(4, cliente.getSexo());
-			ps.setString(5, cliente.getEmail());
-			
-			try 
-			{
-				ps.setDate(6, new Date(cliente.getDataNascimento()
-						.getTimeInMillis()));
-			} catch(NullPointerException e){ps.setNull(6, Types.DATE);}
-
-			ps.setString(7, cliente.getEndereco());
-			ps.setInt(8, cliente.getId());
-			ps.execute();
-			bool = true;
-			ps.close();
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return bool;
+		/*
+		 * connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+		 * }
+		 */
 	}
 }

@@ -4,21 +4,25 @@ import java.util.Calendar;
 import java.util.List;
 
 public class RelatorioD {
-	private List<Produto> produtos;
+	private int qtd[];
 	private float abriu;
 	private float fechou;
 	private float cartao;
 	private float dinheiro;
 	private float prazo;
 	private List<Calendar> listaCalendar;
+	private String nome[];
 	private float venda[];
 	private float valor[];
-	public List<Produto> getProdutos() {
-		return produtos;
+	private float mmensal;
+	
+	public float getMmensal() {
+		return mmensal;
 	}
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setMmensal(float mmensal) {
+		this.mmensal = mmensal;
 	}
+	
 	public float getAbriu() {
 		return abriu;
 	}
@@ -55,17 +59,33 @@ public class RelatorioD {
 	public void setListaCalendar(List<Calendar> listaCalendar) {
 		this.listaCalendar = listaCalendar;
 	}
-	public float[] getVenda() {
-		return venda;
+	public float getVenda(int c) {
+		return venda[c];
 	}
-	public void setVenda(float[] venda) {
-		this.venda = venda;
+	public void setVenda(int c, float valor) {
+		this.venda[c] = valor;
 	}
-	public float[] getValor() {
-		return valor;
+
+	public float getQtd(int c) {
+		return qtd[c];
 	}
-	public void setValor(float[] valor) {
-		this.valor = valor;
+	public void setQtd(int c, int q) {
+		this.venda[c] = q;
+	}
+	
+	
+	public String getNome(int c) {
+		return nome[c];
+	}
+	public void setNome(int c, String nome) {
+		this.nome[c] = nome;
+	}
+	
+	public float getValor(int c) {
+		return valor[c];
+	}
+	public void setValor(int c, float v) {
+		this.valor[c] = v;
 	}
 	
 	

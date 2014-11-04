@@ -106,6 +106,8 @@ public class ClienteDAO {
 				System.out.println("Endereço do DAO: "+cliente.getEndereco());
 				listaCliente.add(cliente);
 			}
+			ps.close();
+			connection.close();
 			return listaCliente;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
