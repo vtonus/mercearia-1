@@ -27,9 +27,9 @@
 <script>
 $( document ).ready(function() {
     if($('#sessao').text()==''){
-    	window.alert('VOCE NAO TEM SESSAO');
+    	window.alert('Não há sessão aberta, por favor entre novamente');
     	document.write($('#sessao').text());
-    	
+    	window.location.replace("/mercearia/BemVindo.jsp");	
     }
    
 });
@@ -44,10 +44,9 @@ function deslogando(){
 <span id="sessao" style="display: none;">${usuario}</span>
 <body class="body">
 	<div id="usertopo">
-		Funcionário: ${usuario}
-		<button class="bVermelho" onclick="deslogando()">Sair</button>
+		Olá, ${usuario}. Seja bem vindo.
+		<button class="limpar bVermelho" onclick="deslogando()">Sair</button>
 	</div>
-
 	<div id="accordion">
 		<img class="opcaoimg" src="../images/Cliente.png" alt="Cliente"
 			height="75" width="75" title="Cliente">

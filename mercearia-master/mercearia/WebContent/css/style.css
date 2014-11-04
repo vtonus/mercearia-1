@@ -52,8 +52,14 @@ input {
 }
 
 .bVermelho {
-	color: #EEEEEE !important;
-	background: #f00000 !important;
+	/* color: #EEEEEE !important; */
+	/* background: #f00000 !important; */
+	left: 0 !important;
+	top: 0 !important;
+	width: 68px !important;
+	height: 24px !important;
+	font-size: 14px !important;
+	line-height: 19px !important;
 }
 
 input {
@@ -199,7 +205,9 @@ Usuario Logado
 #usertopo {
 	position: absolute;
 	right: 0;
+	font-weight: bolder;
 	top: 0;
+	color: #747360;
 	text-align: right;
 	width: 100%;
 	background-color: #f4f4f4;
@@ -845,6 +853,48 @@ color: #747360;
 /* box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
 border: 1px solid #ddd;
 /* background-color: #F4F4F4; */
+	
+	
+}
+
+
+
+#detalhes{
+	
+	width: 603px;
+	background-color: #eee;
+	border-radius: 5px;
+	position: fixed;
+	top: 42%;
+	lefT: 44%;
+	height: 229px;
+	margin-left: -175px;
+	text-align: center;
+	display: none;
+	
+	
+}
+
+#detalhes table{
+	width:100%;
+
+}
+
+#detalhes .fechar{
+	content: 'x';
+	right:0px;
+	top:0px;
+	line-height: 12px;
+	width: 12px;
+	position:absolute;
+	height: 12px;
+	border: 1px solid #000;
+	border-radius: 50%;
+	cursor:pointer;
+}
+
+#detalhes .impar{
+	background-color:#fff;
 	
 	
 }

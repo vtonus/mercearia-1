@@ -25,8 +25,8 @@ display:none">
 
 <span class="concmptxt">PAGO:</span><br/>
 <span class="rs">R$:</span><input id="pagado" type="text" class="confcmp" name="quantopagou" onkeyup="mascara(this);calculo()" style="color:#00aa00"/>
-<span class="concmptxt">DESCONTO:</span><br>
-<span class="RS" style="color:#ff0000">R$:</span><input  id="descount" type="text" class="confcmp" name="quantopagou" style="color:red" onkeyup="mascara(this);calculo()"/>
+<span style="display:none;" class="concmptxt">DESCONTO:</span><br>
+<span  style="display:none;"  class="RS" style="color:#ff0000">R$:</span><input style="display:none;"   id="descount" type="text" class="confcmp" name="quantopagou" style="color:red" onkeyup="mascara(this);calculo()"/>
 <span class="concmptxt">TOTAL:</span><br/>
 <span class="RS">R$:</span><input id="total" type="text" class="confcmp" name="quantopagou" style="color:#00aa00" onkeyup="mascara(this);calculo()"/>
 <span class="concmptxt">TROCO:</span><br>

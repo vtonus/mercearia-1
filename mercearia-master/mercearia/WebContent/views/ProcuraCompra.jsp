@@ -32,4 +32,8 @@
 		</div>
 		<div class="question">
 	 </div>
+	 
+	 
+	 <div id="detalhes">
+	 </div>
 </div>	

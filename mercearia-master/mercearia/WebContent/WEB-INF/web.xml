@@ -23,6 +23,16 @@
     <url-pattern>/views/BuscaCliente</url-pattern>
   </servlet-mapping>
   
+   <servlet>
+    <servlet-name>DeletaCompra</servlet-name>
+    <servlet-class>br.com.mercearia.servlet.DeletaCompra</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeletaCompra</servlet-name>
+    <url-pattern>/DeletaCompra</url-pattern>
+    <url-pattern>/views/DeletaCompra</url-pattern>
+  </servlet-mapping>
+  
   
   <servlet>
     <servlet-name>BuscaDetalhesCompra</servlet-name>
