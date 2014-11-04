@@ -1,6 +1,7 @@
 package br.com.mercearia.servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Calendar;
 
 import javax.servlet.ServletException;
@@ -8,10 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
 import br.com.mercearia.dao.RelatorioDAO;
-import br.com.mercearia.modelo.Produto;
 import br.com.mercearia.modelo.RelatorioD;
 import br.com.mercearia.util.Conversao;
 
@@ -30,7 +28,6 @@ public class Diario extends HttpServlet {
 		RelatorioD rd = new RelatorioD();
 		rd = rdao.busca(calendar);
 		int i = 0;
-		float total;
 		response.setCharacterEncoding("utf-8");
 		String output = "";
 		for (Calendar c : rd.getListaCalendar()) {
@@ -38,11 +35,10 @@ public class Diario extends HttpServlet {
 					+ " value=\"" + Conversao.calendarEmTexto(c) + "\">"
 					+ " <input type=\"hidden\" id=\"venda" + i + "\" "
 					+ " value=\"" + rd.getVenda(i) + "\">");
-			total += rd.getVenda(i);
 			i++;
 		}
 		output.concat(" <input type=\"hidden\" id=\"mmensal\"" + " value=\""
-				+ total + "\">");
+				+ rd.getMmensal() + "\">");
 		i = 0;
 		while (rd.getQtd(i) > 0){
 			output.concat(" <input type=\"hidden\" id=\"nome" + i + "\" "
@@ -66,7 +62,7 @@ public class Diario extends HttpServlet {
 		for (int j=0 ; j<24; j++){
 			output.concat(" <input type=\"hidden\" id=\"valor"+j+"\""
 					+ " value=\"" + rd.getValor(j) + "\">"
-			);		
+			);
 		}
 		response.getWriter().write(output);
 	}

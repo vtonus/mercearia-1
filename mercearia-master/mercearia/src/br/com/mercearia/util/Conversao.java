@@ -66,7 +66,7 @@ public class Conversao {
 			throws ParseException {
 		//2014-12-31T23%3A59
 		textoEmData = textoEmData.substring(8,10)+"/"+textoEmData.substring(5,7)+"/"+textoEmData.substring(0,4) + 
-		" " + textoEmData.substring(11,13) + ":" + textoEmData.substring(11,13) + ":00"; 
+		" " + textoEmData.substring(11,13) + ":" + textoEmData.substring(14,16) + ":" + textoEmData.substring(17,19); 
 		Date date = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss")
 				.parse(textoEmData);
 		dataRetorno = Calendar.getInstance();

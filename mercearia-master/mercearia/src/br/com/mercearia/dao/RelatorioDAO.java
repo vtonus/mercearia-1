@@ -10,6 +10,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.com.mercearia.modelo.RelatorioD;
+import br.com.mercearia.util.Conversao;
+
+import java.text.ParseException;
 
 public class RelatorioDAO {
 	private Connection connection;
@@ -106,21 +109,64 @@ public class RelatorioDAO {
 
 			ps.setDate(1, new Date(dia.getTimeInMillis()));
 			ResultSet rs = ps.executeQuery();
-			
-			int i=0;
-			
-			while(rs.next()){
+
+			int i = 0;
+
+			while (rs.next()) {
 				rd.setNome(i, rs.getString("p.nome"));
 				rd.setQtd(i++, rs.getInt("total"));
 			}
 			ps.close();
 		} catch (SQLException e) {
 		}
+
+		for (int i = 0; i < 24; i++) {
+			try {
+				PreparedStatement ps = connection
+						.prepareStatement("select SUM(valor) as total from compra where c.datahora between ? and ? ");
+
+				String data1 = Conversao.calendarEmTexto(dia);
+				String data2 = Conversao.calendarEmTexto(dia);
+				if (i < 9) {
+					data1.concat(" 0" + i + ":00:00");
+					data2.concat(" 0" + i + ":59:59");
+				} else {
+					data1.concat(" " + i + ":00:00");
+					data2.concat(" " + i + ":59:59");
+				}
+				Calendar c1 = Calendar.getInstance();
+				Calendar c2 = Calendar.getInstance();
+
+				try {
+					c1 = Conversao.textoEmDataHoraLocal(data1);
+				} catch (ParseException e) {
+					e.printStackTrace();
+					return null;
+				}
+
+				try {
+					c2 = Conversao.textoEmDataHoraLocal(data2);
+				} catch (ParseException e) {
+					e.printStackTrace();
+					return null;
+				}
+
+				ps.setDate(1, new Date(c1.getTimeInMillis()));
+				ps.setDate(2, new Date(c2.getTimeInMillis()));
+
+				ResultSet rs = ps.executeQuery();
+
+				while (rs.next()) {
+					rd.setQtd(i+1, rs.getInt("total"));
+				}
+				ps.close();
+				connection.close();
+			} catch (SQLException e) {
+			}
+		}
 		return rd;
-			
-		/*
-		 * connection.close(); } catch (SQLException e) { e.printStackTrace(); }
-		 * }
-		 */
-	}
+  
+ }
+
+
 }
