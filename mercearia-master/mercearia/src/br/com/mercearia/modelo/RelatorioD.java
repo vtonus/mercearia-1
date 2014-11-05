@@ -1,19 +1,25 @@
 package br.com.mercearia.modelo;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class RelatorioD {
-	private int qtd[];
+	private ArrayList<Integer> qtd;
+	private ArrayList<String> nome;
+	
 	private float abriu;
 	private float fechou;
 	private float cartao;
 	private float dinheiro;
 	private float prazo;
-	private List<Calendar> listaCalendar;
-	private String nome[];
-	private float venda[];
-	private float valor[];
+	
+	private ArrayList<Calendar> listaCalendar;
+	private ArrayList<Float> venda;
+	
+	
+	
+	private ArrayList<Float> valor;
 	private float mmensal;
 	
 	public float getMmensal() {
@@ -56,36 +62,36 @@ public class RelatorioD {
 	public List<Calendar> getListaCalendar() {
 		return listaCalendar;
 	}
-	public void setListaCalendar(List<Calendar> listaCalendar) {
+	public void setListaCalendar(ArrayList<Calendar> listaCalendar) {
 		this.listaCalendar = listaCalendar;
 	}
-	public float getVenda(int c) {
-		return venda[c];
+	public List<Float> getVenda() {
+		return venda;
 	}
-	public void setVenda(int c, float valor) {
-		this.venda[c] = valor;
+	public void setVenda(ArrayList<Float> valor) {
+		this.venda = valor;
 	}
 
-	public float getQtd(int c) {
-		return qtd[c];
+	public List<Integer> getQtd() {
+		return qtd;
 	}
-	public void setQtd(int c, int q) {
-		this.venda[c] = q;
-	}
-	
-	
-	public String getNome(int c) {
-		return nome[c];
-	}
-	public void setNome(int c, String nome) {
-		this.nome[c] = nome;
+	public void setQtd(ArrayList<Integer> qtd) {
+		this.qtd = qtd;
 	}
 	
-	public float getValor(int c) {
-		return valor[c];
+	
+	public List<String> getNome() {
+		return nome;
 	}
-	public void setValor(int c, float v) {
-		this.valor[c] = v;
+	public void setNome(ArrayList<String> nome) {
+		this.nome = nome;
+	}
+	
+	public List<Float> getValor() {
+		return valor;
+	}
+	public void setValor(ArrayList<Float> lista) {
+		this.valor = lista;
 	}
 	
 	

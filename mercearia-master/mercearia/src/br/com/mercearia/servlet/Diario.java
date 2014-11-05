@@ -34,17 +34,17 @@ public class Diario extends HttpServlet {
 			output.concat(" <input type=\"hidden\" id=\"dia" + i + "\" "
 					+ " value=\"" + Conversao.calendarEmTexto(c) + "\">"
 					+ " <input type=\"hidden\" id=\"venda" + i + "\" "
-					+ " value=\"" + rd.getVenda(i) + "\">");
+					+ " value=\"" + rd.getVenda().get(i) + "\">");
 			i++;
 		}
 		output.concat(" <input type=\"hidden\" id=\"mmensal\"" + " value=\""
 				+ rd.getMmensal() + "\">");
 		i = 0;
-		while (rd.getQtd(i) > 0){
+		while (rd.getQtd().get(i) > 0){
 			output.concat(" <input type=\"hidden\" id=\"nome" + i + "\" "
-					+ " value=\"" + rd.getNome(i) + "\">"
+					+ " value=\"" + rd.getNome().get(i) + "\">"
 					+ " <input type=\"hidden\" id=\"qtd" + i + "\" "
-					+ " value=\"" + rd.getQtd(i++) + "\">"
+					+ " value=\"" + rd.getQtd().get(i++) + "\">"
 			);
 		}
 		output.concat(" <input type=\"hidden\" id=\"abriu\" "
@@ -61,7 +61,7 @@ public class Diario extends HttpServlet {
 		i=0;
 		for (int j=0 ; j<24; j++){
 			output.concat(" <input type=\"hidden\" id=\"valor"+j+"\""
-					+ " value=\"" + rd.getValor(j) + "\">"
+					+ " value=\"" + rd.getValor().get(j) + "\">"
 			);
 		}
 		
