@@ -90,7 +90,7 @@ public class Conversao {
 	}
 
 	public static Timestamp dateEmTimestamp(Date dataUtil) {
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		//DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		//System.out.println("Data util " + df.format(dataUtil));
 		Timestamp timeStamp = new Timestamp(dataUtil.getTime());
 		//System.out.println("Data sql " + df.format(timeStamp));
