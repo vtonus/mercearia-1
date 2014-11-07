@@ -69,7 +69,8 @@ public class RelatorioDAO {
 			}
 		}
 		ArrayList<Float> valor = new ArrayList<Float>();
-		for (int i = 0; i < contador; i++) {
+		System.out.println(".,,"+contador);
+		for (int i = 0; i <= contador; i++) {
 			try {
 				PreparedStatement ps = connection
 						.prepareStatement("select SUM(valor) AS total, DATE(datahora) as data from compra where DATE(datahora) = DATE_SUB( ? , INTERVAL ? DAY)");
@@ -80,7 +81,10 @@ public class RelatorioDAO {
 				rs.next();
 				valor.add(rs.getFloat("total"));
 				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(rs.getDate("data"));
+				try{
+					calendar = Conversao.textoHEmData(rs.getString("data"));
+				}catch(ParseException e){}
+				System.out.println(" . . ."+Conversao.calendarEmTexto(calendar));
 				listaC.add(calendar);
 				ps.close();
 			} catch (SQLException e) {
@@ -127,21 +131,22 @@ public class RelatorioDAO {
 		for (int i = 0; i < 24; i++) {
 			try {
 				PreparedStatement ps = connection
-						.prepareStatement("select SUM(valor) as total from compra where c.datahora between ? and ? ");
+						.prepareStatement("select SUM(valor) as total from compra where datahora between ? and ? ");
 
 				String data1 = Conversao.calendarEmTexto(dia);
 				String data2 = Conversao.calendarEmTexto(dia);
-				if (i < 9) {
-					data1.concat(" 0" + i + ":00:00");
-					data2.concat(" 0" + i + ":59:59");
+				if (i <= 9) {
+					data1 = data1+(" 0" + i + ":00:00");
+					data2 = data2+(" 0" + i + ":59:59");
 				} else {
-					data1.concat(" " + i + ":00:00");
-					data2.concat(" " + i + ":59:59");
+					data1 = data1+(" " + i + ":00:00");
+					data2 = data2+(" " + i + ":59:59");
 				}
 				Calendar c1 = Calendar.getInstance();
 				Calendar c2 = Calendar.getInstance();
 
 				try {
+					System.out.println(data1);
 					c1 = Conversao.textoEmDataHoraLocal(data1);
 				} catch (ParseException e) {
 					e.printStackTrace();
@@ -149,6 +154,7 @@ public class RelatorioDAO {
 				}
 
 				try {
+					System.out.println(data2);
 					c2 = Conversao.textoEmDataHoraLocal(data2);
 				} catch (ParseException e) {
 					e.printStackTrace();
@@ -165,7 +171,7 @@ public class RelatorioDAO {
 				}
 				rd.setQtd(al1);
 				ps.close();
-				connection.close();
+				//connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return null;

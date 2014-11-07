@@ -2,20 +2,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<link
-	href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700'
-	rel='stylesheet' type='text/css'>
- <!-- <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'> -->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,300,800,700' rel='stylesheet' type='text/css'>
+ <!--<link	href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700'	rel='stylesheet' type='text/css'> <!-->
+ <!-- <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'> !-->
+ <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,300,800,700' rel='stylesheet' type='text/css'>!-->
 
 <title>Menu principal</title>
 
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><!-->
+ <script type="text/javascript" src="../js/jsapi"></script> 
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script type="text/javascript" src="../jui/jquery-ui.js"></script>
 <script type="text/javascript" src="../js/scripts.js"></script>
 <script type="text/javascript" src="../js/handlers.js"></script>
 <script type="text/javascript" src="../js/cliente.js"></script>
+<script type="text/javascript" src="../js/relatorios.js"></script>
 <script type="text/javascript" src="../js/compra.js"></script>
 <script type="text/javascript" src="../js/produto.js"></script>
 <script type="text/javascript" src="../js/fornecedor.js"></script>

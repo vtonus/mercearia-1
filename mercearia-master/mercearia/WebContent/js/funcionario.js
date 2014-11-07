@@ -178,15 +178,13 @@ function buscaDadosFuncionario() {
 		 		"<td><span id='telefone"+i+"'>" + $("#telefone"+i).val()+ " </span><input  type='text' class='telefone"+i+"' value='"+$("#telefone"+i).val()+"'></input></td>" +
 		 		"<td><span id='doc"+i+"'>" + $("#cpf"+i).val()+ "</span><input  type='text' class='doc"+i+"' value='"+$("#cpf"+i).val()+"'></input></td>" +
 		 		"<td><span id='email"+i+"'>" + $("#email"+i).val()+ "</span><input  type='text' class='email"+i+"' value='"+$("#email"+i).val()+"'></input></td>" +
-		 	    "<td><span id='data"+i+"'>" + $("#dataNascimento"+i).val()+ "</span><input  type='text' class='data"+i+"' value='"+$("#dataNascimento"+i).val()+"'></input></td>" +
+		 	    "<td><span id='data"+i+"'>" + $("#dataNascimento"+i).val()+ "</span><input  type='date' class='data"+i+"' value='"+$("#dataNascimento"+i).val()+"'></input></td>" +
 		 		"<td><img style='cursor:pointer' id='edita"+i+"' onclick='mostraeditaFuncionario("+i+")' src='../images/edita.png' /><img style='cursor:pointer;display:none' id='salva"+i+"' onclick='pEditaFuncionario("+i+")'  src='../images/salva.png' /><img id='salva"+i+"' onclick='cEditaFuncionario("+i+")' style='display:none' src='../images/close15.png' /></td>"+
 		 		"<td><img style='cursor:pointer' onclick='pExcluiFuncionario("+i+")' src='../images/exclui.png' /></td>"+"</tr>";
 		 		 i++;
 				
 		}		
 			dados+="</table>";
-			
-		
 			$('#tabdados').html(dados);
 		}
 	});
