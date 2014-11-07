@@ -11,6 +11,7 @@ import java.util.Calendar;
 
 import br.com.mercearia.modelo.RelatorioD;
 import br.com.mercearia.modelo.RelatorioPeriodo;
+import br.com.mercearia.modelo.RelatorioProduto;
 import br.com.mercearia.util.Conversao;
 
 public class RelatorioDAO {
@@ -48,7 +49,7 @@ public class RelatorioDAO {
 		}
 		ArrayList<Float> valor = new ArrayList<Float>();
 		for (int i = 0; i < 30; i++) {
-			System.out.println("..."+i);
+			System.out.println("..." + i);
 			if (intlist[i] >= 0) {
 				try {
 
@@ -77,11 +78,9 @@ public class RelatorioDAO {
 			} else {
 				Calendar calendar = (Calendar) dia.clone();
 				if (i <= 9) {
-					Conversao.subtracaoCalendar(calendar,
-							"00-00-0"+i);
+					Conversao.subtracaoCalendar(calendar, "00-00-0" + i);
 				} else {
-					Conversao.subtracaoCalendar(calendar,
-							"00-00-"+i);
+					Conversao.subtracaoCalendar(calendar, "00-00-" + i);
 				}
 				valor.add((float) 0);
 				listaC.add(calendar);
@@ -93,7 +92,7 @@ public class RelatorioDAO {
 		try {
 			PreparedStatement ps = connection
 					.prepareStatement("select AVG(valor) AS media from compra where id DATE(datahora) between DATE(DATE_SUB( ? , INTERVAL ? DAY)) and ?");
-			
+
 			ps.setDate(1, new Date(dia.getTimeInMillis()));
 			ps.setInt(2, 29);
 
@@ -105,7 +104,7 @@ public class RelatorioDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			rd.setMmensal((float) 0);
-		} 
+		}
 
 		try {
 			PreparedStatement ps = connection
@@ -230,7 +229,7 @@ public class RelatorioDAO {
 			rd.setDinheiro(0);
 			rd.setPrazo(0);
 			while (rs.next()) {
-				
+
 				switch (rs.getInt("metodo")) {
 				case 0:
 					rd.setCartao(rs.getFloat("total"));
@@ -244,6 +243,7 @@ public class RelatorioDAO {
 				}
 			}
 			ps.close();
+			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -252,8 +252,8 @@ public class RelatorioDAO {
 
 	}
 
-	//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-	
+	// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
 	public RelatorioPeriodo buscaPeriodo(Calendar dia, int cont) {
 		RelatorioPeriodo rp = new RelatorioPeriodo();
 
@@ -278,7 +278,7 @@ public class RelatorioDAO {
 				ps.setInt(4, i);
 				ResultSet rs = ps.executeQuery();
 				rs.next();
-				System.out.println("valor " +rs.getFloat("total"));
+				System.out.println("valor " + rs.getFloat("total"));
 				valores.add(new Float(rs.getFloat("total")));
 				ps.close();
 			} catch (SQLException e) {
@@ -349,6 +349,102 @@ public class RelatorioDAO {
 		rp.setNomef(nomesf);
 		rp.setQtdf(qtdsf);
 
+		return rp;
+	}
+
+	public RelatorioProduto buscaProduto(Calendar diaIni, Calendar diaFim,
+			int cont, long id) {
+		connection = new Conexao().getConnection();
+
+		diaFim.set(Calendar.DAY_OF_MONTH,
+				diaFim.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+		RelatorioProduto rp = new RelatorioProduto();
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select count(p.id) as qtd, m.nome as motivos from perda p inner join motivo m on (m.id = p.motivo) where p.produto = ? and DATE(datahora) >= DATE(?) and DATE(datahora) <= DATE(?) group by p.motivo");
+			ps.setLong(1, id);
+			ps.setDate(2, new Date(diaIni.getTimeInMillis()));
+			ps.setDate(3, new Date(diaFim.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				rp.getLista_motivo().add(rs.getString("motivos"));
+				rp.getLista_qtdMotivo().add(rs.getInt("qtd"));
+			}
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		Calendar novoDiaIni = (Calendar) diaIni.clone();
+		for (int i = 0; i <= cont; i++) {
+			try {
+				PreparedStatement ps = connection
+						.prepareStatement("select SUM(cp.valor) as total from compra c inner join compraproduto cp on (c.id = cp.id_compra) where cp.id_produto = ? and DATE(datahora) >= DATE(?) and DATE(datahora) <= DATE(?)");
+				ps.setLong(1, id);
+				ps.setDate(2, new Date(diaIni.getTimeInMillis()));
+				diaIni.set(Calendar.DAY_OF_MONTH,
+						diaIni.getActualMaximum(Calendar.DAY_OF_MONTH));
+				ps.setDate(3, new Date(diaIni.getTimeInMillis()));
+
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					rp.getLista_valor().add(rs.getFloat("total"));
+					rp.getLista_mes().add(diaIni);
+				}
+				ps.close();
+				Conversao.adicaoCalendar(diaIni, "00-01-00");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select SUM(cp.valor) as total from compra c inner join compraproduto cp on (c.id = cp.id_compra) where cp.id_produto = ? and DATE(datahora) >= DATE(?) and DATE(datahora) <= DATE(?)");
+			ps.setLong(1, id);
+			ps.setDate(2, new Date(novoDiaIni.getTimeInMillis()));
+			ps.setDate(3, new Date(diaFim.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			rp.setVendat(rs.getFloat("total"));
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select SUM(pp.valor) as total from pedido c inner join produtopedido pp on (p.id = pp.id_pedido) where pp.id_produto = ? and DATE(datahora) >= DATE(?) and DATE(datahora) <= DATE(?)");
+			ps.setLong(1, id);
+			ps.setDate(2, new Date(novoDiaIni.getTimeInMillis()));
+			ps.setDate(3, new Date(diaFim.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			rp.setInvest(rs.getFloat("total"));
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select SUM(valor) as total from perda where produto = ? where and DATE(datahora) >= DATE(?) and DATE(datahora) <= DATE(?)");
+			ps.setLong(1, id);
+			ps.setDate(2, new Date(novoDiaIni.getTimeInMillis()));
+			ps.setDate(3, new Date(diaFim.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			rp.setPerdat(rs.getFloat("total"));
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		
 		return rp;
 	}
 
