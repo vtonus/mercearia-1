@@ -352,8 +352,47 @@ function BuscaDetalhesPedido(id) {
 			id : id
 		},
 		type : 'POST',
+		success:function(data){
+			$('#result').html(data);
+			var i = 0;
+			var dados = "<table class='tabretorno'>"
+					+ "<tr>" 
+					//		"<th>Codigo de barras</th>" 
+					+ "<th>Nome do Produto</th>"
+					+ "<th>Valor</th>" + "<th>Quantidade</th></tr>";
+				//	+ "<th>Sub-total</th>";
+			while ($("#nome_prod" + i).val() != null) {
+				if(i%2!=0){
+					 impar="class='impar'";
+					
+				}else{
+					 impar="";
+				}
+				
+			dados +=  "<tr "+impar+"> " +
+			//"<td><span id='idp"+ i+ "'>"+ $("#id_produto" + i).val()+ "</td>" +
+			"<td><span id='nomep"+ i+ "'>"+ $("#nome_prod" + i).val()+ "</td>" +
+			"<td><span id='valorp"+ i+ "'>"+ $("#valor_produto" + i).val()+ "</td>" +
+			"<td><span id='quantidadep"+ i+ "'>"+ $("#qtd_prod" + i).val()+ "</td></tr>";
+		//	"<td><span id='subtotalp"+ i+ "'>"+ $("#subtotal" + i).val()+ "</td>"+ "</tr>";
+							
+				i++;
+				
+	}
+			
+			dados += "</table>  <div class='fechar' onclick='fechadetalhe()'>X</div>";
+			$('#detalhes').html(dados);
+			
+			$('#detalhes').show();
+			
+		}
+		
+		
+		
 	});
-
+	
+	
+	
 }
 
 

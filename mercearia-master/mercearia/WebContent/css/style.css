@@ -36,6 +36,7 @@ input:focus {
 input {
 	/* color: black; */
 	/* background-color: white; */
+	
 }
 
 .bVerde {
@@ -275,7 +276,7 @@ Usuario Logado
 	color: #747360;
 }
 
- .titulo {
+.titulo {
 	font-size: 30PX;
 	position: relative;
 	left: 34px;
@@ -384,10 +385,8 @@ select {
 	border-collapse: collapse;
 	border-color: #eee;
 	width: 100%;
-	position: relative;	
+	position: relative;
 }
-
-
 
 #nome0 {
 	display: block;
@@ -671,196 +670,176 @@ select {
 	left: 237px;
 	cursor: pointer;
 }
-#tabdados{
-width: 1148px;
-overflow: auto;
-height: 321px;
+
+#tabdados {
+	width: 1148px;
+	overflow: auto;
+	height: 321px;
 }
 
-
-
-
-#tabelaped{
+#tabelaped {
 	width: 872px;
-overflow-y: auto;
-left: 75px;
-height: 233px;
-position: relative;
-top: 11px;
- 
+	overflow-y: auto;
+	left: 75px;
+	height: 233px;
+	position: relative;
+	top: 11px;
 }
 
 #tabelaped tr:nth-child(2n) {
-background-color:#eee;
+	background-color: #eee;
 }
 
-
-#tabelapedcab{
-width: 872px;
-overflow-y: auto;
-left: 75px;
-position: relative;
-top: 11px;
+#tabelapedcab {
+	width: 872px;
+	overflow-y: auto;
+	left: 75px;
+	position: relative;
+	top: 11px;
 }
 
-#tabelapedcab table{
-	width:100%;	
+#tabelapedcab table {
+	width: 100%;
 	text-align: left;
-background-color: #dddddd;
-	
-}
-.tabelaForn{
-	width:100%;		
+	background-color: #dddddd;
 }
 
+.tabelaForn {
+	width: 100%;
+}
 
-
-.impar{
-	
+.impar {
 	background-color: #f4f4f4;
 }
 
-
-.clickable{
-	cursor:pointer;
+.clickable {
+	cursor: pointer;
 }
 
-.confcmp{
- width: 370px;
- height: 62px;
- font-size: 37px;
- vertical-align: 0px;
- /* padding: 0 !important; */
- line-height: 66px;
- text-align:right;
- color: #00aa00;
- left: 14px;
- position:relative;
- margin-bottom: 20px;
- margin-top: 1px;
- padding-bottom: 4px;
+.confcmp {
+	width: 370px;
+	height: 62px;
+	font-size: 37px;
+	vertical-align: 0px;
+	/* padding: 0 !important; */
+	line-height: 66px;
+	text-align: right;
+	color: #00aa00;
+	left: 14px;
+	position: relative;
+	margin-bottom: 20px;
+	margin-top: 1px;
+	padding-bottom: 4px;
 }
-.rs{
+
+.rs {
 	position: absolute;
 	z-index: 9;
 	font-size: 45;
 	left: 20px;
 	color: #00aa00;
-	
 }
 
-.concmptxt{
-color: #000;
-left: 13px;
-font-size: 16px;
-position: relative;
-margin-top: 8px;
+.concmptxt {
+	color: #000;
+	left: 13px;
+	font-size: 16px;
+	position: relative;
+	margin-top: 8px;
 }
 
-
-.buscarestilo{
+.buscarestilo {
 	width: 89px;
-color: #fff;
-font-weight: bold;
--webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
--moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
-text-align: center;
-font-size: 17px;
-/* line-height: 0; */
-height: 29px;
-background-color: #4586F4;
-border-radius: 5px;
-brackground-size: 100% 100%;
-position: relative;
-top: 0px;
-left: 17px;
-cursor: pointer;
-/* padding-bottom: 4px; */
-border: 0px;
-	
-	
-	
+	color: #fff;
+	font-weight: bold;
+	-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	text-align: center;
+	font-size: 17px;
+	/* line-height: 0; */
+	height: 29px;
+	background-color: #4586F4;
+	border-radius: 5px;
+	brackground-size: 100% 100%;
+	position: relative;
+	top: 0px;
+	left: 17px;
+	cursor: pointer;
+	/* padding-bottom: 4px; */
+	border: 0px;
 }
 
-
-#meuForm{
-width: 691px;
-font-size: 17px;
-position: relative;
-top: 18px;
-color: #333;
+#meuForm {
+	width: 691px;
+	font-size: 17px;
+	position: relative;
+	top: 18px;
+	color: #333;
 }
 
-
-#NovaCompra label{
-font-size: 17px;
-color: #747360;
-	
+#NovaCompra label {
+	font-size: 17px;
+	color: #747360;
 }
 
-#procli .frame1{
+#procli .frame1 {
 	border: 1px solid #333;
-width: 201px;
+	width: 201px;
 	position: absolute;
 	top: 0px;
 	left: 253px;
 	padding: 13px;
 }
 
-#procli .frame{
+#procli .frame {
 	border: 1px solid #333;
-width: 201px;
+	width: 201px;
 	padding: 13px;
 }
-	
-#procli .frame1:before{
-	/* border: 1px solid #333; */
 
+#procli .frame1:before {
+	/* border: 1px solid #333; */
 	width: 100px;
-content:'Filtrar data';
+	content: 'Filtrar data';
 	background-color: #fff;
 	position: absolute;
 	top: -9px;
 	left: 4px;
 }
-	
-#procli .frame:before{
-	width: 100px;  content: 'Filtrar data';  background-color: #fff;  position: absolute;  top: -9px;  left: 4px;
 
+#procli .frame:before {
+	width: 100px;
+	content: 'Filtrar data';
+	background-color: #fff;
+	position: absolute;
+	top: -9px;
+	left: 4px;
 	/* width: 20px; */
-content:'Filtrar dados';
-	}
-	
-	
-	#procli .compra{
-    position: absolute;
-    top: 145px;
-    left: 259px;
+	content: 'Filtrar dados';
 }
 
-#fornecimentoestilo{
+#procli .compra {
+	position: absolute;
+	top: 145px;
+	left: 259px;
+}
+
+#fornecimentoestilo {
 	font-size: 17px;
-color: #747360;
-	
+	color: #747360;
 }
 
-
-#comentarioforn{
+#comentarioforn {
 	/* border-radius: 5px; */
--webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
--moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
-/* box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
-border: 1px solid #ddd;
-/* background-color: #F4F4F4; */
-	
-	
+	-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	/* box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
+	border: 1px solid #ddd;
+	/* background-color: #F4F4F4; */
 }
 
-
-
-#detalhes{
-	
+#detalhes {
 	width: 603px;
 	background-color: #eee;
 	border-radius: 5px;
@@ -871,30 +850,104 @@ border: 1px solid #ddd;
 	margin-left: -175px;
 	text-align: center;
 	display: none;
-	
-	
 }
 
-#detalhes table{
-	width:100%;
-
+#detalhes table {
+	width: 100%;
 }
 
-#detalhes .fechar{
+#detalhes .fechar {
 	content: 'x';
-	right:0px;
-	top:0px;
+	right: 0px;
+	top: 0px;
 	line-height: 12px;
 	width: 12px;
-	position:absolute;
+	position: absolute;
 	height: 12px;
 	border: 1px solid #000;
 	border-radius: 50%;
-	cursor:pointer;
+	cursor: pointer;
 }
 
-#detalhes .impar{
-	background-color:#fff;
+#detalhes .impar {
+	background-color: #fff;
+}
+
+#relatorio {
+	position: absolute;
+	top: -4px;
+	width: 1229px;
+	left: -80px;
+}
+
+#relatorio .menu {
+	width: 100%;
+}
+
+#relatorio ul {
+	list-style-type: none;
+	width: 53%;
+	font-size: 23px;
+	margin: auto;
+}
+
+#relatorio ul li {
+	cursor: pointer;
+	display: inline-block;
+}
+
+#relatorio .diario {
+
+}
+
+.caixa {
+	width: 200px;
+	height: 100px;
+	position: absolute;
+	top: 412px;
+	left: 40px;
+}
+
+.toprod{
+	width: 200px;
+height: 100px;
+position: absolute;
+top: 38px;
+left: 40px;
+}
+
+
+.cmpmes{
+width: 852px;
+height: 306px;
+position: absolute;
+top: 43px;
+left: 256px;
+background-color:blue;
 	
+}
+
+.cmpmes2{
+width: 852px;
+height: 252px;
+position: absolute;
+top: 357px;
+left: 256px;
+background-color:yellow;
+	
+}
+
+
+.escolhas{
+	
+	
+	width: 107px;
+height: 306px;
+position: absolute;
+top: 43px;
+
+	left: 1113px;
+
+	background-color: green;
 	
 }

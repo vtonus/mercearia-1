@@ -59,9 +59,9 @@ public class RelatorioD {
 	public void setPrazo(float prazo) {
 		this.prazo = prazo;
 	}
-	public List<Calendar> getListaCalendar() {
+	public ArrayList<Calendar> getListaCalendar() {
 		return listaCalendar;
-	}
+	} 
 	public void setListaCalendar(ArrayList<Calendar> listaCalendar) {
 		this.listaCalendar = listaCalendar;
 	}
