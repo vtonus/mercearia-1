@@ -11,11 +11,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.com.mercearia.modelo.Produto;
-import br.com.mercearia.util.Conversao;
 
 public class ProdutoDAO {
 	private Connection connection;
-	@SuppressWarnings("unused")
 	private Calendar calendar;
 	boolean bool = false;
 
@@ -377,4 +375,33 @@ public class ProdutoDAO {
 		return bool;
 	}
 
+	public boolean atualizaQtd(long id, int qtd) {
+		connection = new Conexao().getConnection();
+		String sql = "select qtd from produto where id = ?";
+		int qtd_produto =0;
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setLong(1, id);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			qtd_produto = rs.getInt("qtd");
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		sql = "UPDATE produto SET qtd = ? WHERE id = ?";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			qtd = qtd_produto+qtd;
+			ps.setInt(1, qtd);
+			ps.setLong(2, id);
+			ps.execute();
+			ps.close();
+			connection.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

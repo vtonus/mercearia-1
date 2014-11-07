@@ -15,8 +15,8 @@ import org.JSON.JSONArray;
 import org.JSON.JSONObject;
 
 import br.com.mercearia.dao.ClienteDAO;
-import br.com.mercearia.dao.FuncionarioDAO;
 import br.com.mercearia.dao.PedidoDAO;
+import br.com.mercearia.dao.ProdutoDAO;
 import br.com.mercearia.dao.ProdutoPedidoDAO;
 import br.com.mercearia.modelo.Fornecedor;
 import br.com.mercearia.modelo.Funcionario;
@@ -48,13 +48,15 @@ public class NovoPedido extends HttpServlet {
 		JSONArray produtos = myobj.getJSONArray("produto");
 
 		List<Produto> listaProduto = new ArrayList<Produto>();
-
+		
+		
+		
 		boolean bool = false;
 		for (int i = 0; i < produtos.length(); i++) {
 			String jsonstr = "{\"produto\":" + produtos.get(i) + "}";
 			myobj = new JSONObject(jsonstr);
 			JSONArray jsonarray = myobj.getJSONArray("produto");
-			if ((Integer.parseInt((String) jsonarray.get(1).toString())) > 0) {
+ 			if ((Integer.parseInt((String) jsonarray.get(1).toString())) > 0) {
 				Produto produto = new Produto();
 				produto.setId(Long.parseLong((String) jsonarray.get(0)
 						.toString()));
@@ -106,10 +108,19 @@ public class NovoPedido extends HttpServlet {
 			aud.adiciona();
 			ProdutoPedidoDAO ppdao = new ProdutoPedidoDAO();
 			ProdutoPedido pp = new ProdutoPedido();
+			ProdutoDAO prdao = new ProdutoDAO();
+			bool = false;
 			for (Produto p : listaProduto) {
 				pp.setPedidoId(id);
 				pp.setProduto(p);
 				ppdao.adiciona(pp);
+				bool = prdao.atualizaQtd(p.getId(), p.getQtd());
+				if (!bool){
+					System.out.println("Erro ao atualizar estoque...");
+					response.getWriter().write("Erro ao atualizar estoque.");
+					response.setStatus(501);
+					return;
+				}
 				aud.setDados("id_produto: "+p.getId()+", id_pedido "+id+", qtd: "+p.getQtd()+", valor: "+p.getValor());
 				aud.setAcao(0);
 				aud.setTabela(8);

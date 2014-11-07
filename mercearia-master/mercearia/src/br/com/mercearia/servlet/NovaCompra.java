@@ -17,6 +17,7 @@ import org.JSON.JSONObject;
 import br.com.mercearia.dao.ClienteDAO;
 import br.com.mercearia.dao.CompraDAO;
 import br.com.mercearia.dao.CompraProdutoDAO;
+import br.com.mercearia.dao.ProdutoDAO;
 import br.com.mercearia.modelo.Compra;
 import br.com.mercearia.modelo.CompraProduto;
 import br.com.mercearia.modelo.Produto;
@@ -86,11 +87,12 @@ public class NovaCompra extends HttpServlet {
 			aud.adiciona();
 			CompraProdutoDAO cpdao = new CompraProdutoDAO();
 			CompraProduto cp = new CompraProduto();
+			ProdutoDAO pdao = new ProdutoDAO();
 			for (Produto p : listaProduto) {
 				cp.setCompraId(id);
 				cp.setProduto(p);
 				cpdao.adiciona(cp);
-				
+				pdao.atualizaQtd(p.getId(), -p.getQtd());
 				aud.setDados("id_produto: "+p.getId()+", id_compra: "+id+", valor"+p.getValor()+", qtd: "+p.getQtd());
 				aud.setAcao(0);
 				aud.setTabela(4);
