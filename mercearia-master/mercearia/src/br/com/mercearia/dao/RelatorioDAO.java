@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import br.com.mercearia.modelo.RelatorioD;
+import br.com.mercearia.modelo.RelatorioPerda;
 import br.com.mercearia.modelo.RelatorioPeriodo;
 import br.com.mercearia.modelo.RelatorioProduto;
 import br.com.mercearia.util.Conversao;
@@ -399,7 +400,7 @@ public class RelatorioDAO {
 				e.printStackTrace();
 			}
 		}
-		
+
 		try {
 			PreparedStatement ps = connection
 					.prepareStatement("select SUM(cp.valor) as total from compra c inner join compraproduto cp on (c.id = cp.id_compra) where cp.id_produto = ? and DATE(datahora) >= DATE(?) and DATE(datahora) <= DATE(?)");
@@ -429,10 +430,10 @@ public class RelatorioDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("select SUM(valor) as total from perda where produto = ? where and DATE(datahora) >= DATE(?) and DATE(datahora) <= DATE(?)");
+					.prepareStatement("select SUM(valor) as total from perda where produto = ? and DATE(datahora) >= DATE(?) and DATE(datahora) <= DATE(?)");
 			ps.setLong(1, id);
 			ps.setDate(2, new Date(novoDiaIni.getTimeInMillis()));
 			ps.setDate(3, new Date(diaFim.getTimeInMillis()));
@@ -443,8 +444,68 @@ public class RelatorioDAO {
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}		
-		
+		}
+
+		return rp;
+	}
+
+	public RelatorioPerda buscaPerda(Calendar c1, Calendar c2) {
+
+		RelatorioPerda rp = new RelatorioPerda();
+
+		connection = new Conexao().getConnection();
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select SUM(pe.qtd) as total, pr.nome from perda pe inner join produto pr on (perda pe = pr.id) where MONTH(datahora) >= MONTH(?) and MONTH(datahora) <= MONTH(?) order by total DESC limit 15");
+			ps.setDate(2, new Date(c1.getTimeInMillis()));
+			ps.setDate(3, new Date(c2.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				rp.getLista_nome().add(rs.getString("pr.nome"));
+				rp.getLista_qtd().add(rs.getInt(rs.getInt("total")));
+			}
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select SUM(qtd) as total, motivo from perda where MONTH(datahora) >= MONTH(?) and MONTH(datahora) <= MONTH(?) group by motivo");
+			ps.setDate(2, new Date(c1.getTimeInMillis()));
+			ps.setDate(3, new Date(c2.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				rp.getLista_motivo().add(rs.getString("motivo"));
+				rp.getLista_qtdMotivo().add(rs.getInt("total"));
+			}
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select SUM(valor) as total, datahora from perda where MONTH(datahora) >= MONTH(?) and MONTH(datahora) <= MONTH(?) group by MONTH(datahora)");
+			ps.setDate(2, new Date(c1.getTimeInMillis()));
+			ps.setDate(3, new Date(c2.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(rs.getDate("datahora"));
+				rp.getLista_mes().add(calendar);
+
+				rp.getLista_valor().add(rs.getFloat("total"));
+			}
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return rp;
 	}
 
