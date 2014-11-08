@@ -2,6 +2,7 @@ package br.com.mercearia.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,8 @@ import br.com.mercearia.modelo.Funcionario;
 public class LoginController extends HttpServlet {
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
 		String usuario = request.getParameter("usuario");
 		String senha = request.getParameter("senha");
 		FuncionarioDAO dao = new FuncionarioDAO();
@@ -33,7 +36,11 @@ public class LoginController extends HttpServlet {
 			response.sendRedirect("views/Menu.jsp");
 			return;
 		} else {
+			request.setAttribute("erro", "erro");
+			RequestDispatcher rd = request.getRequestDispatcher("BemVindo.jsp");
+			rd.include(request,response);
 			response.setStatus(400);
+			return;
 		}
 	}
 }

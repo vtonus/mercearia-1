@@ -11,7 +11,7 @@
 		</tr>
 			<tr>
 			<td>	<label for="doc">CNPJ:</label></td>
-			<td>	<input type="text"  required id="cpf" name="CNPJ" > </td>
+			<td>	<input type="text"   id="cpf" name="CNPJ" > </td>
  			</tr>
  			<tr>
  			<td>	<label for="tel">Telefone:</label></td>

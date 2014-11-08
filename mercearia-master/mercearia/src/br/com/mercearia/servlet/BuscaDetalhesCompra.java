@@ -34,7 +34,7 @@ public class BuscaDetalhesCompra extends HttpServlet {
 						"<input type=\"hidden\" value=\"" + cp.getProduto().getNome() + "\" id=\"nome_produto"+ i + "\">" +
 						"<input type=\"hidden\" value=\"" + cp.getValor() + "\" id=\"valor_produto"+ i + "\">" +
 						"<input type=\"hidden\" value=\"" + cp.getQtd() + "\" id=\"quantidade"+ i + "\">" +
-						"<input type=\"hidden\" value=\"" + subtotal + "\" id=\"subtotal"+ i + "\">"
+						"<input type=\"hidden\" value=\"" + subtotal + "\" id=\"subtotal"+ i++ + "\">"
 				);
 		}
 	}

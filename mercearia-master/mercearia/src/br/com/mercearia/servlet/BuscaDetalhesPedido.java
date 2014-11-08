@@ -30,7 +30,7 @@ public class BuscaDetalhesPedido extends HttpServlet {
 			response.getWriter().write(
 				"<input type=\"hidden\" value=\"" + pp.getProduto().getNome() + "\" id=\"nome_prod"+ i + "\">" +
 						"<input type=\"hidden\" value=\"" + pp.getProduto().getQtd() + "\" id=\"qtd_prod"+ i + "\">" +
-						"<input type=\"hidden\" value=\"" + pp.getProduto().getValor() + "\" id=\"valor_produto"+ i + "\">"
+						"<input type=\"hidden\" value=\"" + pp.getProduto().getValor() + "\" id=\"valor_produto"+ i++ + "\">"
 				);
 		}
 	}
