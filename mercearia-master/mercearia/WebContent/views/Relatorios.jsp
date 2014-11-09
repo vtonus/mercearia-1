@@ -1,13 +1,29 @@
 <div id="relatorio">
 	<div class="menu">
 		<ul>
-			<li onclick="drawChart()">Diario |</li>
-			<li>Por periodo |</li>
-			<li>Por Produto |</li>
-			<li>Perda</li>
+			<li onclick='mudaview1();' >Diario |</li>
+			<li onclick="mudaview2();" >Por periodo |</li>
+			<li class="botaorelatorio" > Por Produto |</li>
+			<li class="botaorelatorio" >Perda</li>
 		</ul>
-
-		<div class="diario">
+</div>
+		<div class="diario some">
+			<div class="escolhas">	
+				<div class="escolha">
+			<form  id="formulario" onSubmit="JavaScript:handleClick10()">
+				<table>
+				<tr>
+				<td>Coloque uma data para gerar o Relátorio</td>
+				</tr>
+				<tr>
+					<td><input name="dia" style="width:100%" type="date" /></td>
+				</tr>
+				</table>	
+				<input type="submit" class="confirmar procurarrela"  value="Procurar"> </input>
+				</form>
+			</div>
+		<div class="dados">
+		
 			<div class="toprod">
 				<table style="width:200px">
 				<tr >
@@ -91,51 +107,33 @@
 
 			</div>
 			
-		<div class="escolhas">	
-			<div class="escolha">
-			<input style="width:100%" type="date" />
-			</div>
+	
 			<div class="mediamensal"></div>
+				<div class="caixa">
 		</div>
 
-		<div class="caixa">
-			<table style="width:200px">
-				<tr >
-					<th colspan='2' style="text-align:center; width:100%">Caixa</th>
-				</tr>
-				<tr>
-					<td>Abriu</td>
-					<td>R$23,00</td>
-				</tr>
-				<tr>
-					<td>Fechou</td>
-					<td>R$23,00</td>
-				</tr>
-				</table>
-					<table style="width:200px">
-				<tr >
-					<th colspan='2' style="text-align:center; width:100%">Vendas</th>
-				</tr>
-					<tr>
-					<td>com Cartão</td>
-					<td>1000</td>
-				</tr>
-					<tr>
-					<td>com Dinheiro</td>
-					<td>R$23,00</td>
-				<tr>
-					<td>a prazo </td>
-					<td>60</td>
-				</tr>
-				</tr>
-			</table>
+	
+			
 		</div>
+
+		<div class="cmphoras"></div>
+
+</div>	
+	</div>
+	<div class="periodo some">
+	      <div class="top"></div>
+	      <div class="venda"></div>
+	      <div class="total1"></div>
+	      <div class="fornecedor"></div>
+	      <div class="gastoforn"></div>
+	       <div class="total2"></div>
+	</div>
+	
 
 		<div class="cmphoras"></div>
 
 
 	</div>
-	
 	
 	
 	</div>

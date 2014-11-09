@@ -897,7 +897,7 @@ select {
 }
 
 #relatorio .diario {
-
+	
 }
 
 .caixa {
@@ -905,49 +905,123 @@ select {
 	height: 100px;
 	position: absolute;
 	top: 412px;
-	left: 40px;
+	left: 1010px;
 }
 
-.toprod{
+.toprod {
 	width: 200px;
-height: 100px;
-position: absolute;
-top: 38px;
-left: 40px;
+	height: 100px;
+	position: absolute;
+	top: 38px;
+	left: 1012px;
 }
 
-
-.cmpmes{
-width: 852px;
-height: 306px;
-position: absolute;
-top: 43px;
-left: 256px;
-background-color:blue;
-	
+.cmpmes {
+	width: 852px;
+	height: 306px;
+	position: absolute;
+	top: 43px;
+	left: 161px;
+	background-color: blue;
 }
 
-.cmpmes2{
-width: 852px;
-height: 252px;
-position: absolute;
-top: 357px;
-left: 256px;
-background-color:yellow;
-	
+.cmpmes2 {
+	width: 852px;
+	height: 252px;
+	position: absolute;
+	top: 357px;
+	left: 163px;
+	background-color: yellow;
 }
 
+.escolhas {
+	width: 150px;
+	height: 306px;
+	position: absolute;
+	top: 39px;
+	left: 16px;
+	/* background-color: green; */
+}
 
-.escolhas{
-	
-	
-	width: 107px;
-height: 306px;
-position: absolute;
-top: 43px;
+#relatorio .diario {
+	display: none;
+}
 
-	left: 1113px;
+#relatorio .periodo {
+	display: none;
+}
 
+.periodo .top {
+	background-color: blue;
+	width: 200px;
+	height: 300px;
+	position: absolute;
+	top: 45px;
+	left: 26px;
+}
+
+.periodo .venda {
+	background-color: rgb(116, 116, 242);
+	width: 678px;
+	height: 308px;
+	position: absolute;
+	top: 45px;
+	left: 242px;
+}
+
+.periodo  .total1 {
+	background-color: rgb(116, 242, 127);
+	width: 266px;
+	height: 308px;
+	position: absolute;
+	top: 45px;
+	left: 934px;
+}
+
+.periodo  .fornecedor {
 	background-color: green;
+	width: 200px;
+	height: 263px;
+	position: absolute;
+	top: 359px;
+	left: 26px;
+}
+
+.periodo  .gastoforn {
+	background-color: rgb(116, 116, 242);
+	width: 678px;
+	height: 260px;
+	position: absolute;
+	top: 363px;
+	left: 242px;
+}
+
+.periodo  .total2 {
+	background-color: rgb(116, 242, 127);
+	width: 266px;
+	height: 262px;
+	position: absolute;
+	top: 363px;
+	left: 934px;
+}
+
+.diario .dados {
+	display: none;
+}
+
+#relatorio>div.diario.some>div>div.dados>div.mediamensal {
+	position: absolute;
+	left: 0px;
+	top: 200px;
+}
+
+#relatorio .procurarrela {
+	left: 0px;
+}
+
+
+
+#paineldecontrole{
+	
 	
 }

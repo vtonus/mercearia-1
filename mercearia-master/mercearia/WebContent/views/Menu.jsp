@@ -41,6 +41,7 @@ function deslogando(){
 
 </script>
 </head>
+<div id="paineldecontrole"></div>
 <span id="sessao" style="display: none;">${usuario}</span>
 <body class="body">
 	<div id="usertopo">

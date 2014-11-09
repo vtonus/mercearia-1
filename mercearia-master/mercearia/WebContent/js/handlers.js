@@ -72,7 +72,12 @@ function handleClick9()
   event.preventDefault(); // disable normal form submit behavior
   return false; // prevent further bubbling of event
 }
-
+function handleClick10()
+{
+  drawChart();
+  event.preventDefault(); // disable normal form submit behavior
+  return false; // prevent further bubbling of event
+}
 
 
 
