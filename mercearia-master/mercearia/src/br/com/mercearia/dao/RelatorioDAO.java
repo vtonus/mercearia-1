@@ -10,36 +10,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import br.com.mercearia.modelo.RelatorioD;
+import br.com.mercearia.modelo.RelatorioPerda;
 import br.com.mercearia.modelo.RelatorioPeriodo;
+import br.com.mercearia.modelo.RelatorioProduto;
 import br.com.mercearia.util.Conversao;
 
 public class RelatorioDAO {
 	private Connection connection;
-
-	/*
-	 * public int adiciona(Cliente cliente) { connection = new
-	 * Conexao().getConnection(); int bool = 0; String sql =
-	 * "insert into cliente " +
-	 * "(cpf, nome, telefone, sexo, email, dataNascimento, endereco)" +
-	 * " values (?, ?, ?, ?, ?, ?, ?)";
-	 * 
-	 * try { PreparedStatement ps = connection.prepareStatement(sql);
-	 * System.out.
-	 * println(cliente.getCpf()+".\n"+cliente.getCpf()+".\n"+cliente.getNome
-	 * ()+".\n"
-	 * +cliente.getTelefone()+".\n"+cliente.getSexo()+".\n"+cliente.getEmail
-	 * ()+".\n"+cliente.getDataNascimento()); ps.setString(1, cliente.getCpf());
-	 * ps.setString(2, cliente.getNome()); ps.setLong(3, cliente.getTelefone());
-	 * ps.setString(4, cliente.getSexo()); ps.setString(5, cliente.getEmail());
-	 * try { ps.setDate(6, new Date(cliente.getDataNascimento()
-	 * .getTimeInMillis())); } catch(RuntimeException e){ ps.setNull(6,
-	 * java.sql.Types.DATE); } ps.setString(7, cliente.getEndereco());
-	 * ps.execute(); ps.close(); ps =
-	 * connection.prepareStatement("SELECT LAST_INSERT_ID()"); ResultSet rs =
-	 * ps.executeQuery(); rs.next(); bool = rs.getInt("last_insert_id()");
-	 * ps.close(); connection.close(); } catch (SQLException e)
-	 * {e.printStackTrace();} return bool; }
-	 */
 
 	public RelatorioD buscaDiario(Calendar dia) {
 		RelatorioD rd = new RelatorioD();
@@ -57,13 +34,13 @@ public class RelatorioDAO {
 				PreparedStatement ps = connection
 						.prepareStatement("select id from caixa where "
 								+ "DATE(datahora) = DATE_SUB( ? , INTERVAL ? DAY)"
-								+ "AND operacao = 2");
+								+ "AND operacao = 0");
 				ps.setDate(1, new Date(dia.getTimeInMillis()));
 				ps.setInt(2, i);
 				ResultSet rs = ps.executeQuery();
 				if (rs.next()) {
 					intlist[x] = i;
-					
+
 					x++;
 				}
 				ps.close();
@@ -73,6 +50,7 @@ public class RelatorioDAO {
 		}
 		ArrayList<Float> valor = new ArrayList<Float>();
 		for (int i = 0; i < 30; i++) {
+			System.out.println("..." + i);
 			if (intlist[i] >= 0) {
 				try {
 
@@ -82,7 +60,7 @@ public class RelatorioDAO {
 					ps.setDate(1, new Date(dia.getTimeInMillis()));
 					ps.setInt(2, intlist[i]);
 					ResultSet rs = ps.executeQuery();
-					
+
 					if (rs.next()) {
 						valor.add(rs.getFloat("total"));
 						Calendar calendar = Calendar.getInstance();
@@ -97,21 +75,28 @@ public class RelatorioDAO {
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
-					return null;
 				}
+			} else {
+				Calendar calendar = (Calendar) dia.clone();
+				if (i <= 9) {
+					Conversao.subtracaoCalendar(calendar, "00-00-0" + i);
+				} else {
+					Conversao.subtracaoCalendar(calendar, "00-00-" + i);
+				}
+				valor.add((float) 0);
+				listaC.add(calendar);
 			}
-			else break;
 		}
 		rd.setValor(valor);
 		rd.setListaCalendar(listaC);
 
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("select AVG(valor) AS media from compra where DATE(datahora) between DATE(DATE_SUB( ? , INTERVAL ? DAY)) and ?");
+					.prepareStatement("select AVG(valor) AS media from compra where id DATE(datahora) between DATE(DATE_SUB( ? , INTERVAL ? DAY)) and ?");
 
 			ps.setDate(1, new Date(dia.getTimeInMillis()));
 			ps.setInt(2, 29);
-			
+
 			ps.setDate(3, new Date(dia.getTimeInMillis()));
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -119,7 +104,7 @@ public class RelatorioDAO {
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			rd.setMmensal((float) 0);
 		}
 
 		try {
@@ -133,9 +118,9 @@ public class RelatorioDAO {
 			ArrayList<Integer> al3 = new ArrayList<Integer>();
 
 			while (rs.next()) {
-				al2.add(new String (rs.getString("p.nome")));
-				al3.add(new Integer (rs.getInt("total")));
-				System.out.println("chegou aqui"+rs.getInt("total"));
+				al2.add(new String(rs.getString("p.nome")));
+				al3.add(new Integer(rs.getInt("total")));
+				System.out.println("chegou aqui" + rs.getInt("total"));
 			}
 			rd.setNome(al2);
 			rd.setQtd(al3);
@@ -185,14 +170,14 @@ public class RelatorioDAO {
 					if (rs.getFloat("total") > 0) {
 						froat = rs.getFloat("total");
 						al1.add(froat);
-						
+
 					} else {
 						al1.add(froat);
-						
+
 					}
 				} else {
 					al1.add(froat);
-					
+
 				}
 				ps.close(); // connection.close();
 			} catch (SQLException e) {
@@ -215,7 +200,7 @@ public class RelatorioDAO {
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			rd.setAbriu((float) 0);
 		}
 
 		try {
@@ -231,7 +216,7 @@ public class RelatorioDAO {
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			rd.setFechou((float) 0);
 		}
 
 		try {
@@ -241,7 +226,9 @@ public class RelatorioDAO {
 			ps.setDate(1, new Date(dia.getTimeInMillis()));
 
 			ResultSet rs = ps.executeQuery();
-
+			rd.setCartao(0);
+			rd.setDinheiro(0);
+			rd.setPrazo(0);
 			while (rs.next()) {
 
 				switch (rs.getInt("metodo")) {
@@ -257,14 +244,16 @@ public class RelatorioDAO {
 				}
 			}
 			ps.close();
+			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
-		System.out.println("chegou ateh o fim!!!!!");
 		return rd;
 
 	}
+
+	// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 	public RelatorioPeriodo buscaPeriodo(Calendar dia, int cont) {
 		RelatorioPeriodo rp = new RelatorioPeriodo();
@@ -277,32 +266,37 @@ public class RelatorioDAO {
 		ArrayList<Float> qtdsf = new ArrayList<Float>();
 
 		connection = new Conexao().getConnection();
-
-		for (int i = 0; i < cont; i++) {
+		Calendar dia2 = Calendar.getInstance();
+		dia2 = (Calendar) dia.clone();
+		Conversao.adicaoCalendar(dia2, "00-01-00");
+		for (int i = 0; i <= cont; i++) {
 			try {
 				PreparedStatement ps = connection
-						.prepareStatement("select SUM(valor) AS total as data from compra where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(?)");
+						.prepareStatement("select SUM(valor) AS total from compra where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(DATE_SUB(?, INTERVAL ? MONTH))");
 				ps.setDate(1, new Date(dia.getTimeInMillis()));
 				ps.setInt(2, i);
-				ps.setDate(3, new Date(dia.getTimeInMillis()));
+				ps.setDate(3, new Date(dia2.getTimeInMillis()));
+				ps.setInt(4, i);
 				ResultSet rs = ps.executeQuery();
 				rs.next();
-				valores.add(rs.getFloat("total"));
+				System.out.println("valor " + rs.getFloat("total"));
+				valores.add(new Float(rs.getFloat("total")));
 				ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return null;
+				valores.add(new Float(0));
 			}
 		}
 		rp.setValor(valores);
 
-		for (int i = 0; i < cont; i++) {
+		for (int i = 0; i <= cont; i++) {
 			try {
 				PreparedStatement ps = connection
-						.prepareStatement("select SUM(valor) AS total, as data from pedido where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(?)");
+						.prepareStatement("select SUM(valor) AS total from pedido where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(DATE_SUB(?, INTERVAL ? MONTH))");
 				ps.setDate(1, new Date(dia.getTimeInMillis()));
 				ps.setInt(2, i);
-				ps.setDate(3, new Date(dia.getTimeInMillis()));
+				ps.setDate(3, new Date(dia2.getTimeInMillis()));
+				ps.setInt(4, i);
 				ResultSet rs = ps.executeQuery();
 				rs.next();
 				valoresf.add(rs.getFloat("total"));
@@ -316,10 +310,11 @@ public class RelatorioDAO {
 
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("select p.nome, SUM(cp.valor) AS total from compraproduto cp inner join  compra co on (cp.id_compra = co.id) inner join produto p on (cp.id_produto = p.id) where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(?) group by cp.id_produto LIMIT 15");
+					.prepareStatement("select p.nome, SUM(cp.valor) AS total from compraproduto cp inner join  compra co on (cp.id_compra = co.id) inner join produto p on (cp.id_produto = p.id) where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(?) group by cp.id_produto order by total ASC LIMIT 15");
 			ps.setDate(1, new Date(dia.getTimeInMillis()));
 			ps.setInt(2, cont);
-			ps.setDate(3, new Date(dia.getTimeInMillis()));
+			Conversao.adicaoCalendar(dia2, "00-01-00");
+			ps.setDate(3, new Date(dia2.getTimeInMillis()));
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				nomesp.add(rs.getString("p.nome"));
@@ -336,14 +331,15 @@ public class RelatorioDAO {
 
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("select f.nome, SUM(p.valor) AS total from pedido p inner join fornecedor f on (p.fornecedor = f.id) where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(?) group by p.fornecedor LIMIT 15");
+					.prepareStatement("select f.nome, SUM(p.valor) AS total from pedido p inner join fornecedor f on (p.fornecedor = f.id) where DATE(datahora) >= DATE(DATE_SUB(?, INTERVAL ? MONTH)) and DATE(datahora) < DATE(?) group by f.id LIMIT 15");
 			ps.setDate(1, new Date(dia.getTimeInMillis()));
 			ps.setInt(2, cont);
-			ps.setDate(3, new Date(dia.getTimeInMillis()));
+			Conversao.adicaoCalendar(dia2, "00-01-00");
+			ps.setDate(3, new Date(dia2.getTimeInMillis()));
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				nomesf.add(rs.getString("f.nome"));
-				qtdsf.add(rs.getFloat("total"));
+				qtdsf.add(new Float(rs.getFloat("total")));
 			}
 			ps.close();
 		} catch (SQLException e) {
@@ -352,8 +348,164 @@ public class RelatorioDAO {
 		}
 
 		rp.setNomef(nomesf);
-		rp.setQtdf(valoresf);
+		rp.setQtdf(qtdsf);
 
+		return rp;
+	}
+
+	public RelatorioProduto buscaProduto(Calendar diaIni, Calendar diaFim,
+			int cont, long id) {
+		connection = new Conexao().getConnection();
+
+		diaFim.set(Calendar.DAY_OF_MONTH,
+				diaFim.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+		RelatorioProduto rp = new RelatorioProduto();
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select count(p.id) as qtd, m.nome as motivos from perda p inner join motivo m on (m.id = p.motivo) where p.produto = ? and DATE(datahora) >= DATE(?) and DATE(datahora) <= DATE(?) group by p.motivo");
+			ps.setLong(1, id);
+			ps.setDate(2, new Date(diaIni.getTimeInMillis()));
+			ps.setDate(3, new Date(diaFim.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				rp.getLista_motivo().add(rs.getString("motivos"));
+				rp.getLista_qtdMotivo().add(rs.getInt("qtd"));
+			}
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		Calendar novoDiaIni = (Calendar) diaIni.clone();
+		for (int i = 0; i <= cont; i++) {
+			try {
+				PreparedStatement ps = connection
+						.prepareStatement("select SUM(cp.valor) as total from compra c inner join compraproduto cp on (c.id = cp.id_compra) where cp.id_produto = ? and DATE(datahora) >= DATE(?) and DATE(datahora) <= DATE(?)");
+				ps.setLong(1, id);
+				ps.setDate(2, new Date(diaIni.getTimeInMillis()));
+				diaIni.set(Calendar.DAY_OF_MONTH,
+						diaIni.getActualMaximum(Calendar.DAY_OF_MONTH));
+				ps.setDate(3, new Date(diaIni.getTimeInMillis()));
+
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					rp.getLista_valor().add(rs.getFloat("total"));
+					rp.getLista_mes().add(diaIni);
+				}
+				ps.close();
+				Conversao.adicaoCalendar(diaIni, "00-01-00");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select SUM(cp.valor) as total from compra c inner join compraproduto cp on (c.id = cp.id_compra) where cp.id_produto = ? and DATE(datahora) >= DATE(?) and DATE(datahora) <= DATE(?)");
+			ps.setLong(1, id);
+			ps.setDate(2, new Date(novoDiaIni.getTimeInMillis()));
+			ps.setDate(3, new Date(diaFim.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			rp.setVendat(rs.getFloat("total"));
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select SUM(pp.valor) as total from pedido c inner join produtopedido pp on (p.id = pp.id_pedido) where pp.id_produto = ? and DATE(datahora) >= DATE(?) and DATE(datahora) <= DATE(?)");
+			ps.setLong(1, id);
+			ps.setDate(2, new Date(novoDiaIni.getTimeInMillis()));
+			ps.setDate(3, new Date(diaFim.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			rp.setInvest(rs.getFloat("total"));
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select SUM(valor) as total from perda where produto = ? and DATE(datahora) >= DATE(?) and DATE(datahora) <= DATE(?)");
+			ps.setLong(1, id);
+			ps.setDate(2, new Date(novoDiaIni.getTimeInMillis()));
+			ps.setDate(3, new Date(diaFim.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			rp.setPerdat(rs.getFloat("total"));
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return rp;
+	}
+
+	public RelatorioPerda buscaPerda(Calendar c1, Calendar c2) {
+
+		RelatorioPerda rp = new RelatorioPerda();
+
+		connection = new Conexao().getConnection();
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select SUM(pe.qtd) as total, pr.nome from perda pe inner join produto pr on (perda pe = pr.id) where MONTH(datahora) >= MONTH(?) and MONTH(datahora) <= MONTH(?) order by total DESC limit 15");
+			ps.setDate(2, new Date(c1.getTimeInMillis()));
+			ps.setDate(3, new Date(c2.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				rp.getLista_nome().add(rs.getString("pr.nome"));
+				rp.getLista_qtd().add(rs.getInt(rs.getInt("total")));
+			}
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select SUM(qtd) as total, motivo from perda where MONTH(datahora) >= MONTH(?) and MONTH(datahora) <= MONTH(?) group by motivo");
+			ps.setDate(2, new Date(c1.getTimeInMillis()));
+			ps.setDate(3, new Date(c2.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				rp.getLista_motivo().add(rs.getString("motivo"));
+				rp.getLista_qtdMotivo().add(rs.getInt("total"));
+			}
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select SUM(valor) as total, datahora from perda where MONTH(datahora) >= MONTH(?) and MONTH(datahora) <= MONTH(?) group by MONTH(datahora)");
+			ps.setDate(2, new Date(c1.getTimeInMillis()));
+			ps.setDate(3, new Date(c2.getTimeInMillis()));
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(rs.getDate("datahora"));
+				rp.getLista_mes().add(calendar);
+
+				rp.getLista_valor().add(rs.getFloat("total"));
+			}
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return rp;
 	}
 

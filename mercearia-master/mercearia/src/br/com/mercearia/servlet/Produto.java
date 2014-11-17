@@ -3,7 +3,6 @@ package br.com.mercearia.servlet;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Collections;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.mercearia.dao.RelatorioDAO;
-import br.com.mercearia.modelo.RelatorioPeriodo;
+import br.com.mercearia.modelo.RelatorioProduto;
 import br.com.mercearia.util.Conversao;
 
 @SuppressWarnings("serial")
-public class Periodo extends HttpServlet {
+public class Produto extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -203,67 +202,47 @@ public class Periodo extends HttpServlet {
 		} else {
 			cont = (imes2 + 12 - imes1);
 		}
-
+				
+		
+		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @ @ @ @ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		
+		
 		RelatorioDAO rdao = new RelatorioDAO();
-		RelatorioPeriodo rp = rdao.buscaPeriodo(c2, cont);
-		
-		if(rp == null){
-			response.getWriter().write("Datas inválidas, certifique-se que existiram trnasações entre as datas escolhidas.");
-		}
-		Collections.reverse(rp.getNomef());
-		Collections.reverse(rp.getNomep());
-		Collections.reverse(rp.getQtdf());
-		Collections.reverse(rp.getValor());
-		Collections.reverse(rp.getValorf());
-		Collections.reverse(rp.getValorp());
-		
+		RelatorioProduto rp = rdao.buscaProduto(c1, c2, cont, Long.parseLong(request.getParameter("id")));
 		String output = "";
+		int i=0;
 		
-		Calendar cnovo = (Calendar) c1.clone();
-		System.out.println("cont eh"+cont);
-		int x;
-		x = cnovo.get(Calendar.MONTH);
-		for (int i = 0; i <= cont; i++) {
-			cnovo.set(Calendar.MONTH, x + i);
-			output = output.concat(" <input type=\"hidden\" id=\"mes" + i + "\" "
-					+ " value=\"" + Conversao.calendarEmTexto(cnovo) + "\">");
-		}
-		
-		int i = 0;
-		for (String s : rp.getNomep()) {
-			output = output.concat(" <input type=\"hidden\" id=\"nomep" + i++ + "\" "
+		for (String s : rp.getLista_motivo()) {
+			output = output.concat(" <input type=\"hidden\" id=\"motivo" + i++ + "\" "
 					+ " value=\"" + s + "\">");
 		}
-
-		i = 0;
-		for (Float f : rp.getValorp()) {
-			output = output.concat(" <input type=\"hidden\" id=\"valorp" + i++ + "\" "
-					+ " value=\"" + f.toString() + "\">");
+		i=0;
+		for (Integer in : rp.getLista_qtdMotivo()) {
+			output = output.concat(" <input type=\"hidden\" id=\"qtdMotivo" + i++ + "\" "
+					+ " value=\"" + in + "\">");
 		}
-
-		i = 0;
-		for (String s : rp.getNomef()) {
-			output = output.concat(" <input type=\"hidden\" id=\"nomef" + i++ + "\" "
-					+ " value=\"" + s + "\">");
+		i=0;
+		for (Calendar c : rp.getLista_mes()) {
+			output = output.concat(" <input type=\"hidden\" id=\"mes" + i++ + "\" "
+					+ " value=\"" + Conversao.calendarEmTexto(c) + "\">");
 		}
 		
-		i = 0;
-		for (Float f : rp.getQtdf()) {
-			output = output.concat(" <input type=\"hidden\" id=\"qtdf" + i++ + "\" "
+		i=0;
+		for (Float f : rp.getLista_valor()) {
+			output = output.concat(" <input type=\"hidden\" id=\"mes" + i++ + "\" "
 					+ " value=\"" + f.toString() + "\">");
 		}
-
-		i = 0;
-		for (Float f : rp.getValor()) {
-			output = output.concat(" <input type=\"hidden\" id=\"valor" + i++ + "\" "
-					+ " value=\"" + f.toString() + "\">");
-		}
-
-		i = 0;
-		for (Float f : rp.getValorf()) {
-			output = output.concat(" <input type=\"hidden\" id=\"valorf" + i++ + "\" "
-					+ " value=\"" + f.toString() + "\">");
-		}
-		response.getWriter().write(output);
+		
+		rp.setSaldot(rp.getVendat() - rp.getPerdat() - rp.getInvest());
+		
+		output = output.concat( "<input type=\"hidden\" id=\"vendat\" "
+				+ " value=\"" + rp.getVendat() + "\">"
+				+ "<input type=\"hidden\" id=\"invest\" "
+				+ " value=\"" + rp.getInvest() + "\">"
+				+ "<input type=\"hidden\" id=\"perdat\" "
+				+ " value=\"" + rp.getPerdat() + "\">"
+				+ "<input type=\"hidden\" id=\"saldot\" "
+				+ " value=\"" + rp.getSaldot() + "\">"
+				);
 	}
 }
