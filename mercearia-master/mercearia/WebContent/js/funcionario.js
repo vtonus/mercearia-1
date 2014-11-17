@@ -116,14 +116,14 @@ function cEditaFuncionario(pk){
 
 	$(".data"+pk).hide();
 	
-	$(".tabretorno #nome"+pk).show();
-	$(".tabretorno #telefone"+pk).show();
-	$(".tabretorno #doc"+pk).show();
-	$(".tabretorno #email"+pk).show();
+	$("#tabdados #nome"+pk).show();
+	$("#tabdados #telefone"+pk).show();
+	$("#tabdados #doc"+pk).show();
+	$("#tabdados #email"+pk).show();
 
-	$(".tabretorno #data"+pk).show();
-	$(".tabretorno #edita"+pk).show();
-	$(".tabretorno #salva"+pk).hide();
+	$("#tabdados #data"+pk).show();
+	$("#tabdados #edita"+pk).show();
+	$("#tabdados #salva"+pk).hide();
 	
 	$('#procli .fundoq').hide();
 	$("#procli .question").hide();
@@ -139,14 +139,14 @@ function mostraeditaFuncionario(pk){
 
 	$(".data"+pk).show();
 	
-	$(".tabretorno #nome"+pk).hide();
-	$(".tabretorno #telefone"+pk).hide();
-	$(".tabretorno #doc"+pk).hide();
-	$(".tabretorno #email"+pk).hide();
+	$("#tabdados #nome"+pk).hide();
+	$("#tabdados#telefone"+pk).hide();
+	$("#tabdados #doc"+pk).hide();
+	$("#tabdados #email"+pk).hide();
 
-	$(".tabretorno #data"+pk).hide();
-	$(".tabretorno #edita"+pk).hide();
-	$(".tabretorno #salva"+pk).show();
+	$("#tabdados #data"+pk).hide();
+	$("#tabdados #edita"+pk).hide();
+	$("#tabdados #salva"+pk).show();
 }
 
 
@@ -162,29 +162,35 @@ function buscaDadosFuncionario() {
 		success: function(data){
 			$('#result').html(data);
 			var i=0;
-		var	dados="<table class='tabretorno'>" +
-					"<tr><th>Nome</th>" +
+			var	dados="<div id='collapse4' class='body'><table id='dataTable' class='table table-bordered table-condensed table-hover table-striped' >" +
+					"<thead><tr><th>Nome</th>" +
 					"<th>Telefone</th>" +
 					"<th>CPF</th>" +
 					"<th>Email</th>" +
 					"<th>data</th>" +
 					"<th>Editar</th>" +
-					"<th>Excluir</th></tr>"
+					"<th>Excluir</th></tr></thead><tbody>"
 				;
 			while($("#nome"+i).val()!=null){
 			  dados+="" +
 						"<tr> " +
-				"<td><span id='nome"+i+"'>" + $("#nome"+i).val()+ "</span><input  type='text' class='nome"+i+"' value='"+$("#nome"+i).val()+"'></input></td>" +
-		 		"<td><span id='telefone"+i+"'>" + $("#telefone"+i).val()+ " </span><input  type='text' class='telefone"+i+"' value='"+$("#telefone"+i).val()+"'></input></td>" +
-		 		"<td><span id='doc"+i+"'>" + $("#cpf"+i).val()+ "</span><input  type='text' class='doc"+i+"' value='"+$("#cpf"+i).val()+"'></input></td>" +
-		 		"<td><span id='email"+i+"'>" + $("#email"+i).val()+ "</span><input  type='text' class='email"+i+"' value='"+$("#email"+i).val()+"'></input></td>" +
-		 	    "<td><span id='data"+i+"'>" + $("#dataNascimento"+i).val()+ "</span><input  type='date' class='data"+i+"' value='"+$("#dataNascimento"+i).val()+"'></input></td>" +
-		 		"<td><img style='cursor:pointer' id='edita"+i+"' onclick='mostraeditaFuncionario("+i+")' src='../images/edita.png' /><img style='cursor:pointer;display:none' id='salva"+i+"' onclick='pEditaFuncionario("+i+")'  src='../images/salva.png' /><img id='salva"+i+"' onclick='cEditaFuncionario("+i+")' style='display:none' src='../images/close15.png' /></td>"+
-		 		"<td><img style='cursor:pointer' onclick='pExcluiFuncionario("+i+")' src='../images/exclui.png' /></td>"+"</tr>";
+				"<td><span id='nome"+i+"'>" + $("#nome"+i).val()+ "</span><input style='width:100%' type='text' class='nome"+i+"' value='"+$("#nome"+i).val()+"'></input></td>" +
+		 		"<td><span id='telefone"+i+"'>" + $("#telefone"+i).val()+ " </span><input style='width:100%'  type='text' class='telefone"+i+"' value='"+$("#telefone"+i).val()+"'></input></td>" +
+		 		"<td><span id='doc"+i+"'>" + $("#cpf"+i).val()+ "</span><input style='width:100%'  type='text' class='doc"+i+"' value='"+$("#cpf"+i).val()+"'></input></td>" +
+		 		"<td><span id='email"+i+"'>" + $("#email"+i).val()+ "</span><input style='width:100%'  type='text' class='email"+i+"' value='"+$("#email"+i).val()+"'></input></td>" +
+		 	    "<td><span id='data"+i+"'>" + $("#dataNascimento"+i).val()+ "</span><input style='width:100%'  type='date' class='data"+i+"' value='"+$("#dataNascimento"+i).val()+"'></input></td>" +
+		 		"<td><span  class='clickable glyphicon glyphicon-pencil' style='cursor:pointer' id='edita"+i+"' onclick='mostraeditaFuncionario("+i+")' /><span  class='clickable glyphicon glyphicon-save'  style='cursor:pointer;display:none' id='salva"+i+"' onclick='pEditaFuncionario("+i+")'  ></span><span class='clickable glyphicon glyphicon-floppy-remove'  id='salva"+i+"' onclick='cEditaFuncionario("+i+")' style='display:none' ></span></td>"+
+		 		"<td><span class='clickable glyphicon glyphicon-remove' style='cursor:pointer' onclick='pExcluiFuncionario("+i+")'/></td>"+"</tr>";
 		 		 i++;
 				
 		}		
-			dados+="</table>";
+			dados+=" </tbody></table></div> " +
+			" <script>"+
+" $(b()); function b() {" +
+"   Metis.MetisTable();"+
+"   Metis.metisSortable();"+
+"  }"+
+" </script>";
 			$('#tabdados').html(dados);
 		}
 	});

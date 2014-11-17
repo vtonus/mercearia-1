@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	 <script type="text/javascript" src="../js/jsapi"></script> 
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../jui/jquery-ui.js"></script>
+<script type="text/javascript" src="../js/scripts.js"></script>
+<script type="text/javascript" src="../js/handlers.js"></script>
+<script type="text/javascript" src="../js/cliente.js"></script>
+<script type="text/javascript" src="../js/relatorios.js"></script>
+<script type="text/javascript" src="../js/compra.js"></script>
+<script type="text/javascript" src="../js/produto.js"></script>
+<script type="text/javascript" src="../js/fornecedor.js"></script>
+<script type="text/javascript" src="../js/fornecimento.js"></script>
+<script type="text/javascript" src="../js/funcionario.js"></script>
+<script type="text/javascript" src="../js/jquery.transit.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>Mercearia do Robinho</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="css/styles.css" rel="stylesheet">
+	</head>
+	<body>
+<!-- Header -->
+<div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Painel de Administração</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
+          <ul id="g-account-menu" class="dropdown-menu" role="menu">
+            <li><a href="#">My Profile</a></li>
+          </ul>
+        </li>
+        <li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+      </ul>
+    </div>
+  </div><!-- /container -->
+</div>
+<!-- /Header -->
+
+<!-- Main -->
+<div class="container-fluid">
+<div class="row">
+	<div class="col-sm-3">
+      <!-- Left column -->
+      <a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Menu</strong></a>  
+      
+      <hr>
+      
+      <ul class="list-unstyled">
+        <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu">
+         <h5>Cliente <i class="glyphicon glyphicon-chevron-down"></i></h5>
+           </a>
+            <ul class="list-unstyled collapse in" id="userMenu">
+                <li class="active"> <a href="#" target="ctn" onclick="$('.content').load('NovoCliente.jsp')"><i class="glyphicon glyphicon-user"></i> Novo Cliente</a></li>
+                <li><a href="#" target="ctn" onclick="$('.content').load('ProcuraCliente.jsp')"><i class="glyphicon glyphicon-wrench"></i> Gerenciar Cliente </a></li>
+            </ul>
+        </li>
+        </ul>
+        <ul class="list-unstyled">
+        
+         <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu2">
+         <h5>Compra <i class="glyphicon glyphicon-chevron-down"></i></h5>
+           </a>
+            <ul class="list-unstyled collapse in" id="userMenu2">
+                <li class="active"> <a href="#" target="ctn" onclick="$('.content').load('NovaCompra.jsp')"><i class="glyphicon glyphicon-shopping-cart"></i> Nova Compra</a></li>
+                <li><a href="#" target="ctn" onclick="$('.content').load('ProcuraCompra.jsp')"><i class="glyphicon glyphicon-wrench"></i> Gerenciar COmpra</a></li>
+            </ul>
+        </li>
+       </ul>
+          <ul class="list-unstyled">
+        
+         <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu3">
+         <h5>Produto <i class="glyphicon glyphicon-chevron-down"></i></h5>
+           </a>
+            <ul class="list-unstyled collapse in" id="userMenu3">
+                <li class="active"> <a href="#" target="ctn" onclick="$('.content').load('NovoProduto.jsp')"><i class="glyphicon glyphicon-plus"></i> Novo Produto</a></li>
+                <li><a href="#" target="ctn" onclick="$('.content').load('ProcuraProduto.jsp')"><i class="glyphicon glyphicon-wrench"></i> Gerenciar Produto</a></li>
+            </ul>
+        </li>
+       </ul>
+        <ul class="list-unstyled">
+        
+         <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu4">
+         <h5>Pedido <i class="glyphicon glyphicon-chevron-down"></i></h5>
+           </a>
+            <ul class="list-unstyled collapse in" id="userMenu4">
+                <li class="active"> <a href="#" target="ctn" onclick="$('.content').load('NovoFornecimento.jsp')"><i class="glyphicon glyphicon-plus"></i> Novo Pedido</a></li>
+                <li><a href="#" target="ctn" onclick="$('.content').load('ProcuraFornecimento.jsp')"><i class="glyphicon glyphicon-wrench"></i> Gerenciar Pedido</a></li>
+            </ul>
+        </li>
+       </ul>
+       
+          <ul class="list-unstyled">
+        
+         <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu5">
+         <h5>Fornecedor <i class="glyphicon glyphicon-chevron-down"></i></h5>
+           </a>
+            <ul class="list-unstyled collapse in" id="userMenu5">
+                <li class="active"> <<a href="#" target="ctn" onclick="$('.content').load('NovoFornecedor.jsp')"><i class="glyphicon glyphicon-inbox"></i> Novo Fornecedor</a></li>
+                <li><a href="#" target="ctn" onclick="$('.content').load('ProcuraFornecedor.jsp')"><i class="glyphicon glyphicon-wrench"></i> Gerenciar Fornecedor</a></li>
+            </ul>
+        </li>
+       </ul>
+       
+       
+          <ul class="list-unstyled">
+        
+         <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu6">
+         <h5>Funcionario <i class="glyphicon glyphicon-chevron-down"></i></h5>
+           </a>
+            <ul class="list-unstyled collapse in" id="userMenu6">
+                <li class="active"> <a href="#" target="ctn" onclick="$('.content').load('NovoFuncionario.jsp')"><i class="glyphicon glyphicon-user"></i> Novo Funcionario</a></li>
+                <li><a href="#" target="ctn" onclick="$('.content').load('ProcuraFuncionario.jsp')"><i class="glyphicon glyphicon-wrench"></i> Gerenciar Funcionario</a></li>
+            </ul>
+        </li>
+       </ul>
+       
+       <ul class="list-unstyled">
+        
+         <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu7">
+         <h5>Relatório <i class="glyphicon glyphicon-chevron-down"></i></h5>
+           </a>
+            <ul class="list-unstyled collapse in" id="userMenu7">
+                <li class="active"><a href="#" target="ctn" onclick="$('.content').load('Relatorios.jsp')"><i class="glyphicon glyphicon-list-alt"></i> Novo Relatório</a></li>
+         
+            </ul>
+        </li>
+       </ul>
+       <hr>
+      
+  	</div><!-- /col-3 -->
+    <div class="col-sm-9 content">
+
+  	</div><!--/col-span-9-->
+</div>
+</div>
+<!-- /Main -->
+ 
+	<!-- script references -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/scripts.js"></script>
+	</body>
+	<div id="respostafeed" style="position: absolute;text-align: center;width: 100%;z-index: 99999;"></div>
+	
+</html>

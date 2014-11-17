@@ -1,26 +1,27 @@
 /*menu*/
 #respostafeed {
-	display: none;
-	width: 350px;
-	height: 61px;
-	line-height: 61px;
-	text-align: center;
-	border: solid 1px;
-	position: absolute;
-	margin-left: 50%;
-	left: -150px;
-	top: -30px;
-	opacity: 0;
-	border-radius: 5px;
-	-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	/* display: none; */
+	/* width: 350px; */
+	/* height: 61px; */
+	/* line-height: 61px; */
+	/* text-align: center; */
+	/* border: solid 1px; */
+	/* position: absolute; */
+	/* margin-left: 50%; */
+	/* left: -150px; */
+	/* top: -30px; */
+	/* opacity: 0; */
+	/* border-radius: 5px; */
+	/* -webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
 	-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
-	box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
-	background-color: #fff;
+	/* box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
+	/* background-color: #fff; */
 }
 
 * {
 	/*font-family: 'Vollkorn', serif;*/
-	font-family: 'Open Sans', sans-serif;
+	/* font-family: 'Open Sans', sans-serif; */
+	
 }
 
 .menu {
@@ -65,10 +66,10 @@ input {
 
 input {
 	/* border-radius: 5px; */
-	-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	/* -webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
 	-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
 	/* box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
-	border: 1px solid #ddd;
+	/* border: 1px solid #ddd; */
 	/* background-color: #F4F4F4; */
 }
 
@@ -94,7 +95,8 @@ input {
 }
 
 .form {
-	line-height: 280%;
+	/* line-height: 280%; */
+	
 }
 
 .titulo {
@@ -103,7 +105,7 @@ input {
 }
 
 .esquerda {
-	margin-left: 70px;
+	/* margin-left: 70px; */
 }
 
 .menu {
@@ -111,11 +113,12 @@ input {
 }
 
 .content {
-	position: absolute;
+	/* position: absolute; */
 	/* float:left; */
 	/* top: 40px; */
-	top: 34px;
-	left: 200px;
+	/* top: 34px; */
+	/* left: 200px; */
+	
 }
 
 .margemP {
@@ -156,7 +159,7 @@ input {
 
 th {
 	text-align: left;
-	background-color: #f1f1f1;
+	/* background-color: #f1f1f1; */
 }
 
 .inputTabela {
@@ -227,44 +230,44 @@ Usuario Logado
 }
 
 .confirmar {
-	width: 125px;
-	color: #fff;
-	font-weight: bold;
-	-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	/* width: 125px; */
+	/* color: #fff; */
+	/* font-weight: bold; */
+	/* -webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
 	-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
-	box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
-	text-align: center;
-	font-size: 18px;
-	line-height: 35px;
-	height: 35px;
-	background-color: green;
-	border-radius: 5px;
+	/* box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
+	/* text-align: center; */
+	/* font-size: 18px; */
+	/* line-height: 35px; */
+	/* height: 35px; */
+	/* background-color: green; */
+	/* border-radius: 5px; */
 	brackground-size: 100% 100%;
-	position: relative;
-	top: 49px;
-	left: 102px;
-	cursor: pointer;
+	/* position: relative; */
+	/* top: 49px; */
+	/* left: 102px; */
+	/* cursor: pointer; */
 	/* padding-bottom: 4px; */
-	border: 0px;
+	/* border: 0px; */
 }
 
 .limpar {
-	width: 125px;
-	color: #fff;
-	font-weight: bold;
-	-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	/* width: 125px; */
+	/* color: #fff; */
+	/* font-weight: bold; */
+	/* -webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
 	-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
-	box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
-	text-align: center;
-	font-size: 20px;
-	line-height: 35px;
-	height: 35px;
-	background-color: red;
-	border-radius: 5px;
+	/* box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
+	/* text-align: center; */
+	/* font-size: 20px; */
+	/* line-height: 35px; */
+	/* height: 35px; */
+	/* background-color: red; */
+	/* border-radius: 5px; */
 	brackground-sieze: 100% 100%;
-	position: relative;
+	/* position: relative; */
 	top: 14;
-	left: 237px;
+	/* left: 237px; */
 	cursor: pointer;
 }
 
@@ -285,57 +288,60 @@ Usuario Logado
 }
 
 select {
-	padding: 3px;
+	/* padding: 3px; */
 	font-size: 18;
 	width: 132;
-	margin: 0;
-	-webkit-border-radius: 4px;
+	/* margin: 0; */
+	/* -webkit-border-radius: 4px; */
 	-moz-border-radius: 4px;
-	border-radius: 4px;
-	-webkit-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+	/* border-radius: 4px; */
+	/* -webkit-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset; */
 	-moz-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
-	box-shadow: 0 3px 0 #4586A2, 0 -1px #4586FF inset;
-	background: #4586F4;
-	color: #fff;
-	border: none;
-	outline: none;
-	display: inline-block;
-	-webkit-appearance: none;
+	/* box-shadow: 0 3px 0 #4586A2, 0 -1px #4586FF inset; */
+	/* background: #4586F4; */
+	/* color: #fff; */
+	/* border: none; */
+	/* outline: none; */
+	/* display: inline-block; */
+	/* -webkit-appearance: none; */
 	-moz-appearance: none;
 	appearance: none;
-	cursor: pointer;
+	/* cursor: pointer; */
 }
 
 .estiloso {
-	position: relative
+	/* position: relative
+ */
+	
 }
 
 .estiloso:after {
-	content: '<>';
-	font: 15px "Consolas", monospace;
-	color: #fff;
-	-webkit-transform: rotate(90deg);
+	/* content: '<>'; */
+	/* font: 15px "Consolas", monospace; */
+	/* color: #fff; */
+	/* -webkit-transform: rotate(90deg); */
 	-moz-transform: rotate(90deg);
 	-ms-transform: rotate(90deg);
-	transform: rotate(90deg);
-	right: 4px;
-	top: 9px;
-	padding: 0 0 2px;
-	border-bottom: 1px solid #fff;
-	position: absolute;
-	pointer-events: none;
+	/* transform: rotate(90deg); */
+	/* right: 4px; */
+	/* top: 9px; */
+	/* padding: 0 0 2px; */
+	/* border-bottom: 1px solid #fff; */
+	/* position: absolute; */
+	/* pointer-events: none; */
 }
 
 .estiloso:before {
-	content: '';
-	right: 14px;
-	top: 12px;
-	width: 20px;
-	height: 20px;
-	background: #4586F4;
-	position: absolute;
-	pointer-events: none;
-	display: block;
+	/* content: ''; */
+	/* right: 14px; */
+	/* top: 12px; */
+	/* width: 20px; */
+	/* height: 20px; */
+	/* background: #4586F4; */
+	/* position: absolute; */
+	/* pointer-events: none; */
+	/* display: block; */
+	
 }
 
 #meuForm .estiloso:before, .tabretorno .estiloso:before {
@@ -349,7 +355,8 @@ select {
 }
 
 #NovoCliente #nome {
-	width: 300px;
+	/* width: 300px; */
+	
 }
 
 #NovoCliente #cpf {
@@ -379,13 +386,14 @@ select {
 
 /*cliente existente*/
 #tabdados .tabretorno {
-	background-color: #fff;
-	border-radius: 5px;
-	border: 1px;
-	border-collapse: collapse;
-	border-color: #eee;
-	width: 100%;
-	position: relative;
+	/* background-color: #fff; */
+	/* border-radius: 5px; */
+	/* border: 1px; */
+	/* border-collapse: collapse; */
+	/* border-color: #eee; */
+	/* width: 100%; */
+	/* position: relative; */
+	
 }
 
 #nome0 {
@@ -399,6 +407,7 @@ select {
 
 #tabdados input, #tabdados select, #tabdados label {
 	display: none;
+	line-height: 0px;;
 }
 
 #procli .fundoq {
@@ -469,7 +478,7 @@ select {
 #NovaCompra .desc {
 	position: absolute;
 	top: 53px;
-	width: 1130px;
+	width: 971px;
 	height: 42px;
 }
 
@@ -507,7 +516,7 @@ select {
 
 #NovaCompra .total {
 	position: absolute;
-	height: 142px;
+	height: 163px;
 	width: 401px;
 	border: 2px solid #aaa;
 	top: 367px;
@@ -519,9 +528,9 @@ select {
 }
 
 #NovaCompra .totaltab {
-	width: 100%;
+	/* width: 100%; */
 	text-align: center;
-	font-size: 63px;
+	font-size: 59px;
 }
 
 #NovaCompra .totaltab th {
@@ -532,7 +541,7 @@ select {
 #NovaCompra .produtos {
 	position: absolute;
 	height: 142px;
-	width: 639px;
+	width: 548px;
 	border: 2px solid #aaa;
 	height: 472px;
 	top: 118px;
@@ -543,18 +552,18 @@ select {
 	position: absolute;
 	top: 549px;
 	left: 29px;
-	width: 125px;
-	color: #fff;
+	/* width: 125px; */
+	/* color: #fff; */
 	font-weight: bold;
-	-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	/* -webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
 	-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
-	box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
-	text-align: center;
-	font-size: 18px;
-	line-height: 35px;
-	height: 35px;
-	background-color: green;
-	border-radius: 5px;
+	/* box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
+	/* text-align: center; */
+	/* font-size: 18px; */
+	/* line-height: 35px; */
+	/* height: 35px; */
+	/* background-color: green; */
+	/* border-radius: 5px; */
 	cursor: pointer;
 }
 
@@ -564,26 +573,26 @@ select {
 }
 
 #NovaCompra .limpar {
-	width: 125px;
-	color: #fff;
-	font-weight: bold;
-	-webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
+	/* width: 125px; */
+	/* color: #fff; */
+	/* font-weight: bold; */
+	/* -webkit-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
 	-moz-box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
-	box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39);
-	text-align: center;
-	font-size: 20px;
-	line-height: 35px;
-	height: 35px;
-	background-color: red;
-	border-radius: 5px;
+	/* box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.39); */
+	/* text-align: center; */
+	/* font-size: 20px; */
+	/* line-height: 35px; */
+	/* height: 35px; */
+	/* background-color: red; */
+	/* border-radius: 5px; */
 	brackground-sieze: 100% 100%;
-	position: relative;
+	/* position: relative; */
 	top: 14;
-	left: 237px;
-	cursor: pointer;
+	/* left: 237px; */
+	/* cursor: pointer; */
 	position: absolute;
 	top: 549px;
-	left: 241px;
+	left: 159px;
 }
 
 #NovaCompra .labels {
@@ -592,17 +601,20 @@ select {
 
 #NovaCompra .labelsdesc {
 	position: absolute;
-	top: 28px;
+	top: 24px;
+	width: 146px;
 }
 
 #NovaCompra .labelscod {
 	position: absolute;
-	top: 101px;
+	top: 98px;
+	width: 166px;
 }
 
 #NovaCompra .labelsqtd {
 	position: absolute;
-	top: 176px;
+	top: 173px;
+	width: 116px;
 }
 
 #NovaCompra .labelssb {
@@ -612,7 +624,8 @@ select {
 
 #NovaCompra .labelsvlr {
 	position: absolute;
-	top: 251px;
+	top: 246px;
+	width: 130px;
 }
 
 #NovoProduto .titulo {
@@ -671,19 +684,13 @@ select {
 	cursor: pointer;
 }
 
-#tabdados {
-	width: 1148px;
-	overflow: auto;
-	height: 321px;
-}
-
 #tabelaped {
-	width: 872px;
-	overflow-y: auto;
-	left: 75px;
-	height: 233px;
+	/* width: 872px; */
+	/* overflow-y: auto; */
+	/* left: 75px; */
+	/* height: 233px; */
 	position: relative;
-	top: 11px;
+	top: -20px;
 }
 
 #tabelaped tr:nth-child(2n) {
@@ -691,17 +698,17 @@ select {
 }
 
 #tabelapedcab {
-	width: 872px;
-	overflow-y: auto;
-	left: 75px;
-	position: relative;
-	top: 11px;
+	/* width: 872px; */
+	/* overflow-y: auto; */
+	/* left: 75px; */
+	/* position: relative; */
+	/* top: 11px; */
 }
 
 #tabelapedcab table {
-	width: 100%;
-	text-align: left;
-	background-color: #dddddd;
+	/* width: 100%; */
+	/* text-align: left; */
+	/* background-color: #dddddd; */
 }
 
 .tabelaForn {
@@ -736,8 +743,9 @@ select {
 	position: absolute;
 	z-index: 9;
 	font-size: 45;
-	left: 20px;
+	left: 31px;
 	color: #00aa00;
+	padding-top: 7px;
 }
 
 .concmptxt {
@@ -763,18 +771,18 @@ select {
 	border-radius: 5px;
 	brackground-size: 100% 100%;
 	position: relative;
-	top: 0px;
-	left: 17px;
+	top: 152px;
+	left: -141px;
 	cursor: pointer;
 	/* padding-bottom: 4px; */
 	border: 0px;
 }
 
 #meuForm {
-	width: 691px;
-	font-size: 17px;
-	position: relative;
-	top: 18px;
+	width: 100%;
+	/* font-size: 17px; */
+	/* position: relative; */
+	/* top: 18px; */
 	color: #333;
 }
 
@@ -821,13 +829,13 @@ select {
 
 #procli .compra {
 	position: absolute;
-	top: 145px;
-	left: 259px;
+	top: 222px;
+	left: 254px;
 }
 
 #fornecimentoestilo {
-	font-size: 17px;
-	color: #747360;
+	/* font-size: 17px; */
+	/* color: #747360; */
 }
 
 #comentarioforn {
@@ -858,14 +866,14 @@ select {
 
 #detalhes .fechar {
 	content: 'x';
-	right: 0px;
-	top: 0px;
+	right: 4px;
+	top: 2px;
 	line-height: 12px;
 	width: 12px;
 	position: absolute;
 	height: 12px;
-	border: 1px solid #000;
-	border-radius: 50%;
+	/* border: 1px solid #000; */
+	/* border-radius: 50%; */
 	cursor: pointer;
 }
 
@@ -874,10 +882,10 @@ select {
 }
 
 #relatorio {
-	position: absolute;
-	top: -4px;
-	width: 1229px;
-	left: -80px;
+	/* position: absolute; */
+	/* top: -4px; */
+	/* width: 1229px; */
+	/* left: -80px; */
 }
 
 #relatorio .menu {
@@ -901,19 +909,19 @@ select {
 }
 
 .caixa {
-	width: 200px;
-	height: 100px;
-	position: absolute;
-	top: 412px;
-	left: 1010px;
+	/* width: 200px; */
+	/* height: 100px; */
+	/* position: absolute; */
+	/* top: 412px; */
+	/* left: 1010px; */
 }
 
 .toprod {
-	width: 200px;
-	height: 100px;
-	position: absolute;
-	top: 38px;
-	left: 1012px;
+	/* width: 200px; */
+	/* height: 100px; */
+	/* position: absolute; */
+	/* top: 38px; */
+	/* left: 1012px; */
 }
 
 .cmpmes {
@@ -944,7 +952,7 @@ select {
 }
 
 #relatorio .diario {
-	display: none;
+	/* display: none; */
 }
 
 #relatorio .periodo {
@@ -1019,9 +1027,6 @@ select {
 	left: 0px;
 }
 
-
-
-#paineldecontrole{
-	
+#paineldecontrole {
 	
 }

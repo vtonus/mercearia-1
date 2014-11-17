@@ -11,7 +11,7 @@ function drawChart() {
 				success : function(data) {
 					$(".diario .dados").show();
 					$("#result").html(data);
-					var caixa = "<table style='width:200px'>"
+					var caixa = "<table class='table table-striped responsive-table' >"
 							+ "<tr >"
 							+ "		<th colspan='2' style='text-align:center; width:100%'>Caixa</th>"
 							+ "		</tr>" + "		<tr>" + "	<td>Abriu</td>"
@@ -26,7 +26,7 @@ function drawChart() {
 							+ "</td>"
 							+ "		</tr>"
 							+ "		</table>"
-							+ "			<table style='width:200px'>"
+							+ "			<table class='table table-striped responsive-table' >"
 							+ "		<tr >"
 							+ "			<th colspan='2' style='text-align:center; width:100%'>Vendas</th>"
 							+ "		</tr>"
@@ -54,9 +54,9 @@ function drawChart() {
 					console.log("ma passou aqui hehe");
 
 					// colocar o top produtos
-					var topprod = "<table style='width:200px'>"
+					var topprod = "<table class='table table-striped responsive-table' >"
 							+ "<tr >"
-							+ "<th colspan='2' style='text-align:center; width:100%'>Vendas</th>"
+							+ "<th colspan='2' style='text-align:center; width:100%'>Top Produtos</th>"
 							+ "</tr>";
 					var j = 0;
 					while ($('#nome' + j).val() != null) {
@@ -73,7 +73,7 @@ function drawChart() {
 					$(".dados .toprod").html(topprod);
 
 					// fecha o top produtos
-					var media = "<table><tr><th>Media Mensal</th></tr><tr><td>R$"
+					var media = "<table class='table table-striped responsive-table'><tr><th>Media Mensal</th></tr><tr><td>R$"
 							+ $("#mmensal").val() + "</td></tr></table>";
 					$(".mediamensal").html(media);
 					// o outro chart dos valores
@@ -140,6 +140,7 @@ function drawChart2() {
 		
 		type : 'POST',
 		success : function(data) {
+			
 		}
 	});
 }

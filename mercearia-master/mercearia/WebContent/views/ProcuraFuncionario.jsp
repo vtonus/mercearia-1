@@ -11,7 +11,7 @@
 			<option value="telefone">Telefone</option>
 		</select>
 		</label>
-		<input type="submit" class="buscarestilo" value="Buscar" >	<br /><br />
+		<input type="submit" class="btn btn-primary" value="Buscar" >	<br /><br />
 		</form>
 		
 		<div id="result" style="display:none;">

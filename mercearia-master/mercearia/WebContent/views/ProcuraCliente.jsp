@@ -1,18 +1,24 @@
-<span class='titulo'>Procura Cliente</span>
-<div id="procli" style="top:26px; position: relative;">
-	
+
+<div id="procli" style="position: relative;" class="panel panel-default">
+	<div class="panel-heading " >
+		<div class="panel-title">
+			<i class="glyphicon glyphicon-wrench pull-right"></i>
+			<h3 class="panel-title">Procura Cliente</h3>
+		</div>
+	</div>
+	<br><br>
 		<form id="meuForm" onSubmit="JavaScript:handleClick1()">
 		Procurar: 
-		<input type="text" id="palavraChave" autofocus>
+		<input type="text" id="palavraChave" autofocus >
 		 &nbsp;&nbsp;&nbsp;Por:
-		<label class='estiloso'>
-		<select id="parametro">
+		
+		<select class="form-control" id="parametro" style="width: 200px; display: inline;">
 			<option value="nome">Nome</option>
 			<option value="cpf">CPF</option>
 			<option value="telefone">Telefone</option>
 		</select>
-		</label>
-		<input type="submit" value="Buscar" class="buscarestilo">	<br /><br />
+	
+		<input type="submit" value="Buscar" class=" btn btn-primary">	<br /><br />
 		</form>
 		
 		<div id="result" style="display:none;">

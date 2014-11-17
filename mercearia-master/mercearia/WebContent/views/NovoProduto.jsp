@@ -1,38 +1,47 @@
 
-<div id="NovoProduto">
-<span class="titulo"> Cadastro De Produto</span>
+<div id="NovoProduto" class="panel panel-default">
+	<div class="panel-heading">
+		<div class="panel-title">
+			<i class="glyphicon glyphicon-wrench pull-right"></i>
+			<h3 class="panel-title">Cadastro De Produto</h3>
+		</div>
+		</div>
+		<div class="panel-body">
 <form name="myForm" id="formulario" onSubmit="JavaScript:handleClick3()">
-<table class="cad">
+	<div class="control-group">
+				<label>Codigo de Barras*:</label>
+				<div class="controls">
+					<input class="form-control" required type="text" name="id" id="nome" autofocus>
+				</div>
+			</div>
 
-		<tr>	
-			<td>	<label for="id">Codigo de Barras*:</label></td>
-			<td>	
-			<input required type="text" name="id" id="nome" autofocus>  </td>
-		</tr>
-		<tr>	
-			<td>	<label for="nome">Descrição*:</label></td>
-			<td>	
-			<input required type="text" name="nome" id="id" autofocus />  </td>
-		</tr>
-			<tr>
-			<td>	<label for="doc">valor</label></td>
-			<td>	<input type="text" id="cpf" name="valor" > </td>
- 			</tr>
- 			<tr>
- 			<td>	<label for="tel">Fabricante:</label></td>
- 			<td>	<input id="Telefone" type="text" name="fabricante" min="8" max="14"></td>
-			</tr>
+<div class="control-group">
+				<label>Descrição*:</label>
+				<div class="controls">
+					<input class="form-control" required type="text" name="nome" id="id" autofocus>
+				</div>
+			</div>
 
-			<tr>
-			<td>	<label for="dtn">Estoque:</label></td>
-			<td>     <input type="text" name="estoque"> <br ></td>
-			</tr>	
+<div class="control-group">
+				<label>Valor:</label>
+				<div class="controls">
+					<input class="form-control" type="text" id="cpf" name="valor">
+				</div>
+			</div>
+
+<div class="control-group">
+				<label>Estoque:</label>
+				<div class="controls">
+					<input class="form-control" type="text" name="estoque">
+				</div>
+			</div>
+
+
+
 			
-					</table>
-				
-					<input class="confirmar"  type="submit" value="Confirmar" > </input>
-	 				<div class="limpar" onclick="$('.cad input').val('');">Limpar</div>
- 				</form>
  				
 	</div>
-
+	<input class=" btn btn-primary"  type="submit" value="Confirmar" > </input>
+	 				<div class=" btn btn-danger" onclick="$('.cad input').val('');">Limpar</div>
+ 				</form>
+</div>

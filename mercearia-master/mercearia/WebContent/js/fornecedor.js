@@ -107,14 +107,14 @@ function cEditaFornecedor(pk){
 	$(".email"+pk).hide();
 	$(".endereco"+pk).hide();
 	
-	$(".tabretorno #id"+pk).show();
-	$(".tabretorno #nome"+pk).show();
-	$(".tabretorno #cnpj"+pk).show();
-	$(".tabretorno #telefone"+pk).show();
-	$(".tabretorno #email"+pk).show();
-	$(".tabretorno #endereco"+pk).show();
-	$(".tabretorno #edita"+pk).show();
-	$(".tabretorno #salva"+pk).hide();
+	$("#tabdados #id"+pk).show();
+	$("#tabdados #nome"+pk).show();
+	$("#tabdados #cnpj"+pk).show();
+	$("#tabdados #telefone"+pk).show();
+	$("#tabdados #email"+pk).show();
+	$("#tabdados #endereco"+pk).show();
+	$("#tabdados #edita"+pk).show();
+	$("#tabdados #salva"+pk).hide();
 	
 	$('#procli .fundoq').hide();
 	$("#procli .question").hide();
@@ -132,14 +132,14 @@ function mostraeditaFornecedor(pk){
 	$(".email"+pk).show();
 	$(".endereco"+pk).show();
 	
-	$(".tabretorno #id"+pk).hide();
-	$(".tabretorno #nome"+pk).hide();
-	$(".tabretorno #cnpj"+pk).hide();
-	$(".tabretorno #telefone"+pk).hide();
-	$(".tabretorno #email"+pk).hide();
-	$(".tabretorno #endereco"+pk).hide();
-	$(".tabretorno #edita"+pk).hide();
-	$(".tabretorno #salva"+pk).show();
+	$("#tabdados #id"+pk).hide();
+	$("#tabdados #nome"+pk).hide();
+	$("#tabdados #cnpj"+pk).hide();
+	$("#tabdados #telefone"+pk).hide();
+	$("#tabdados #email"+pk).hide();
+	$("#tabdados #endereco"+pk).hide();
+	$("#tabdados #edita"+pk).hide();
+	$("#tabdados #salva"+pk).show();
 }
 
 
@@ -155,33 +155,40 @@ function buscaDadosFornecedor() {
 		type: 'POST',
 		success: function(data){
 			$('#result').html(data);
-			var i=0;
-		var	dados="<table class='tabretorno'>" +
-					"<tr><th>Id</th>" +
+				
+			var dados = "<div id='collapse4' class='body'><table id='dataTable' class='table table-bordered table-condensed table-hover table-striped' >"+
+					"<thead><tr><th>Id</th>" +
 					"<th>Nome</th>" +
 					"<th>CNPJ</th>" +
 					"<th>Telefone</th>" +
 					"<th>Email</th>" +
 					"<th>Endereco</th>" +
 					"<th>Editar</th>" +
-					"<th>Excluir</th></tr>";
+					"<th>Excluir</th></tr></thead><tbody>";
 				
+			var i=0;
 			while($("#nome"+i).val()!=null){
 			  dados+="" +
 						"<tr> " +
-				"<td><span id='id"+i+"'>" + $("#id"+i).val()+ "</span><input  type='text' class='id"+i+"' value='"+$("#id"+i).val()+"'></input></td>" +
-		 		"<td><span id='nome"+i+"'>" + $("#nome"+i).val()+ " </span><input  type='text' class='nome"+i+"' value='"+$("#nome"+i).val()+"'></input></td>" +
-		 		"<td><span id='cnpj"+i+"'>" + $("#cnpj"+i).val()+ "</span><input  type='text' class='cnpj"+i+"' value='"+$("#cnpj"+i).val()+"'></input></td>" +
-		 		"<td><span id='telefone"+i+"'>" + $("#telefone"+i).val()+ "</span><input  type='text' class='telefone"+i+"' value='"+$("#telefone"+i).val()+"'></input></td>" +
-		 		"<td><span id='email"+i+"'>" + $("#email"+i).val()+ "</span><input  type='text' class='email"+i+"' value='"+$("#email"+i).val()+"'></input></td>" +
-		 		"<td><span id='endereco"+i+"'>" + $("#endereco"+i).val()+ "</span><input  type='text' class='endereco"+i+"' value='"+$("#endereco"+i).val()+"'></input></td>" +
+				"<td><span id='id"+i+"'>" + $("#id"+i).val()+ "</span><input style='width:100%' type='text' class='id"+i+"' value='"+$("#id"+i).val()+"'></input></td>" +
+		 		"<td><span id='nome"+i+"'>" + $("#nome"+i).val()+ " </span><input style='width:100%'  type='text' class='nome"+i+"' value='"+$("#nome"+i).val()+"'></input></td>" +
+		 		"<td><span id='cnpj"+i+"'>" + $("#cnpj"+i).val()+ "</span><input style='width:100%'  type='text' class='cnpj"+i+"' value='"+$("#cnpj"+i).val()+"'></input></td>" +
+		 		"<td><span id='telefone"+i+"'>" + $("#telefone"+i).val()+ "</span><input style='width:100%'  type='text' class='telefone"+i+"' value='"+$("#telefone"+i).val()+"'></input></td>" +
+		 		"<td><span id='email"+i+"'>" + $("#email"+i).val()+ "</span><input style='width:100%'   type='text' class='email"+i+"' value='"+$("#email"+i).val()+"'></input></td>" +
+		 		"<td><span id='endereco"+i+"'>" + $("#endereco"+i).val()+ "</span><input style='width:100%'  type='text' class='endereco"+i+"' value='"+$("#endereco"+i).val()+"'></input></td>" +
 		 		
-		 		"<td><img style='cursor:pointer' id='edita"+i+"' onclick='mostraeditaFornecedor("+i+")' src='../images/edita.png' /><img  id='salva"+i+"' onclick='pEditaFornecedor("+i+")' style='display:none;cursor:pointer' src='../images/salva.png' /><img id='salva"+i+"' onclick='cEditaFornecedor("+i+")' style='display:none;cursor:pointer' src='../images/close15.png' /></td>"+
-		 		"<td><img style='cursor:pointer' onclick='pExcluiFornecedor("+i+")' src='../images/exclui.png' /></td>"+"</tr>";
+		 		"<td><span  class='clickable glyphicon glyphicon-pencil' style='cursor:pointer' id='edita"+i+"' onclick='mostraeditaFornecedor("+i+")' ></span> <span class='clickable glyphicon glyphicon-save'   id='salva"+i+"' onclick='pEditaFornecedor("+i+")' style='display:none;cursor:pointer'  /><span class='clickable glyphicon glyphicon-floppy-remove' id='salva"+i+"' onclick='cEditaFornecedor("+i+")' style='display:none;cursor:pointer'></td>"+
+		 		"<td><span class='clickable glyphicon glyphicon-remove'onclick='pExcluiFornecedor("+i+")' ></span></td>"+"</tr>";
 		 		 i++;
 				
 		}		
-			dados+="</table>";
+			dados += "</tbody></table></div>"+
+			" <script>"+
+" $(b()); function b() {" +
+"   Metis.MetisTable();"+
+"   Metis.metisSortable();"+
+"  }"+
+" </script>";
 			
 		
 			$('#tabdados').html(dados);

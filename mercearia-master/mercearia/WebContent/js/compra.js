@@ -291,14 +291,14 @@ function buscaDadosCompra() {
 				success : function(data) {
 					$('#result').html(data);
 					var i = 0;
-					var dados = "<table class='tabretorno'>"
-							+ "<tr><th>ID</th>" + "<th>Cliente</th>"
+					var dados = "<div id='collapse4' class='body'><table id='dataTable' class='table table-bordered table-condensed table-hover table-striped' >"
+							+ "<thead><tr><th>ID</th>" + "<th>Cliente</th>"
 							+ "<th>Funcionario</th>" + "<th>Data e Hora</th>"
 							+ "<th>Valor</th>" + "<th>Detalhes</th>"
-							+ "<th>Excluir</th></tr>";
+							+ "<th>Excluir</th></tr></thead><tbody>";
 					while ($("#id" + i).val() != null) {
 						if(i%2!=0){
-							 impar="class='impar'";
+							 impar="";
 							
 						}else{
 							 impar="";
@@ -349,11 +349,11 @@ function buscaDadosCompra() {
 								+ "' value='"
 								+ $("#valor" + i).val()
 								+ "'></input></td>"
-								+ "<td><img id='tbusca"
+								+ "<td><span class='clickable glyphicon glyphicon-plus'"
 								+ i
 								+ "' onclick='BuscaDetalhesCompra("
 								+ $("#id" + i).val()
-								+ ")' src='../images/plus.png' /><img id='salva"
+								+ ")' ></span><img id='salva"
 								+ i
 								+ "' onclick='pEditaCompra("
 								+ i
@@ -362,17 +362,23 @@ function buscaDadosCompra() {
 								+ "' onclick='cEditaCompra("
 								+ i
 								+ ")' style='display:none' src='../images/close15.png' /></td>"
-								+ "<td><img onclick='pExcluiCompra(" + i
-								+ ")' src='../images/exclui.png' /></td>"
+								+ "<td><span class='clickable glyphicon glyphicon-remove' onclick='pExcluiCompra(" + i
+								+ ")'> </span></td>"
 								+ "</tr>";
 									
 						i++;
 						
-					
+						
 						
 						
 					}
-					dados += "</table>";
+					dados += "</tbody></table></div>"+
+					" <script>"+
+    " $(b()); function b() {" +
+     "   Metis.MetisTable();"+
+     "   Metis.metisSortable();"+
+    "  }"+
+   " </script>";
 
 					$('#tabdados').html(dados);
 				}
@@ -389,13 +395,14 @@ function BuscaDetalhesCompra(id) {
 		success:function(data){
 			$('#result').html(data);
 			var i = 0;
-			var dados = "<table class='tabretorno'>"
+			var dados = "<div id='collapse4' class='body'><table id='dataTable' class='table table-bordered table-condensed table-hover table-striped' >"
+				+ "<thead>"
 					+ "<tr><th>Codigo de barras</th>" + "<th>Nome do Produto</th>"
 					+ "<th>Valor</th>" + "<th>Quantidade</th>"
-					+ "<th>Sub-total</th>";
+					+ "<th>Sub-total</th></thead><tbody>";
 			while ($("#id_produto" + i).val() != null) {
 				if(i%2!=0){
-					 impar="class='impar'";
+					 impar="class=''";
 					
 				}else{
 					 impar="";
@@ -411,8 +418,8 @@ function BuscaDetalhesCompra(id) {
 				i++;
 				
 	}
-			
-			dados += "</table>  <div class='fechar' onclick='fechadetalhe()'>X</div>";
+			dados += "</tbody></table></div>"+
+			" <div class='fechar' onclick='fechadetalhe()'><span class='glyphicon glyphicon-remove'></span></div>";	
 			$('#detalhes').html(dados);
 			
 			$('#detalhes').show();

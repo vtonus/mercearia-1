@@ -33,9 +33,9 @@ function adcProdutoForn() {
 	var impar="";
 
 	dadosforn += "<tr id='tr"+contrforn+"'" + impar + " ondblclick=removeproduct(" + contrforn + ")><td> "
-			+ "<input readonly id='cod"+contrforn+"' type='text' value='"+$('#cod').val()+"'/></td><td> <input readonly id='prod"+contrforn+"' type='text' value='"+$('#prod').val()+"'/></td>"
-			+ "<td> <input readonly id='vlrud"+contrforn+"' type='text' value='"+$('#unid').val()+"'/></td>" + "<td><input readonly id='qtd"+contrforn+"' type='text' value='"+$('#qtd').val()+"'/> </td>" + "<td><input readonly id='cod"+contrforn+"' type='text' value='"+$('#vlr').val()+"'/>" +
-					"</td><td onclick='remeped("+contrforn+")'><img style='cursor:pointer' src='../images/exclui.png' /></td></tr>";
+			+ "<input readonly id='cod"+contrforn+"' type='text' style='width:100%' value='"+$('#cod').val()+"'/></td><td> <input style='width:100%' readonly id='prod"+contrforn+"' type='text' value='"+$('#prod').val()+"'/></td>"
+			+ "<td> <input readonly id='vlrud"+contrforn+"' type='text' style='width:100%' value='"+$('#unid').val()+"'/></td>" + "<td><input readonly style='width:100%' id='qtd"+contrforn+"' type='text' value='"+$('#qtd').val()+"'/> </td>" + "<td><input readonly style='width:100%' id='cod"+contrforn+"' type='text' value='"+$('#vlr').val()+"'/>" +
+					"</td><td onclick='remeped("+contrforn+")'><span class='glyphicon glyphicon-remove' style='cursor:pointer' ></span></td></tr>";
 	$('.tabelaForn').html(dadosforn);
 	contrforn++;
 	total();
@@ -248,11 +248,11 @@ function BuscaPedido(){
 		success: function(data){
 			$('#result').html(data);
 			var i = 0;
-			var dados = "<table class='tabretorno'>"
-					+ "<tr><th>ID</th>" + "<th>Fornecedor</th>"
+			var dados = "<div id='collapse4' class='body'><table id='dataTable' class='table table-bordered table-condensed table-hover table-striped' >"
+				+ "<thead><tr><th>ID</th>" + "<th>Fornecedor</th>"
 					+ "<th>Funcionario</th>" + "<th>Data e Hora</th>"
 					+ "<th>Valor</th>" + "<th>Detalhes</th>"
-					+ "<th>Excluir</th></tr>";
+					+ "<th>Excluir</th></tr></thead><tbody>";
 			while ($("#id" + i).val() != null) {
 				if(i%2!=0){
 					 impar="class='impar'";
@@ -306,11 +306,11 @@ function BuscaPedido(){
 						+ "' value='"
 						+ $("#valorTotal" + i).val()
 						+ "'></input></td>"
-						+ "<td><img id='tbusca"
+						+ "<td><span class='clickable glyphicon glyphicon-plus' id='tbusca"
 						+ i
 						+ "' onclick='BuscaDetalhesPedido("
 						+ $("#id" + i).val()
-						+ ")' src='../images/plus.png' /><img id='salva"
+						+ ")' ><span> <img id='salva"
 						+ i
 						+ "' onclick='pEditaCompra("
 						+ i
@@ -319,13 +319,19 @@ function BuscaPedido(){
 						+ "' onclick='cEditaCompra("
 						+ i
 						+ ")' style='display:none' src='../images/close15.png' /></td>"
-						+ "<td><img onclick='pExcluiPedido(" + i
-						+ ")' src='../images/exclui.png' /></td>"
+						+ "<td><span class='clickable glyphicon glyphicon-remove' onclick='pExcluiPedido(" + i
+						+ ")' ></span></td>"
 						+ "</tr>";
 				i++;
 
 			}
-			dados += "</table>";
+			dados += "</tbody></table></div>"+
+			" <script>"+
+" $(b()); function b() {" +
+"   Metis.MetisTable();"+
+"   Metis.metisSortable();"+
+"  }"+
+" </script>";
 
 			$('#tabdados').html(dados);
 		

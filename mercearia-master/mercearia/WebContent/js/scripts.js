@@ -1,5 +1,10 @@
 function mensagem(cor,msg){
-	$('#respostafeed').html(msg);
+	 var mensagem='<div class="panel panel-default">'+
+'    <div class="panel-heading"><h4>mensagem</h4></div>'+
+    '<div class="panel-body">'+ msg+
+ '  </div>	</div>'
+	
+	$('#respostafeed').html(mensagem);
 	$('#respostafeed').fadeIn();
 	$('#respostafeed').css({
 	color:cor,	

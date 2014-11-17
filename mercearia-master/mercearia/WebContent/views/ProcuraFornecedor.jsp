@@ -1,15 +1,18 @@
-<div id="procli">
-		<span class="titulo">Procura Fornecedor</span>
+<div id="procli" class="panel panel-default">
+	<div class="panel-heading " >
+		<div class="panel-title">
+			<i class="glyphicon glyphicon-wrench pull-right"></i>
+			<h3 class="panel-title">Procura Fornecedor</h3>
+		</div>
+	</div>
 		<form id="meuForm" onSubmit="JavaScript:handleClick7()">
 		Palavra Chave:
-		<input type="text" id="palavraChave" autofocus>
-		<label class='estiloso'>
-		<select id="parametro">
+		<input  type="text" id="palavraChave" autofocus>
+				<select class="form-control" id="parametro" style="width: 200px; display: inline;">
 			<option value="nome">Nome</option>
 			<option value="cnpj">cnpj</option>
 		</select>
-		</label>
-		<input type="submit" class="buscarestilo" value="Buscar" >	<br /><br />
+<input type="submit" class="btn btn-primary" value="Buscar" >	<br /><br />
 		</form>
 		
 		<div id="result" style="display:none;">
